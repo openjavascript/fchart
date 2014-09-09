@@ -2,7 +2,7 @@
 /**
  * JChart 图表数据( 曲线图、柱状图 )
  *
- * <p><a href='https://github.com/openjavascript/jchart' target='_blank'>JChart Project Site</a>
+ * <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JChart Project Site</a>
  *   | <a href='http://jchart.openjavascript.org/docs_api/classes/JC.FChartNormalData.html' target='_blank'>API docs</a>
  *  </p>
  * <h2></h2>
