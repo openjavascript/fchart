@@ -1,4 +1,4 @@
-;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC' ], function(){
+;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2' ], function(){
 /**
  * 组件用途简述
  *
@@ -26,10 +26,56 @@
  * @extends     JC.BaseMVC
  * @constructor
  * @param   {selector|string}   _selector   
- * @version dev 0.1 2013-12-13
+ * @version dev 0.1 2014-09-09
  * @author  qiushaowei <suches@btbtd.org> | 75 Team
  * @example
-        <h2>JC.FChart 示例</h2>
+<pre>
+    &lt;div class="js_compFChart"
+        chartScriptData="|script"
+        chartWidth="600"
+        chartHeight="400"
+        >
+        &lt;script type="text/template">
+            {
+                chart: {
+                    type: 'bar' 
+                }, 
+                title: {
+                    text:'Chart Title'
+                },
+                subtitle: {
+                    text: 'sub title'
+                }, 
+                xAxis: {
+                    categories: [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ]
+                }, 
+                yAxis: {
+                    title: {
+                        text: '(Vertical Title - 中文)'
+                    }
+                },
+                series:[{
+                    name: 'Temperature'
+                    , data: [-50, 0, 3, -20, -20, 27, 28, 32, 30, 25, 15, -58]
+                    , style: { 'stroke': '#ff7100' } 
+                    , pointStyle: {}
+                }, {
+                    name: 'Rainfall',
+                    data: [20, 21, 20, 100, 200, 210, 220, 100, 20, 10, 20, 10]
+                }],
+                credits: {
+                    enabled: true
+                    , text: 'jchart.openjavascript.org'
+                    , href: 'http://jchart.openjavascript.org/'
+                },
+                displayAllLabel: true,
+                legend: {
+                    enabled: false
+                }
+            }
+        &lt;/script>
+    &lt;/div>
+</pre>
  */
     var _jdoc = $( document ), _jwin = $( window );
 
@@ -48,7 +94,7 @@
 
         this._init();
 
-        JC.log( FChart.Model._instanceName, 'all inited', new Date().getTime() );
+        //JC.log( FChart.Model._instanceName, 'all inited', new Date().getTime() );
     }
     /**
      * 初始化可识别的 FChart 实例
@@ -79,7 +125,7 @@
     JC.f.extendObject( FChart.prototype, {
         _beforeInit:
             function(){
-                JC.log( 'FChart _beforeInit', new Date().getTime() );
+                //JC.log( 'FChart _beforeInit', new Date().getTime() );
             }
 
         , _initHanlderEvent:
@@ -89,15 +135,14 @@
                 _p.on( 'inited', function(){
                    var _data;
                     if( this.selector().attr( 'chartScriptData' ) ){
-                        _data = JC.f.scriptContent( this._model.selectorProp( 'chartScriptData' ) );
+                        _data = this._model.selectorProp( 'chartScriptData' ).html();
+                        _data = _data.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, '' );
+                        _data = _data.replace( /[\r\n]/g, '' );
                         _data = _data.replace( /\}[\s]*?,[\s]*?\}$/g, '}}');
-                        alert( _data );
                         _data = eval( '(' + _data + ')' );
                         this.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() && _p.selector().css( { 'height': _p._model.height() } );
-
-                    alert( 1 );
                 });
 
                 _p.on( FChart.Model.UPDATE_CHART_DATA, function( _evt, _data ){
@@ -119,7 +164,7 @@
 
         , _inited:
             function(){
-                JC.log( 'FChart _inited', new Date().getTime() );
+                //JC.log( 'FChart _inited', new Date().getTime() );
                 this.trigger( 'inited' );
             }
         /**
@@ -142,6 +187,23 @@
     FChart.Model.CLEAR_STATUS = 'clear_status';
     FChart.Model.UPDATE_CHART_DATA = 'update_data';
 
+    FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf';
+
+    FChart.Model.TYPE_MAP = {
+        'line': 'CurveGram'
+        , 'CurveGram': 'CurveGram'
+        , 'curvegram': 'curvegram'
+
+        , 'bar': 'Histogram'
+        , 'Histogram': 'Histogram'
+        , 'histogram': 'Histogram'
+
+        , 'pie': 'PieGraph'
+        , 'PieGraph': 'PieGraph'
+        , 'piegraph': 'PieGraph'
+    };
+
+
     JC.f.extendObject( FChart.Model.prototype, {
         init:
             function(){
@@ -160,9 +222,6 @@
 
         , gid: function(){ return this._gid; }
 
-        , chartType:
-            function(){
-            }
         /**
          * 图表宽度
          */
@@ -185,6 +244,17 @@
                 }
                 return this._height;
             }
+        /**
+         * 图表宽度
+         */
+        , sourceWidth:
+            function(){
+                if( typeof this._sourceWidth== 'undefined' ){
+                    this.is( '[chartWidth]' ) && ( this._sourceWidth = this.intProp( 'chartWidth' ) || this._sourceWidth );
+                }
+                return this._sourceWidth || '100%';
+            }
+
         /**
          * 设置或保存图表的宽高
          */
@@ -226,12 +296,31 @@
         , clearStatus:
             function(){
             }
+
+        , chartType:
+            function(){
+                var _r = '';
+                this.data() 
+                    && this.data().chart
+                    && this.data().chart.type
+                    && ( _r = this.data().chart.type )
+                return (_r||'').toString().toLowerCase();
+            }
+        , typeMap: function( _type ){ return FChart.Model.TYPE_MAP[ _type ]; }
+        , type: function(){ return this.typeMap( this.chartType() ); }
+        , path:
+            function(){
+                var _p = this
+                    , _r = JC.f.printf( _p.attrProp( 'chartPath' ) || FChart.Model.FLASH_PATH, JC.PATH, _p.type() );
+                return _r;
+            }
     });
 
     JC.f.extendObject( FChart.View.prototype, {
         init:
             function(){
                 //JC.log( 'FChart.View.init:', new Date().getTime() );
+                var _p = this;
             }
         /**
          * 图表高度
@@ -284,8 +373,10 @@
          */
         , draw: 
             function( _data ){
+                if( !this._model.type() ) return;
                 var _p = this
-                    , _fpath =  JC.f.printf( _path, JChart.PATH ).replace( /[\/]+/g, '/' )
+                    , _path =  _p._model.path()
+                    , _fpath =  _path.replace( /[\/]+/g, '/' )
                     , _element = $( '#' + _p._model.gid() )
                     , _dataStr = JSON.stringify( _data ) 
                     ; 
@@ -293,8 +384,6 @@
                     _element = $( JC.f.printf( '<span id="{0}"></span>', _p._model.gid() ) );
                     _element.appendTo( _p.selector() );
                 }
-                //JC.log( 'drawFlash', _fpath, _p._model.gid(), _p._model.width(), _p._model.height(), _element[0] );
-                //JC.log( _dataStr );
                 swfobject.embedSWF( 
                     _fpath
                     , _p._model.gid()
@@ -302,7 +391,7 @@
                     , _p._model.height()
                     , '10' 
                     , ''
-                    , { 'testparams': 2, 'chart': _dataStr }
+                    , { 'testparams': 2, 'chart': encodeURIComponent( _dataStr ) }
                     , { 'wmode': 'transparent' }
                 );
 
@@ -310,12 +399,7 @@
     });
 
     _jdoc.ready( function(){
-        var _insAr = 0;
-        FChart.autoInit
-            && ( _insAr = FChart.init() )
-            && $( '<h2>FChart total ins: ' 
-                + _insAr.length + '<br/>' + new Date().getTime() + '</h2>' ).appendTo( document.body )
-            ;
+        FChart.autoInit && FChart.init();
     });
 
     return JC.FChart;
