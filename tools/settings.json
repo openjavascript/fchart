@@ -1,8 +1,8 @@
  {
-    "name": "JChart",
-    "description": "javascript chart",
+    "name": "FChart",
+    "description": "flash actionscript chart",
     "version": "0.2",
-    "url": "http://jchart.openjavascript/",
+    "url": "http://fchart.openjavascript.org/",
     "logo": "jc_logo.png",
     "options": {
         "linkNatives": "true",        
