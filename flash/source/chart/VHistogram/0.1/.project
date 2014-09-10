@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>xas</name>
+	<name>VHistogram</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -12,7 +12,13 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>com.adobe.flexbuilder.project.flexlibnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] src</name>
+			<type>2</type>
+			<location>C:/sysCode/fchart/flash/source/lib/src</location>
+		</link>
+	</linkedResources>
 </projectDescription>

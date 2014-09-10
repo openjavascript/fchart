@@ -13,4 +13,4 @@ package org.xas.core
 			trace( 'test' );
 		}
 	}
-}
+} 
