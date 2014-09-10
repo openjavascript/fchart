@@ -17,12 +17,11 @@ package
 	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
-	import org.xas.jchart.common.config.HistogramConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.histogram.MainFacade;
 	
-	
+	 
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
@@ -47,7 +46,7 @@ package
 			this.root.stage.scaleMode = StageScaleMode.NO_SCALE;
 			this.root.stage.align = StageAlign.TOP_LEFT;
 			
-			BaseConfig.setIns( new HistogramConfig() );
+			BaseConfig.setIns( new Config() );
 			 
 			//update( {} );	
 			  
