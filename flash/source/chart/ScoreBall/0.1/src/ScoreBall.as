@@ -21,7 +21,7 @@ package
 	
 	[SWF(frameRate="30", width="150", height="150")]
 	public class ScoreBall extends Sprite
-	{
+	{ 
 		private var _ins:ScoreBall;
 		private var _inited: Boolean = false;
 		private var _timer:Timer;

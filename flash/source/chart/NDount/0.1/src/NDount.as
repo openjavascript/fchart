@@ -16,10 +16,9 @@ package
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
-	import org.xas.core.ui.error.BaseError;
+	import org.xas.core.ui.error.BaseError; 
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
-	import org.xas.jchart.common.config.NDountConfig;
 	import org.xas.jchart.common.data.test.DefaultPieData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.ndount.MainFacade;
@@ -44,7 +43,7 @@ package
 			this.root.stage.scaleMode = StageScaleMode.NO_SCALE;
 			this.root.stage.align = StageAlign.TOP_LEFT;
 			
-			BaseConfig.setIns( new NDountConfig() );
+			BaseConfig.setIns( new Config() );
 			
 			addEventListener( JChartEvent.PROCESS, process );
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
