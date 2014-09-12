@@ -15,4 +15,14 @@
 		<nature>com.adobe.flexbuilder.project.flexlibnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+<<<<<<< HEAD
+=======
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<location>G:/My Documents/git/fchart/flash/source/lib/swc</location>
+		</link>
+	</linkedResources>
+>>>>>>> 2f9332f517463af2b2d3ef8eb2bb367610f0dd9d
 </projectDescription>

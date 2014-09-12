@@ -192,7 +192,7 @@
     FChart.Model.TYPE_MAP = {
         'line': 'CurveGram'
         , 'CurveGram': 'CurveGram'
-        , 'curvegram': 'curvegram'
+        , 'curvegram': 'CurveGram'
 
         , 'bar': 'Histogram'
         , 'Histogram': 'Histogram'
