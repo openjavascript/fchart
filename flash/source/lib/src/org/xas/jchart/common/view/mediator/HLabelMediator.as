@@ -9,6 +9,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.HLabelView.BaseHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.CurveGramHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.HistogramHLabelView;
+	import org.xas.jchart.common.view.components.HLabelView.VHistogramHLabelView;
 	
 	public class HLabelMediator extends Mediator implements IMediator
 	{
@@ -32,6 +33,11 @@ package org.xas.jchart.common.view.mediator
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new HistogramHLabelView() );
+					break;
+				}
+				case 'VHistogramFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new VHistogramHLabelView() );
 					break;
 				}
 				default:{
@@ -65,6 +71,10 @@ package org.xas.jchart.common.view.mediator
 		public function get maxHeight():Number{
 			return _view.maxHeight;
 		}		
+		
+		public function get maxWidth():Number{
+			return _view.maxWidth;
+		}
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

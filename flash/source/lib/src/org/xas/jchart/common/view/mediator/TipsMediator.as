@@ -41,6 +41,11 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
 					break;
 				}
+				case 'VHistogramFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
+					break;
+				}
 				default:{
 					mainMediator.view.index8.addChild( _view = new BaseTipsView() ); 
 					break;

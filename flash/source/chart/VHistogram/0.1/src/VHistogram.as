@@ -21,13 +21,13 @@ package
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.vhistogram.MainFacade;
 	
-	
+	 
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
 	//[SWF(frameRate="30", width="1400", height="460")]
-	[SWF(frameRate="30", width="800", height="360")]
+	[SWF(frameRate="30", width="600", height="600")]
 	public class VHistogram extends Sprite 
 	{ 
 		private var _inited: Boolean = false;
@@ -48,8 +48,6 @@ package
 			
 			BaseConfig.setIns( new Config() );
 			 
-			//update( {} );	 
-			  
 			addEventListener( JChartEvent.PROCESS, process );
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );	
@@ -73,7 +71,6 @@ package
 			if( ExternalInterface.available ){
 				ExternalInterface.addCallback( 'update', extenalUpdate );
 			}
-			//BaseConfig.ins.setChartData( {}); 
 		}
 		
 		private function extenalUpdate( _data:Object ):void{
@@ -83,7 +80,7 @@ package
 			_facade.sendNotification( JChartEvent.DRAW );
 		}
 		
-		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{			
+		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{
 			if( !_inited ){
 				_ins._data = _data;
 				_timer = new Timer( 50 );
@@ -98,7 +95,6 @@ package
 		}
 		
 		private function process( _evt:JChartEvent ):void{
-			//Log.printJSON( _evt.data );
 			var _data:Object = _evt.data as Object;
 			BaseConfig.ins.setRoot( _ins.root );
 			if( _data ){
@@ -140,7 +136,6 @@ package
 			
 			if( !BaseConfig.ins.chartData ) return;
 			dispatchEvent( new JChartEvent( JChartEvent.PROCESS, BaseConfig.ins.chartData ) );
-			//_facade.sendNotification( JChartEvent.CLEAR );
 		}
 		
 		private function onRemovedFromStage( _evt:Event ):void{

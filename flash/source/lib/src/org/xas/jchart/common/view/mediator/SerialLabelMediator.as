@@ -9,6 +9,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.SerialLabel.BaseSerialLabelView;
 	import org.xas.jchart.common.view.components.SerialLabel.CurveGramSerialLabelView;
 	import org.xas.jchart.common.view.components.SerialLabel.HistogramSerialLabelView;
+	import org.xas.jchart.common.view.components.SerialLabel.VHistogramSerialLabelView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class SerialLabelMediator extends Mediator implements IMediator
@@ -29,6 +30,11 @@ package org.xas.jchart.common.view.mediator
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new HistogramSerialLabelView() );
+					break;
+				}
+				case 'VHistogramFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new VHistogramSerialLabelView() );
 					break;
 				}
 				case 'CurveGramFacade':

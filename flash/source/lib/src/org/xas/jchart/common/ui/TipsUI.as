@@ -335,7 +335,12 @@ package org.xas.jchart.common.ui
 			updateLayout( _data, _colors );
 			
 			if( _rect ){
-				rectPosition( _point, _rect );
+				//Log.log(_rect.initType);
+				if(_rect.initType && _rect.initType == 'VHistogram') {
+					rectPositionForVHis( _point, _rect );
+				} else {
+					rectPosition( _point, _rect );
+				}
 			}else{
 				normalPosition( _point, _rect );
 			}
@@ -394,6 +399,29 @@ package org.xas.jchart.common.ui
 			this.x = _x;
 			this.y = _y;
 			//Log.log( 'TipsUI updateTips', _point.x, _point.y );
+		}
+		
+		private function rectPositionForVHis( _point:Object, _rect:Object ):void{
+			
+			var _x:Number = _point.x
+				, _y:Number = _rect.x + _rect.height
+				, _x2:Number = _x + this.width
+				, _y2:Number = _y + this.height
+				;
+			
+			if( _x2 >= root.stage.x + root.stage.width ){
+				_x -= this.width;
+			}
+			
+			if( _y2 >= root.stage.y + root.stage.height ){
+				_y = _y - this.height - _rect.height;
+			}
+			
+			_x < 0 && ( _x = 0 );
+			_y < 0 && ( _y = 0 );
+			
+			this.x = _x;
+			this.y = _y;
 		}
 	}
 }

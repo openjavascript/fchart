@@ -87,9 +87,7 @@ package org.xas.jchart.common.view.components.TipsView
 				});
 			});
 			
-			//Log.printObject( _data );
 		}
-
 		
 		override protected function updateTips( _evt: JChartEvent ):void{
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
@@ -103,7 +101,6 @@ package org.xas.jchart.common.view.components.TipsView
 			_x = _srcEvt.stageX;
 			_y = _srcEvt.stageY;
 			_pos = { x: _x, y: _y };
-			
 			if( _config.hoverBgEnabled && _config.c.dataRect && _config.c.dataRect[ _ix ]){
 				_tips.update( _data[ _ix ], _pos, null, _config.c.dataRect[ _ix ] );
 			}else{

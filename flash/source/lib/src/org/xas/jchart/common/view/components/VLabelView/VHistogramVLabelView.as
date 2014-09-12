@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.components
+package org.xas.jchart.common.view.components.VLabelView
 {
 	import com.adobe.utils.StringUtil;
 	
@@ -17,23 +17,19 @@ package org.xas.jchart.common.view.components
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
+	import org.xas.jchart.common.event.JChartEvent;
 	
-	public class VLabelView extends Sprite
+	public class VHistogramVLabelView extends BaseVLabelView
 	{
-		private var _labels:Vector.<TextField>;
-		public function get labels():Vector.<TextField>{ return _labels; }
+		private var _config:Config;
 		
-		private var _maxWidth:Number = 0;
-		public function get maxWidth():Number{ return _maxWidth; }
-		
-		public function VLabelView(  )
+		public function VHistogramVLabelView()
 		{
 			super();
-		
-			addEventListener( Event.ADDED_TO_STAGE, addToStage );
+			_config = BaseConfig.ins as Config;
 		}
 		
-		private function addToStage( _evt:Event ):void{
+		override protected function addToStage( _evt:Event ):void{
 			
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
@@ -64,17 +60,29 @@ package org.xas.jchart.common.view.components
 				_labels.push( _titem );
 				
 				_titem.width > _maxWidth && ( _maxWidth = _titem.width );
+				_titem.height > _maxHeight && ( _maxHeight = _titem.height );
 			});			
 			//Log.log( 'maxwidth', _maxWidth );
 		}
 		
-		public function update():void{
+		override protected function update( _evt:JChartEvent ):void{
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.vpoint ) ) return;
 			
 			Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
-				_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace;
-				_tf.y = _item.start.y - _tf.height / 2;
+				
+				var _x:Number = _item.end.x - _tf.width / 2;
+				
+				if( _k === 0 ){
+					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
+						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+					}
+				}else if( _k === _config.c.vpointReal.length - 1 ){
+					_x < 5 && ( _x = _config.c.chartX - 3 );
+				}
+				
+				_tf.x = _x;
+				_tf.y = _item.end.y;
 			});
 		}
 

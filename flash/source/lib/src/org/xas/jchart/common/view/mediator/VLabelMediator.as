@@ -4,15 +4,19 @@ package org.xas.jchart.common.view.mediator
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.*;
+	import org.xas.jchart.common.view.components.VLabelView.BaseVLabelView;
+	import org.xas.jchart.common.view.components.VLabelView.HistogramVLabelView;
+	import org.xas.jchart.common.view.components.VLabelView.VHistogramVLabelView;
 	
 	public class VLabelMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PVLabelMediator';
-		private var _view:VLabelView;
-		public function get view():VLabelView{ return _view; }
+		private var _view:BaseVLabelView;
+		public function get view():BaseVLabelView{ return _view; }
 		
 		public function VLabelMediator( )
 		{
@@ -20,7 +24,28 @@ package org.xas.jchart.common.view.mediator
 		}
 		
 		override public function onRegister():void{			
-			mainMediator.view.index5.addChild( _view = new VLabelView( ) );
+			switch( (facade as BaseFacade).name ){
+				case 'CurveGramFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new HistogramVLabelView() );
+					break;
+				}
+				case 'HistogramFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new HistogramVLabelView( ) );
+					break;
+				}
+				case 'VHistogramFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new VHistogramVLabelView( ) );
+					break;
+				}
+				default:{
+					mainMediator.view.index5.addChild( _view = new BaseVLabelView() ); 
+					break;
+				}
+			}
+			//mainMediator.view.index5.addChild( _view = new VLabelView( ) );
 		}
 		
 		override public function onRemove():void{
@@ -37,7 +62,7 @@ package org.xas.jchart.common.view.mediator
 			switch( notification.getName() ){
 			case JChartEvent.SHOW_CHART:
 				{
-					_view.update();
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
 					break;
 				}
 			
@@ -48,6 +73,9 @@ package org.xas.jchart.common.view.mediator
 			return _view.maxWidth;
 		}
 		
+		public function get maxHeight():Number{
+			return _view.maxHeight;
+		}
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

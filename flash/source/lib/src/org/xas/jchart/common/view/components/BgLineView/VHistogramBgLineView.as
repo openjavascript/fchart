@@ -15,11 +15,11 @@ package org.xas.jchart.common.view.components.BgLineView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 
-	public class HistogramBgLineView extends BaseBgLineView
+	public class VHistogramBgLineView extends BaseBgLineView
 	{
 		private var _hboldLine:Sprite;
 		
-		public function HistogramBgLineView()
+		public function VHistogramBgLineView()
 		{
 			super();
 		}
@@ -34,8 +34,8 @@ package org.xas.jchart.common.view.components.BgLineView
 			if( !BaseConfig.ins.hlineEnabled ) {
 				addChildAt( _hboldLine = new Sprite(), 0 );
 				_hboldLine.graphics.lineStyle( 2, 0x999999, .35 );
-				_hboldLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
-				_hboldLine.graphics.lineTo( BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
+				_hboldLine.graphics.moveTo( BaseConfig.ins.c.minX, BaseConfig.ins.c.maxY );
+				_hboldLine.graphics.lineTo( BaseConfig.ins.c.minX, BaseConfig.ins.c.minY );
 				return;	
 			}
 			
@@ -44,9 +44,6 @@ package org.xas.jchart.common.view.components.BgLineView
 				, _ep:Point = _item.end as Point
 				, _sx:Number = _sp.x, _ex:Number = _ep.x
 				;
-				if( !BaseConfig.ins.yAxisEnabled ){
-					_sx += BaseConfig.ins.c.arrowLength - 2;
-				}
 				
 				graphics.moveTo( _sx, _sp.y );
 				graphics.lineTo( _ex, _ep.y );

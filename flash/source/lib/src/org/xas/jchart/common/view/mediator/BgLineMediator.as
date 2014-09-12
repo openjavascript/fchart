@@ -30,6 +30,10 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index5.addChild( _view = new HistogramBgLineView() );
 					break;
 				}
+				case 'VHistogramFacade':{
+					mainMediator.view.index5.addChild( _view = new VHistogramBgLineView() );
+					break;
+				}
 				default:{
 					mainMediator.view.index5.addChild( _view = new BaseBgLineView() );
 					break;

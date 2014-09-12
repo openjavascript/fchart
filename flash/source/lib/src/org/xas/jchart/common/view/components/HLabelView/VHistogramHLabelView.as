@@ -10,11 +10,11 @@ package org.xas.jchart.common.view.components.HLabelView
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
 
-	public class HistogramHLabelView extends BaseHLabelView
+	public class VHistogramHLabelView extends BaseHLabelView
 	{
 		private var _config:Config;
 		
-		public function HistogramHLabelView()
+		public function VHistogramHLabelView()
 		{
 			super();
 			_config = BaseConfig.ins as Config;
@@ -62,6 +62,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					_labels.push( _titem );
 					
 					_titem.height > _maxHeight && ( _maxHeight = _titem.height );
+					_titem.width > _maxWidth && ( _maxWidth = _titem.width );
 				});			
 			}
 			//Log.log( '_maxHeight', _maxHeight );
@@ -74,18 +75,9 @@ package org.xas.jchart.common.view.components.HLabelView
 				var _tf:TextField = _labels[ _k ];
 				
 				/* 指定标签定位的坐标 */
-				var _x:Number = _item.end.x - _tf.width / 2;
-				
-				if( _k === 0 ){
-					_x < _config.c.chartX && ( _x = _config.c.chartX - 3 );
-				}else if( _k === _config.c.hpointReal.length - 1 ){
-					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
-					}
-				}
-				
-				_tf.x = _x;
-				_tf.y = _item.end.y - 2;
+				var _y:Number = _item.end.y - _tf.height / 2;
+				_tf.x = _item.start.x - _tf.width;
+				_tf.y = _y;
 			});
 		}
 	}

@@ -9,6 +9,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.BgView.DDountBgView;
 	import org.xas.jchart.common.view.components.ItemBgView.BaseItemBgView;
 	import org.xas.jchart.common.view.components.ItemBgView.HistogramItemBgView;
+	import org.xas.jchart.common.view.components.ItemBgView.VHistogramItemBgView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class ItemBgMediator extends Mediator implements IMediator
@@ -29,6 +30,11 @@ package org.xas.jchart.common.view.mediator
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index4.addChild( _view = new HistogramItemBgView() );
+					break;
+				}
+				case 'VHistogramFacade':
+				{
+					mainMediator.view.index4.addChild( _view = new VHistogramItemBgView() );
 					break;
 				}
 				default:{
