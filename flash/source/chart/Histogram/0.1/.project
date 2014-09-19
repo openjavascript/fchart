@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>0.1</name>
+	<name>Histogram</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -18,7 +18,7 @@
 		<link>
 			<name>[source path] src</name>
 			<type>2</type>
-			<location>C:/sysCode/fchart/flash/source/lib/src</location>
+			<location>G:/My Documents/git/fchart/flash/source/lib/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
