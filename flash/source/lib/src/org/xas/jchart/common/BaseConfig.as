@@ -810,7 +810,7 @@ package org.xas.jchart.common
 			
 			return this;
 		}
-		
+		 
 		public function get isPercent():Boolean{
 			return StringUtils.parseBool( this.cd.isPercent );
 		}

@@ -62,7 +62,7 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null
+								5
 							]
 						}
 					], 
@@ -129,8 +129,8 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null
+								5, 
+								5
 							]
 						}
 					], 
@@ -200,9 +200,9 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -275,10 +275,10 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -354,11 +354,11 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -437,12 +437,12 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -524,13 +524,13 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -616,14 +616,14 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -712,15 +712,15 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -812,16 +812,16 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5, 
+								5
 							]
 						}
 					], 
@@ -926,20 +926,20 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
+								5, 
+								5, 
+								5, 
 								
-								null, 
-								null, 
-								null, 
+								5, 
+								5, 
+								5, 
 								
-								null, 
-								null, 
-								null, 
+								5, 
+								5, 
+								5, 
 								
-								null, 
-								null
+								5, 
+								5
 							]
 						}
 					], 
@@ -1037,21 +1037,21 @@ package org.xas.jchart.common.data.test
 							"name": "uv", 
 							"data":
 							[
-								null, 
-								null, 
-								null, 
+								5, 
+								5, 
+								5, 
 								
-								null, 
-								null, 
-								null, 
+								5, 
+								5, 
+								5, 
 								
-								null, 
-								null, 
-								null, 
+								5, 
+								5, 
+								5, 
 								
-								null, 
-								null, 
-								null
+								5, 
+								5, 
+								5
 							]
 						}
 					], 

@@ -15,7 +15,7 @@ package
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
-	import org.xas.core.utils.Log;
+	import org.xas.core.utils.Log; 
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
@@ -32,7 +32,7 @@ package
 	{ 
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
-		private var _data:Object; 
+		private var _data:Object;  
 		private var _facade:Facade;
 		private var _resizeTimer:Timer;  
 		private var _ins:Histogram;
@@ -156,7 +156,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){		
-				_data = DefaultData.instance.data[0];
+				_data = DefaultData.instance.data[1];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
