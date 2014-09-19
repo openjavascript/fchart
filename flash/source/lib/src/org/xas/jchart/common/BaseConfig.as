@@ -23,10 +23,14 @@ package org.xas.jchart.common
 		public function setDebug( _d:Boolean ):Boolean {
 			Log.debug = _d;
 			return _debug = _d;
-		}		
+		}
 		public function get debug():Object {
 			return _debug;
 		}
+		
+		private var _rateNum:Number = 2;
+		public function get rateNum():Number{ return _rateNum; }
+		public function setRateNum( _r:Number ):void{ this._rateNum = _r; }
 		
 		protected var _params:Object;
 		public function setParams( _d:Object ):Object {	return _params = _d; }		
@@ -99,10 +103,10 @@ package org.xas.jchart.common
 		public function setChartData( _d:Object ):Object { 
 			reset();
 			_chartData = _d;
-			calcRate();		
+			calcRate();
 			calcLabelDisplayIndex();
 			return _d;
-		}		
+		}
 		public function get chartData():Object { return _chartData; }	
 		public function get cd():Object {	return _chartData; }
 		public function get rateZeroIndex():int{ return _rateZeroIndex; }
