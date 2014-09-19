@@ -300,8 +300,8 @@ package org.xas.jchart.curvegram.controller
 		}
 		
 		private function calcChartHPoint():void{
-			var _partN:Number = _config.c.chartWidth / ( _config.categories.length - 1 )
-				, _rpartN:Number = ( _config.c.chartWidth - _config.c.linePadding ) / ( _config.categories.length - 1 )
+			var _partN:Number = 　_config.c.chartWidth / ( ( _config.categories.length - 1 ) || 1 ) 
+				, _rpartN:Number = ( _config.c.chartWidth - _config.c.linePadding ) / ( ( _config.categories.length - 1 ) || 1)
 				, _sideLen:Number = _config.c.arrowLength
 				;
 			_config.c.hpart = _partN;
@@ -311,6 +311,7 @@ package org.xas.jchart.curvegram.controller
 			_config.c.hpointReal = [];
 			_config.c.itemWidth = _partN / 2;
 			_config.c.ritemWidth = _rpartN / 2;
+			
 						
 			Common.each( _config.categories, function( _k:int, _item:* ):void{
 				var _n:Number = _config.c.minX + _partN * _k + 5

@@ -21,7 +21,1059 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-						
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557, 
+								1561
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557, 
+								1561, 
+								1400
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+		
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557, 
+								1561, 
+								1400, 
+								1400
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910", 
+							"20140910"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910", 
+							"20140910"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557, 
+								1561, 
+								1400, 
+								1400, 
+								1400
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557, 
+								1561, 
+								1400, 
+								1400, 
+								1400, 
+								1400
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							
+							"20140910",
+							"20140910"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							
+							"20140913", 
+							"20140912", 
+							"20140911",
+							
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							
+							"20140910", 
+							"20140910"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								
+								2138, 
+								1557, 
+								1561, 
+								
+								1400, 
+								1400, 
+								1400, 
+								
+								1400, 
+								1400
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								
+								null, 
+								null, 
+								null, 
+								
+								null, 
+								null, 
+								null, 
+								
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916", 
+							"20140915", 
+							"20140914", 
+							"20140913", 
+							"20140912", 
+							"20140911", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910", 
+							"20140910"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722, 
+								1694, 
+								2049, 
+								2138, 
+								1557, 
+								1561, 
+								1400, 
+								1400, 
+								1400, 
+								1400, 
+								1400, 
+								1400
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								null, 
+								null, 
+								null, 
+								
+								null, 
+								null, 
+								null, 
+								
+								null, 
+								null, 
+								null, 
+								
+								null, 
+								null, 
+								null
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+			
 			_data.push({ 
 				
 				xAxis: {
