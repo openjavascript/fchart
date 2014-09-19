@@ -15,3 +15,4 @@ package org.xas.jchart.common.ui.widget
 			this._data = _data;
 		}
 	}
+}

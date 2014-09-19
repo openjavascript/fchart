@@ -5,14 +5,17 @@ package org.xas.jchart.common.view.mediator
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.*;
+	import org.xas.jchart.common.view.components.LegendView.BaseLegendView;
+	import org.xas.jchart.common.view.components.LegendView.MapLegendView;
 	
 	public class LegendMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PLegendMediator';
-		private var _view:LegendView;
-		public function get view():LegendView{ return _view; }
+		private var _view:BaseLegendView;
+		public function get view():BaseLegendView{ return _view; }
 		
 		public function LegendMediator( )
 		{
@@ -21,7 +24,18 @@ package org.xas.jchart.common.view.mediator
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index7.addChild( _view = new LegendView() );
+			
+			switch( (facade as BaseFacade).name ){
+				case 'MapFacade':
+				{
+					mainMediator.view.index7.addChild( _view = new MapLegendView() );
+					break;
+				}
+				default:{
+					mainMediator.view.index7.addChild( _view = new BaseLegendView() ); 
+					break;
+				}
+			}
 			//Log.log( 'LegendMediator register' );	
 			_view.addEventListener( JChartEvent.FILTER_DATA, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.FILTER_DATA, _evt.data );	
@@ -34,7 +48,9 @@ package org.xas.jchart.common.view.mediator
 		
 		override public function listNotificationInterests():Array{
 			return [
-				JChartEvent.SHOW_CHART
+				JChartEvent.SHOW_CHART,
+				JChartEvent.SHOW_LEGEND_ARROW,
+				JChartEvent.HIDE_LEGEND_ARROW
 			];
 		}
 		
@@ -49,10 +65,20 @@ package org.xas.jchart.common.view.mediator
 					_view.y = BaseConfig.ins.c.legend.y;
 					break;
 				}
-			
+				
+			case JChartEvent.SHOW_LEGEND_ARROW:
+				{
+					_view.dispatchEvent( new JChartEvent( JChartEvent.SHOW_LEGEND_ARROW, notification.getBody() ) );
+					break;
+				}
+				
+			case JChartEvent.HIDE_LEGEND_ARROW:
+				{
+					_view.dispatchEvent( new JChartEvent( JChartEvent.HIDE_LEGEND_ARROW, notification.getBody() ) );
+					break;
+				}
 			}
 		}
-		
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

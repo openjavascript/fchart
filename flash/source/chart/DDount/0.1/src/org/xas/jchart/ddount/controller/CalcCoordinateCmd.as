@@ -40,7 +40,7 @@ package org.xas.jchart.ddount.controller
 			//Log.log( BaseConfig.ins.rate.length );
 			//Log.log( BaseConfig.ins.maxNum, BaseConfig.ins.finalMaxNum, BaseConfig.ins.chartMaxNum, 11111 );
 			
-			if( BaseConfig.ins.cd ){			
+			if( BaseConfig.ins.cd ){
 				
 				if( BaseConfig.ins.cd.title && BaseConfig.ins.cd.title.text ){
 					facade.registerMediator( new TitleMediator( BaseConfig.ins.cd.title.text ) )	

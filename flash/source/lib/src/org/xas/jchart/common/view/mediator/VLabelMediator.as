@@ -11,6 +11,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.VLabelView.BaseVLabelView;
 	import org.xas.jchart.common.view.components.VLabelView.HistogramVLabelView;
 	import org.xas.jchart.common.view.components.VLabelView.VHistogramVLabelView;
+	import org.xas.jchart.common.view.components.VLabelView.MapVLabelView;
 	
 	public class VLabelMediator extends Mediator implements IMediator
 	{
@@ -40,12 +41,16 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index5.addChild( _view = new VHistogramVLabelView( ) );
 					break;
 				}
+				case 'MapFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new MapVLabelView() );
+					break;
+				}
 				default:{
 					mainMediator.view.index5.addChild( _view = new BaseVLabelView() ); 
 					break;
 				}
 			}
-			//mainMediator.view.index5.addChild( _view = new VLabelView( ) );
 		}
 		
 		override public function onRemove():void{
@@ -65,7 +70,6 @@ package org.xas.jchart.common.view.mediator
 					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
 					break;
 				}
-			
 			}
 		}
 		
