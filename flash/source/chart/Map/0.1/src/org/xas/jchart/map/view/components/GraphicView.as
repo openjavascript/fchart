@@ -62,6 +62,7 @@ package org.xas.jchart.map.view.components
 			_ms.y = _c.minY;
 			_ms.width = _c.maxX - _c.minX;
 			_ms.height = _c.maxY - _c.minY;
+			_mapStage.graphics.lineStyle(1,0x000000);
 			_mapStage.graphics.drawRect( _ms.x, _ms.y, _ms.width, _ms.height );
 			
 			Common.each( BaseConfig.ins.cd.series[0].data, function( _i:int, _item:Object ):void{
@@ -161,8 +162,9 @@ package org.xas.jchart.map.view.components
 		
 		protected function onMouseWheel( _evt:MouseEvent ):void{
 			var _scaleOp:Number = _evt.delta * 2 / 70,
-				_tmpX:Number = 0,
-				_tmpY:Number = 0;
+				_minX:Number = 0, _maxX:Number = 0,
+				_minY:Number = 0, _maxY:Number = 0,
+				_tmpScale:Number = 1;
 
 			if (_evt.delta < 0) {
 				//trace('CuPlayer提示：向下滚动');
@@ -170,19 +172,26 @@ package org.xas.jchart.map.view.components
 				//trace('CuPlayer提示：向上滚动');
 			}
 			
-			_tmpX = _mapStage.x - _evt.stageX * _scaleOp;
-			_tmpY = _mapStage.y - _evt.stageY * _scaleOp;
-			_tmpX > _ms.x && ( _tmpX = _ms.x );
-			_tmpY > _ms.y && ( _tmpY = _ms.y );
-			if(){
-				
+			if( _mapStage.scaleX + _scaleOp < 1 ){
+				return;
 			}
-			_mapStage.x = _tmpX;
-			_mapStage.y = _tmpY;
+			
+			_minX = _mapStage.x - _evt.stageX * _scaleOp;
+			_maxX = _minX + _mapStage.width;
+			_minY = _mapStage.y - _evt.stageY * _scaleOp;
+			_maxY = _minY + _mapStage.height;
+			_minX > _ms.x && ( _minX = _ms.x );
+			_maxX < ( _ms.x + _ms.width ) && ( _minX = _ms.x + _ms.width - _mapStage.width );
+			_minY > _ms.y && ( _minY = _ms.y );
+			_maxY < ( _ms.y + _ms.height ) && ( _minY = _ms.y + _ms.height - _mapStage.height );
+			
+			_mapStage.x = _minX;
+			_mapStage.y = _minY;
+			
 			_mapStage.scaleX += _scaleOp;
 			_mapStage.scaleY += _scaleOp;
-			 
 		}
+		
 		
 	}
 }
