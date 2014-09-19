@@ -32,7 +32,7 @@ package
 	{ 
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
-		private var _data:Object; 
+		private var _data:Object;  
 		private var _facade:Facade;
 		private var _resizeTimer:Timer;  
 		private var _ins:Histogram;
@@ -156,7 +156,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){		
-				_data = DefaultData.instance.data[0];
+				_data = DefaultData.instance.data[1];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
