@@ -737,16 +737,44 @@ package org.xas.jchart.common
 		 * 如果返回 undefined, 将显示全部
 		 */
 		protected function calcLabelDisplayIndex():void{
-			var _tmp:Number, _len:int = categories.length;
+			var _tmp:Number, _len:int = categories.length, _tmp1:Number;
 			_labelDisplayIndex = {};
 			if( !displayAllLabel ){
 				_labelDisplayIndex[ 0 ] = true;
 				_labelDisplayIndex[ _len - 1 ] = true;
 				
-				_tmp = Math.ceil( _len / 3 );
+				_tmp1 = _len % 3;
+				_tmp = Math.floor( _len / 3 );
 				
-				_labelDisplayIndex[ Math.floor( _tmp * 1 ) - 1 ] = true;
-				_labelDisplayIndex[ Math.floor( _tmp * 2 ) - 1 ] = true;
+				//if( _len >= 7 ){	
+					switch( _tmp1 ){
+						case 0:{
+							_labelDisplayIndex[ Math.floor( _tmp * 1 ) - 1] = true;
+							_labelDisplayIndex[ Math.floor( _tmp * 2 ) - 0 ] = true;
+							break;
+						}
+						case 1: {
+							_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
+							_labelDisplayIndex[ Math.floor( _tmp * 2 )  ] = true;
+							break;
+						}
+						case 2: {
+							_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
+							_labelDisplayIndex[ Math.floor( _tmp * 2 ) + 1  ] = true;
+							break;
+						}
+						default: {
+							_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
+							_labelDisplayIndex[ Math.floor( _tmp * 2 )  ] = true;
+							break;
+						}
+					}			
+			/*
+				}else{
+					_labelDisplayIndex[ 1 ] = true;
+					_labelDisplayIndex[ _len - 2 ] = true;
+				}
+					*/
 			}
 		}
 		protected var _labelDisplayIndex:Object = {};
