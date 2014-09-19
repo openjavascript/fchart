@@ -2202,7 +2202,7 @@ package org.xas.jchart.common.data.test
 					}
 					, format: '{0}%'
 				},
-				tooltip: {					
+				tooltip: {			
 					"pointFormat": "{0}", 
 					"headerFormat": "{0}月"
 				},
