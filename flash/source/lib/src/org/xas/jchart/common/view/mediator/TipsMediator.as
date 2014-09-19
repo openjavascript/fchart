@@ -11,6 +11,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.TipsView.BaseTipsView;
 	import org.xas.jchart.common.view.components.TipsView.NormalTipsView;
 	import org.xas.jchart.common.view.components.TipsView.PieTipsView;
+	import org.xas.jchart.common.view.components.TipsView.MapTipsView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class TipsMediator extends Mediator implements IMediator
@@ -44,6 +45,11 @@ package org.xas.jchart.common.view.mediator
 				case 'VHistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
+					break;
+				}
+				case 'MapFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new MapTipsView() );
 					break;
 				}
 				default:{

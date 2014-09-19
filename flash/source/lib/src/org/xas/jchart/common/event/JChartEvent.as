@@ -30,6 +30,9 @@ package org.xas.jchart.common.event
 		public static const UPDATE_STATUS:String = 'update_status';
 		public static const FILTER_DATA:String = 'filter_data';
 		
+		public static const SHOW_LEGEND_ARROW:String = 'show_legend_arrow';
+		public static const HIDE_LEGEND_ARROW:String = 'hide_legend_arrow';
+		
 		public function JChartEvent($type:String, $data:Object=null)
 		{
 			super($type, $data);

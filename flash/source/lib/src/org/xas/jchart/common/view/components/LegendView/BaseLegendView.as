@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.components
+package org.xas.jchart.common.view.components.LegendView
 {
 	import com.adobe.utils.StringUtil;
 	
@@ -16,22 +16,23 @@ package org.xas.jchart.common.view.components
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.LegendItemUI;
 	
-	public class LegendView extends Sprite
-	{	
+	public class BaseLegendView extends Sprite
+	{
 		private var _items:Vector.<LegendItemUI>;
 		
-		public function LegendView()
+		public function BaseLegendView()
 		{
 			super();
-		
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
+			addEventListener( JChartEvent.SHOW_LEGEND_ARROW, updateLegendArrow );
+			addEventListener( JChartEvent.HIDE_LEGEND_ARROW, hideLegendArrow );
 		}
 		
-		private function addToStage( _evt:Event ):void{
+		protected function addToStage( _evt:Event ):void{
 			showChart();
 		}
 		
-		private function showChart( ):void{
+		protected function showChart( ):void{
 			this.graphics.clear();
 			
 			if( !( BaseConfig.ins.chartData && BaseConfig.ins.chartData.series && BaseConfig.ins.chartData.series.length ) ) return;
@@ -67,7 +68,7 @@ package org.xas.jchart.common.view.components
 			});
 		}
 		
-		private function onUpdateStatus( _evt:JChartEvent ):void{
+		protected function onUpdateStatus( _evt:JChartEvent ):void{
 			var _selected:Boolean = _evt.data as Boolean
 				, _filterObject:Object = {}
 				;
@@ -78,6 +79,14 @@ package org.xas.jchart.common.view.components
 			});
 			
 			dispatchEvent( new JChartEvent( JChartEvent.FILTER_DATA, _filterObject ) );
+		}
+		
+		protected function updateLegendArrow( _evt:JChartEvent ):void{
+			
+		}
+		
+		protected function hideLegendArrow( _evt:JChartEvent ):void{
+			
 		}
 
 	}

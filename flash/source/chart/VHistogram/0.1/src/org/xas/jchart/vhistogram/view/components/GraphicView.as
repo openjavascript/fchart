@@ -77,7 +77,7 @@ package org.xas.jchart.vhistogram.view.components
 		private function showTips( _evt: JChartEvent ):void{
 		}
 		
-		private function hideTips( _evt: JChartEvent ):void{			
+		private function hideTips( _evt: JChartEvent ):void{
 			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
 				_boxs[ _preIndex ].alpha = 1;
 			}

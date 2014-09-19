@@ -198,6 +198,10 @@
         , 'Histogram': 'Histogram'
         , 'histogram': 'Histogram'
 
+        , 'vbar': 'VHistogram'
+        , 'VHistogram': 'VHistogram'
+        , 'Vhistogram': 'VHistogram'
+
         , 'pie': 'PieGraph'
         , 'PieGraph': 'PieGraph'
         , 'piegraph': 'PieGraph'
