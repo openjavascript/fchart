@@ -1,0 +1,4 @@
+
+go to Flash Builder Preferences -> General -> Workspace -> Linked Resources. 
+Add a constant, say MY_WORKSPACE = fchart/flash/source
+
