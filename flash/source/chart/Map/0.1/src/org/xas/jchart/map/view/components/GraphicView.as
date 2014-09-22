@@ -174,9 +174,7 @@ package org.xas.jchart.map.view.components
 			_tmpY = _mapStage.y - _evt.stageY * _scaleOp;
 			_tmpX > _ms.x && ( _tmpX = _ms.x );
 			_tmpY > _ms.y && ( _tmpY = _ms.y );
-			if(){
-				
-			}
+
 			_mapStage.x = _tmpX;
 			_mapStage.y = _tmpY;
 			_mapStage.scaleX += _scaleOp;
