@@ -1,4 +1,4 @@
-;(function(define, _win) { 'use strict'; define( [], function(){
+;(function(define, _win) { 'use strict'; define( [ 'JC.FChartNormalData' ], function(){
 /**
  * JChart 图表数据( 曲线图、环状图、管状图 )
  *
@@ -13,6 +13,7 @@
  *
  * @namespace   JC
  * @class       FChartCircleData
+ * @extends     JC.FChartNormalData
  * @constructor
  * @static
  * @version dev 0.1 2014-08-28
@@ -20,13 +21,16 @@
  * @example
 <h2>显示 两块数据[ 曲线图、环状图、管状图 ]的图表数据</h2>
 <pre>{
-    series:[{
+    chart: {
+        type: 'pie' 
+    } 
+
+    , series:[{
         data: [
             ['全体覆盖率',   60],
             ['样本覆盖率',   20]
         ]
     }]
-    , isPercent: true
     
     , colors: [ 
         0x00ABEF
@@ -49,7 +53,7 @@
 }</pre>
  */
 
-    JChart.FChartCircleData = {
+    JChart.FChartCircleData = JC.f.cloneObject( JC.FChartNormalData, {
         /**
          * 展现的数据
          * <br />series 数组只有索引0数据
@@ -83,27 +87,6 @@
          *  isPercent: false
          */
         , isPercent: false
-        /**
-         * 数据项的显示颜色
-         * @property    colors
-         * @type        {Array of hex colors}
-         * @default:    [0x03ACEF, 0x5DC979, 0x09c100, 0x0c76c4 , 0xff0619, 0xFFBF00, 0xff7100, 0xff06b3, 0x41e2e6, 0xc3e2a4, 0xffb2bc, 0xdbb8fd]    
-         */
-        , colors: [
-            0x09c100, 
-            0x0c76c4, 				
-            0xff0619,
-            
-            0xFFBF00, 			
-            0xff7100,	
-            0xff06b3, 
-            
-            0x41e2e6,			
-            0xc3e2a4,	
-            0xffb2bc,
-            
-            0xdbb8fd
-        ]
         /**
          * 设置圆环的环宽
          * <br /> 仅对 NDount 生效
@@ -140,54 +123,8 @@
                 }
             }
         }
-        /**
-         * 图表背景的设置数据
-         * @property    chart
-         * @type        {object}
-         */
-        , chart: {
-            /**
-             * 图表的背景颜色
-             * @property    chart.bgColor
-             * @type        {hex color}
-             * @default     0xcccccc
-             */
-            bgColor: 0xcccccc
-            /**
-             * 图表的背景色透明度
-             * @property    chart.bgAlpha
-             * @type        {Number}     0.01 ~ 1
-             * @default     0.13
-             */
-            , bgAlpha: .13
-            /**
-             * 图表数据显示块的高度 ( pending )
-             * <br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
-             * <br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
-             * @property    chart.graphicHeight
-             * @type        {Number}     
-             * @default     0,     0 = auto
-             */
-            , graphicHeight: 0
-        }
-        /**
-         * tips 设置数据 
-         * @property    tooltip
-         * @type        {object}
-         */
-        , tooltip: {
-            /**
-             * 是否显示 tips ( pending )
-             * @property    tooltip.enabled
-             * @type        {Boolean}
-             * @default     true
-             * @example 
-             *  enabled: true
-             */
-            enabled: true
-        }
 
-    };
+    });
 
     return FChartCircleData;
 });}( typeof define === 'function' && define.amd ? define : 

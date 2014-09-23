@@ -20,8 +20,12 @@
  * @example
 <h2>显示 两条[曲线|柱状]的图表数据</h2>
 <pre>{
-    
-    xAxis: {
+    chart: {
+        type: 'line'
+        , bgColor: 0xffffff
+        , bgAlpha: 1
+    }
+    , xAxis: {
         categories: [ '02/24', '02/25', '02/26', '02/27', '02/28', '02/29', '03/01' ]
     }
     , yAxis: {
@@ -72,11 +76,6 @@
         
         , 0xdbb8fd
     ]    				
-    , chart: {
-        bgColor: 0xffffff
-        , bgAlpha: 1
-        //, graphicHeight: 220
-    }
     , hoverBg: {
         enabled: true		
         , style: {
@@ -90,11 +89,49 @@
 
     JChart.FChartNormalData = {
         /**
+         * 图表背景的设置数据
+         * @property    chart
+         * @type        {object}
+         */
+        chart: {
+            /**
+             * 图表的类型
+             * <br />see also: <a href="JC.FChart.html#property_Model.TYPE_MAP">JC&#46;FChart&#46;Model.TYPE_MAP</a>
+             * @property    chart.type
+             * @type        {string}
+             * @default     empty
+             */
+            type: ''
+            /**
+             * 图表的背景颜色
+             * @property    chart.bgColor
+             * @type        {hex color}
+             * @default     0xcccccc
+             */
+            , bgColor: 0xcccccc
+            /**
+             * 图表的背景色透明度
+             * @property    chart.bgAlpha
+             * @type        {Number}     0.01 ~ 1
+             * @default     0.13
+             */
+            , bgAlpha: .13
+            /**
+             * 图表数据显示块的高度
+             * <br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
+             * <br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
+             * @property    chart.graphicHeight
+             * @type        {Number}     
+             * @default     0,     0 = auto
+             */
+            , graphicHeight: 0
+        }
+        /**
          * 横向坐标设置数据
          * @property    xAxis
          * @type        {object}
          */
-        xAxis: {
+        , xAxis: {
             /**
              * 是否显示横向坐标( pending )
              * @property    xAxis.enabled
@@ -369,36 +406,6 @@
             
             0xdbb8fd
         ]
-        /**
-         * 图表背景的设置数据
-         * @property    chart
-         * @type        {object}
-         */
-        , chart: {
-            /**
-             * 图表的背景颜色
-             * @property    chart.bgColor
-             * @type        {hex color}
-             * @default     0xcccccc
-             */
-            bgColor: 0xcccccc
-            /**
-             * 图表的背景色透明度
-             * @property    chart.bgAlpha
-             * @type        {Number}     0.01 ~ 1
-             * @default     0.13
-             */
-            , bgAlpha: .13
-            /**
-             * 图表数据显示块的高度
-             * <br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
-             * <br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
-             * @property    chart.graphicHeight
-             * @type        {Number}     
-             * @default     0,     0 = auto
-             */
-            , graphicHeight: 0
-        }
         /**
          * 数据项的背景设置
          * <br /> 目前这个属性仅对 柱状图 生效

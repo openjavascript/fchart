@@ -7,8 +7,8 @@
         "logo": "jc_logo.png"
     },
     "files": {
-        "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js": {
-            "name": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+        "../modules/JC.BaseMVC/0.1/BaseMVC.js": {
+            "name": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "modules": {},
             "classes": {
                 "JC.BaseMVC": 1,
@@ -19,8 +19,8 @@
                 "JC": 1
             }
         },
-        "..\\modules\\JC.FChart\\0.1\\FChart.js": {
-            "name": "..\\modules\\JC.FChart\\0.1\\FChart.js",
+        "../modules/JC.FChart/0.1/FChart.js": {
+            "name": "../modules/JC.FChart/0.1/FChart.js",
             "modules": {},
             "classes": {
                 "JC.FChart": 1
@@ -30,8 +30,8 @@
                 "JC": 1
             }
         },
-        "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js": {
-            "name": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
+        "../modules/JC.FChartCircleData/0.1/FChartCircleData.js": {
+            "name": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
             "modules": {},
             "classes": {
                 "JC.FChartCircleData": 1
@@ -41,8 +41,8 @@
                 "JC": 1
             }
         },
-        "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js": {
-            "name": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
+        "../modules/JC.FChartNormalData/0.1/FChartNormalData.js": {
+            "name": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
             "modules": {},
             "classes": {
                 "JC.FChartNormalData": 1
@@ -52,8 +52,8 @@
                 "JC": 1
             }
         },
-        "..\\modules\\JC.common\\0.2\\common.js": {
-            "name": "..\\modules\\JC.common\\0.2\\common.js",
+        "../modules/JC.common/0.2/common.js": {
+            "name": "../modules/JC.common/0.2/common.js",
             "modules": {},
             "classes": {
                 "JC.f": 1,
@@ -62,8 +62,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "..\\modules\\swfobject\\2.3\\swfobject.js": {
-            "name": "..\\modules\\swfobject\\2.3\\swfobject.js",
+        "../modules/swfobject/2.3/swfobject.js": {
+            "name": "../modules/swfobject/2.3/swfobject.js",
             "modules": {},
             "classes": {
                 "window.swfobject": 1
@@ -73,15 +73,15 @@
                 "window": 1
             }
         },
-        "..\\config.js": {
-            "name": "..\\config.js",
+        "../config.js": {
+            "name": "../config.js",
             "modules": {},
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "..\\lib.js": {
-            "name": "..\\lib.js",
+        "../lib.js": {
+            "name": "../lib.js",
             "modules": {},
             "classes": {
                 "window.requirejs": 1,
@@ -104,7 +104,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 3,
             "description": "MVC 抽象类 ( <b>仅供扩展用, 这个类不能实例化</b>)\n<p><b>require</b>: \n     <a href='window.jQuery.html'>jQuery</a>\n     , <a href='JC.common.html'>JC.common</a>\n</p>\n<p><a href='https://github.com/openjavascript/jquerycomps' target='_blank'>JC Project Site</a>\n| <a href='http://jc2.openjavascript.org/docs_api/classes/JC.BaseMVC.html' target='_blank'>API docs</a>\n| <a href='../../modules/JC.BaseMVC/0.1/_demo' target='_blank'>demo link</a></p>",
             "is_constructor": 1,
@@ -127,7 +127,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 227,
             "description": "MVC Model 类( <b>仅供扩展用</b> )\n<br />这个类默认已经包含在lib.js里面, 不需要显式引用\n<p><a href='https://github.com/openjavascript/jquerycomps' target='_blank'>JC Project Site</a>\n| <a href='http://jc2.openjavascript.org/docs_api/classes/JC.BaseMVC.Model.html' target='_blank'>API docs</a>\n| <a href='../../modules/JC.BaseMVC/0.1/_demo' target='_blank'>demo link</a></p>\n<p><b>see also</b>: <a href='JC.BaseMVC.html'>JC.BaseMVC</a></p>",
             "is_constructor": 1,
@@ -150,9 +150,9 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
+            "file": "../modules/JC.FChart/0.1/FChart.js",
             "line": 2,
-            "description": "组件用途简述\n\n <p><b>require</b>:\n     <a href='JC.BaseMVC.html'>JC.BaseMVC</a>\n     , <a href='window.swfobject.html'>SWFObject</a>\n     , <a href='window.json2'>JSON2</a>\n </p>\n\n <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JC Project Site</a>\n     | <a href='http://fchart.openjavascript.org/docs_api/classes/JC.FChart.html' target='_blank'>API docs</a>\n     | <a href='../../modules/JC.FChart/0.1/_demo' target='_blank'>demo link</a></p>\n \n <h2>页面只要引用本脚本, 默认会处理 div class=\"js_compFChart\"</h2>\n\n <h2>可用的 HTML attribute</h2>\n\n <dl>\n     <dt></dt>\n     <dd><dd>\n </dl>",
+            "description": "JC.FChart - flash 图表组件\n\n <p><b>require</b>:\n     <a href='JC.BaseMVC.html'>JC.BaseMVC</a>\n     , <a href='window.swfobject.html'>SWFObject</a>\n     , <a href='window.json2'>JSON2</a>\n </p>\n\n <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JC Project Site</a>\n     | <a href='http://fchart.openjavascript.org/docs_api/classes/JC.FChart.html' target='_blank'>API docs</a>\n     | <a href='../../modules/JC.FChart/0.1/_demo' target='_blank'>demo link</a></p>\n \n <h2>页面只要引用本脚本, 默认会处理 div class=\"js_compFChart\"</h2>\n\n <h2>可用的 HTML attribute</h2>\n\n <dl>\n     <dt>chartScriptData = script tpl selector</dt>\n     <dd>图表的脚本模板数据<dd>\n\n     <dt>chartDataVar = json object name</dt>\n     <dd>图表的json数据名, <b>window变量域</b><dd>\n\n     <dt>chartWidth = number, default = 100%</dt>\n     <dd>图表的宽度</dd>\n\n     <dt>chartHeight = number, default = 400</dt>\n     <dd>图表的高度</dd>\n </dl>",
             "extends": "JC.BaseMVC",
             "is_constructor": 1,
             "params": [
@@ -177,15 +177,16 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
             "line": 2,
             "description": "JChart 图表数据( 曲线图、环状图、管状图 )\n\n<p><a href='https://github.com/openjavascript/fchart' target='_blank'>JChart Project Site</a>\n  | <a href='http://fchart.openjavascript.org/docs_api/classes/JC.FChartCircleData.html' target='_blank'>API docs</a>\n </p>\n<h2></h2>\n<dl>\n   <dt></dt>\n   <dd><dd>\n</dl>",
+            "extends": "JC.FChartNormalData",
             "is_constructor": 1,
             "static": 1,
             "version": "dev 0.1 2014-08-28",
             "author": "qiushaowei <suches@btbtd.org> | 75 Team",
             "example": [
-                "\n<h2>显示 两块数据[ 曲线图、环状图、管状图 ]的图表数据</h2>\n<pre>{\n   series:[{\n       data: [\n           ['全体覆盖率',   60],\n           ['样本覆盖率',   20]\n       ]\n   }]\n   , isPercent: true\n   \n   , colors: [ \n       0x00ABEF\n       , 0xFF6297\n       \n       , 0x09c100\n       , 0x0c76c4 \t\t\t\t\n       , 0xff0619\n       \n       , 0xFFBF00\t\t\t\n       , 0xff7100\t\n       , 0xff06b3\n       \n       , 0x41e2e6\t\t\t\n       , 0xc3e2a4\t\n       , 0xffb2bc\n       \n       , 0xdbb8fd\n   ]\n}</pre>"
+                "\n<h2>显示 两块数据[ 曲线图、环状图、管状图 ]的图表数据</h2>\n<pre>{\n   chart: {\n       type: 'pie' \n   } \n\n   , series:[{\n       data: [\n           ['全体覆盖率',   60],\n           ['样本覆盖率',   20]\n       ]\n   }]\n   \n   , colors: [ \n       0x00ABEF\n       , 0xFF6297\n       \n       , 0x09c100\n       , 0x0c76c4 \t\t\t\t\n       , 0xff0619\n       \n       , 0xFFBF00\t\t\t\n       , 0xff7100\t\n       , 0xff06b3\n       \n       , 0x41e2e6\t\t\t\n       , 0xc3e2a4\t\n       , 0xffb2bc\n       \n       , 0xdbb8fd\n   ]\n}</pre>"
             ]
         },
         "JC.FChartNormalData": {
@@ -197,7 +198,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
             "line": 2,
             "description": "JChart 图表数据( 曲线图、柱状图 )\n\n<p><a href='https://github.com/openjavascript/fchart' target='_blank'>JChart Project Site</a>\n  | <a href='http://jchart.openjavascript.org/docs_api/classes/JC.FChartNormalData.html' target='_blank'>API docs</a>\n </p>\n<h2></h2>\n<dl>\n   <dt></dt>\n   <dd><dd>\n</dl>",
             "is_constructor": 1,
@@ -205,7 +206,7 @@
             "version": "dev 0.1 2014-08-28",
             "author": "qiushaowei <suches@btbtd.org> | 75 Team",
             "example": [
-                "\n<h2>显示 两条[曲线|柱状]的图表数据</h2>\n<pre>{\n   \n   xAxis: {\n       categories: [ '02/24', '02/25', '02/26', '02/27', '02/28', '02/29', '03/01' ]\n   }\n   , yAxis: {\n       format: '{0}%'\n       , maxvalue: 100\n   }\n   , series:[{\n       name: '目标PV'\n       , data: [ 70, 49, 76, 30, 55, 26, 78 ]\n   }, {\n       name: '目标UV',\n       data: [ 48, 62, 50, 50, 30, 40, 35 ]\n   }]\n   , tooltip: {\t\t\n       enabled: true\n       , \"headerFormat\": \"{0}\"\t\t\t\n       , \"pointFormat\": \"{0} %\"\n       \n   }\n   , displayAllLabel: true\n   , legend: {\n       enabled: false\n   }\n   , dataLabels: {\n       enabled: true\n       , format: '{0}%'\n   }\n   , vline: {\n       //enabled: false\n   }\n   , hline: {\n       //enabled: true\n   }\n   , colors: [\n       0x03ACEF\n       , 0x5DC979\n       , 0x09c100\n       , 0x0c76c4 \t\t\t\t\n       , 0xff0619\n       \n       , 0xFFBF00\t\t\t\n       , 0xff7100\t\n       , 0xff06b3\n       \n       , 0x41e2e6\t\t\t\n       , 0xc3e2a4\t\n       , 0xffb2bc\n       \n       , 0xdbb8fd\n   ]    \t\t\t\t\n   , chart: {\n       bgColor: 0xffffff\n       , bgAlpha: 1\n       //, graphicHeight: 220\n   }\n   , hoverBg: {\n       enabled: true\t\t\n       , style: {\n           borderColor: 0xB4B4B4\n           , borderWidth: 2\n           , bgColor: 0xF0F0F0\n       }\t\t\t\t\t\t\t\t\t\t\n   }\n}</pre>"
+                "\n<h2>显示 两条[曲线|柱状]的图表数据</h2>\n<pre>{\n   chart: {\n       type: 'line'\n       , bgColor: 0xffffff\n       , bgAlpha: 1\n   }\n   , xAxis: {\n       categories: [ '02/24', '02/25', '02/26', '02/27', '02/28', '02/29', '03/01' ]\n   }\n   , yAxis: {\n       format: '{0}%'\n       , maxvalue: 100\n   }\n   , series:[{\n       name: '目标PV'\n       , data: [ 70, 49, 76, 30, 55, 26, 78 ]\n   }, {\n       name: '目标UV',\n       data: [ 48, 62, 50, 50, 30, 40, 35 ]\n   }]\n   , tooltip: {\t\t\n       enabled: true\n       , \"headerFormat\": \"{0}\"\t\t\t\n       , \"pointFormat\": \"{0} %\"\n       \n   }\n   , displayAllLabel: true\n   , legend: {\n       enabled: false\n   }\n   , dataLabels: {\n       enabled: true\n       , format: '{0}%'\n   }\n   , vline: {\n       //enabled: false\n   }\n   , hline: {\n       //enabled: true\n   }\n   , colors: [\n       0x03ACEF\n       , 0x5DC979\n       , 0x09c100\n       , 0x0c76c4 \t\t\t\t\n       , 0xff0619\n       \n       , 0xFFBF00\t\t\t\n       , 0xff7100\t\n       , 0xff06b3\n       \n       , 0x41e2e6\t\t\t\n       , 0xc3e2a4\t\n       , 0xffb2bc\n       \n       , 0xdbb8fd\n   ]    \t\t\t\t\n   , hoverBg: {\n       enabled: true\t\t\n       , style: {\n           borderColor: 0xB4B4B4\n           , borderWidth: 2\n           , bgColor: 0xF0F0F0\n       }\t\t\t\t\t\t\t\t\t\t\n   }\n}</pre>"
             ]
         },
         "JC.f": {
@@ -217,7 +218,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 25,
             "description": "JC.f 是 JC.common 的别名\n<br />具体使用请见 <a href='JC.common.html'>JC.common</a></p>",
             "static": 1
@@ -231,7 +232,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "JC",
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 31,
             "description": "JC 组件通用静态方法和属性 ( JC.common, <b>别名: JC.f</b> )\n<br />所有 JC 组件都会依赖这个静态类\n<p><b>require</b>: <a href='window.jQuery.html'>jQuery</a></p>\n<p><a href='https://github.com/openjavascript/jquerycomps' target='_blank'>JC Project Site</a>\n| <a href='http://jc2.openjavascript.org/docs_api/classes/JC.common.html' target='_blank'>API docs</a>\n| <a href='../../modules/JC.common/0.2/_demo/' target='_blank'>demo link</a></p>",
             "static": 1,
@@ -247,7 +248,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "window",
-            "file": "..\\modules\\swfobject\\2.3\\swfobject.js",
+            "file": "../modules/swfobject/2.3/swfobject.js",
             "line": 1,
             "description": "swfobject v2.3\n<br />An open source Javascript framework for detecting the Adobe Flash Player plugin and embedding Flash (swf) files.\n<p><a href='https://github.com/swfobject/swfobject' target='_blank'>source</a>\n| <a href='https://code.google.com/p/swfobject/wiki/documentation' target='_blank'>docs</a>\n| <a href='../../modules/swfobject/2.3/_demo' target='_blank'>demo link</a>\n| <a href='http://www.bobbyvandersluis.com/swfobject/generator/index.html' target='_blank'>html generator</a>\n</p>",
             "version": "2.3"
@@ -261,7 +262,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "window",
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1,
             "description": "RequireJS 2.1.8 \n<pre>http://github.com/jrburke/requirejs</pre>",
             "global": ""
@@ -275,7 +276,7 @@
             "plugin_for": [],
             "extension_for": [],
             "namespace": "window",
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 2062,
             "description": "jQuery JavaScript Library v1.9.1\n<pre>http://jquery.com/\n\nIncludes Sizzle.js\nhttp://sizzlejs.com/\n\nCopyright 2005, 2012 jQuery Foundation, Inc. and other contributors\nReleased under the MIT license\nhttp://jquery.org/license\nDate: 2013-2-4</pre>",
             "global": ""
@@ -283,7 +284,7 @@
     },
     "classitems": [
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 32,
             "description": "内部初始化方法",
             "itemtype": "method",
@@ -301,7 +302,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 61,
             "description": "初始化之前调用的方法",
             "itemtype": "method",
@@ -312,7 +313,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 69,
             "description": "内部事件初始化方法",
             "itemtype": "method",
@@ -323,7 +324,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 77,
             "description": "内部初始化完毕时, 调用的方法",
             "itemtype": "method",
@@ -334,7 +335,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 85,
             "description": "获取 显示 BaseMVC 的触发源选择器, 比如 a 标签",
             "itemtype": "method",
@@ -346,7 +347,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 91,
             "description": "使用 jquery on 绑定事件",
             "itemtype": "method",
@@ -371,7 +372,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 99,
             "description": "使用 jquery trigger 触发绑定事件",
             "itemtype": "method",
@@ -396,7 +397,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 107,
             "description": "通知选择器有新事件\n<br />JC 组件以后不会在 HTML 属性里放回调, 改为触发 selector 的事件",
             "itemtype": "method",
@@ -417,7 +418,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 119,
             "description": "获取或设置组件实例",
             "itemtype": "method",
@@ -448,7 +449,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 144,
             "description": "是否自动初始化",
             "itemtype": "property",
@@ -460,7 +461,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 152,
             "description": "复制 BaseMVC 的所有方法到 _outClass",
             "itemtype": "method",
@@ -477,7 +478,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 170,
             "description": "复制 _inClass 的所有方法到 _outClass",
             "itemtype": "method",
@@ -499,7 +500,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 199,
             "description": "为 _outClass 生成一个通用 Model 类",
             "itemtype": "method",
@@ -516,7 +517,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 212,
             "description": "为 _outClass 生成一个通用 View 类",
             "itemtype": "method",
@@ -533,14 +534,14 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 222,
             "description": "初始化 BaseMVC Model 类 和 View 类",
             "class": "JC.BaseMVC",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 242,
             "description": "设置 selector 实例引用的 data 属性名",
             "itemtype": "property",
@@ -554,7 +555,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 256,
             "description": "使用 jquery on 为 controler 绑定事件",
             "itemtype": "method",
@@ -576,7 +577,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 267,
             "description": "使用 jquery trigger 触发 controler 绑定事件",
             "itemtype": "method",
@@ -598,7 +599,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 281,
             "description": "通知选择器有新事件",
             "itemtype": "method",
@@ -619,7 +620,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 293,
             "description": "初始化的 jq 选择器",
             "itemtype": "method",
@@ -638,7 +639,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 304,
             "description": "读取 int 属性的值",
             "itemtype": "method",
@@ -662,7 +663,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 325,
             "description": "读取 float 属性的值",
             "itemtype": "method",
@@ -686,7 +687,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 346,
             "description": "读取 string 属性的值",
             "itemtype": "method",
@@ -710,7 +711,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 364,
             "description": "读取 html 属性值\n<br />这个跟 stringProp 的区别是不会强制转换为小写",
             "itemtype": "method",
@@ -734,7 +735,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 387,
             "description": "读取 boolean 属性的值",
             "itemtype": "method",
@@ -764,7 +765,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 413,
             "description": "读取 callback 属性的值",
             "itemtype": "method",
@@ -789,7 +790,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 436,
             "description": "获取与属性名匹配的 window 变量",
             "itemtype": "method",
@@ -814,7 +815,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 447,
             "description": "获取 selector 属性的 jquery 选择器",
             "itemtype": "method",
@@ -838,7 +839,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 470,
             "description": "获取 脚本模板 jquery 选择器",
             "itemtype": "method",
@@ -862,7 +863,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 495,
             "description": "获取 selector 属性的 json 数据",
             "itemtype": "method",
@@ -887,7 +888,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 519,
             "description": "判断 _selector 是否具体某种特征",
             "itemtype": "method",
@@ -911,22 +912,22 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 548,
             "description": "使用 jquery on 为 controler 绑定事件",
             "class": "JC.BaseMVC.Model",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js",
+            "file": "../modules/JC.BaseMVC/0.1/BaseMVC.js",
             "line": 556,
             "description": "使用 jquery trigger 触发 controler 绑定事件",
             "class": "JC.BaseMVC.Model",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 99,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 108,
             "description": "初始化可识别的 FChart 实例",
             "itemtype": "method",
             "name": "init",
@@ -946,8 +947,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 170,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 175,
             "description": "更新数据",
             "itemtype": "method",
             "name": "update",
@@ -961,127 +962,145 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 218,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 197,
+            "description": "图表类型映射\n<br />曲线图: line, CurveGram, curvegram\n<br />柱状图: bar, Histogram, histogram\n<br />垂直柱状图: var, VHistogram, Vhistogram\n<br />饼状图: pie, PieGraph, piegraph",
+            "itemtype": "property",
+            "name": "Model.TYPE_MAP",
+            "type": "{object}",
+            "static": 1,
+            "class": "JC.FChart",
+            "namespace": "JC"
+        },
+        {
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 233,
+            "description": "解析图表默认数据",
+            "class": "JC.FChart",
+            "namespace": "JC"
+        },
+        {
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 255,
             "description": "保存图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 229,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 266,
             "description": "图表宽度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 240,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 277,
             "description": "图表高度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 251,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 288,
             "description": "图表宽度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 262,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 299,
             "description": "设置或保存图表的宽高",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 270,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 307,
             "description": "图表画布",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 276,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 313,
             "description": "画布圆角弧度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 280,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 317,
             "description": "清除图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 297,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 334,
             "description": "清除图表状态",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 329,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 366,
             "description": "图表高度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 333,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 370,
             "description": "图表高度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 337,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 374,
             "description": "图表画布",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 341,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 378,
             "description": "初始化的选择器",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 348,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 385,
             "description": "清除图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 358,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 395,
             "description": "清除图表状态",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 364,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 401,
             "description": "更新图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChart\\0.1\\FChart.js",
-            "line": 375,
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 412,
             "description": "渲染图表外观",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 53,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 57,
             "description": "展现的数据\n<br />series 数组只有索引0数据\n<br />series 索引0 里的 data 应该是个两维数组, 或者 数组里的数据为 object: { name: String, y: Number }",
             "itemtype": "property",
             "name": "series",
@@ -1094,8 +1113,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 77,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 81,
             "description": "图表数值是否按总数值=100划分百分比",
             "itemtype": "property",
             "name": "isPercent",
@@ -1108,19 +1127,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 86,
-            "description": "数据项的显示颜色",
-            "itemtype": "property",
-            "name": "colors",
-            "type": "{Array of hex colors}",
-            "default": ":    [0x03ACEF, 0x5DC979, 0x09c100, 0x0c76c4 , 0xff0619, 0xFFBF00, 0xff7100, 0xff06b3, 0x41e2e6, 0xc3e2a4, 0xffb2bc, 0xdbb8fd]",
-            "class": "JC.FChartCircleData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 107,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 90,
             "description": "设置圆环的环宽\n<br /> 仅对 NDount 生效",
             "itemtype": "property",
             "name": "radiusStep",
@@ -1130,8 +1138,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 115,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 98,
             "description": "不同 圆环图的设置数据",
             "itemtype": "property",
             "name": "plotOptions",
@@ -1140,8 +1148,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 121,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 104,
             "description": "NDount 的设置数据",
             "itemtype": "property",
             "name": "plotOptions.ndount",
@@ -1150,8 +1158,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 127,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 110,
             "description": "NDount的圆环中的文本显示设置",
             "itemtype": "property",
             "name": "plotOptions.ndount.cdataLabels",
@@ -1160,8 +1168,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 133,
+            "file": "../modules/JC.FChartCircleData/0.1/FChartCircleData.js",
+            "line": 116,
             "description": "是否显示 NDount的圆环中的文本",
             "itemtype": "property",
             "name": "plotOptions.ndount.cdataLabels.enabled",
@@ -1171,75 +1179,62 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 143,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 91,
             "description": "图表背景的设置数据",
             "itemtype": "property",
             "name": "chart",
             "type": "{object}",
-            "class": "JC.FChartCircleData",
+            "class": "JC.FChartNormalData",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 149,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 97,
+            "description": "图表的类型\n<br />see also: <a href=\"JC.FChart.html#property_Model.TYPE_MAP\">JC&#46;FChart&#46;Model.TYPE_MAP</a>",
+            "itemtype": "property",
+            "name": "chart.type",
+            "type": "{string}",
+            "default": "empty",
+            "class": "JC.FChartNormalData",
+            "namespace": "JC"
+        },
+        {
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 105,
             "description": "图表的背景颜色",
             "itemtype": "property",
             "name": "chart.bgColor",
             "type": "{hex color}",
             "default": "0xcccccc",
-            "class": "JC.FChartCircleData",
+            "class": "JC.FChartNormalData",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 156,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 112,
             "description": "图表的背景色透明度",
             "itemtype": "property",
             "name": "chart.bgAlpha",
             "type": "{Number}     0.01 ~ 1",
             "default": "0.13",
-            "class": "JC.FChartCircleData",
+            "class": "JC.FChartNormalData",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 163,
-            "description": "图表数据显示块的高度 ( pending )\n<br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同\n<br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度",
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 119,
+            "description": "图表数据显示块的高度\n<br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同\n<br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度",
             "itemtype": "property",
             "name": "chart.graphicHeight",
             "type": "{Number}",
             "default": "0,     0 = auto",
-            "class": "JC.FChartCircleData",
+            "class": "JC.FChartNormalData",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 173,
-            "description": "tips 设置数据",
-            "itemtype": "property",
-            "name": "tooltip",
-            "type": "{object}",
-            "class": "JC.FChartCircleData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js",
-            "line": 179,
-            "description": "是否显示 tips ( pending )",
-            "itemtype": "property",
-            "name": "tooltip.enabled",
-            "type": "{Boolean}",
-            "default": "true",
-            "example": [
-                " \n enabled: true"
-            ],
-            "class": "JC.FChartCircleData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 92,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 129,
             "description": "横向坐标设置数据",
             "itemtype": "property",
             "name": "xAxis",
@@ -1248,8 +1243,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 98,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 135,
             "description": "是否显示横向坐标( pending )",
             "itemtype": "property",
             "name": "xAxis.enabled",
@@ -1262,8 +1257,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 107,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 144,
             "description": "横向坐标的显示数据\n<br />这些数据默认也用于显示 tips 的主标题, 如果想重定义 tips 的主标题, 请设置 tooltip.header 属性",
             "itemtype": "property",
             "name": "xAxis.categories",
@@ -1276,8 +1271,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 117,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 154,
             "description": "横向坐标显示数据是否自动换行",
             "itemtype": "property",
             "name": "xAxis.wordwrap",
@@ -1290,8 +1285,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 126,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 163,
             "description": "横向坐标显示数据格式化显示",
             "itemtype": "property",
             "name": "xAxis.format",
@@ -1304,8 +1299,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 136,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 173,
             "description": "纵向坐标设置数据",
             "itemtype": "property",
             "name": "yAxis",
@@ -1314,8 +1309,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 142,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 179,
             "description": "是否显示纵向坐标",
             "itemtype": "property",
             "name": "yAxis.enabled",
@@ -1328,8 +1323,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 151,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 188,
             "description": "纵向坐标显示数据格式化显示",
             "itemtype": "property",
             "name": "yAxis.format",
@@ -1342,8 +1337,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 160,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 197,
             "description": "自定义纵向坐标的最大值\n<br /> 0 = auto\n<br /> 显示百分比的时候, 应该设置为 100",
             "itemtype": "property",
             "name": "yAxis.maxvalue",
@@ -1356,8 +1351,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 171,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 208,
             "description": "纵向坐标的切分粒度",
             "itemtype": "property",
             "name": "yAxis.rate",
@@ -1370,8 +1365,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 181,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 218,
             "description": "展现的数据\n<br />series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等\n<br />显示数值如果为百分比的话, 需要设置 yAxis.maxvalue = 100",
             "itemtype": "property",
             "name": "series",
@@ -1384,8 +1379,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 199,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 236,
             "description": "tips 设置数据 \n<br /> tips 的主标题默认为 xAxis.categories 对应索引的数据\n<br /> 如果想重定义主标题, 请设置 tooltip.header 属性",
             "itemtype": "property",
             "name": "tooltip",
@@ -1394,8 +1389,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 207,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 244,
             "description": "是否显示 tips",
             "itemtype": "property",
             "name": "tooltip.enabled",
@@ -1408,8 +1403,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 216,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 253,
             "description": "tips 主标题的显示格式",
             "itemtype": "property",
             "name": "tooltip.headerFormat",
@@ -1422,8 +1417,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 225,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 262,
             "description": "tips 坐数值的显示格式",
             "itemtype": "property",
             "name": "tooltip.pointFormat",
@@ -1436,8 +1431,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 234,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 271,
             "description": "tips 主标题的显示数据\n<br />如果不显式声明 tooltip.header, 默认数据为 xAxis.categories",
             "itemtype": "property",
             "name": "tooltip.header",
@@ -1450,8 +1445,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 244,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 281,
             "description": "tips 的扩展字段( 在行首显示扩展的字段 )\n<br />series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等",
             "itemtype": "property",
             "name": "tooltip.series",
@@ -1464,8 +1459,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 264,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 301,
             "description": "tips 的扩展字段( 在行底显示扩展的字段 )\n<br />series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等",
             "itemtype": "property",
             "name": "tooltip.afterSeries",
@@ -1478,8 +1473,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 286,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 323,
             "description": "是否显示所有横向 label\n<br />如果非真, 而且长度大于4, 将按横向坐标的长度切分为4个显示坐标",
             "itemtype": "property",
             "name": "displayAllLabel",
@@ -1489,8 +1484,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 294,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 331,
             "description": "数据点 label 的设置数据",
             "itemtype": "property",
             "name": "dataLabels",
@@ -1499,8 +1494,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 300,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 337,
             "description": "每个数据点是否显示数值文本",
             "itemtype": "property",
             "name": "dataLabels.enabled",
@@ -1513,8 +1508,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 309,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 346,
             "description": "格式化显示数值文本",
             "itemtype": "property",
             "name": "dataLabels.format",
@@ -1527,8 +1522,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 319,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 356,
             "description": "纵向背景线的设置数据",
             "itemtype": "property",
             "name": "vline",
@@ -1537,8 +1532,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 325,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 362,
             "description": "是否显示纵向背景线",
             "itemtype": "property",
             "name": "vline.enabled",
@@ -1551,8 +1546,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 335,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 372,
             "description": "横向背景线的设置数据",
             "itemtype": "property",
             "name": "hline",
@@ -1561,8 +1556,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 341,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 378,
             "description": "是否显示横向背景线",
             "itemtype": "property",
             "name": "hline.enabled",
@@ -1575,8 +1570,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 351,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 388,
             "description": "数据项的显示颜色",
             "itemtype": "property",
             "name": "colors",
@@ -1586,51 +1581,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 372,
-            "description": "图表背景的设置数据",
-            "itemtype": "property",
-            "name": "chart",
-            "type": "{object}",
-            "class": "JC.FChartNormalData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 378,
-            "description": "图表的背景颜色",
-            "itemtype": "property",
-            "name": "chart.bgColor",
-            "type": "{hex color}",
-            "default": "0xcccccc",
-            "class": "JC.FChartNormalData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 385,
-            "description": "图表的背景色透明度",
-            "itemtype": "property",
-            "name": "chart.bgAlpha",
-            "type": "{Number}     0.01 ~ 1",
-            "default": "0.13",
-            "class": "JC.FChartNormalData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 392,
-            "description": "图表数据显示块的高度\n<br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同\n<br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度",
-            "itemtype": "property",
-            "name": "chart.graphicHeight",
-            "type": "{Number}",
-            "default": "0,     0 = auto",
-            "class": "JC.FChartNormalData",
-            "namespace": "JC"
-        },
-        {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 402,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 409,
             "description": "数据项的背景设置\n<br /> 目前这个属性仅对 柱状图 生效",
             "itemtype": "property",
             "name": "itemBg",
@@ -1639,8 +1591,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 409,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 416,
             "description": "数据项是否显示背景色",
             "itemtype": "property",
             "name": "itemBg.enabled",
@@ -1653,8 +1605,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 418,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 425,
             "description": "数据项背景色的样式定义",
             "itemtype": "property",
             "name": "itemBg.style",
@@ -1664,8 +1616,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 426,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 433,
             "description": "数据项的鼠标划过的背景设置\n<br /> 目前这个属性仅对 柱状图 生效",
             "itemtype": "property",
             "name": "hoverBg",
@@ -1674,8 +1626,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 433,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 440,
             "description": "数据项鼠标划过是否显示背景色",
             "itemtype": "property",
             "name": "hoverBg.enabled",
@@ -1688,8 +1640,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 442,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 449,
             "description": "数据项背景色的样式定义",
             "itemtype": "property",
             "name": "hoverBg.style",
@@ -1699,8 +1651,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 450,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 457,
             "description": "最大数据的显示设置\n<br /> 目前这个属性仅对 柱状图 生效",
             "itemtype": "property",
             "name": "maxItem",
@@ -1709,8 +1661,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 457,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 464,
             "itemtype": "property",
             "name": "maxItem.style",
             "type": "{object}",
@@ -1722,8 +1674,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 465,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 472,
             "description": "数据项的背景区分设置\n<br /> 目前这个属性仅对 曲线图 生效",
             "itemtype": "property",
             "name": "toggleBg",
@@ -1732,8 +1684,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 472,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 479,
             "description": "数据项是否每隔一个数据显示不同的背景色",
             "itemtype": "property",
             "name": "toggleBg.enabled",
@@ -1746,8 +1698,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 481,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 488,
             "description": "数据项背景色的样式定义( pending )",
             "itemtype": "property",
             "name": "toggleBg.style",
@@ -1757,8 +1709,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 489,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 496,
             "description": "图表数值是否按总数值=100划分百分比",
             "itemtype": "property",
             "name": "isPercent",
@@ -1771,8 +1723,8 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js",
-            "line": 498,
+            "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
+            "line": 505,
             "description": "图表数值是否按 series 数据点 的总数值划分百分比",
             "itemtype": "property",
             "name": "isItemPercent",
@@ -1785,42 +1737,42 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 4,
             "description": "如果 console 不可用, 生成一个模拟的 console 对象",
             "class": "JC.f",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 13,
             "description": "声明主要命名空间, 方便迁移",
             "class": "JC.f",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 99,
             "description": "判断 JC.common 是否需要向后兼容, 如果需要的话, 向 window 添加全局静态函数",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 122,
             "description": "jquery 1.9.1 默认 string 没有 trim 方法, 这里对 string 原型添加一个默认的 trim 方法",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 126,
             "description": "兼容 低版本 ie Array 的 indexOf 方法",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 141,
             "description": "全局 css z-index 控制属性\n<br /> <b>注意</b>: 这个变量是 window.ZINDEX_COUNT",
             "itemtype": "property",
@@ -1832,7 +1784,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 159,
             "description": "一维数组去重",
             "itemtype": "method",
@@ -1852,7 +1804,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 178,
             "description": "把函数的参数转为数组",
             "itemtype": "method",
@@ -1872,7 +1824,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 192,
             "description": "取 URL 的 host name",
             "itemtype": "method",
@@ -1892,7 +1844,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 208,
             "description": "把 URL 相对路径 转换为 绝对路径",
             "itemtype": "method",
@@ -1917,7 +1869,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 236,
             "description": "按格式输出字符串",
             "itemtype": "method",
@@ -1940,7 +1892,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 252,
             "description": "按格式输出字符串",
             "itemtype": "method",
@@ -1968,7 +1920,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 270,
             "description": "判断URL中是否有某个get参数",
             "itemtype": "method",
@@ -1996,7 +1948,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 292,
             "description": "添加URL参数\n<br /><b>require:</b> delUrlParam, filterXSS",
             "itemtype": "method",
@@ -2024,7 +1976,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 318,
             "description": "xss 过滤函数",
             "itemtype": "method",
@@ -2044,7 +1996,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 333,
             "description": "取URL参数的值\n<br /><b>require:</b> filterXSS",
             "itemtype": "method",
@@ -2072,7 +2024,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 361,
             "description": "取URL参数的值, 这个方法返回数组\n<br />与 getUrlParam 的区别是可以获取 checkbox 的所有值\n<br /><b>require:</b> filterXSS",
             "itemtype": "method",
@@ -2100,7 +2052,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 392,
             "description": "删除URL参数\n<br /><b>require:</b> filterXSS",
             "itemtype": "method",
@@ -2128,7 +2080,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 422,
             "description": "批量删除URL参数\n<br /><b>require:</b> delUrlParam",
             "itemtype": "method",
@@ -2156,7 +2108,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 438,
             "description": "提示需要 HTTP 环境",
             "itemtype": "method",
@@ -2176,7 +2128,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 453,
             "description": "删除 URL 的锚点\n<br /><b>require:</b> addUrlParams, filterXSS",
             "itemtype": "method",
@@ -2206,7 +2158,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 475,
             "description": "重载页面\n<br /><b>require:</b> removeUrlSharp, addUrlParams, filterXSS",
             "itemtype": "method",
@@ -2233,7 +2185,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 496,
             "description": "取小数点的N位\n<br />JS 解析 浮点数的时候，经常出现各种不可预知情况，这个函数就是为了解决这个问题",
             "itemtype": "method",
@@ -2258,7 +2210,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 511,
             "description": "js 附加字串函数",
             "itemtype": "method",
@@ -2288,7 +2240,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 527,
             "description": "格式化日期为 YYYY-mm-dd 格式\n<br /><b>require</b>: pad\\_char\\_f",
             "itemtype": "method",
@@ -2313,7 +2265,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 541,
             "description": "从 ISODate 字符串解析日期对象",
             "itemtype": "method",
@@ -2333,7 +2285,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 564,
             "description": "从日期字符串解析日期对象\n<br />兼容 JC.Calendar 日期格式",
             "itemtype": "method",
@@ -2364,7 +2316,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 588,
             "description": "获取不带 时分秒的 日期对象",
             "itemtype": "method",
@@ -2383,7 +2335,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 600,
             "description": "克隆日期对象",
             "itemtype": "method",
@@ -2404,7 +2356,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 608,
             "description": "判断两个日期是否为同一天",
             "itemtype": "method",
@@ -2430,7 +2382,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 620,
             "description": "判断两个日期是否为同一月份",
             "itemtype": "method",
@@ -2456,7 +2408,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 633,
             "description": "判断两个日期是否为同一季度",
             "itemtype": "method",
@@ -2482,7 +2434,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 664,
             "description": "判断两个日期是否为同一季度",
             "itemtype": "method",
@@ -2508,7 +2460,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 696,
             "description": "判断两个日期是否为同一年",
             "itemtype": "method",
@@ -2534,7 +2486,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 708,
             "description": "取一年中所有的星期, 及其开始结束日期",
             "itemtype": "method",
@@ -2559,14 +2511,14 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 720,
             "description": "元旦开始的第一个星期一开始的一周为政治经济上的第一周",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 745,
             "description": "取一年中所有的季度, 及其开始结束日期",
             "itemtype": "method",
@@ -2586,7 +2538,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 782,
             "description": "取得一个月份中最大的一天",
             "itemtype": "method",
@@ -2607,7 +2559,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 795,
             "description": "取当前脚本标签的 src路径",
             "itemtype": "method",
@@ -2621,7 +2573,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 807,
             "description": "缓动函数, 动画效果为按时间缓动 \n<br />这个函数只考虑递增, 你如果需要递减的话, 在回调里用 _maxVal - _stepval",
             "itemtype": "method",
@@ -2664,7 +2616,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 860,
             "description": "把输入值转换为布尔值",
             "itemtype": "method",
@@ -2684,7 +2636,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 879,
             "description": "绑定或清除 mousewheel 事件",
             "itemtype": "method",
@@ -2711,7 +2663,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 903,
             "description": "获取 selector 的指定父级标签",
             "itemtype": "method",
@@ -2737,7 +2689,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 929,
             "description": "扩展 jquery 选择器\n<br />扩展起始字符的 '/' 符号为 jquery 父节点选择器\n<br />扩展起始字符的 '|' 符号为 jquery 子节点选择器\n<br />扩展起始字符的 '(' 符号为 jquery 父节点查找识别符( getJqParent )",
             "itemtype": "method",
@@ -2768,7 +2720,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 997,
             "description": "获取脚本模板的内容",
             "itemtype": "method",
@@ -2788,7 +2740,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1012,
             "description": "取函数名 ( 匿名函数返回空 )",
             "itemtype": "method",
@@ -2808,7 +2760,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1027,
             "description": "动态添加内容时, 初始化可识别的组件\n<dl>\n     <dt>目前会自动识别的组件</dt>\n     <dd>\n         Bizs.CommonModify, JC.Panel, JC.Dialog\n         <br /><b>自动识别的组件不用显式调用  jcAutoInitComps 去识别可识别的组件</b>\n     </dd>\n</d>\n<dl>\n     <dt>可识别的组件</dt>\n     <dd>\n         JC.AutoSelect, JC.AutoChecked, JC.AjaxUpload, JC.Calendar\n         , JC.Drag, JC.DCalendar, JC.Placeholder, JC.TableFreeze, JC.ImageCutter\n         <br />Bizs.DisableLogic, Bizs.FormLogic, Bizs.MoneyTips, Bizs.AutoSelectComplete\n     </dd>\n</d>",
             "itemtype": "method",
@@ -2825,105 +2777,105 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1052,
             "description": "联动下拉框",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1056,
             "description": "日历组件",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1060,
             "description": "双日历组件",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1064,
             "description": "全选反选",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1068,
             "description": "Ajax 上传",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1072,
             "description": "占位符",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1076,
             "description": "表格冻结",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1080,
             "description": "拖曳",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1084,
             "description": "图片裁切",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1090,
             "description": "disable / enable",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1094,
             "description": "表单提交逻辑",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1098,
             "description": "格式化金额",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1102,
             "description": "自动完成",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1107,
             "description": "排期日期展示",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1112,
             "description": "URL 占位符识别功能\n<br /><b>require:</b> addUrlParams, filterXSS",
             "itemtype": "method",
@@ -2946,7 +2898,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1153,
             "description": "日期占位符识别功能",
             "itemtype": "method",
@@ -2970,14 +2922,14 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1217,
             "description": "inject jquery val func, for hidden change event",
             "class": "JC.common",
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1235,
             "description": "逗号格式化金额",
             "itemtype": "method",
@@ -3012,7 +2964,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1290,
             "description": "日期格式化 (具体格式请查看 PHP Date Formats)",
             "itemtype": "method",
@@ -3037,7 +2989,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1365,
             "description": "扩展对象属性",
             "itemtype": "method",
@@ -3067,7 +3019,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1387,
             "description": "timeout 控制逻辑, 避免相同功能的 setTimeout 重复执行",
             "itemtype": "method",
@@ -3102,7 +3054,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1408,
             "description": "URL 请求时, 获取对URL参数进行编码的函数",
             "itemtype": "method",
@@ -3123,7 +3075,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1426,
             "description": "深度克隆对象",
             "itemtype": "method",
@@ -3143,7 +3095,7 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\modules\\JC.common\\0.2\\common.js",
+            "file": "../modules/JC.common/0.2/common.js",
             "line": 1469,
             "description": "获取 document 的 相关大小",
             "itemtype": "method",
@@ -3163,15 +3115,15 @@
             "namespace": "JC"
         },
         {
-            "file": "..\\config.js",
+            "file": "../config.js",
             "line": 4,
             "description": "requirejs config.js for JC Chart Project",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\config.js",
-            "line": 22,
+            "file": "../config.js",
+            "line": 25,
             "description": "取当前脚本标签的 src路径",
             "static": 1,
             "return": {
@@ -3182,42 +3134,42 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 8,
             "license": "RequireJS 2.1.8 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.\nAvailable via the MIT or new BSD license.\nsee: http://github.com/jrburke/requirejs for details",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 56,
             "description": "Helper function for iterating over an array. If the func returns\na true value, it will break out of the loop.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 71,
             "description": "Helper function for iterating over an array backwards. If the func\nreturns a true value, it will break out of the loop.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 94,
             "description": "Cycles over properties in an object and calls a function for each\nproperty value. If the function returns a truthy value, then the\niteration is stopped.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 110,
             "description": "Simple function to mix in properties from source into target,\nbut only if target does not already have a property of the same name.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 161,
             "description": "Constructs an error with a pointer to an URL with more information.",
             "params": [
@@ -3246,7 +3198,7 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 227,
             "description": "Trims the . and .. from an array of path segments.\nIt will keep a leading path segment if a .. will become\nthe first path segment, to help with module name lookups,\nwhich act like paths, but can be remapped. But the end result,\nall paths that use this function should look normalized.\nNOTE: this method MODIFIES the input array.",
             "params": [
@@ -3260,7 +3212,7 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 260,
             "description": "Given a relative module name, like ./something, normalize it to\na real name that can be mapped to a path.",
             "params": [
@@ -3288,7 +3240,7 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 406,
             "description": "Creates a module mapping that includes plugin prefix, module\nname, and path. If parentModuleMap is provided it will\nalso normalize the name via require.normalize()",
             "params": [
@@ -3322,21 +3274,21 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 548,
             "description": "Internal method to transfer globalQueue items to this context's\ndefQueue.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 836,
             "description": "Checks if the module is ready to define itself, and if so,\ndefine it.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1195,
             "description": "Given an event from a script node, get the requirejs info from it,\nand then removes the event listeners on the node.",
             "params": [
@@ -3354,7 +3306,7 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1248,
             "description": "Set a configuration for the context.",
             "params": [
@@ -3368,21 +3320,21 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1432,
             "description": "Converts a module name + .extension into an URL path.\n*Requires* the use of a module name. It does not support using\nplain URLs like nameToUrl.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1494,
             "description": "Called to enable a module if it is still in the registry\nawaiting enablement. A second arg, parent, the parent module,\nis passed in for context, when this method is overriden by\nthe optimizer. Not shown here to keep code compact.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1507,
             "description": "Internal method used by environment adapters to complete a load event.\nA load event could be a script load or just a load pass from a synchronous\nload call.",
             "params": [
@@ -3396,14 +3348,14 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1563,
             "description": "Converts a module name to a file path. Supports cases where\nmoduleName may actually be just an URL.\nNote that it **does not** call normalize on the moduleName,\nit is assumed to have already been normalized. This is an\ninternal API, not a public one. Use toUrl for the public API.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1634,
             "description": "Executes a module callback function. Broken out as a separate function\nsolely to allow the build system to sequence the files in the built\nlayer in the right sequence.",
             "access": "private",
@@ -3412,7 +3364,7 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1645,
             "description": "callback for script loads, used to check status of loading.",
             "params": [
@@ -3426,28 +3378,28 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1667,
             "description": "Callback for script errors.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1682,
             "description": "Main entry point.\n\nIf the only argument to require is a string, then the module that\nis represented by that string is fetched for the appropriate context.\n\nIf the first argument is an array, then it will be treated as an array\nof dependency string names to fetch. An optional function callback can\nbe specified to execute when all of those dependencies are available.\n\nMake a local req variable to help Caja compliance (it assumes things\non a require that are not standardized), and to give a short\nname for minification/local scope use.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1732,
             "description": "Support require.config() to make it easier to cooperate with other\nAMD loaders on globally agreed names.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1740,
             "description": "Execute something after the current tick\nof the event loop. Override for other envs\nthat have a better solution than setTimeout.",
             "params": [
@@ -3461,14 +3413,14 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1750,
             "description": "Export require as a global, but only if it does not already exist.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1797,
             "description": "Any errors that require explicitly generates will be passed to this\nfunction. Intercept/override it if you want custom error handling.",
             "params": [
@@ -3482,14 +3434,14 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1804,
             "description": "Creates the node for the load command. Only used in browser envs.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1817,
             "description": "Does the request to load a module for the browser case.\nMake this a separate function to allow other environments\nto override it.",
             "params": [
@@ -3513,14 +3465,14 @@
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 1973,
             "description": "The function that handles definitions of modules. Differs from\nrequire() in that a string for the module should be the first argument,\nand the function to execute after dependencies are loaded should\nreturn a value to define the module corresponding to the first argument's\nname.",
             "class": "window.requirejs",
             "namespace": "window"
         },
         {
-            "file": "..\\lib.js",
+            "file": "../lib.js",
             "line": 2047,
             "description": "Executes the text. Normally just uses eval, but can be modified\nto use a better, environment-specific call. Only used for transpiling\nloader plugins, not for plain JS modules.",
             "params": [
@@ -3537,351 +3489,355 @@
     "warnings": [
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js:3"
+            "line": " ../modules/JC.BaseMVC/0.1/BaseMVC.js:3"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js:227"
+            "line": " ../modules/JC.BaseMVC/0.1/BaseMVC.js:227"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:2"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:2"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.FChartCircleData\\0.1\\FChartCircleData.js:2"
+            "line": " ../modules/JC.FChartCircleData/0.1/FChartCircleData.js:2"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.FChartNormalData\\0.1\\FChart.NormalData.js:2"
+            "line": " ../modules/JC.FChartNormalData/0.1/FChartNormalData.js:2"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:31"
+            "line": " ../modules/JC.common/0.2/common.js:31"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:31"
+            "line": " ../modules/JC.common/0.2/common.js:31"
         },
         {
             "message": "unknown tag: require",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:903"
+            "line": " ../modules/JC.common/0.2/common.js:903"
         },
         {
             "message": "unknown tag: require",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:929"
+            "line": " ../modules/JC.common/0.2/common.js:929"
         },
         {
             "message": "unknown tag: version",
-            "line": " ..\\modules\\swfobject\\2.3\\swfobject.js:1"
+            "line": " ../modules/swfobject/2.3/swfobject.js:1"
         },
         {
             "message": "unknown tag: license",
-            "line": " ..\\lib.js:8"
+            "line": " ../lib.js:8"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\lib.js:161"
+            "line": " ../lib.js:161"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\lib.js:260"
+            "line": " ../lib.js:260"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\lib.js:406"
+            "line": " ../lib.js:406"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\lib.js:1195"
+            "line": " ../lib.js:1195"
         },
         {
             "message": "Missing item type\n初始化 BaseMVC Model 类 和 View 类",
-            "line": " ..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js:222"
+            "line": " ../modules/JC.BaseMVC/0.1/BaseMVC.js:222"
         },
         {
             "message": "Missing item type\n使用 jquery on 为 controler 绑定事件",
-            "line": " ..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js:548"
+            "line": " ../modules/JC.BaseMVC/0.1/BaseMVC.js:548"
         },
         {
             "message": "Missing item type\n使用 jquery trigger 触发 controler 绑定事件",
-            "line": " ..\\modules\\JC.BaseMVC\\0.1\\BaseMVC.js:556"
+            "line": " ../modules/JC.BaseMVC/0.1/BaseMVC.js:556"
+        },
+        {
+            "message": "Missing item type\n解析图表默认数据",
+            "line": " ../modules/JC.FChart/0.1/FChart.js:233"
         },
         {
             "message": "Missing item type\n保存图表数据",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:218"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:255"
         },
         {
             "message": "Missing item type\n图表宽度",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:229"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:266"
         },
         {
             "message": "Missing item type\n图表高度",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:240"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:277"
         },
         {
             "message": "Missing item type\n图表宽度",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:251"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:288"
         },
         {
             "message": "Missing item type\n设置或保存图表的宽高",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:262"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:299"
         },
         {
             "message": "Missing item type\n图表画布",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:270"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:307"
         },
         {
             "message": "Missing item type\n画布圆角弧度",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:276"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:313"
         },
         {
             "message": "Missing item type\n清除图表数据",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:280"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:317"
         },
         {
             "message": "Missing item type\n清除图表状态",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:297"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:334"
         },
         {
             "message": "Missing item type\n图表高度",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:329"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:366"
         },
         {
             "message": "Missing item type\n图表高度",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:333"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:370"
         },
         {
             "message": "Missing item type\n图表画布",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:337"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:374"
         },
         {
             "message": "Missing item type\n初始化的选择器",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:341"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:378"
         },
         {
             "message": "Missing item type\n清除图表数据",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:348"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:385"
         },
         {
             "message": "Missing item type\n清除图表状态",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:358"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:395"
         },
         {
             "message": "Missing item type\n更新图表数据",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:364"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:401"
         },
         {
             "message": "Missing item type\n渲染图表外观",
-            "line": " ..\\modules\\JC.FChart\\0.1\\FChart.js:375"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:412"
         },
         {
             "message": "Missing item type\n如果 console 不可用, 生成一个模拟的 console 对象",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:4"
+            "line": " ../modules/JC.common/0.2/common.js:4"
         },
         {
             "message": "Missing item type\n声明主要命名空间, 方便迁移",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:13"
+            "line": " ../modules/JC.common/0.2/common.js:13"
         },
         {
             "message": "Missing item type\n判断 JC.common 是否需要向后兼容, 如果需要的话, 向 window 添加全局静态函数",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:99"
+            "line": " ../modules/JC.common/0.2/common.js:99"
         },
         {
             "message": "Missing item type\njquery 1.9.1 默认 string 没有 trim 方法, 这里对 string 原型添加一个默认的 trim 方法",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:122"
+            "line": " ../modules/JC.common/0.2/common.js:122"
         },
         {
             "message": "Missing item type\n兼容 低版本 ie Array 的 indexOf 方法",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:126"
+            "line": " ../modules/JC.common/0.2/common.js:126"
         },
         {
             "message": "Missing item type\n元旦开始的第一个星期一开始的一周为政治经济上的第一周",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:720"
+            "line": " ../modules/JC.common/0.2/common.js:720"
         },
         {
             "message": "Missing item type\n联动下拉框",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1052"
+            "line": " ../modules/JC.common/0.2/common.js:1052"
         },
         {
             "message": "Missing item type\n日历组件",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1056"
+            "line": " ../modules/JC.common/0.2/common.js:1056"
         },
         {
             "message": "Missing item type\n双日历组件",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1060"
+            "line": " ../modules/JC.common/0.2/common.js:1060"
         },
         {
             "message": "Missing item type\n全选反选",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1064"
+            "line": " ../modules/JC.common/0.2/common.js:1064"
         },
         {
             "message": "Missing item type\nAjax 上传",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1068"
+            "line": " ../modules/JC.common/0.2/common.js:1068"
         },
         {
             "message": "Missing item type\n占位符",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1072"
+            "line": " ../modules/JC.common/0.2/common.js:1072"
         },
         {
             "message": "Missing item type\n表格冻结",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1076"
+            "line": " ../modules/JC.common/0.2/common.js:1076"
         },
         {
             "message": "Missing item type\n拖曳",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1080"
+            "line": " ../modules/JC.common/0.2/common.js:1080"
         },
         {
             "message": "Missing item type\n图片裁切",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1084"
+            "line": " ../modules/JC.common/0.2/common.js:1084"
         },
         {
             "message": "Missing item type\ndisable / enable",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1090"
+            "line": " ../modules/JC.common/0.2/common.js:1090"
         },
         {
             "message": "Missing item type\n表单提交逻辑",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1094"
+            "line": " ../modules/JC.common/0.2/common.js:1094"
         },
         {
             "message": "Missing item type\n格式化金额",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1098"
+            "line": " ../modules/JC.common/0.2/common.js:1098"
         },
         {
             "message": "Missing item type\n自动完成",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1102"
+            "line": " ../modules/JC.common/0.2/common.js:1102"
         },
         {
             "message": "Missing item type\n排期日期展示",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1107"
+            "line": " ../modules/JC.common/0.2/common.js:1107"
         },
         {
             "message": "Missing item type\ninject jquery val func, for hidden change event",
-            "line": " ..\\modules\\JC.common\\0.2\\common.js:1217"
+            "line": " ../modules/JC.common/0.2/common.js:1217"
         },
         {
             "message": "Missing item type\nrequirejs config.js for JC Chart Project",
-            "line": " ..\\config.js:4"
+            "line": " ../config.js:4"
         },
         {
             "message": "Missing item type\n取当前脚本标签的 src路径",
-            "line": " ..\\config.js:22"
+            "line": " ../config.js:25"
         },
         {
             "message": "Missing item type",
-            "line": " ..\\lib.js:8"
+            "line": " ../lib.js:8"
         },
         {
             "message": "Missing item type\nHelper function for iterating over an array. If the func returns\na true value, it will break out of the loop.",
-            "line": " ..\\lib.js:56"
+            "line": " ../lib.js:56"
         },
         {
             "message": "Missing item type\nHelper function for iterating over an array backwards. If the func\nreturns a true value, it will break out of the loop.",
-            "line": " ..\\lib.js:71"
+            "line": " ../lib.js:71"
         },
         {
             "message": "Missing item type\nCycles over properties in an object and calls a function for each\nproperty value. If the function returns a truthy value, then the\niteration is stopped.",
-            "line": " ..\\lib.js:94"
+            "line": " ../lib.js:94"
         },
         {
             "message": "Missing item type\nSimple function to mix in properties from source into target,\nbut only if target does not already have a property of the same name.",
-            "line": " ..\\lib.js:110"
+            "line": " ../lib.js:110"
         },
         {
             "message": "Missing item type\nConstructs an error with a pointer to an URL with more information.",
-            "line": " ..\\lib.js:161"
+            "line": " ../lib.js:161"
         },
         {
             "message": "Missing item type\nTrims the . and .. from an array of path segments.\nIt will keep a leading path segment if a .. will become\nthe first path segment, to help with module name lookups,\nwhich act like paths, but can be remapped. But the end result,\nall paths that use this function should look normalized.\nNOTE: this method MODIFIES the input array.",
-            "line": " ..\\lib.js:227"
+            "line": " ../lib.js:227"
         },
         {
             "message": "Missing item type\nGiven a relative module name, like ./something, normalize it to\na real name that can be mapped to a path.",
-            "line": " ..\\lib.js:260"
+            "line": " ../lib.js:260"
         },
         {
             "message": "Missing item type\nCreates a module mapping that includes plugin prefix, module\nname, and path. If parentModuleMap is provided it will\nalso normalize the name via require.normalize()",
-            "line": " ..\\lib.js:406"
+            "line": " ../lib.js:406"
         },
         {
             "message": "Missing item type\nInternal method to transfer globalQueue items to this context's\ndefQueue.",
-            "line": " ..\\lib.js:548"
+            "line": " ../lib.js:548"
         },
         {
             "message": "Missing item type\nChecks if the module is ready to define itself, and if so,\ndefine it.",
-            "line": " ..\\lib.js:836"
+            "line": " ../lib.js:836"
         },
         {
             "message": "Missing item type\nGiven an event from a script node, get the requirejs info from it,\nand then removes the event listeners on the node.",
-            "line": " ..\\lib.js:1195"
+            "line": " ../lib.js:1195"
         },
         {
             "message": "Missing item type\nSet a configuration for the context.",
-            "line": " ..\\lib.js:1248"
+            "line": " ../lib.js:1248"
         },
         {
             "message": "Missing item type\nConverts a module name + .extension into an URL path.\n*Requires* the use of a module name. It does not support using\nplain URLs like nameToUrl.",
-            "line": " ..\\lib.js:1432"
+            "line": " ../lib.js:1432"
         },
         {
             "message": "Missing item type\nCalled to enable a module if it is still in the registry\nawaiting enablement. A second arg, parent, the parent module,\nis passed in for context, when this method is overriden by\nthe optimizer. Not shown here to keep code compact.",
-            "line": " ..\\lib.js:1494"
+            "line": " ../lib.js:1494"
         },
         {
             "message": "Missing item type\nInternal method used by environment adapters to complete a load event.\nA load event could be a script load or just a load pass from a synchronous\nload call.",
-            "line": " ..\\lib.js:1507"
+            "line": " ../lib.js:1507"
         },
         {
             "message": "Missing item type\nConverts a module name to a file path. Supports cases where\nmoduleName may actually be just an URL.\nNote that it **does not** call normalize on the moduleName,\nit is assumed to have already been normalized. This is an\ninternal API, not a public one. Use toUrl for the public API.",
-            "line": " ..\\lib.js:1563"
+            "line": " ../lib.js:1563"
         },
         {
             "message": "Missing item type\nExecutes a module callback function. Broken out as a separate function\nsolely to allow the build system to sequence the files in the built\nlayer in the right sequence.",
-            "line": " ..\\lib.js:1634"
+            "line": " ../lib.js:1634"
         },
         {
             "message": "Missing item type\ncallback for script loads, used to check status of loading.",
-            "line": " ..\\lib.js:1645"
+            "line": " ../lib.js:1645"
         },
         {
             "message": "Missing item type\nCallback for script errors.",
-            "line": " ..\\lib.js:1667"
+            "line": " ../lib.js:1667"
         },
         {
             "message": "Missing item type\nMain entry point.\n\nIf the only argument to require is a string, then the module that\nis represented by that string is fetched for the appropriate context.\n\nIf the first argument is an array, then it will be treated as an array\nof dependency string names to fetch. An optional function callback can\nbe specified to execute when all of those dependencies are available.\n\nMake a local req variable to help Caja compliance (it assumes things\non a require that are not standardized), and to give a short\nname for minification/local scope use.",
-            "line": " ..\\lib.js:1682"
+            "line": " ../lib.js:1682"
         },
         {
             "message": "Missing item type\nSupport require.config() to make it easier to cooperate with other\nAMD loaders on globally agreed names.",
-            "line": " ..\\lib.js:1732"
+            "line": " ../lib.js:1732"
         },
         {
             "message": "Missing item type\nExecute something after the current tick\nof the event loop. Override for other envs\nthat have a better solution than setTimeout.",
-            "line": " ..\\lib.js:1740"
+            "line": " ../lib.js:1740"
         },
         {
             "message": "Missing item type\nExport require as a global, but only if it does not already exist.",
-            "line": " ..\\lib.js:1750"
+            "line": " ../lib.js:1750"
         },
         {
             "message": "Missing item type\nAny errors that require explicitly generates will be passed to this\nfunction. Intercept/override it if you want custom error handling.",
-            "line": " ..\\lib.js:1797"
+            "line": " ../lib.js:1797"
         },
         {
             "message": "Missing item type\nCreates the node for the load command. Only used in browser envs.",
-            "line": " ..\\lib.js:1804"
+            "line": " ../lib.js:1804"
         },
         {
             "message": "Missing item type\nDoes the request to load a module for the browser case.\nMake this a separate function to allow other environments\nto override it.",
-            "line": " ..\\lib.js:1817"
+            "line": " ../lib.js:1817"
         },
         {
             "message": "Missing item type\nThe function that handles definitions of modules. Differs from\nrequire() in that a string for the module should be the first argument,\nand the function to execute after dependencies are loaded should\nreturn a value to define the module corresponding to the first argument's\nname.",
-            "line": " ..\\lib.js:1973"
+            "line": " ../lib.js:1973"
         },
         {
             "message": "Missing item type\nExecutes the text. Normally just uses eval, but can be modified\nto use a better, environment-specific call. Only used for transpiling\nloader plugins, not for plain JS modules.",
-            "line": " ..\\lib.js:2047"
+            "line": " ../lib.js:2047"
         }
     ]
 }

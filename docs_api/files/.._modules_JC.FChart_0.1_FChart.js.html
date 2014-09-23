@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\modules\JC.FChart\0.1\FChart.js - FChart</title>
+    <title>../modules/JC.FChart/0.1/FChart.js - FChart</title>
     <link rel="stylesheet" href="../assets/css/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -21,7 +21,7 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="..\jc_logo.png" title="FChart"></h1>
+                <h1><img src="../jc_logo.png" title="FChart"></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
@@ -106,13 +106,13 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\modules\JC.FChart\0.1\FChart.js</h1>
+                        <h1 class="file-heading">File: ../modules/JC.FChart/0.1/FChart.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 ;(function(define, _win) { &#x27;use strict&#x27;; define( [ &#x27;JC.BaseMVC&#x27;, &#x27;swfobject&#x27;, &#x27;json2&#x27; ], function(){
 /**
- * 组件用途简述
+ * JC.FChart - flash 图表组件
  *
  *  &lt;p&gt;&lt;b&gt;require&lt;/b&gt;:
  *      &lt;a href=&#x27;JC.BaseMVC.html&#x27;&gt;JC.BaseMVC&lt;/a&gt;
@@ -129,8 +129,17 @@
  *  &lt;h2&gt;可用的 HTML attribute&lt;/h2&gt;
  *
  *  &lt;dl&gt;
- *      &lt;dt&gt;&lt;/dt&gt;
- *      &lt;dd&gt;&lt;dd&gt;
+ *      &lt;dt&gt;chartScriptData = script tpl selector&lt;/dt&gt;
+ *      &lt;dd&gt;图表的脚本模板数据&lt;dd&gt;
+ *
+ *      &lt;dt&gt;chartDataVar = json object name&lt;/dt&gt;
+ *      &lt;dd&gt;图表的json数据名, &lt;b&gt;window变量域&lt;/b&gt;&lt;dd&gt;
+ *
+ *      &lt;dt&gt;chartWidth = number, default = 100%&lt;/dt&gt;
+ *      &lt;dd&gt;图表的宽度&lt;/dd&gt;
+ *
+ *      &lt;dt&gt;chartHeight = number, default = 400&lt;/dt&gt;
+ *      &lt;dd&gt;图表的高度&lt;/dd&gt;
  *  &lt;/dl&gt; 
  *
  * @namespace   JC
@@ -245,14 +254,10 @@
                 var _p = this;
 
                 _p.on( &#x27;inited&#x27;, function(){
-                   var _data;
-                    if( this.selector().attr( &#x27;chartScriptData&#x27; ) ){
-                        _data = this._model.selectorProp( &#x27;chartScriptData&#x27; ).html();
-                        _data = _data.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, &#x27;&#x27; );
-                        _data = _data.replace( /[\r\n]/g, &#x27;&#x27; );
-                        _data = _data.replace( /\}[\s]*?,[\s]*?\}$/g, &#x27;}}&#x27;);
-                        _data = eval( &#x27;(&#x27; + _data + &#x27;)&#x27; );
-                        this.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
+                   var _data = _p._model.parseInitData();
+
+                    if( _data ){
+                        _p.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() &amp;&amp; _p.selector().css( { &#x27;height&#x27;: _p._model.height() } );
                 });
@@ -301,6 +306,16 @@
 
     FChart.Model.FLASH_PATH = &#x27;{0}/flash/pub/charts/{1}.swf&#x27;;
 
+    /**
+     * 图表类型映射
+     * &lt;br /&gt;曲线图: line, CurveGram, curvegram
+     * &lt;br /&gt;柱状图: bar, Histogram, histogram
+     * &lt;br /&gt;垂直柱状图: var, VHistogram, Vhistogram
+     * &lt;br /&gt;饼状图: pie, PieGraph, piegraph
+     * @property    Model.TYPE_MAP
+     * @type        {object}
+     * @static
+     */
     FChart.Model.TYPE_MAP = {
         &#x27;line&#x27;: &#x27;CurveGram&#x27;
         , &#x27;CurveGram&#x27;: &#x27;CurveGram&#x27;
@@ -326,6 +341,28 @@
                 //JC.log( &#x27;FChart.Model.init:&#x27;, new Date().getTime() );
                 this._gid = &#x27;jchart_gid_&#x27; + ( FChart.Model.INS_COUNT++ );
                 this.afterInit &amp;&amp; this.afterInit();
+            }
+        /**
+         * 解析图表默认数据
+         */
+        , parseInitData:
+            function(){
+                var _p = this, _data;
+                if( _p.selector().attr( &#x27;chartScriptData&#x27; ) ){
+                    _data = _p.selectorProp( &#x27;chartScriptData&#x27; ).html();
+                }else if( _p.selector().is( &#x27;[chartDataVar]&#x27; ) ){
+                    _data = _p.windowProp( &#x27;chartDataVar&#x27; );
+                    _data &amp;&amp; ( _data = JSON.stringify( _data ) );
+                }
+
+                if( _data ){
+                    _data = _data.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, &#x27;&#x27; );
+                    _data = _data.replace( /[\r\n]/g, &#x27;&#x27; );
+                    _data = _data.replace( /\}[\s]*?,[\s]*?\}$/g, &#x27;}}&#x27;);
+                    _data = eval( &#x27;(&#x27; + _data + &#x27;)&#x27; );
+                }
+
+                return _data;
             }
         /**
          * 保存图表数据

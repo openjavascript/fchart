@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\modules\JC.FChartNormalData\0.1\FChart.NormalData.js - FChart</title>
+    <title>../modules/JC.FChartNormalData/0.1/FChartNormalData.js - FChart</title>
     <link rel="stylesheet" href="../assets/css/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -21,7 +21,7 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="..\jc_logo.png" title="FChart"></h1>
+                <h1><img src="../jc_logo.png" title="FChart"></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
@@ -106,7 +106,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\modules\JC.FChartNormalData\0.1\FChart.NormalData.js</h1>
+                        <h1 class="file-heading">File: ../modules/JC.FChartNormalData/0.1/FChartNormalData.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -132,8 +132,12 @@
  * @example
 &lt;h2&gt;显示 两条[曲线|柱状]的图表数据&lt;/h2&gt;
 &lt;pre&gt;{
-    
-    xAxis: {
+    chart: {
+        type: &#x27;line&#x27;
+        , bgColor: 0xffffff
+        , bgAlpha: 1
+    }
+    , xAxis: {
         categories: [ &#x27;02/24&#x27;, &#x27;02/25&#x27;, &#x27;02/26&#x27;, &#x27;02/27&#x27;, &#x27;02/28&#x27;, &#x27;02/29&#x27;, &#x27;03/01&#x27; ]
     }
     , yAxis: {
@@ -184,11 +188,6 @@
         
         , 0xdbb8fd
     ]    				
-    , chart: {
-        bgColor: 0xffffff
-        , bgAlpha: 1
-        //, graphicHeight: 220
-    }
     , hoverBg: {
         enabled: true		
         , style: {
@@ -202,11 +201,49 @@
 
     JChart.FChartNormalData = {
         /**
+         * 图表背景的设置数据
+         * @property    chart
+         * @type        {object}
+         */
+        chart: {
+            /**
+             * 图表的类型
+             * &lt;br /&gt;see also: &lt;a href=&quot;JC.FChart.html#property_Model.TYPE_MAP&quot;&gt;JC&amp;#46;FChart&amp;#46;Model.TYPE_MAP&lt;/a&gt;
+             * @property    chart.type
+             * @type        {string}
+             * @default     empty
+             */
+            type: &#x27;&#x27;
+            /**
+             * 图表的背景颜色
+             * @property    chart.bgColor
+             * @type        {hex color}
+             * @default     0xcccccc
+             */
+            , bgColor: 0xcccccc
+            /**
+             * 图表的背景色透明度
+             * @property    chart.bgAlpha
+             * @type        {Number}     0.01 ~ 1
+             * @default     0.13
+             */
+            , bgAlpha: .13
+            /**
+             * 图表数据显示块的高度
+             * &lt;br /&gt;有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
+             * &lt;br /&gt;这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
+             * @property    chart.graphicHeight
+             * @type        {Number}     
+             * @default     0,     0 = auto
+             */
+            , graphicHeight: 0
+        }
+        /**
          * 横向坐标设置数据
          * @property    xAxis
          * @type        {object}
          */
-        xAxis: {
+        , xAxis: {
             /**
              * 是否显示横向坐标( pending )
              * @property    xAxis.enabled
@@ -481,36 +518,6 @@
             
             0xdbb8fd
         ]
-        /**
-         * 图表背景的设置数据
-         * @property    chart
-         * @type        {object}
-         */
-        , chart: {
-            /**
-             * 图表的背景颜色
-             * @property    chart.bgColor
-             * @type        {hex color}
-             * @default     0xcccccc
-             */
-            bgColor: 0xcccccc
-            /**
-             * 图表的背景色透明度
-             * @property    chart.bgAlpha
-             * @type        {Number}     0.01 ~ 1
-             * @default     0.13
-             */
-            , bgAlpha: .13
-            /**
-             * 图表数据显示块的高度
-             * &lt;br /&gt;有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
-             * &lt;br /&gt;这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
-             * @property    chart.graphicHeight
-             * @type        {Number}     
-             * @default     0,     0 = auto
-             */
-            , graphicHeight: 0
-        }
         /**
          * 数据项的背景设置
          * &lt;br /&gt; 目前这个属性仅对 柱状图 生效
