@@ -4,7 +4,7 @@ package org.xas.jchart.map.view.mediator
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.map.view.components.GraphicView;
+	import org.xas.jchart.map.view.components.*;
 	import org.xas.jchart.common.view.mediator.MainMediator;
 	import org.xas.core.utils.Log;
 	
@@ -17,11 +17,10 @@ package org.xas.jchart.map.view.mediator
 		public function GraphicMediator()
 		{
 			super( name );
-			
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index7.addChild( _view = new GraphicView() );
+			mainMediator.view.index4.addChild( _view = new GraphicView() );
 			
 			_view.addEventListener( JChartEvent.UPDATE_TIPS, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.UPDATE_TIPS, _evt.data );

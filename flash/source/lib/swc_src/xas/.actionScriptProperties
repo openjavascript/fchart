@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties mainApplicationPath="XAS.as" projectUUID="e19448f4-4ac5-45e4-844a-a8e6d5f6c799" version="6">
-<<<<<<< HEAD
-  <compiler additionalCompilerArguments="-locale zh_CN" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-release" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
-=======
-  <compiler additionalCompilerArguments="-locale zh_CN" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderLocation="G:/My Documents/git/fchart/flash/source/lib/swc" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
->>>>>>> 2f9332f517463af2b2d3ef8eb2bb367610f0dd9d
+  <compiler additionalCompilerArguments="-locale zh_CN" autoRSLOrdering="true" copyDependentFiles="false" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderLocation="${MY_WORKSPACE}/lib/swc" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
@@ -12,12 +8,8 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
-      <libraryPathEntry kind="1" linkType="1" path="swc"/>
-<<<<<<< HEAD
-      <libraryPathEntry kind="3" linkType="1" path="C:/sysCode/fchart/flash/source/lib/swc/adobe.swc" useDefaultLinkType="false"/>
-=======
-      <libraryPathEntry kind="3" linkType="1" path="G:/My Documents/git/fchart/flash/source/lib/swc/adobe.swc" useDefaultLinkType="false"/>
->>>>>>> 2f9332f517463af2b2d3ef8eb2bb367610f0dd9d
+      <libraryPathEntry kind="3" linkType="1" path="${MY_WORKSPACE}/lib/swc/adobe.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="swc/FL_COMPS.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

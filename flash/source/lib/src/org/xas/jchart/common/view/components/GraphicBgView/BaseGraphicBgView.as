@@ -23,6 +23,7 @@ package org.xas.jchart.common.view.components.GraphicBgView
 		
 			addEventListener( JChartEvent.SHOW_CHART, showChart );
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
+			mouseEnabled = false;
 		}
 		
 		protected function addToStage( _evt:Event ):void{

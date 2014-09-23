@@ -43,7 +43,7 @@ package org.xas.jchart.common.view.mediator
 				}
 				case 'MapFacade':
 				{
-					mainMediator.view.index5.addChild( _view = new MapVLabelView() );
+					mainMediator.view.index6.addChild( _view = new MapVLabelView() );
 					break;
 				}
 				default:{

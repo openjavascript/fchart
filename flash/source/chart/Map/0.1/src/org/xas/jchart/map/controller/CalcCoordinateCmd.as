@@ -19,7 +19,6 @@ package org.xas.jchart.map.controller
 	{
 		private var _c:Coordinate;
 		private var _config:Config;
-		private var highColor:uint = 0x2f7ed8;//change
 		
 		public function CalcCoordinateCmd(){
 			super();
@@ -67,11 +66,15 @@ package org.xas.jchart.map.controller
 				
 				//设置地图显示区域
 				if( _config.cd.series && _config.cd.series.length ){
+					_config.c.hoverColor = _config.hoverColor;
+					_config.c.highColor = _config.highColor;
+					_config.c.zoom = _config.zoomEnabled;
+					
 					_config.c.oriX1 = 0, _config.c.oriX2 = 0,
 					_config.c.oriY1 = 0, _config.c.oriY2 = 0,
 					_config.c.maxValue = 0;
 					_config.c.colorArray = [];
-					Common.each( _config.cd.series[0].data, function( _i:int, _item:Object ):void{
+					Common.each( _config.mapData, function( _i:int, _item:Object ):void{
 						
 						( _config.c.maxValue < _item.value ) && ( _config.c.maxValue = _item.value );
 						
@@ -80,11 +83,9 @@ package org.xas.jchart.map.controller
 						Common.each( _item.coordinates, function( _k:int, _sitem:Object ):void{
 							if( _item.type == "MultiPolygon" ){
 								Common.each( _sitem, function( _j:int, _vitem:Object ):void{
-									_vitem[1] = _vitem[1] * 1.3;
 									caleMapData( _vitem[0], _vitem[1] );
 								});
 							} else {
-								_sitem[1] = _sitem[1] * 1.3;
 								caleMapData( _sitem[0], _sitem[1] );
 							}
 						});
@@ -144,7 +145,7 @@ package org.xas.jchart.map.controller
 		}
 		
 		public function calcColor( _value:Number ):String{
-			var _color:String = numChange(highColor.toString(10),10,16),
+			var _color:String = numChange(_config.highColor,10,16),
 				_realOp:Number = 1 - _value / _config.maxNum,
 				_rgb:Object = Hex2RGB( _color );
 			
