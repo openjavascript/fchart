@@ -5,11 +5,13 @@ package org.xas.jchart.piegraph.view.components
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import flash.utils.Timer;
 	
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
@@ -25,11 +27,18 @@ package org.xas.jchart.piegraph.view.components
 		private var _preIndex:int = -1;
 		private var _piePart:Vector.<PiePart>;
 		
+		private var _hideTimer:Timer;
+		
 		public function GraphicView()
 		{
 			super(); 
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
+			
+			_hideTimer = new Timer( 200, 1 );
+			_hideTimer.addEventListener( TimerEvent.TIMER, onTimerHideDone );
+			//_hideTimer.start();
+			
 			/*
 			addEventListener( JChartEvent.SHOW_TIPS, showTips );
 			addEventListener( JChartEvent.UPDATE_TIPS, updateTips );
@@ -89,6 +98,7 @@ package org.xas.jchart.piegraph.view.components
 				
 		protected function onMouseOver( _evt:MouseEvent ):void{
 			
+			_hideTimer.running && _hideTimer.stop();
 			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
@@ -99,10 +109,17 @@ package org.xas.jchart.piegraph.view.components
 		protected function onMouseOut( _evt:MouseEvent ):void{
 			try{
 				root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-				dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );
+				//dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );
+				_hideTimer.running && _hideTimer.stop();
+				_hideTimer.start();
 			}catch( ex:Error ){}
 			//Log.log( 'hide tips' );
 			
+		}
+		
+		protected function onTimerHideDone( _evt:TimerEvent ):void{
+			//Log.log( 'timer done' );
+			dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS ) );
 		}
 		
 		protected function onMouseClick( _evt:MouseEvent ):void{

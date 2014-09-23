@@ -23,7 +23,7 @@ package
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.ddount.MainFacade;
 	 
-	
+	 
 	[SWF(frameRate="30", width="1200", height="220")]
 	public class DDount extends Sprite
 	{ 

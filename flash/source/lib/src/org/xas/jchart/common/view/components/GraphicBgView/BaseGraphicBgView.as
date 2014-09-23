@@ -5,10 +5,12 @@ package org.xas.jchart.common.view.components.GraphicBgView
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import flash.utils.Timer;
 	
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
@@ -17,12 +19,17 @@ package org.xas.jchart.common.view.components.GraphicBgView
 	
 	public class BaseGraphicBgView extends Sprite
 	{	
+		protected var _hideTimer:Timer;
+		
 		public function BaseGraphicBgView()
 		{
 			super();
 		
 			addEventListener( JChartEvent.SHOW_CHART, showChart );
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
+			
+			_hideTimer = new Timer( 200, 1 );
+			_hideTimer.addEventListener( TimerEvent.TIMER, onTimerHideDone );
 		}
 		
 		protected function addToStage( _evt:Event ):void{
@@ -44,7 +51,8 @@ package org.xas.jchart.common.view.components.GraphicBgView
 		}
 		
 		protected function onMouseEnter( _evt:MouseEvent ):void{
-			//Log.log( 'GraphicView mouse onMouseEnter' );
+			//Log.log( 'GraphicView mouse onMouseEnter' );			
+			_hideTimer.running && _hideTimer.stop();
 			this.root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			this.root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
@@ -53,7 +61,13 @@ package org.xas.jchart.common.view.components.GraphicBgView
 		protected function onMouseLeave( _evt:MouseEvent ):void{
 			//Log.log( 'GraphicView mouse onMouseLeave' );		
 			this.root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );	
+			//dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );	
+			_hideTimer.running && _hideTimer.stop();
+			_hideTimer.start();
+		}	
+		
+		protected function onTimerHideDone( _evt:TimerEvent ):void{
+			dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS ) );
 		}
 		
 		protected function onMouseMove( _evt:MouseEvent ):void{
