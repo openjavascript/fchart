@@ -96,7 +96,7 @@
         chart: {
             /**
              * 图表的类型
-             * <br />see also<a href="">JC.FChart.Model.TYPE_MAP</a>
+             * <br />see also: <a href="JC.FChart.html#property_Model.TYPE_MAP">JC&#46;FChart&#46;Model.TYPE_MAP</a>
              * @property    chart.type
              * @type        {string}
              * @default     empty

@@ -964,7 +964,7 @@
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
             "line": 197,
-            "description": "图表类型映射",
+            "description": "图表类型映射\n<br />曲线图: line, CurveGram, curvegram\n<br />柱状图: bar, Histogram, histogram\n<br />垂直柱状图: var, VHistogram, Vhistogram\n<br />饼状图: pie, PieGraph, piegraph",
             "itemtype": "property",
             "name": "Model.TYPE_MAP",
             "type": "{object}",
@@ -974,78 +974,71 @@
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 229,
+            "line": 233,
             "description": "解析图表默认数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 251,
+            "line": 255,
             "description": "保存图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 262,
+            "line": 266,
             "description": "图表宽度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 273,
+            "line": 277,
             "description": "图表高度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 284,
+            "line": 288,
             "description": "图表宽度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 295,
+            "line": 299,
             "description": "设置或保存图表的宽高",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 303,
+            "line": 307,
             "description": "图表画布",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 309,
+            "line": 313,
             "description": "画布圆角弧度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 313,
+            "line": 317,
             "description": "清除图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 330,
+            "line": 334,
             "description": "清除图表状态",
-            "class": "JC.FChart",
-            "namespace": "JC"
-        },
-        {
-            "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 362,
-            "description": "图表高度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
@@ -1059,41 +1052,48 @@
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
             "line": 370,
-            "description": "图表画布",
+            "description": "图表高度",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
             "line": 374,
+            "description": "图表画布",
+            "class": "JC.FChart",
+            "namespace": "JC"
+        },
+        {
+            "file": "../modules/JC.FChart/0.1/FChart.js",
+            "line": 378,
             "description": "初始化的选择器",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 381,
+            "line": 385,
             "description": "清除图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 391,
+            "line": 395,
             "description": "清除图表状态",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 397,
+            "line": 401,
             "description": "更新图表数据",
             "class": "JC.FChart",
             "namespace": "JC"
         },
         {
             "file": "../modules/JC.FChart/0.1/FChart.js",
-            "line": 408,
+            "line": 412,
             "description": "渲染图表外观",
             "class": "JC.FChart",
             "namespace": "JC"
@@ -1191,7 +1191,7 @@
         {
             "file": "../modules/JC.FChartNormalData/0.1/FChartNormalData.js",
             "line": 97,
-            "description": "图表的类型\n<br />see also<a href=\"\">JC.FChart.Model.TYPE_MAP</a>",
+            "description": "图表的类型\n<br />see also: <a href=\"JC.FChart.html#property_Model.TYPE_MAP\">JC&#46;FChart&#46;Model.TYPE_MAP</a>",
             "itemtype": "property",
             "name": "chart.type",
             "type": "{string}",
@@ -3561,75 +3561,75 @@
         },
         {
             "message": "Missing item type\n解析图表默认数据",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:229"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:233"
         },
         {
             "message": "Missing item type\n保存图表数据",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:251"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:255"
         },
         {
             "message": "Missing item type\n图表宽度",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:262"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:266"
         },
         {
             "message": "Missing item type\n图表高度",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:273"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:277"
         },
         {
             "message": "Missing item type\n图表宽度",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:284"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:288"
         },
         {
             "message": "Missing item type\n设置或保存图表的宽高",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:295"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:299"
         },
         {
             "message": "Missing item type\n图表画布",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:303"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:307"
         },
         {
             "message": "Missing item type\n画布圆角弧度",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:309"
-        },
-        {
-            "message": "Missing item type\n清除图表数据",
             "line": " ../modules/JC.FChart/0.1/FChart.js:313"
         },
         {
-            "message": "Missing item type\n清除图表状态",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:330"
+            "message": "Missing item type\n清除图表数据",
+            "line": " ../modules/JC.FChart/0.1/FChart.js:317"
         },
         {
-            "message": "Missing item type\n图表高度",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:362"
+            "message": "Missing item type\n清除图表状态",
+            "line": " ../modules/JC.FChart/0.1/FChart.js:334"
         },
         {
             "message": "Missing item type\n图表高度",
             "line": " ../modules/JC.FChart/0.1/FChart.js:366"
         },
         {
-            "message": "Missing item type\n图表画布",
+            "message": "Missing item type\n图表高度",
             "line": " ../modules/JC.FChart/0.1/FChart.js:370"
         },
         {
-            "message": "Missing item type\n初始化的选择器",
+            "message": "Missing item type\n图表画布",
             "line": " ../modules/JC.FChart/0.1/FChart.js:374"
         },
         {
+            "message": "Missing item type\n初始化的选择器",
+            "line": " ../modules/JC.FChart/0.1/FChart.js:378"
+        },
+        {
             "message": "Missing item type\n清除图表数据",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:381"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:385"
         },
         {
             "message": "Missing item type\n清除图表状态",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:391"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:395"
         },
         {
             "message": "Missing item type\n更新图表数据",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:397"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:401"
         },
         {
             "message": "Missing item type\n渲染图表外观",
-            "line": " ../modules/JC.FChart/0.1/FChart.js:408"
+            "line": " ../modules/JC.FChart/0.1/FChart.js:412"
         },
         {
             "message": "Missing item type\n如果 console 不可用, 生成一个模拟的 console 对象",

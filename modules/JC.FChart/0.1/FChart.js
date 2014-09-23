@@ -196,6 +196,10 @@
 
     /**
      * 图表类型映射
+     * <br />曲线图: line, CurveGram, curvegram
+     * <br />柱状图: bar, Histogram, histogram
+     * <br />垂直柱状图: var, VHistogram, Vhistogram
+     * <br />饼状图: pie, PieGraph, piegraph
      * @property    Model.TYPE_MAP
      * @type        {object}
      * @static
