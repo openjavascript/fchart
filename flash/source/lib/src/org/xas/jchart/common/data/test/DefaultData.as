@@ -21,6 +21,95 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
+			
+			_data.push(
+				{
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241
+					], 
+					"vline":
+					{
+						"enabled": false
+					}, 
+					"xAxis":
+					{
+						"wordwrap": true, 
+						"categories":
+						[
+							"pos.baidu.com", 
+							" www.baidu.com", 
+							"hao.360.cn", 
+							"wd.360.cn", 
+							"internal.host.com", 
+							"eclick.baidu.com", 
+							"googleads.g.doubleclick.net", 
+							"user.qzone.qq.com", 
+							" www.so.com", 
+							"ptlogin2.qq.com"
+						]
+					}, 
+					"chart":
+					{
+						"bgColor": 16777215, 
+						"bgAlpha": 1
+					}, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": true
+					}, 
+					"yAxis":
+					{
+						"enabled": false
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"displayAllLabel": true, 
+					"maxItem":
+					{
+						"style":
+						{
+							"size": 18, 
+							"color": 6146425
+						}
+					}, 
+					"tooltip":
+					{
+						"enabled": true
+					}, 
+					"hline":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								"7026299386", 
+								"2243248546", 
+								"1918390720", 
+								"1887903406", 
+								"1517144906", 
+								"1463547200", 
+								"958396100", 
+								"951335880", 
+								"941430913", 
+								"914735040"
+							]
+						}
+					]
+				}
+			);
+			
 			_data.push( 
 				{
 					"yAxis":

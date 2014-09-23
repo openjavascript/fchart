@@ -130,21 +130,7 @@ package org.xas.jchart.common
 			
 			return _r;
 		}
-		
-		/**
-		 * 取小数点的N位
-		 * <br />JS 解析 浮点数的时候，经常出现各种不可预知情况，这个函数就是为了解决这个问题
-		 * @method  parseFinance
-		 * @static
-		 * @param   {number}    _i
-		 * @param   {int}       _dot, default = 2
-		 * @return  number
-		 */
-		public static function parseFinance( _i:Number, _dot:int = 2 ):Number{
-			_i = parseFloat( _i.toString() ) || 0;
-			_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
-			return _i;
-		}
+
 		
 		/**
 		 * 扩展对象属性
@@ -394,10 +380,27 @@ package org.xas.jchart.common
 			var _s:String = parseFinance( _n || 0, 10 ) + '', _r:int = 0, _ar:Array;
 			_ar = _s.split( '.' );
 			if(_ar.length > 1 ){
-				//Log.log( _n, _ar[1], _s );
+				//Log.log( 'zzzzzzzzzz', _n, _ar[1], _s );
 				_ar[1].length > _r && ( _r = _ar[1].length );
 			}
 			return _r;
+		}
+		
+		/**
+		 * 取小数点的N位
+		 * <br />JS 解析 浮点数的时候，经常出现各种不可预知情况，这个函数就是为了解决这个问题
+		 * @method  parseFinance
+		 * @static
+		 * @param   {number}    _i
+		 * @param   {int}       _dot, default = 2
+		 * @return  number
+		 */
+		public static function parseFinance( _i:Number, _dot:int = 2 ):Number{
+			if( _i < 100000000 ){
+				_i = parseFloat( _i.toString() ) || 0;
+				_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
+			}
+			return _i;
 		}
 	}
 }

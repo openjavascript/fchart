@@ -15,8 +15,9 @@ package
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
-	import org.xas.core.utils.Log; 
+	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.histogram.MainFacade;
@@ -68,8 +69,9 @@ package
 			_inited = true;
 			
 			BaseConfig.ins.setDebug( true );
-			runData();
 			
+			runData();
+
 			if( ExternalInterface.available ){
 				ExternalInterface.addCallback( 'update', extenalUpdate );
 			}
@@ -156,7 +158,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){		
-				_data = DefaultData.instance.data[1];
+				_data = DefaultData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
