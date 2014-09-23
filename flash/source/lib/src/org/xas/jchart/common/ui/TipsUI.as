@@ -76,7 +76,7 @@ package org.xas.jchart.common.ui
 			ElementUtility.removeAllChild( _layout );
 			
 			_layout.addChild( _nameTxf = new TextField() );
-			Common.implementStyle( _nameTxf, [ { bold: true }, DefaultOptions.tooltip.style ] );
+			Common.implementStyle( _nameTxf, [ { bold: true }, DefaultOptions.tooltip.style, { font: 'SimSun', size: 13 } ] );
 			
 			_nameTxf.text = _data.name || '';
 						
@@ -100,7 +100,7 @@ package org.xas.jchart.common.ui
 			if( _data.beforeItems ){
 				Common.each( _data.beforeItems, function( _k:int, _item:Object ):void{
 					if( !_item ) return;					
-					var _styles:Object = { color: BaseConfig.ins.tooptipSerialItemColor( _k ) };
+					var _styles:Object = { color: BaseConfig.ins.tooptipSerialItemColor( _k ), font: 'SimSun', size: 12 };
 					
 					_layout.addChild( _nameTxf = new TextField() );
 					_nameTxf.text = _item.name + ': ';
@@ -124,7 +124,7 @@ package org.xas.jchart.common.ui
 			if( _data.items ){
 				Common.each( _data.items, function( _k:int, _item:Object ):void{
 					if( !_item ) return;					
-					var _styles:Object = { color: BaseConfig.ins.itemColor( _k ) };
+					var _styles:Object = { color: BaseConfig.ins.itemColor( _k ), font: 'SimSun', size: 12 };
 					
 					_layout.addChild( _nameTxf = new TextField() );
 					_nameTxf.text = _item.name + ': ';
@@ -148,7 +148,7 @@ package org.xas.jchart.common.ui
 			if( _data.afterItems && _data.afterItems.length ){
 				Common.each( _data.afterItems, function( _k:int, _item:Object ):void{
 					if( !_item ) return;					
-					var _styles:Object = { color: BaseConfig.ins.tooptipAfterSerialItemColor( _k ) };
+					var _styles:Object = { color: BaseConfig.ins.tooptipAfterSerialItemColor( _k ), font: 'SimSun', size: 12 };
 					
 					_layout.addChild( _nameTxf = new TextField() );
 					_nameTxf.text = _item.name + ': ';
