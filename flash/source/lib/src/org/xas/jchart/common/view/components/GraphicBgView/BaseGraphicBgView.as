@@ -27,13 +27,9 @@ package org.xas.jchart.common.view.components.GraphicBgView
 		
 			addEventListener( JChartEvent.SHOW_CHART, showChart );
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
-<<<<<<< HEAD
-			mouseEnabled = false;
-=======
-			
 			_hideTimer = new Timer( 200, 1 );
 			_hideTimer.addEventListener( TimerEvent.TIMER, onTimerHideDone );
->>>>>>> c089bb12ccf5a7fcb1520c8de2dc27a15b8de30f
+			mouseEnabled = false;
 		}
 		
 		protected function addToStage( _evt:Event ):void{

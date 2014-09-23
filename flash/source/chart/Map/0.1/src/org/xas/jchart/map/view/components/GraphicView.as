@@ -194,8 +194,7 @@ package org.xas.jchart.map.view.components
 			if( !_config.zoomEnabled ){
 				return;
 			}
-			
-<<<<<<< HEAD
+
 			var _spd:Number = _config.zoomSpeed,
 				_scaleOp:Number = _evt.delta * _config.zoomRate,
 				_minX:Number = 0, _maxX:Number = 0,
@@ -227,19 +226,6 @@ package org.xas.jchart.map.view.components
 				scaleX: _cameraStage.scaleX + _scaleOp,
 				scaleY: _cameraStage.scaleY + _scaleOp
 			});
-			
-=======
-			_tmpX = _mapStage.x - _evt.stageX * _scaleOp;
-			_tmpY = _mapStage.y - _evt.stageY * _scaleOp;
-			_tmpX > _ms.x && ( _tmpX = _ms.x );
-			_tmpY > _ms.y && ( _tmpY = _ms.y );
-
-			_mapStage.x = _tmpX;
-			_mapStage.y = _tmpY;
-			_mapStage.scaleX += _scaleOp;
-			_mapStage.scaleY += _scaleOp;
-			 
->>>>>>> c089bb12ccf5a7fcb1520c8de2dc27a15b8de30f
 		}
 	}
 }
