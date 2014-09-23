@@ -1,6 +1,6 @@
 ;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2' ], function(){
 /**
- * 组件用途简述
+ * JC.FChart - flash 图表组件
  *
  *  <p><b>require</b>:
  *      <a href='JC.BaseMVC.html'>JC.BaseMVC</a>
