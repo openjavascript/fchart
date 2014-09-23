@@ -1,6 +1,6 @@
 ;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2' ], function(){
 /**
- * 组件用途简述
+ * JC.FChart - flash 图表组件
  *
  *  <p><b>require</b>:
  *      <a href='JC.BaseMVC.html'>JC.BaseMVC</a>
@@ -17,8 +17,17 @@
  *  <h2>可用的 HTML attribute</h2>
  *
  *  <dl>
- *      <dt></dt>
- *      <dd><dd>
+ *      <dt>chartScriptData = script tpl selector</dt>
+ *      <dd>图表的脚本模板数据<dd>
+ *
+ *      <dt>chartDataVar = json object name</dt>
+ *      <dd>图表的json数据名, <b>window变量域</b><dd>
+ *
+ *      <dt>chartWidth = number, default = 100%</dt>
+ *      <dd>图表的宽度</dd>
+ *
+ *      <dt>chartHeight = number, default = 400</dt>
+ *      <dd>图表的高度</dd>
  *  </dl> 
  *
  * @namespace   JC
@@ -133,14 +142,10 @@
                 var _p = this;
 
                 _p.on( 'inited', function(){
-                   var _data;
-                    if( this.selector().attr( 'chartScriptData' ) ){
-                        _data = this._model.selectorProp( 'chartScriptData' ).html();
-                        _data = _data.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, '' );
-                        _data = _data.replace( /[\r\n]/g, '' );
-                        _data = _data.replace( /\}[\s]*?,[\s]*?\}$/g, '}}');
-                        _data = eval( '(' + _data + ')' );
-                        this.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
+                   var _data = _p._model.parseInitData();
+
+                    if( _data ){
+                        _p.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() && _p.selector().css( { 'height': _p._model.height() } );
                 });
@@ -189,6 +194,16 @@
 
     FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf';
 
+    /**
+     * 图表类型映射
+     * <br />曲线图: line, CurveGram, curvegram
+     * <br />柱状图: bar, Histogram, histogram
+     * <br />垂直柱状图: var, VHistogram, Vhistogram
+     * <br />饼状图: pie, PieGraph, piegraph
+     * @property    Model.TYPE_MAP
+     * @type        {object}
+     * @static
+     */
     FChart.Model.TYPE_MAP = {
         'line': 'CurveGram'
         , 'CurveGram': 'CurveGram'
@@ -214,6 +229,28 @@
                 //JC.log( 'FChart.Model.init:', new Date().getTime() );
                 this._gid = 'jchart_gid_' + ( FChart.Model.INS_COUNT++ );
                 this.afterInit && this.afterInit();
+            }
+        /**
+         * 解析图表默认数据
+         */
+        , parseInitData:
+            function(){
+                var _p = this, _data;
+                if( _p.selector().attr( 'chartScriptData' ) ){
+                    _data = _p.selectorProp( 'chartScriptData' ).html();
+                }else if( _p.selector().is( '[chartDataVar]' ) ){
+                    _data = _p.windowProp( 'chartDataVar' );
+                    _data && ( _data = JSON.stringify( _data ) );
+                }
+
+                if( _data ){
+                    _data = _data.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, '' );
+                    _data = _data.replace( /[\r\n]/g, '' );
+                    _data = _data.replace( /\}[\s]*?,[\s]*?\}$/g, '}}');
+                    _data = eval( '(' + _data + ')' );
+                }
+
+                return _data;
             }
         /**
          * 保存图表数据

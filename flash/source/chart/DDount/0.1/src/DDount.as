@@ -13,7 +13,7 @@ package
 	import flash.utils.Timer;
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
-	
+	 
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
@@ -22,8 +22,8 @@ package
 	import org.xas.jchart.common.data.test.DefaultPieData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.ddount.MainFacade;
+	  
 	 
-	
 	[SWF(frameRate="30", width="1200", height="220")]
 	public class DDount extends Sprite
 	{ 
