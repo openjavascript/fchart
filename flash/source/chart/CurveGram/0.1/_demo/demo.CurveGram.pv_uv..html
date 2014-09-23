@@ -30,14 +30,14 @@ dl dd{
     </dd>
 </dl>
 
-<script src="../swfobject.js"></script>
-<script src="../json2.js"></script>
-<script src="../jq.js"></script>
+<script src="swfobject.js"></script>
+<script src="json2.js"></script>
+<script src="jq.js"></script>
 
 <script>
     swfobject.embedSWF
     (
-        "../CurveGram.swf"
+        "../bin-debug/CurveGram.swf"
         , "CurveGram0"
         , "100%", "400", "9.0.0", false
         , {
@@ -45,31 +45,27 @@ dl dd{
                 {
                     
                     xAxis: {
-                        categories: [ '网页游戏', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
+                        categories: [ '02/24', '02/25', '02/26', '02/27', '02/28', '02/29', '03/01' ]
                     }
                     , yAxis: {
-                        enabled: false
+                        format: '{0}%'
+                        , enabled: true
+                        , maxvalue: 100
                     }
-
                     , series:[{
-                        name: '全体覆盖率'
-                        , data: [26, 36, 46, 56, 77, 76, 86, 72, 62, 52]
+                        name: '目标PV'
+                        , data: [ 70, 49, 76, 30, 55, 26, 78 ]
                     }, {
-                        name: '样式覆盖率',
-                        data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
+                        name: '目标UV',
+                        data: [ 48, 62, 50, 50, 30, 40, 35 ]
                     }]
                     , tooltip: {		
-                        "headerFormat": "{0}"			
+                        enabled: true
+                        , "headerFormat": "{0}"			
                         , "pointFormat": "{0} %"
-                        //, enabled: false
-
-                        , "afterSerial": [
+                        , serial: [
                             {
-                                "name": "区分度"
-                                , "data": [ 
-                                    1.04, 1.05, 1.06, 1.07, 1.08, 1.09
-                                    , 2.01, 2.02, 2.03, 2.04, 2.05
-                                ]
+                                name: '区分度', 'value': 1.04
                             }
                         ]
                     }
@@ -86,11 +82,11 @@ dl dd{
                         enabled: false
                     }
                     , hline: {
-                        enabled: false
+                        enabled: true
                     }
                     , colors: [
-                        0x00ABEF
-                        , 0x9DADB3
+                        0x03ACEF
+                        , 0x5DC979
                         , 0x09c100
                         , 0x0c76c4 				
                         , 0xff0619
@@ -109,13 +105,18 @@ dl dd{
                         bgColor: 0xffffff
                         , bgAlpha: 1
                     }
+                    , hoverBg: {
+                        enabled: true		
+                        , style: {
+                            borderColor: 0xB4B4B4
+                            , borderWidth: 2
+                            , bgColor: 0xF0F0F0
+                        }										
+                    }
                 }
             ))
         }
     );
-
-
-
 </script>
 
 </body>

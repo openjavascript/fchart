@@ -21,7 +21,7 @@ package
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.vhistogram.MainFacade;
 	 
-	  
+	   
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
