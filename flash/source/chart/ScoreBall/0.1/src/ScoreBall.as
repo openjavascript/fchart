@@ -17,7 +17,7 @@ package
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.widget.ScoreBallPart;
 	import org.xas.jchart.common.ui.widget.JTextField;
-	 
+	  
 	
 	[SWF(frameRate="30", width="150", height="150")]
 	public class ScoreBall extends Sprite
