@@ -14,6 +14,9 @@ requirejs.config( {
 
         , 'JC.FChart': 'modules/JC.FChart/0.1/FChart'
 
+        , 'JC.FChartNormalData': 'modules/JC.FChartNormalData/0.1/FChart.NormalData'
+        , 'JC.FChartCircleData': 'modules/JC.FChartCircleData/0.1/FChart.FChartCircleData'
+
         , 'json2': 'modules/JSON/2/JSON'
         , 'swfobject': 'modules/swfobject/2.3/swfobject'
         , 'SWFObject': 'modules/swfobject/2.3/swfobject'

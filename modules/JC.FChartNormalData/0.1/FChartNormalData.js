@@ -1,156 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>..\modules\JC.FChartNormalData\0.1\FChart.NormalData.js - FChart</title>
-    <link rel="stylesheet" href="../assets/css/cssgrids-min.css">
-    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="stylesheet" href="../assets/css/widget.css">
-    <link rel="stylesheet" href="../assets/css/tabview.css">
-    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
-    <script src="../assets/js/yui-min.js"></script>
-    <script src="../assets/js/comps1.js"></script>
-    <script src="../assets/js/comps2.js"></script>
-    <script src="../assets/js/comps3.js"></script>
-    <script src="../assets/js/comps4.js"></script>
-</head>
-<body class="yui3-skin-sam">
-
-<div id="doc">
-    <div id="hd" class="yui3-g header">
-        <div class="yui3-u-3-4">
-            
-                <h1><img src="..\jc_logo.png" title="FChart"></h1>
-            
-        </div>
-        <div class="yui3-u-1-4 version">
-            <em>API Docs for: 0.2</em>
-        </div>
-    </div>
-    <div id="bd" class="yui3-g">
-
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-            <li><a href="#api-modules">Modules</a></li>
-        </ul>
-
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
-
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/JC.BaseMVC.html">JC.BaseMVC</a></li>
-            
-                <li><a href="../classes/JC.BaseMVC.Model.html">JC.BaseMVC.Model</a></li>
-            
-                <li><a href="../classes/JC.common.html">JC.common</a></li>
-            
-                <li><a href="../classes/JC.f.html">JC.f</a></li>
-            
-                <li><a href="../classes/JC.FChart.html">JC.FChart</a></li>
-            
-                <li><a href="../classes/JC.FChartCircleData.html">JC.FChartCircleData</a></li>
-            
-                <li><a href="../classes/JC.FChartNormalData.html">JC.FChartNormalData</a></li>
-            
-                <li><a href="../classes/window.jQuery.html">window.jQuery</a></li>
-            
-                <li><a href="../classes/window.requirejs.html">window.requirejs</a></li>
-            
-                <li><a href="../classes/window.swfobject.html">window.swfobject</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
-            </ul>
-        </div>
-    </div>
-</div>
-
-            </div>
-        </div>
-        <div class="yui3-u-3-4">
-                <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </div>
-
-
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-                        <h1 class="file-heading">File: ..\modules\JC.FChartNormalData\0.1\FChart.NormalData.js</h1>
-
-<div class="file">
-    <pre class="code prettyprint linenums">
- ;(function(define, _win) { &#x27;use strict&#x27;; define( [], function(){
+ ;(function(define, _win) { 'use strict'; define( [], function(){
 /**
  * JChart 图表数据( 曲线图、柱状图 )
  *
- * &lt;p&gt;&lt;a href=&#x27;https://github.com/openjavascript/fchart&#x27; target=&#x27;_blank&#x27;&gt;JChart Project Site&lt;/a&gt;
- *   | &lt;a href=&#x27;http://jchart.openjavascript.org/docs_api/classes/JC.FChartNormalData.html&#x27; target=&#x27;_blank&#x27;&gt;API docs&lt;/a&gt;
- *  &lt;/p&gt;
- * &lt;h2&gt;&lt;/h2&gt;
- * &lt;dl&gt;
- *    &lt;dt&gt;&lt;/dt&gt;
- *    &lt;dd&gt;&lt;dd&gt;
- * &lt;/dl&gt; 
+ * <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JChart Project Site</a>
+ *   | <a href='http://jchart.openjavascript.org/docs_api/classes/JC.FChartNormalData.html' target='_blank'>API docs</a>
+ *  </p>
+ * <h2></h2>
+ * <dl>
+ *    <dt></dt>
+ *    <dd><dd>
+ * </dl> 
  *
  * @namespace   JC
  * @class       FChartNormalData
  * @constructor
  * @static
  * @version dev 0.1 2014-08-28
- * @author  qiushaowei &lt;suches@btbtd.org&gt; | 75 Team
+ * @author  qiushaowei <suches@btbtd.org> | 75 Team
  * @example
-&lt;h2&gt;显示 两条[曲线|柱状]的图表数据&lt;/h2&gt;
-&lt;pre&gt;{
-    
-    xAxis: {
-        categories: [ &#x27;02/24&#x27;, &#x27;02/25&#x27;, &#x27;02/26&#x27;, &#x27;02/27&#x27;, &#x27;02/28&#x27;, &#x27;02/29&#x27;, &#x27;03/01&#x27; ]
+<h2>显示 两条[曲线|柱状]的图表数据</h2>
+<pre>{
+    chart: {
+        type: 'line'
+        , bgColor: 0xffffff
+        , bgAlpha: 1
+    }
+    , xAxis: {
+        categories: [ '02/24', '02/25', '02/26', '02/27', '02/28', '02/29', '03/01' ]
     }
     , yAxis: {
-        format: &#x27;{0}%&#x27;
+        format: '{0}%'
         , maxvalue: 100
     }
     , series:[{
-        name: &#x27;目标PV&#x27;
+        name: '目标PV'
         , data: [ 70, 49, 76, 30, 55, 26, 78 ]
     }, {
-        name: &#x27;目标UV&#x27;,
+        name: '目标UV',
         data: [ 48, 62, 50, 50, 30, 40, 35 ]
     }]
     , tooltip: {		
         enabled: true
-        , &quot;headerFormat&quot;: &quot;{0}&quot;			
-        , &quot;pointFormat&quot;: &quot;{0} %&quot;
+        , "headerFormat": "{0}"			
+        , "pointFormat": "{0} %"
         
     }
     , displayAllLabel: true
@@ -159,7 +51,7 @@
     }
     , dataLabels: {
         enabled: true
-        , format: &#x27;{0}%&#x27;
+        , format: '{0}%'
     }
     , vline: {
         //enabled: false
@@ -184,11 +76,6 @@
         
         , 0xdbb8fd
     ]    				
-    , chart: {
-        bgColor: 0xffffff
-        , bgAlpha: 1
-        //, graphicHeight: 220
-    }
     , hoverBg: {
         enabled: true		
         , style: {
@@ -197,16 +84,54 @@
             , bgColor: 0xF0F0F0
         }										
     }
-}&lt;/pre&gt;
+}</pre>
  */
 
     JChart.FChartNormalData = {
+        /**
+         * 图表背景的设置数据
+         * @property    chart
+         * @type        {object}
+         */
+        chart: {
+            /**
+             * 图表的类型
+             * <br />see also<a href="">JC.FChart.Model.TYPE_MAP</a>
+             * @property    chart.type
+             * @type        {string}
+             * @default     empty
+             */
+            type: ''
+            /**
+             * 图表的背景颜色
+             * @property    chart.bgColor
+             * @type        {hex color}
+             * @default     0xcccccc
+             */
+            , bgColor: 0xcccccc
+            /**
+             * 图表的背景色透明度
+             * @property    chart.bgAlpha
+             * @type        {Number}     0.01 ~ 1
+             * @default     0.13
+             */
+            , bgAlpha: .13
+            /**
+             * 图表数据显示块的高度
+             * <br />有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
+             * <br />这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
+             * @property    chart.graphicHeight
+             * @type        {Number}     
+             * @default     0,     0 = auto
+             */
+            , graphicHeight: 0
+        }
         /**
          * 横向坐标设置数据
          * @property    xAxis
          * @type        {object}
          */
-        xAxis: {
+        , xAxis: {
             /**
              * 是否显示横向坐标( pending )
              * @property    xAxis.enabled
@@ -218,12 +143,12 @@
             enabled: true
             /**
              * 横向坐标的显示数据
-             * &lt;br /&gt;这些数据默认也用于显示 tips 的主标题, 如果想重定义 tips 的主标题, 请设置 tooltip.header 属性
+             * <br />这些数据默认也用于显示 tips 的主标题, 如果想重定义 tips 的主标题, 请设置 tooltip.header 属性
              * @property    xAxis.categories
              * @type        {Array of String}
              * @default     null
              * @example 
-             *  categories: [ &#x27;02/24&#x27;, &#x27;02/25&#x27;, &#x27;02/26&#x27;, &#x27;02/27&#x27;, &#x27;02/28&#x27;, &#x27;02/29&#x27;, &#x27;03/01&#x27; ]
+             *  categories: [ '02/24', '02/25', '02/26', '02/27', '02/28', '02/29', '03/01' ]
              */
             , categories: null
             /**
@@ -239,11 +164,11 @@
              * 横向坐标显示数据格式化显示
              * @property    xAxis.format
              * @type        {String}
-             * @default     &#x27;{0}&#x27;
+             * @default     '{0}'
              * @example 
-             *  format: &#x27;{0}%&#x27;
+             *  format: '{0}%'
              */
-            , format: &#x27;{0}&#x27;
+            , format: '{0}'
        }
         /**
          * 纵向坐标设置数据
@@ -264,15 +189,15 @@
              * 纵向坐标显示数据格式化显示
              * @property    yAxis.format
              * @type        {String}
-             * @default     &#x27;{0}&#x27;
+             * @default     '{0}'
              * @example 
-             *  format: &#x27;{0}%&#x27;
+             *  format: '{0}%'
              */
-            , format: &#x27;{0}&#x27;
+            , format: '{0}'
             /**
              * 自定义纵向坐标的最大值
-             * &lt;br /&gt; 0 = auto
-             * &lt;br /&gt; 显示百分比的时候, 应该设置为 100
+             * <br /> 0 = auto
+             * <br /> 显示百分比的时候, 应该设置为 100
              * @property    yAxis.maxvalue
              * @type        {Number}
              * @default     0
@@ -292,26 +217,26 @@
        }
         /**
          * 展现的数据
-         * &lt;br /&gt;series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等
-         * &lt;br /&gt;显示数值如果为百分比的话, 需要设置 yAxis.maxvalue = 100
+         * <br />series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等
+         * <br />显示数值如果为百分比的话, 需要设置 yAxis.maxvalue = 100
          * @property    series
          * @type        {Array of Object}
          * @default     null
          * @example
          * 
-&lt;pre&gt;series:[{
-        name: &#x27;目标PV&#x27;
+<pre>series:[{
+        name: '目标PV'
         , data: [ 70, 49, 76, 30, 55, 26, 78 ]
     }, {
-        name: &#x27;目标UV&#x27;,
+        name: '目标UV',
         data: [ 48, 62, 50, 50, 30, 40, 35 ]
-    }]&lt;/pre&gt;
+    }]</pre>
          */
         , series: null
         /**
          * tips 设置数据 
-         * &lt;br /&gt; tips 的主标题默认为 xAxis.categories 对应索引的数据
-         * &lt;br /&gt; 如果想重定义主标题, 请设置 tooltip.header 属性
+         * <br /> tips 的主标题默认为 xAxis.categories 对应索引的数据
+         * <br /> 如果想重定义主标题, 请设置 tooltip.header 属性
          * @property    tooltip
          * @type        {object}
          */
@@ -329,75 +254,75 @@
              * tips 主标题的显示格式
              * @property    tooltip.headerFormat
              * @type        {String}
-             * @default     &#x27;{0}&#x27;
+             * @default     '{0}'
              * @example 
-             *  headerFormat: &#x27;{0}             right title&#x27;
+             *  headerFormat: '{0}             right title'
              */
-            , headerFormat: &#x27;{0}&#x27;
+            , headerFormat: '{0}'
             /**
              * tips 坐数值的显示格式
              * @property    tooltip.pointFormat
              * @type        {String}
-             * @default     &#x27;{0}&#x27;
+             * @default     '{0}'
              * @example 
-             *  pointFormat: &#x27;{0}%&#x27;
+             *  pointFormat: '{0}%'
              */
-            , pointFormat: &#x27;{0}&#x27;
+            , pointFormat: '{0}'
             /**
              * tips 主标题的显示数据
-             * &lt;br /&gt;如果不显式声明 tooltip.header, 默认数据为 xAxis.categories
+             * <br />如果不显式声明 tooltip.header, 默认数据为 xAxis.categories
              * @property    tooltip.header
              * @type        {Array of String}
              * @default     null
              * @example 
-             *  header: [ &#x27;2014/02/24&#x27;, &#x27;2014/02/25&#x27;, &#x27;2014/02/26&#x27;, &#x27;2014/02/27&#x27;, &#x27;2014/02/28&#x27;, &#x27;2014/02/29&#x27;, &#x27;2014/03/01&#x27; ]
+             *  header: [ '2014/02/24', '2014/02/25', '2014/02/26', '2014/02/27', '2014/02/28', '2014/02/29', '2014/03/01' ]
              */
             , header: null
             /**
              * tips 的扩展字段( 在行首显示扩展的字段 )
-             * &lt;br /&gt;series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等
+             * <br />series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等
              * @property    tooltip.series
              * @type        {Array of Object}
              * @default     null
              * @example
              * 
-&lt;pre&gt;&quot;serial&quot;: [
+<pre>"serial": [
     {
-        &quot;name&quot;: &quot;总体&quot;
-        , &quot;data&quot;: [ 
+        "name": "总体"
+        , "data": [ 
             1000, 2000, 3000, 4000, 5000, 6000
             , 1000, 2000, 3000, 4000, 5000, 6000 
             , 1000, 2000, 3000, 4000, 5000, 6000 
             , 7000
         ]
     }
-]&lt;/pre&gt;     */
+]</pre>     */
             , series: null
             /**
              * tips 的扩展字段( 在行底显示扩展的字段 )
-             * &lt;br /&gt;series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等
+             * <br />series 每条数据里的 data 属性, 长度应该与 xAxis.categories 的长度相等
              * @property    tooltip.afterSeries
              * @type        {Array of Object}
              * @default     null
              * @example
              * 
-&lt;pre&gt;&quot;afterSerial&quot;: [
+<pre>"afterSerial": [
     {
-        &quot;name&quot;: &quot;区分度&quot;
-        , &quot;data&quot;: [ 
+        "name": "区分度"
+        , "data": [ 
             1.04, 1.05, 1.06, 1.07, 1.08, 1.09
             , 2.01, 2.02, 2.03, 2.04, 2.05, 2.06
             , 3.09, 3.08, 3.07, 3.06, 3.05, 3.04
             , 4.11
         ]
     }
-]&lt;/pre&gt;
+]</pre>
              */
             , afterSeries: null
         }
         /**
          * 是否显示所有横向 label
-         * &lt;br /&gt;如果非真, 而且长度大于4, 将按横向坐标的长度切分为4个显示坐标
+         * <br />如果非真, 而且长度大于4, 将按横向坐标的长度切分为4个显示坐标
          * @property    displayAllLabel
          * @type        {Boolean}
          * @default     true
@@ -422,11 +347,11 @@
              * 格式化显示数值文本
              * @property    dataLabels.format
              * @type        {String}
-             * @default     &#x27;{0}&#x27;
+             * @default     '{0}'
              * @example 
-             *  format: &#x27;{0}%&#x27;
+             *  format: '{0}%'
              */
-            , format: &#x27;{0}&#x27;
+            , format: '{0}'
         }
         /**
          * 纵向背景线的设置数据
@@ -482,38 +407,8 @@
             0xdbb8fd
         ]
         /**
-         * 图表背景的设置数据
-         * @property    chart
-         * @type        {object}
-         */
-        , chart: {
-            /**
-             * 图表的背景颜色
-             * @property    chart.bgColor
-             * @type        {hex color}
-             * @default     0xcccccc
-             */
-            bgColor: 0xcccccc
-            /**
-             * 图表的背景色透明度
-             * @property    chart.bgAlpha
-             * @type        {Number}     0.01 ~ 1
-             * @default     0.13
-             */
-            , bgAlpha: .13
-            /**
-             * 图表数据显示块的高度
-             * &lt;br /&gt;有时需要把多个数据图表显示一样的视觉高度, 但是其他图表的 水平label高度不一样, 就会导致视觉上的不同
-             * &lt;br /&gt;这个属性就是为了解决这个问题, 把图表数据显示块设置为统一的高度
-             * @property    chart.graphicHeight
-             * @type        {Number}     
-             * @default     0,     0 = auto
-             */
-            , graphicHeight: 0
-        }
-        /**
          * 数据项的背景设置
-         * &lt;br /&gt; 目前这个属性仅对 柱状图 生效
+         * <br /> 目前这个属性仅对 柱状图 生效
          * @property    itemBg
          * @type        {object}
          */
@@ -537,7 +432,7 @@
         }
         /**
          * 数据项的鼠标划过的背景设置
-         * &lt;br /&gt; 目前这个属性仅对 柱状图 生效
+         * <br /> 目前这个属性仅对 柱状图 生效
          * @property    hoverBg
          * @type        {object}
          */
@@ -561,7 +456,7 @@
         }
         /**
          * 最大数据的显示设置
-         * &lt;br /&gt; 目前这个属性仅对 柱状图 生效
+         * <br /> 目前这个属性仅对 柱状图 生效
          * @property    maxItem
          * @type        {object}
          */
@@ -576,7 +471,7 @@
         }
         /**
          * 数据项的背景区分设置
-         * &lt;br /&gt; 目前这个属性仅对 曲线图 生效
+         * <br /> 目前这个属性仅对 曲线图 生效
          * @property    toggleBg
          * @type        {object}
          */
@@ -620,32 +515,12 @@
     };
 
     return FChartNormalData;
-});}( typeof define === &#x27;function&#x27; &amp;&amp; define.amd ? define : 
+});}( typeof define === 'function' && define.amd ? define : 
         function ( _name, _require, _cb ) { 
-            typeof _name == &#x27;function&#x27; &amp;&amp; ( _cb = _name );
-            typeof _require == &#x27;function&#x27; &amp;&amp; ( _cb = _require ); 
-            _cb &amp;&amp; _cb(); 
+            typeof _name == 'function' && ( _cb = _name );
+            typeof _require == 'function' && ( _cb = _require ); 
+            _cb && _cb(); 
         }
         , window
     )
 );
-
-    </pre>
-</div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="../assets/vendor/prettify/prettify-min.js"></script>
-<script>prettyPrint();</script>
-<script src="../assets/js/yui-prettify.js"></script>
-<script src="../assets/../api.js"></script>
-<script src="../assets/js/api-filter.js"></script>
-<script src="../assets/js/api-list.js"></script>
-<script src="../assets/js/api-search.js"></script>
-<script src="../assets/js/apidocs.js"></script>
-</body>
-</html>
