@@ -23,7 +23,12 @@ package org.xas.jchart.common.data.test
 			_data = new Vector.<Object>();
 			
 			_data.push(
-				{
+				{					
+					"chart":
+					{
+						"bgColor": 16777215, 
+						"bgAlpha": 1
+					}, 
 					"colors":
 					[
 						44015, 
@@ -52,11 +57,6 @@ package org.xas.jchart.common.data.test
 							"www.so.com", 
 							"ptlogin2.qq.com"
 						]
-					}, 
-					"chart":
-					{
-						"bgColor": 16777215, 
-						"bgAlpha": 1
 					}, 
 					"dataLabels":
 					{
