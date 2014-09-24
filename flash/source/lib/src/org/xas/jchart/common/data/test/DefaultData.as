@@ -21,6 +21,107 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
+			
+			_data.push(
+				{					
+					"chart":
+					{
+						"bgColor": 16777215, 
+						"bgAlpha": 1
+					}, 
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241
+					], 
+					"vline":
+					{
+						"enabled": false
+					}, 
+					"xAxis":
+					{
+						"wordwrap": true, 
+						"categories":
+						[
+							"pos.baidu.com", 
+							"www.baidu.com", 
+							"hao.360.cn", 
+							"wd.360.cn", 
+							"internal.host.com", 
+							"eclick.baidu.com", 
+							"googleads.g.doubleclick.net", 
+							"user.qzone.qq.com", 
+							"www.so.com", 
+							"ptlogin2.qq.com"
+						]
+					}, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": true
+					}, 
+					"yAxis":
+					{
+						"enabled": false
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"displayAllLabel": true, 
+					"maxItem":
+					{
+						"style":
+						{
+							"size": 18, 
+							"color": 6146425
+						}
+					}, 
+					"tooltip":
+					{
+						"enabled": true
+					}, 
+					"hline":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								"7026299386", 
+								"2243248546", 
+								"1918390720", 
+								"1887903406", 
+								"1517144906", 
+								"1463547200", 
+								"958396100", 
+								"951335880", 
+								"941430913", 
+								"914735040"
+							]
+							, "labelData": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
+							]
+						}
+					]
+				}
+			);
+			
 			_data.push( 
 				{
 					"yAxis":
@@ -195,17 +296,32 @@ package org.xas.jchart.common.data.test
 								1694, 
 								2049
 							]
+							, "labelData": [
+								"1.72k"
+								, "1.69k"
+								, "2.04k"
+							]
 						}, 
 						{
 							"name": "uv", 
 							"data":
 							[
 								5, 
-								5, 
-								5
+								6, 
+								7
+							]
+							, "labelData": [
+								"0.005k"
+								, "0.006k"
+								, "0.007k"
 							]
 						}
 					], 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": true
+					}, 
 					"hline":
 					{
 					}, 
@@ -215,7 +331,7 @@ package org.xas.jchart.common.data.test
 					}, 
 					"legend":
 					{
-						"enabled": false
+						"enabled": true
 					}, 
 					"chart":
 					{

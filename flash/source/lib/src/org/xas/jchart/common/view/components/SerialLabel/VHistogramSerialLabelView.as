@@ -41,7 +41,8 @@ package org.xas.jchart.common.view.components.SerialLabel
 					if( BaseConfig.ins.serialLabelEnabled ){
 						
 						var _label:JTextField = new JTextField( _sitem );
-						_label.text = StringUtils.printf( BaseConfig.ins.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, BaseConfig.ins.floatLen ) );
+						//_label.text = StringUtils.printf( BaseConfig.ins.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, BaseConfig.ins.floatLen ) );
+						_label.text = BaseConfig.ins.serialDataLabelValue( _sk, _k );
 						
 						_label.autoSize = TextFieldAutoSize.LEFT;
 						_label.selectable = false;

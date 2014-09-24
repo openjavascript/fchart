@@ -28,6 +28,9 @@
  *
  *      <dt>chartHeight = number, default = 400</dt>
  *      <dd>图表的高度</dd>
+ *
+ *      <dt>chartScroll = bool, default = true</dt>
+ *      <dd>图表是否响应鼠标滚动</dd>
  *  </dl> 
  *
  * @namespace   JC
@@ -148,6 +151,13 @@
                         _p.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() && _p.selector().css( { 'height': _p._model.height() } );
+
+                    if( !_p._model.chartScroll() || _p._model.type() == 'Map' ){
+                        _p.selector().on( 'mousewheel', function(){
+                            return false;
+                        });
+                    }
+
                 });
 
                 _p.on( FChart.Model.UPDATE_CHART_DATA, function( _evt, _data ){
@@ -232,6 +242,12 @@
                 //JC.log( 'FChart.Model.init:', new Date().getTime() );
                 this._gid = 'jchart_gid_' + ( FChart.Model.INS_COUNT++ );
                 this.afterInit && this.afterInit();
+            }
+        , chartScroll:
+            function(){
+                var _r = true;
+                this.is( '[chartScroll]' ) && ( _r = this.boolProp( 'chartScroll' ) );
+                return _r;
             }
         /**
          * 解析图表默认数据

@@ -64,6 +64,18 @@ package org.xas.jchart.common
 		protected var _displaySeriesIndexMap:Object;
 		public function get displaySeriesIndexMap():Object{ return _displaySeriesIndexMap; }
 		
+		public function serialDataLabelValue( _serialIx:int, _itemIx:int ):String{
+			var _r:String = '', _item:Object = displaySeries[ _serialIx ];		
+			
+			if( 'labelData' in _item ){
+				_r = _item.labelData[ _itemIx ];
+			}else{
+				_r = StringUtils.printf( dataLabelFormat, Common.moneyFormat( _item.data[ _itemIx ], 3, floatLen ) );				
+			}			
+			
+			return _r;
+		}
+		
 		public function get tooltipSerial():Array{
 			var _r:Array = [];
 			
@@ -164,14 +176,16 @@ package org.xas.jchart.common
 				
 				_tmpLen = 0;
 				Common.each( displaySeries, function( _k:int, _item:Object ):void{
-					Common.each( _item.data, function( _sk:int, _sitem:Number ):void{
+					Common.each( _item.data, function( _sk:int, _sitem:String ):void{
 						_tmpLen = Common.floatLen( _sitem );
 						_tmpLen > _floatLen && ( _floatLen = _tmpLen );
-						//Log.log( _tmpLen, _floatLen );
+						//Log.log( _sitem, _tmpLen, _floatLen );
 					});
 				});
 			}
 			_floatLen == 1 && ( _floatLen = 2 );
+			
+			//Log.log( _floatLen );
 			
 			return _floatLen;
 		}

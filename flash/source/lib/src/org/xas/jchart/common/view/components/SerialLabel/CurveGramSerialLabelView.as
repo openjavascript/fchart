@@ -46,7 +46,8 @@ package org.xas.jchart.common.view.components.SerialLabel
 				Common.each( _position, function( _sk:int, _sitem:Object ):void{
 					if( BaseConfig.ins.serialLabelEnabled ){
 						var _label:JTextField = new JTextField( _sitem.value );
-						_label.text = StringUtils.printf( BaseConfig.ins.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, BaseConfig.ins.floatLen ) );
+						//_label.text = StringUtils.printf( BaseConfig.ins.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, BaseConfig.ins.floatLen ) );
+						_label.text = BaseConfig.ins.serialDataLabelValue( _k, _sk );
 						
 						_label.autoSize = TextFieldAutoSize.LEFT;
 						_label.selectable = false;
@@ -68,10 +69,10 @@ package org.xas.jchart.common.view.components.SerialLabel
 							_label.y = _sitem.y + _label.height + _labelSpace;
 						}
 						
-						if( _label.x < 2 ){
-							_label.x = 2;
-						}else if( _label.x + _label.width >= root.stage.stageWidth - 2 ){
-							_label.x = root.stage.stageWidth - _label.width - 2;
+						if( _label.x < BaseConfig.ins.c.minX ){
+							_label.x = BaseConfig.ins.c.minX + 3;
+						}else if( _label.x + _label.width >= BaseConfig.ins.c.maxX ){
+							_label.x = BaseConfig.ins.c.maxX - _label.width;
 						}
 						
 						addChild( _label );

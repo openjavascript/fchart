@@ -140,6 +140,9 @@
  *
  *      &lt;dt&gt;chartHeight = number, default = 400&lt;/dt&gt;
  *      &lt;dd&gt;图表的高度&lt;/dd&gt;
+ *
+ *      &lt;dt&gt;chartScroll = bool, default = true&lt;/dt&gt;
+ *      &lt;dd&gt;图表是否响应鼠标滚动&lt;/dd&gt;
  *  &lt;/dl&gt; 
  *
  * @namespace   JC
@@ -260,6 +263,13 @@
                         _p.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() &amp;&amp; _p.selector().css( { &#x27;height&#x27;: _p._model.height() } );
+
+                    if( !_p._model.chartScroll() || _p._model.type() == &#x27;Map&#x27; ){
+                        _p.selector().on( &#x27;mousewheel&#x27;, function(){
+                            return false;
+                        });
+                    }
+
                 });
 
                 _p.on( FChart.Model.UPDATE_CHART_DATA, function( _evt, _data ){
@@ -341,6 +351,12 @@
                 //JC.log( &#x27;FChart.Model.init:&#x27;, new Date().getTime() );
                 this._gid = &#x27;jchart_gid_&#x27; + ( FChart.Model.INS_COUNT++ );
                 this.afterInit &amp;&amp; this.afterInit();
+            }
+        , chartScroll:
+            function(){
+                var _r = true;
+                this.is( &#x27;[chartScroll]&#x27; ) &amp;&amp; ( _r = this.boolProp( &#x27;chartScroll&#x27; ) );
+                return _r;
             }
         /**
          * 解析图表默认数据
