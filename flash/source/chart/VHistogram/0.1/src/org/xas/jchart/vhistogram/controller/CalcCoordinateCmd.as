@@ -174,6 +174,7 @@ package org.xas.jchart.vhistogram.controller
 			}
 			
 			var _partWidth:Number = ( _config.c.hpart * 3 / 4 ) / _config.displaySeries.length;
+			_partWidth > 50 && ( _partWidth = 50 );
 			
 			/* 处理柱状体 */
 			Common.each( _config.cd.xAxis.categories, function( _k:int, _item:Object ):void{
@@ -182,7 +183,7 @@ package org.xas.jchart.vhistogram.controller
 					, _pointItem:Object = _config.c.hlinePoint[ _k ]
 					, _sp:Point = _pointItem.start as Point
 					, _ep:Point = _pointItem.end as Point
-					, _y:Number = _sp.y + _config.c.hpart * 1 / 8
+					, _y:Number = _sp.y + ( _config.c.hpart - _config.displaySeries.length * _partWidth ) / 2  //_config.c.hpart * 1 / 8
 					, _tmpDataRect:Object = {
 						x: _sp.y, y: _sp.y
 						, width: _ep.x - _sp.x

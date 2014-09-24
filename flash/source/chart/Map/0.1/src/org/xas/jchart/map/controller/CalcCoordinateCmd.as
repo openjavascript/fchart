@@ -65,6 +65,7 @@ package org.xas.jchart.map.controller
 				if( _config.cd.series && _config.cd.series.length ){
 					_config.c.hoverColor = _config.hoverColor;
 					_config.c.highColor = _config.highColor;
+					_config.c.lowColor = _config.lowColor;
 					_config.c.zoom = _config.zoomEnabled;
 					
 					_config.c.oriX1 = 0, _config.c.oriX2 = 0,

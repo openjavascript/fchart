@@ -28,8 +28,8 @@ package org.xas.jchart.common.view.components.LegendView
 		
 		override protected function showChart( ):void{
 			this.graphics.clear();
-			var _highColor:String = _config.highColor;
-			var _lowColor:String = _config.lowColor;
+			var _highColor:String = _config.c.highColor;
+			var _lowColor:String = _config.c.lowColor;
 			var _m:Matrix = new Matrix();
 			var _d:Object = _config.c.legend;
 			_m.createGradientBox( _d.height, _d.width, 0, _d.pY, 0 );
