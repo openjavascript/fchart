@@ -18,17 +18,17 @@ package org.xas.jchart.common.view.components.TipsView
 		
 		override protected function buildData():void{
 			
-			if( !( _config.cd.series[0].data && _config.cd.series[0].data.length ) ){
+			if( !_config.c.mapData ){
 				return;
 			}
 			
 			_data = {};
 			
-			Common.each( _config.cd.series[0].data, function( _k:int, _item:Object ):void{
+			Common.each( _config.c.mapData, function( _k:int, _item:Object ):void{
 				_data[ _k ] = {
 					'name': _item.name.replace( /[\r\n]+/g, '' ) || '',
 					'items': [{
-						'name': '平均房价',
+						'name': BaseConfig.ins.itemName,
 						'value': _item.value
 					}]
 				};

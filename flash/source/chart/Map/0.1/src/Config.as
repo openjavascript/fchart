@@ -19,6 +19,9 @@ package
 		private var _hoverColor:String = "12245589";
 		public function get hoverColor():String{ return _hoverColor; }
 		
+		private var _lowColor:String = "16777215";
+		public function get lowColor():String{ return _lowColor; }
+		
 		private var _zoomRate:Number = .5;
 		public function get zoomRate():Number{ return _zoomRate; }
 		
@@ -28,8 +31,26 @@ package
 		private var _mapType:String = "customer";
 		public function get mapType():String{ return _mapType; }
 		
+		private var _defaultData:Number = 0;
+		public function get defaultData():Number{ return _defaultData; }
+		
 		private var _mapData:Array = null;
 		public function get mapData():Array{ return _mapData; }
+		
+		private var _initedCallback:String = null;
+		public function get initedCallback():String{ return _initedCallback; }
+		
+		private var _hoverCallback:String = null;
+		public function get hoverCallback():String{ return _hoverCallback; }
+		
+		private var _clickCallback:String = null;
+		public function get clickCallback():String{ return _clickCallback; }
+		
+		override public function get itemName():String{
+			var _r:String = '';
+			cd && cd.series && cd.series.length && ( _r = cd.series[0].name || '' );
+			return _r;
+		}
 		
 		public function get zoomEnabled():Boolean{
 			var _r:Boolean = false;
@@ -47,17 +68,26 @@ package
 			checkRate();
 			calcLabelDisplayIndex();
 			setMapProp();
-			!_mapData && setMapData();
+			setMapData();
 			return _d;
 		}
 		
 		protected function setMapProp():void{
 			var custData:Object = displaySeries[0];
 			custData.highColor && ( _highColor = custData.highColor.toString(10) );
+			custData.lowColor && ( _lowColor = custData.lowColor.toString(10) );
 			custData.hoverColor && ( _hoverColor = custData.hoverColor.toString(10) );
 			custData.mapType && ( _mapType = custData.mapType );
+			custData.defaultData && ( _defaultData = custData.defaultData );
 			zoomEnabled && ( _zoomRate = chartData.zoom.zoomRate ) 
 				&& ( _zoomSpeed = chartData.zoom.zoomSpeed );
+			
+			var _cb:Object = custData.callBack;
+			if( _cb ) {
+				_cb.initedCallback && ( _initedCallback = _cb.initedCallback );
+				_cb.hoverCallback && ( _hoverCallback = _cb.hoverCallback );
+				_cb.clickCallback && ( _clickCallback = _cb.clickCallback );
+			} 
 		}
 		
 		protected function setMapData():void{
@@ -68,11 +98,20 @@ package
 				var _tmpdata:Object,
 					pathData:Object = new MapPathData().getPathData( _mapType ),
 					zoomY:Number = pathData.zoomY;
-				custData.data && ( _mapData = new Array() ) &&
+				pathData && custData.data && ( _mapData = new Array() ) &&
 				Common.each( pathData.data, function( _i:int, _item:Object ):void{
-					_tmpdata = custData.data[_i];
-					_tmpdata.type = _item.type;
-					_tmpdata.coordinates = _item.coordinates;
+					if( custData.data[ _i ] ){
+						_tmpdata = custData.data[ _i ];
+					} else {
+						_tmpdata = new Object();
+						_tmpdata.value = defaultData;
+					}
+					
+					!_tmpdata.type && ( _tmpdata.type = _item.type );
+					!_tmpdata.coordinates && ( _tmpdata.coordinates = _item.coordinates );
+					!_tmpdata.name && ( _tmpdata.name = _item.name );
+					!_tmpdata.id && ( _tmpdata.id = _item.id );
+					
 					zoomY && 
 					Common.each( _item.coordinates, function( _k:int, _sitem:Object ):void{
 						if( _item.type == "MultiPolygon" ){
@@ -83,7 +122,7 @@ package
 							_tmpdata.coordinates[_k][1] = _sitem[1] * zoomY;
 						}
 					});
-					_mapData.push( _tmpdata );
+					_mapData[ _i ] = _tmpdata;
 				});
 			}
 		}
@@ -111,8 +150,8 @@ package
 					});
 					_tmp.length && ( _r = Math.max.apply( null, _tmp ) );
 				}
-				_r < 0 && ( _r = 0 );
 				
+				_r < 0 && ( _r = 0 );
 				_r > 0 && ( _r = Common.numberUp( _r ) );
 			}
 			

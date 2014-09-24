@@ -35,7 +35,7 @@ package org.xas.jchart.map.controller
 			_c.minY = _c.y + 5;
 			_c.maxX = _c.x + _config.stageWidth - 5;
 			_c.maxY = _c.y + _config.stageHeight - 5;
-						
+			
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
@@ -60,9 +60,6 @@ package org.xas.jchart.map.controller
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
 				}
-
-				//初始化tips
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				
 				//设置地图显示区域
 				if( _config.cd.series && _config.cd.series.length ){
@@ -74,9 +71,10 @@ package org.xas.jchart.map.controller
 					_config.c.oriY1 = 0, _config.c.oriY2 = 0,
 					_config.c.maxValue = 0;
 					_config.c.colorArray = [];
+					_config.c.mapData = _config.mapData;
 					Common.each( _config.mapData, function( _i:int, _item:Object ):void{
 						
-						( _config.c.maxValue < _item.value ) && ( _config.c.maxValue = _item.value );
+						_config.c.maxValue < _item.value && ( _config.c.maxValue = _item.value );
 						
 						_config.c.colorArray[ _i ] = parseInt( calcColor( _item.value ), 16);
 						
@@ -94,13 +92,22 @@ package org.xas.jchart.map.controller
 					_config.c.oriWidth = _config.c.oriX2 - _config.c.oriX1;
 					_config.c.oriHeight = _config.c.oriY2 - _config.c.oriY1;
 					
-					_config.c.mapWidth = _config.stageWidth;
+					_config.c.mapWidth = _config.c.maxX - _config.c.minX;
 					_config.c.mapHeight = _config.c.maxY - _config.c.minY;
-					if( _config.c.mapWidth > _config.c.mapHeight ){
+					if( _config.c.mapWidth / _config.c.mapHeight 
+						> _config.c.oriWidth / _config.c.oriHeight ){
 						_config.c.op = _config.c.mapHeight / _config.c.oriHeight;
 					} else {
 						_config.c.op = _config.c.mapWidth / _config.c.oriWidth;
 					}
+					
+					//初始化tips
+					_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+					
+					//初始化callback
+					_config.c.initedCallback = _config.initedCallback;
+					_config.c.hoverCallback = _config.hoverCallback;
+					_config.c.clickCallback = _config.clickCallback;
 				}
 				
 				//计算颜色带图例
@@ -109,14 +116,9 @@ package org.xas.jchart.map.controller
 					_config.c.legend.width = 30;
 					_config.c.legend.height = _config.c.mapHeight * 2 / 7;
 					_config.c.legend.pX = 50 + _config.c.legend.width;
-					_config.c.legend.pY = _config.c.minY + _config.c.oriHeight
-						* _config.c.op - _config.c.legend.height;
+					_config.c.legend.pY = _config.c.maxY - _config.c.legend.height - 5;
 					
 					facade.registerMediator( new LegendMediator() );
-				}
-				
-				//图例标签
-				if( _config.yAxisEnabled ){
 					facade.registerMediator( new VLabelMediator() );
 				}
 				
@@ -131,12 +133,12 @@ package org.xas.jchart.map.controller
 		
 		private function caleMapData( _pointX:Number, _pointY:Number ):void{
 			//_sitem[1] = _sitem[1] * 1.3;
-			( _config.c.oriX1 == 0 ) && ( _config.c.oriX1 = _pointX );
-			( _config.c.oriY1 == 0 ) && ( _config.c.oriY1 = _pointY );
-			( _pointX < _config.c.oriX1 ) && ( _config.c.oriX1 = _pointX );
-			( _pointX > _config.c.oriX2 ) && ( _config.c.oriX2 = _pointX );
-			( _pointY < _config.c.oriY1 ) && ( _config.c.oriY1 = _pointY );
-			( _pointY > _config.c.oriY2 ) && ( _config.c.oriY2 = _pointY );
+			_config.c.oriX1 == 0 && ( _config.c.oriX1 = _pointX );
+			_config.c.oriY1 == 0 && ( _config.c.oriY1 = _pointY );
+			_pointX < _config.c.oriX1 && ( _config.c.oriX1 = _pointX );
+			_pointX > _config.c.oriX2 && ( _config.c.oriX2 = _pointX );
+			_pointY < _config.c.oriY1 && ( _config.c.oriY1 = _pointY );
+			_pointY > _config.c.oriY2 && ( _config.c.oriY2 = _pointY );
 		}
 		
 		private function calcGraphic():void{
@@ -145,18 +147,17 @@ package org.xas.jchart.map.controller
 		}
 		
 		public function calcColor( _value:Number ):String{
-			var _color:String = numChange(_config.highColor,10,16),
-				_realOp:Number = 1 - _value / _config.maxNum,
-				_rgb:Object = Hex2RGB( _color );
-			
-			var _nr:Number = parseInt( _rgb._r, 16 );
-			var _ng:Number = parseInt( _rgb._g, 16 );
-			var _nb:Number = parseInt( _rgb._b, 16 );
+			var _realOp:Number = 1 - _value / _config.maxNum,
+				_Hrgb:Object = Hex2RGB( numChange( _config.highColor, 10, 16 ) ),
+				_Lrgb:Object = Hex2RGB( numChange( _config.lowColor, 10, 16 ) );
 			
 			return RGB2Hex(
-				( _nr + ( 255 - _nr ) * _realOp ).toString( 16 ),
-				( _ng + ( 255 - _ng ) * _realOp ).toString( 16 ),
-				( _nb + ( 255 - _nb ) * _realOp ).toString( 16 )
+				( parseInt( _Lrgb._r, 16 ) * _realOp + 
+					parseInt( _Hrgb._r, 16 ) * ( 1 - _realOp ) ).toString( 16 ),
+				( parseInt( _Lrgb._g, 16 ) * _realOp + 
+					parseInt( _Hrgb._g, 16 ) * ( 1 - _realOp ) ).toString( 16 ),
+				( parseInt( _Lrgb._b, 16 ) * _realOp + 
+					parseInt( _Hrgb._b, 16 ) * ( 1 - _realOp ) ).toString( 16 )
 			);
 		}
 		
@@ -182,10 +183,13 @@ package org.xas.jchart.map.controller
 		private function RGB2Hex( _r:String, _g:String, _b:String ):String{
 			var _nr:Number = parseInt( _r, 16 );
 			_r = _nr > 255 ? "ff" : _nr.toString(16);
+			_r.length < 2 && ( _r = "0" + _r );
 			var _ng:Number = parseInt( _g, 16 );
 			_g = _ng > 255 ? "ff" : _ng.toString(16);
+			_g.length < 2 && ( _g = "0" + _g );
 			var _nb:Number = parseInt( _b, 16 );
 			_b = _nb > 255 ? "ff" : _nb.toString(16);
+			_b.length < 2 && ( _b = "0" + _b );
 			return _r + _g + _b;
 		}
 		

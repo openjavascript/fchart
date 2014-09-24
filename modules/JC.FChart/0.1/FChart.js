@@ -217,6 +217,9 @@
         , 'VHistogram': 'VHistogram'
         , 'Vhistogram': 'VHistogram'
 
+        , 'map': 'Map'
+        , 'Map': 'Map'
+
         , 'pie': 'PieGraph'
         , 'PieGraph': 'PieGraph'
         , 'piegraph': 'PieGraph'

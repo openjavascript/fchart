@@ -12,6 +12,7 @@ package org.xas.jchart.common.view.components.VLabelView
 	
 	import mx.controls.Text;
 	
+	import org.xas.core.utils.EffectUtility;
 	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
@@ -78,6 +79,8 @@ package org.xas.jchart.common.view.components.VLabelView
 					, { color: 0x838383 }
 					, _config.vlabelsStyle
 				] );
+				
+				EffectUtility.textShadow( _titem, { color: 0x000000, size: 10 }, 0xffffff );	
 				
 				_tarrow.graphics.clear();
 				_tarrow.graphics.lineStyle( 1, 0xcccccc );
