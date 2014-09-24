@@ -42,14 +42,14 @@ package org.xas.jchart.common.data.test
 						"categories":
 						[
 							"pos.baidu.com", 
-							" www.baidu.com", 
+							"www.baidu.com", 
 							"hao.360.cn", 
 							"wd.360.cn", 
 							"internal.host.com", 
 							"eclick.baidu.com", 
 							"googleads.g.doubleclick.net", 
 							"user.qzone.qq.com", 
-							" www.so.com", 
+							"www.so.com", 
 							"ptlogin2.qq.com"
 						]
 					}, 
@@ -104,6 +104,18 @@ package org.xas.jchart.common.data.test
 								"951335880", 
 								"941430913", 
 								"914735040"
+							]
+							, "labelData": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
 							]
 						}
 					]
@@ -284,17 +296,32 @@ package org.xas.jchart.common.data.test
 								1694, 
 								2049
 							]
+							, "labelData": [
+								"1.72k"
+								, "1.69k"
+								, "2.04k"
+							]
 						}, 
 						{
 							"name": "uv", 
 							"data":
 							[
 								5, 
-								5, 
-								5
+								6, 
+								7
+							]
+							, "labelData": [
+								"0.005k"
+								, "0.006k"
+								, "0.007k"
 							]
 						}
 					], 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": true
+					}, 
 					"hline":
 					{
 					}, 
@@ -304,7 +331,7 @@ package org.xas.jchart.common.data.test
 					}, 
 					"legend":
 					{
-						"enabled": false
+						"enabled": true
 					}, 
 					"chart":
 					{

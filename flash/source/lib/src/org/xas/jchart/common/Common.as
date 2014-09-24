@@ -376,8 +376,8 @@ package org.xas.jchart.common
 			return result;
 		}
 		
-		public static function floatLen( _n:* ):int{
-			var _s:String = parseFinance( _n || 0, 10 ) + '', _r:int = 0, _ar:Array;
+		public static function floatLen( _n:*, _dot:int = 9 ):int{
+			var _s:String = parseFinance( _n || 0, _dot ) + '', _r:int = 0, _ar:Array;
 			_ar = _s.split( '.' );
 			if(_ar.length > 1 ){
 				//Log.log( 'zzzzzzzzzz', _n, _ar[1], _s );
@@ -396,10 +396,10 @@ package org.xas.jchart.common
 		 * @return  number
 		 */
 		public static function parseFinance( _i:Number, _dot:int = 2 ):Number{
-			if( _i < 100000000 ){
-				_i = parseFloat( _i.toString() ) || 0;
-				_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
-			}
+			
+			_i = parseFloat( _i.toString() ) || 0;
+			_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
+			
 			return _i;
 		}
 	}

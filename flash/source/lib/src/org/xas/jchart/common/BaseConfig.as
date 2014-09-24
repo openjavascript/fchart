@@ -64,6 +64,18 @@ package org.xas.jchart.common
 		protected var _displaySeriesIndexMap:Object;
 		public function get displaySeriesIndexMap():Object{ return _displaySeriesIndexMap; }
 		
+		public function serialDataLabelValue( _serialIx:int, _itemIx:int ):String{
+			var _r:String = '', _item:Object = displaySeries[ _serialIx ];		
+			
+			if( 'labelData' in _item ){
+				_r = _item.labelData[ _itemIx ];
+			}else{
+				_r = StringUtils.printf( dataLabelFormat, Common.moneyFormat( _item.data[ _itemIx ], 3, floatLen ) );				
+			}			
+			
+			return _r;
+		}
+		
 		public function get tooltipSerial():Array{
 			var _r:Array = [];
 			
