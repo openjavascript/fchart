@@ -46,9 +46,6 @@ package org.xas.jchart.curvegram.controller
 						
 			facade.registerMediator( new BgMediator( ) )		
 			
-			//Log.log( _config.rate.length );
-			//Log.log( _config.maxNum, _config.finalMaxNum, _config.chartMaxNum, 11111 );
-			
 			if( _config.cd ){			
 				
 				if( _config.cd.title && _config.cd.title.text ){
