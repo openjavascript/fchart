@@ -440,10 +440,12 @@
                     , _element = $( '#' + _p._model.gid() )
                     , _dataStr = JSON.stringify( _data ) 
                     ; 
+
                 if( !$( '#' +  _p._model.gid() ).length ){
                     _element = $( JC.f.printf( '<span id="{0}"></span>', _p._model.gid() ) );
                     _element.appendTo( _p.selector() );
                 }
+
                 swfobject.embedSWF( 
                     _fpath
                     , _p._model.gid()
@@ -452,7 +454,7 @@
                     , '10' 
                     , ''
                     , { 'testparams': 2, 'chart': encodeURIComponent( _dataStr ) }
-                    , { 'wmode': 'transparent' }
+                    , { 'wmode': 'window' }
                 );
 
             }
@@ -472,3 +474,4 @@
         , window
     )
 );
+

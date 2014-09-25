@@ -26,7 +26,7 @@ package org.xas.jchart.common.data.test
 			_data.push({
 				
 				xAxis: {
-					categories: [ '网页游戏', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
+					categories: [ '网页\n游戏\n3333', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
 				}
 				, yAxis: {					
 					enabled: false	
@@ -47,6 +47,9 @@ package org.xas.jchart.common.data.test
 							name: '区分度',
 							data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
 						}
+					]
+					, "header": [ 
+						'1', '2', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏'
 					]
 					
 					, headerYSpace: 6
@@ -82,7 +85,7 @@ package org.xas.jchart.common.data.test
 					enabled: false
 				}
 				, dataLabels: {
-					enabled: true
+					enabled: false
 					, format: '{0}%'
 				}
 				, vline: {

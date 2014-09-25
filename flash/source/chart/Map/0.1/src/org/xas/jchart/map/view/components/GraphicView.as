@@ -195,6 +195,13 @@ package org.xas.jchart.map.view.components
 				_minX:Number = 0, _maxX:Number = 0,
 				_minY:Number = 0, _maxY:Number = 0;
 			
+			if( ExternalInterface.available ){
+				ExternalInterface.call( 'console.log', '_evt.delta:', _evt.delta );
+				//ExternalInterface.call( 'console.dir',  _evt );
+			}else{
+				Log.log( '_evt.delta:', _evt.delta );
+			}
+			
 			if( _cameraStage.width * ( 1 + _scaleOp ) < _ms.width ){//缩小边界
 				TweenLite.to(_cameraStage, _spd, {
 					x: _ms.x,

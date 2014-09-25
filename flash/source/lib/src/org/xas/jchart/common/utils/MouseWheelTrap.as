@@ -11,7 +11,7 @@ package org.xas.jchart.common.utils
 	/**
 	 * @example
 	 * 		MouseWheelTrap.setup(stage);
-	 */
+	 */ 
 	
 	public class MouseWheelTrap {
 		
@@ -19,20 +19,24 @@ package org.xas.jchart.common.utils
 		
 		public static function setup(mainStage:Stage):void {
 			
-			if( ExternalInterface.available ){
+			//if( ExternalInterface.available ){
 				JChartEvent.mouseEnter( mainStage, function( _evt:MouseEvent ):void{ 						
 					Log.log( 'roll_over' );
-					ExternalInterface.call( 'console.log', 'roll_over', new Date().getTime() );
-					allowBrowserScroll(false); 
+					if( ExternalInterface.available ){
+						ExternalInterface.call( 'console.log', 'roll_over', new Date().getTime() );
+						allowBrowserScroll(false); 
+					}
 					
 				});
 				
 				JChartEvent.mouseLeave( mainStage, function( _evt:MouseEvent ):void{  
 					Log.log( 'roll_out' );
-					ExternalInterface.call( 'console.log', 'roll_out', new Date().getTime() );
-					allowBrowserScroll(true); 
+					if( ExternalInterface.available ){
+						ExternalInterface.call( 'console.log', 'roll_out', new Date().getTime() );
+						allowBrowserScroll(true);  
+					}
 				});
-			}
+			//}
 		}
 		
 		private static function allowBrowserScroll(allow:Boolean):void
