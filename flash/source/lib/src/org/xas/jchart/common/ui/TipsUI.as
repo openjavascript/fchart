@@ -4,6 +4,7 @@ package org.xas.jchart.common.ui
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;
 	
 	import mx.controls.Text;
 	
@@ -71,6 +72,24 @@ package org.xas.jchart.common.ui
 			return this;
 		}
 		
+		public function isFont( _fontName:String ):Boolean{
+			
+			if( _fontName === 'SimSun' ) return true;
+			
+			var t:TextField = new TextField();
+			t.defaultTextFormat = new TextFormat(_fontName,20);
+			t.text="中文";
+			t.autoSize = "left";
+			//trace(t.height);
+			//addChild(t);
+			var ta:TextField = new TextField();
+			ta.defaultTextFormat = new TextFormat("SimSun",20);
+			ta.text="中文";
+			ta.autoSize = "left";	
+			
+			return t.height !==  ta.height;
+		}
+		
 		public function buildLayout( _data:Object ):TipsUI{			
 			this._data = _data;
 	
@@ -96,7 +115,11 @@ package org.xas.jchart.common.ui
 				if( 'color' in BaseConfig.ins.tooltipHeaderIconStyle ){
 					_headerIcon.graphics.beginFill( BaseConfig.ins.tooltipHeaderIconStyle.color );
 				}
-				_headerIcon.graphics.drawRect( 0, _offsetY, 6, _nameTxf.height - 1 );
+				if( isFont( 'Microsoft YaHei' ) ){
+					_headerIcon.graphics.drawRect( 0, _offsetY + 4, 6, _nameTxf.height - 7 );
+				}else{
+					_headerIcon.graphics.drawRect( 0, _offsetY, 6, _nameTxf.height );
+				}
 				addChild( _headerIcon );
 			}
 			
