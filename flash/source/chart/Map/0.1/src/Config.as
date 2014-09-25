@@ -82,7 +82,7 @@ package
 			zoomEnabled && ( _zoomRate = chartData.zoom.zoomRate ) 
 				&& ( _zoomSpeed = chartData.zoom.zoomSpeed );
 			
-			var _cb:Object = custData.callBack;
+			var _cb:Object = chartData.callBack;
 			if( _cb ) {
 				_cb.initedCallback && ( _initedCallback = _cb.initedCallback );
 				_cb.hoverCallback && ( _hoverCallback = _cb.hoverCallback );
