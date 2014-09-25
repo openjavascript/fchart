@@ -154,7 +154,7 @@
 
                     if( !_p._model.chartScroll() ){
                         _p.selector().on( 'mousewheel', function(){
-                            //return false;
+                            return false;
                         });
                     }
 
