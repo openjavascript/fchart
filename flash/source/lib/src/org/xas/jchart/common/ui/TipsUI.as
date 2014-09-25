@@ -96,7 +96,7 @@ package org.xas.jchart.common.ui
 				if( 'color' in BaseConfig.ins.tooltipHeaderIconStyle ){
 					_headerIcon.graphics.beginFill( BaseConfig.ins.tooltipHeaderIconStyle.color );
 				}
-				_headerIcon.graphics.drawRect( 0, _offsetX, 6, _nameTxf.height - 9 );
+				_headerIcon.graphics.drawRect( 0, _offsetY, 6, _nameTxf.height - 1 );
 				addChild( _headerIcon );
 			}
 			

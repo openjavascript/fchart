@@ -77,7 +77,6 @@ package org.xas.jchart.common.data.test
 					}
 					
 				}
-				//isPercent: true,
 				, displayAllLabel: true
 				, legend: {
 					enabled: false
