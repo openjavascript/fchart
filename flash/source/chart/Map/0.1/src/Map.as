@@ -19,6 +19,7 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.MapData;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.utils.MouseWheelTrap;
 	import org.xas.jchart.map.MainFacade;
 	 
 	  
@@ -49,6 +50,8 @@ package
 			addEventListener( JChartEvent.PROCESS, process );
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );	
+			
+			MouseWheelTrap.setup( this.stage );
 		}
 		
 		private function onEnterFrame( $evt:Event ):void{

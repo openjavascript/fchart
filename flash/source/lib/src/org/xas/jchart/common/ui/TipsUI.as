@@ -38,6 +38,11 @@ package org.xas.jchart.common.ui
 		
 		private var _serialData:Object;
 		private var _afterSerialData:Object;
+		
+		protected var _offsetY:Number = 10;
+		protected var _offsetX:Number = 15;
+		
+		protected var _headerIcon:Sprite;
 				
 		public function TipsUI()
 		{
@@ -76,12 +81,26 @@ package org.xas.jchart.common.ui
 			ElementUtility.removeAllChild( _layout );
 			
 			_layout.addChild( _nameTxf = new TextField() );
-			Common.implementStyle( _nameTxf, [ { bold: true }, DefaultOptions.tooltip.style, { font: 'SimSun', size: 13 } ] );
+			Common.implementStyle( _nameTxf, [ 
+				DefaultOptions.tooltip.style
+				, { size: 14 }
+				, BaseConfig.ins.tooltipHeaderStyle()
+			] );
 			
 			_nameTxf.text = _data.name || '';
-						
-			var _offsetY:Number = 15
-				, _y:Number = _offsetY + _nameTxf.height
+			_nameTxf.y = _offsetY;			
+			
+			if( BaseConfig.ins.tooltipHeaderIconEnabled ){
+				_headerIcon = new Sprite();
+				_headerIcon.graphics.beginFill( 0x000000 );
+				if( 'color' in BaseConfig.ins.tooltipHeaderIconStyle ){
+					_headerIcon.graphics.beginFill( BaseConfig.ins.tooltipHeaderIconStyle.color );
+				}
+				_headerIcon.graphics.drawRect( 0, _offsetX, 6, _nameTxf.height - 9 );
+				addChild( _headerIcon );
+			}
+			
+			var _y:Number = _nameTxf.height + BaseConfig.ins.tooltipHeaderYSpace() + _offsetY
 				;
 			
 			_eleData = {
@@ -100,22 +119,21 @@ package org.xas.jchart.common.ui
 			if( _data.beforeItems ){
 				Common.each( _data.beforeItems, function( _k:int, _item:Object ):void{
 					if( !_item ) return;					
-					var _styles:Object = { color: BaseConfig.ins.tooptipSerialItemColor( _k ), font: 'SimSun', size: 12 };
+					var _styles:Object = { color: BaseConfig.ins.tooptipSerialItemColor( _k ) };
 					
 					_layout.addChild( _nameTxf = new TextField() );
 					_nameTxf.text = _item.name + ': ';
-					Common.implementStyle( _nameTxf, [ _styles ] );
+					Common.implementStyle( _nameTxf, [ DefaultOptions.tooltip.style, _styles, BaseConfig.ins.tooltipLabelStyle() ] );
 					_nameTxf.y = _y;
 					
 					
 					_layout.addChild( _valTxf = new TextField() );
 					_valTxf.text = '0';
-					Common.implementStyle( _valTxf, [ _styles ] );
+					Common.implementStyle( _valTxf, [ DefaultOptions.tooltip.style, _styles, BaseConfig.ins.tooltipValueStyle() ] );
 					_valTxf.y = _y;
 					
-					_y += _nameTxf.height;
+					_y += _nameTxf.height + BaseConfig.ins.tooltipItemYSpace();
 					
-					Common.implementStyle( _nameTxf, [ _styles ] );
 					
 					_serialData.items.push( { 'name': _nameTxf, 'value': _valTxf } );
 				});
@@ -124,22 +142,20 @@ package org.xas.jchart.common.ui
 			if( _data.items ){
 				Common.each( _data.items, function( _k:int, _item:Object ):void{
 					if( !_item ) return;					
-					var _styles:Object = { color: BaseConfig.ins.itemColor( _k ), font: 'SimSun', size: 12 };
+					var _styles:Object = { color: BaseConfig.ins.itemColor( _k ) };
 					
 					_layout.addChild( _nameTxf = new TextField() );
 					_nameTxf.text = _item.name + ': ';
-					Common.implementStyle( _nameTxf, [ _styles ] );
+					Common.implementStyle( _nameTxf, [ DefaultOptions.tooltip.style, _styles, BaseConfig.ins.tooltipLabelStyle() ] );
 					_nameTxf.y = _y;
 					
 					
 					_layout.addChild( _valTxf = new TextField() );
 					_valTxf.text = _item.value;
-					Common.implementStyle( _valTxf, [ _styles ] );
+					Common.implementStyle( _valTxf, [ DefaultOptions.tooltip.style, _styles, BaseConfig.ins.tooltipValueStyle() ] );
 					_valTxf.y = _y;
 					
-					_y += _nameTxf.height;
-					
-					Common.implementStyle( _nameTxf, [ _styles ] );
+					_y += _nameTxf.height + BaseConfig.ins.tooltipItemYSpace();
 
 					_eleData.items.push( { 'name': _nameTxf, 'value': _valTxf } );
 				});
@@ -148,52 +164,24 @@ package org.xas.jchart.common.ui
 			if( _data.afterItems && _data.afterItems.length ){
 				Common.each( _data.afterItems, function( _k:int, _item:Object ):void{
 					if( !_item ) return;					
-					var _styles:Object = { color: BaseConfig.ins.tooptipAfterSerialItemColor( _k ), font: 'SimSun', size: 12 };
+					var _styles:Object = { color: BaseConfig.ins.tooptipAfterSerialItemColor( _k ) };
 					
 					_layout.addChild( _nameTxf = new TextField() );
 					_nameTxf.text = _item.name + ': ';
-					Common.implementStyle( _nameTxf, [ _styles ] );
+					Common.implementStyle( _nameTxf, [ DefaultOptions.tooltip.style, _styles, BaseConfig.ins.tooltipLabelStyle() ] );
 					_nameTxf.y = _y;
 					
 					
 					_layout.addChild( _valTxf = new TextField() );
 					_valTxf.text = '0';
-					Common.implementStyle( _valTxf, [ _styles ] );
+					Common.implementStyle( _valTxf, [ DefaultOptions.tooltip.style, _styles, BaseConfig.ins.tooltipValueStyle() ] );
 					_valTxf.y = _y;
 					
-					_y += _nameTxf.height;
+					_y += _nameTxf.height + BaseConfig.ins.tooltipItemYSpace();
 					
-					Common.implementStyle( _nameTxf, [ _styles ] );
 					_afterSerialData.items.push( { 'name': _nameTxf, 'value': _valTxf } );
 				});
 			}
-			
-			/*
-			_exEleData = [];
-			Common.each( _extendData, function( _k:int, _item:Object ):void{
-				//Log.log( 'tooltip serial ' );
-				if( !_item ) return;		
-				//Log.log( 'tooltip serial 1' );			
-				var _styles:Object = { color: 0x999999 };
-				
-				_layout.addChild( _nameTxf = new TextField() );
-				_nameTxf.text = _item.name + ': ';
-				Common.implementStyle( _nameTxf, [ _styles ] );
-				_nameTxf.y = _y;
-				
-				
-				_layout.addChild( _valTxf = new TextField() );
-				_valTxf.text = _item.value;
-				Common.implementStyle( _valTxf, [ _styles ] );
-				_valTxf.y = _y;
-				
-				_y += _nameTxf.height;
-				
-				Common.implementStyle( _nameTxf, [ _styles ] );
-				
-				_exEleData.push( { 'name': _nameTxf, 'value': _valTxf } );
-			});
-			*/
 			
 			updateLayout();
 			
@@ -213,13 +201,15 @@ package org.xas.jchart.common.ui
 			
 			var _nameMaxLen:Number = 0
 				, _valueMaxLen:Number = 0
-				, _offsetX:Number = 15
-				, _offsetY:Number = 10
 				, _y:Number = _offsetY + _nameTxf.height
 				;
 			
 			_nameTxf.x = _offsetX;
 			_nameTxf.y = _offsetY;
+			
+			if( _headerIcon ){
+				_nameTxf.x = _headerIcon.x + _headerIcon.width + 4;
+			}
 			
 			if( _data ){
 				_nameTxf.text = _data.name;
@@ -268,7 +258,7 @@ package org.xas.jchart.common.ui
 				_valTxf = _item.value as TextField;
 				
 				_nameTxf.x = _offsetX * 2 + _nameMaxLen - _nameTxf.width;					
-				_valTxf.x = _offsetX * 3 + _nameMaxLen + ( _valueMaxLen - _valTxf.width );
+				_valTxf.x = _offsetX * 2 + _nameMaxLen + BaseConfig.ins.tooltipValueLabelXSpace();
 			});
 			
 			Common.each( _eleData.items, function( _k:int, _item:Object ):void{
@@ -276,7 +266,7 @@ package org.xas.jchart.common.ui
 				_valTxf = _item.value as TextField;
 				
 				_nameTxf.x = _offsetX * 2 + _nameMaxLen - _nameTxf.width;					
-				_valTxf.x = _offsetX * 3 + _nameMaxLen + ( _valueMaxLen - _valTxf.width );
+				_valTxf.x = _offsetX * 2 + _nameMaxLen + ( _valueMaxLen - _valTxf.width ) + BaseConfig.ins.tooltipValueLabelXSpace();
 			});
 			
 			Common.each( _afterSerialData.items, function( _k:int, _item:Object ):void{
@@ -284,29 +274,15 @@ package org.xas.jchart.common.ui
 				_valTxf = _item.value as TextField;
 				
 				_nameTxf.x = _offsetX * 2 + _nameMaxLen - _nameTxf.width;					
-				_valTxf.x = _offsetX * 3 + _nameMaxLen + ( _valueMaxLen - _valTxf.width );
+				_valTxf.x = _offsetX * 2 + _nameMaxLen + BaseConfig.ins.tooltipValueLabelXSpace();
 			});
-			
-			/*
-			Common.each( _exEleData, function( _k:int, _item:Object ):void{
-				_nameTxf = _item.name as TextField;
-				_valTxf = _item.value as TextField;
-				
-				_nameTxf.x = _offsetX * 2 + _nameMaxLen - _nameTxf.width;	
-				_valTxf.x = _offsetX * 3 + _nameMaxLen + ( _valueMaxLen - _valTxf.width );
-			});
-			*/
+
 			
 			if( _colors && _colors.length ){
 				if( _colors.length === 1 ){
 					Common.each( _eleData.items, function( _k:int, _item:Object ):void{
 						_nameTxf = _item.name as TextField;
 						_valTxf = _item.value as TextField;
-						
-						/*
-						EffectUtility.textShadow( _nameTxf, { color: 0xffffff }, _colors[0] );
-						EffectUtility.textShadow( _valTxf, { color: 0xffffff }, _colors[0] );
-						*/
 						
 						_nameTxf.textColor = _colors[0];
 						_valTxf.textColor = _colors[0];
