@@ -472,6 +472,34 @@
             </div>
         </dd>    
     </dl>
+    <script type="text/javascript">
+    	console.log( $('.js_compFChart') );
+    	$('.js_compFChart').scroll(function( e ){
+
+	        var sl;
+	        e = e || window.event;
+	        if (navigator.userAgent.toLowerCase().indexOf('msie') >= 0) {
+	            event.returnValue = false;
+	        } else {
+	            e.preventDefault();
+	        };
+	        if (e.wheelDelta) {
+	            sl = e.wheelDelta;
+	        } else if (e.detail) {
+	            sl = -e.detail;
+	        };
+	        if (sl < 0) {
+	            var x = parseInt($("he").innerHTML);
+	            x++;
+	            $("he").innerHTML = x;
+	        } else {
+	            var x = parseInt($("he").innerHTML);
+	            x--;
+	            $("he").innerHTML = x;
+	        }
+
+    	});
+    </script>
 </body>
 </html>
 
