@@ -139,7 +139,7 @@ package org.xas.jchart.map.view.components
 			addChild( _mask );
 			
 			if( ExternalInterface.available && _config.c.initedCallback ){
-				 ExternalInterface.call( _config.c.initedCallback );
+				ExternalInterface.call( _config.c.initedCallback );
 			}
 		}
 		
