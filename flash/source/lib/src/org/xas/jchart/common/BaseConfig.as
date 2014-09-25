@@ -685,7 +685,7 @@ package org.xas.jchart.common
 			var _r:Array = DefaultOptions.colors;
 			
 			chartData 
-			&& chartData.colors
+				&& chartData.colors
 				&& chartData.colors.length
 				&& ( _r = chartData.colors );
 			
@@ -705,11 +705,107 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function tooltipHeaderStyle():Object{
+			var _r:Object = {};
+			
+			chartData 
+				&& chartData.tooltip
+				&& chartData.tooltip.headerStyle
+				&& ( _r = chartData.tooltip.headerStyle );
+			
+			return _r;
+		}
+		
+		public function tooltipHeaderYSpace():Number{
+			var _r:Number = 6;
+			
+			chartData 
+				&& chartData.tooltip
+				&& ( 'headerYSpace' in chartData.tooltip )
+				&& ( _r = chartData.tooltip.headerYSpace as Number );
+			
+			return _r;
+		}
+		
+		public function tooltipItemYSpace():Number{
+			var _r:Number = 6;
+			
+			chartData 
+			&& chartData.tooltip
+				&& ( 'itemYSpace' in chartData.tooltip )
+				&& ( _r = chartData.tooltip.itemYSpace as Number );
+			
+			return _r;
+		}
+		
+		public function tooltipValueLabelXSpace():Number{
+			var _r:Number = 4;
+			
+			chartData 
+			&& chartData.tooltip
+				&& ( 'valueLabelXSpace' in chartData.tooltip )
+				&& ( _r = chartData.tooltip.valueLabelXSpace as Number );
+			
+			return _r;
+		}
+		
+		public function tooltipLabelStyle():Object{
+			var _r:Object = {};
+			
+			chartData 
+				&& chartData.tooltip
+				&& chartData.tooltip.labelStyle
+				&& ( _r = chartData.tooltip.labelStyle );
+			
+			return _r;
+		}
+		
+		public function tooltipValueStyle():Object{
+			var _r:Object = {};
+			
+			chartData 			
+			&& chartData.tooltip
+				&& chartData.tooltip.valueStyle
+				&& ( _r = chartData.tooltip.valueStyle );
+			
+			return _r;
+		}
+		
+		public function get tooltipHeaderIcon():Object{
+			var _r:Object = {};
+			
+			chartData 			
+			&& chartData.tooltip
+				&& chartData.tooltip.headerIcon
+				&& ( _r = chartData.tooltip.headerIcon );
+			
+			return _r;
+		}
+		
+		public function get tooltipHeaderIconStyle():Object{
+			var _r:Object = {};
+			
+			tooltipHeaderIcon 
+				&& tooltipHeaderIcon.style			
+				&& ( _r = tooltipHeaderIcon.style );
+			
+			return _r;
+		}
+		
+		public function get tooltipHeaderIconEnabled():Boolean{
+			var _r:Boolean = false;
+			
+			tooltipHeaderIcon 			
+				&& ( _r = StringUtils.parseBool( tooltipHeaderIcon.enabled ) );
+			
+			return _r;
+		}
+		
 		public function get tooltipSerialColors():Array{
 			var _r:Array = DefaultOptions.tooltip.serialColor;
 			
-			chartData 
-			&& chartData.tooltip.serialColor
+			chartData 			
+				&& chartData.tooltip
 				&& chartData.tooltip.serialColor
 				&& chartData.tooltip.serialColor.length
 				&& ( _r = chartData.tooltip.serialColor );
@@ -733,8 +829,8 @@ package org.xas.jchart.common
 		public function get tooltipAfterSerialColors():Array{
 			var _r:Array = DefaultOptions.tooltip.afterSerialColor;
 			
-			chartData 
-			&& chartData.tooltip.afterSerialColor
+			chartData 			
+				&& chartData.tooltip
 				&& chartData.tooltip.afterSerialColor
 				&& chartData.tooltip.afterSerialColor.length
 				&& ( _r = chartData.tooltip.afterSerialColor );
