@@ -152,6 +152,12 @@
                     }
                     _p._model.height() && _p.selector().css( { 'height': _p._model.height() } );
 
+                    if( !_p._model.chartScroll() ){
+                        _p.selector().on( 'mousewheel', function(){
+                            return false;
+                        });
+                    }
+
                 });
 
                 _p.on( FChart.Model.UPDATE_CHART_DATA, function( _evt, _data ){
