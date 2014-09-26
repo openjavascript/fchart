@@ -1,4 +1,4 @@
-;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2' ], function(){
+;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2', 'jquery.mousewheel'  ], function(){
 /**
  * JC.FChart - flash 图表组件
  *
@@ -6,6 +6,7 @@
  *      <a href='JC.BaseMVC.html'>JC.BaseMVC</a>
  *      , <a href='window.swfobject.html'>SWFObject</a>
  *      , <a href='window.json2'>JSON2</a>
+ *      , <a href='window.jQuery.mousewheel'>jQuery.mousewheel</a>
  *  </p>
  *
  *  <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JC Project Site</a>
@@ -151,9 +152,14 @@
                         _p.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() && _p.selector().css( { 'height': _p._model.height() } );
+                    JC.log( _p._model.type() );
 
-                    if( !_p._model.chartScroll() ){
-                        _p.selector().on( 'mousewheel', function(){
+                    if( !_p._model.chartScroll() || _p._model.type().toLowerCase() == 'map' ){
+                        _p.selector().on( 'mousewheel', function( _evt ){
+                            var _swf = $( '#' + _p.gid() );
+                            if( _evt.deltaY && _swf &&  _swf.prop( 'apiReady' ) && _swf.prop( 'updateMouseWheel' ) ){
+                                _swf[0].updateMouseWheel( _evt.deltaY );
+                            }
                             return false;
                         });
                     }
@@ -192,6 +198,10 @@
                 this.trigger( FChart.Model.UPDATE_CHART_DATA, _data );
                 return this;
             }
+        /**
+         *
+         */
+        , gid: function(){ return this._model.gid(); }
 
     });
 
@@ -454,14 +464,17 @@
                     , '10' 
                     , ''
                     , { 'testparams': 2, 'chart': encodeURIComponent( _dataStr ) }
-                    , { 'wmode': 'window' }
+                    , { 'wmode': 'transparent' }
+                    , { 'id': _p._model.gid(), 'name': _p._model.gid() }
                 );
 
             }
     });
 
     _jdoc.ready( function(){
-        FChart.autoInit && FChart.init();
+        JC.f.safeTimeout( function(){
+            FChart.autoInit && FChart.init();
+        }, null, 'winFCHARTInit', 1 );
     });
 
     return JC.FChart;

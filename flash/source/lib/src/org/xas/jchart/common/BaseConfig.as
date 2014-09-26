@@ -1,6 +1,7 @@
 package org.xas.jchart.common
 {
 	import flash.display.DisplayObject;
+	import flash.external.ExternalInterface;
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.Log;
@@ -12,7 +13,16 @@ package org.xas.jchart.common
 	{
 		protected static var _ins:BaseConfig;
 		public static function setIns( _ins:BaseConfig ):BaseConfig{
+			
+			if( ExternalInterface.available ) {
+				ExternalInterface.addCallback( 'apiReady', apiReady );
+			}
+			
 			return BaseConfig._ins = _ins;
+		}
+		
+		private static function apiReady():Boolean{
+			return true;
 		}
 		
 		public static function get ins():BaseConfig{
@@ -1067,5 +1077,6 @@ package org.xas.jchart.common
 		public function BaseConfig()
 		{
 		}
+		
 	}
 }

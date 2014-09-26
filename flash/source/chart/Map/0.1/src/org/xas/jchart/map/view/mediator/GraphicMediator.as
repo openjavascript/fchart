@@ -53,6 +53,7 @@ package org.xas.jchart.map.view.mediator
 				, JChartEvent.UPDATE_TIPS
 				, JChartEvent.SHOW_TIPS
 				, JChartEvent.HIDE_TIPS
+				, JChartEvent.UPDATE_MOUSEWHEEL
 			];
 		}
 		
@@ -61,6 +62,11 @@ package org.xas.jchart.map.view.mediator
 				case JChartEvent.SHOW_CHART:
 				{		
 					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
+					break;
+				}
+				case JChartEvent.UPDATE_MOUSEWHEEL:
+				{		
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE_MOUSEWHEEL, notification.getBody() ) );
 					break;
 				}
 			}

@@ -5,6 +5,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.external.ExternalInterface;
 	import flash.system.Security;
@@ -12,6 +13,7 @@ package
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	
+	import org.libspark.ui.SWFWheel;
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
@@ -51,14 +53,13 @@ package
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );	
 			
-			//MouseWheelTrap.setup( this.stage );
 		}
 		
 		private function onEnterFrame( $evt:Event ):void{
 			if( root.stage.stageWidth > 0 && root.stage.stageHeight > 0 ) {
 				removeEventListener( Event.ENTER_FRAME, onEnterFrame );
 				init();
-			}
+			} 
 		}
 		
 		private function init():void{
@@ -69,6 +70,16 @@ package
 			
 			if( ExternalInterface.available ) {
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				ExternalInterface.addCallback( 'updateMouseWheel', updateMouseWheel );
+			}
+		}	
+		
+		private function updateMouseWheel( _delta:int ):void{
+			_delta = _delta > 0 ? 3 : -3;
+			
+			if( ExternalInterface.available ){
+				//ExternalInterface.call( 'console.log', 'flash delta:', _delta );
+				_facade && _facade.sendNotification( JChartEvent.UPDATE_MOUSEWHEEL, { delta: _delta } );
 			}
 		}
 		
@@ -76,7 +87,7 @@ package
 			BaseConfig.ins.clearData();
 			BaseConfig.ins.updateDisplaySeries( null, _data );
 			BaseConfig.ins.setChartData( _data );
-			_facade.sendNotification( JChartEvent.DRAW );
+			_facade.sendNotification( JChartEvent.DRAW );		
 		}
 		
 		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{

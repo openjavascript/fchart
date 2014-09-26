@@ -43,6 +43,7 @@ package org.xas.jchart.map.view.components
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			addEventListener( JChartEvent.UPDATE, update );
+			addEventListener( JChartEvent.UPDATE_MOUSEWHEEL, onUpdateMouseWheel );
 		}
 		
 		private function addToStage( _evt:Event ):void{
@@ -185,21 +186,36 @@ package org.xas.jchart.map.view.components
 			}
 		}
 		
+		protected function onUpdateMouseWheel( _evt:JChartEvent ):void{
+			var _data:Object = _evt.data as Object;
+			if( ExternalInterface.available ){
+				//ExternalInterface.call( 'console.log', 'flash onUpdateMouseWheel:', _data.delta );
+				_data.localX = mouseX;
+				_data.localY = mouseY;
+				
+				updateMouseWheel( _data );
+			}
+		}
+		
 		protected function onMouseWheel( _evt:MouseEvent ):void{
+			updateMouseWheel( { delta: _evt.delta, localX: _evt.localX, localY: _evt.localY } );
+		}
+		
+		protected function updateMouseWheel( _data:Object ):void{
 			if( !_config.zoomEnabled ){
 				return;
 			}
-
+			
 			var _spd:Number = _config.zoomSpeed,
-				_scaleOp:Number = _evt.delta * _config.zoomRate,
+				_scaleOp:Number = _data.delta * _config.zoomRate,
 				_minX:Number = 0, _maxX:Number = 0,
 				_minY:Number = 0, _maxY:Number = 0;
 			
 			if( ExternalInterface.available ){
-				ExternalInterface.call( 'console.log', '_evt.delta:', _evt.delta );
-				//ExternalInterface.call( 'console.dir',  _evt );
+				//ExternalInterface.call( 'console.log', '_data.delta:', _data.delta );
+				//ExternalInterface.call( 'console.dir',  _data );
 			}else{
-				Log.log( '_evt.delta:', _evt.delta );
+				//Log.log( '_data.delta:', _data.delta, _config.zoomRate, _config.zoomSpeed );
 			}
 			
 			if( _cameraStage.width * ( 1 + _scaleOp ) < _ms.width ){//缩小边界
@@ -212,9 +228,9 @@ package org.xas.jchart.map.view.components
 				return;
 			}
 			
-			_minX = _cameraStage.x + _evt.localX * ( -_scaleOp );
+			_minX = _cameraStage.x + _data.localX * ( -_scaleOp );
 			_maxX = _minX + _ms.width * ( _cameraStage.scaleX + _scaleOp );
-			_minY = _cameraStage.y + _evt.localY * ( -_scaleOp );
+			_minY = _cameraStage.y + _data.localY * ( -_scaleOp );
 			_maxY = _minY + _ms.height * ( _cameraStage.scaleY + _scaleOp );
 			
 			_minX > _ms.x && ( _minX = _ms.x );
@@ -230,7 +246,7 @@ package org.xas.jchart.map.view.components
 				y: _minY,
 				scaleX: _cameraStage.scaleX + _scaleOp,
 				scaleY: _cameraStage.scaleY + _scaleOp
-			});
+			});	
 		}
 		
 		protected function onMouseDown( _evt:MouseEvent ):void{
