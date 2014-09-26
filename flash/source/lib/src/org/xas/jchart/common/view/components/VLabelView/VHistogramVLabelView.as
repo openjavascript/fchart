@@ -68,7 +68,7 @@ package org.xas.jchart.common.view.components.VLabelView
 		override protected function update( _evt:JChartEvent ):void{
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.vpoint ) ) return;
 			
-			Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
+			Common.each( BaseConfig.ins.c.vpointReal, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
 				var _x:Number = _item.end.x - _tf.width / 2;
