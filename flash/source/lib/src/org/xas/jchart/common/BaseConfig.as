@@ -428,6 +428,17 @@ package org.xas.jchart.common
 				&& ( _r = StringUtils.parseBool( cd.vline.enabled ) );
 			
 			return _r;
+		}		
+		
+		public function get vboldLineEnabled():Boolean{
+			var _r:Boolean = false;
+			//return false;
+			cd 
+			&& cd.vboldLine
+				&& ( 'enabled' in cd.vboldLine )
+				&& ( _r = StringUtils.parseBool( cd.vboldLine.enabled ) );
+			
+			return _r;
 		}
 		
 		public function get hlineEnabled():Boolean{

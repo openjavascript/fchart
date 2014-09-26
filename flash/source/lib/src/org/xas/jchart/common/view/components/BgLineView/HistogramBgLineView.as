@@ -18,6 +18,7 @@ package org.xas.jchart.common.view.components.BgLineView
 	public class HistogramBgLineView extends BaseBgLineView
 	{
 		private var _hboldLine:Sprite;
+		private var _vboldLine:Sprite;
 		
 		public function HistogramBgLineView()
 		{
@@ -37,7 +38,7 @@ package org.xas.jchart.common.view.components.BgLineView
 				_hboldLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
 				_hboldLine.graphics.lineTo( BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
 				return;	
-			}
+			}	
 			
 			Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
@@ -56,6 +57,22 @@ package org.xas.jchart.common.view.components.BgLineView
 		
 		override protected function drawVLine():void{
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.hlinePoint )  ) return;
+			
+			
+			if( 
+				( 
+					!BaseConfig.ins.vlineEnabled 
+						&& !BaseConfig.ins.hlineEnabled 
+						&& BaseConfig.ins.yAxisEnabled
+				)
+				|| BaseConfig.ins.vboldLineEnabled
+			) {
+				addChildAt( _vboldLine = new Sprite(), 0 );
+				_vboldLine.graphics.lineStyle( 1, 0x999999, .35 );
+				_vboldLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY - 5 );
+				_vboldLine.graphics.lineTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight + 5 );
+			}
+			
 			if( !BaseConfig.ins.vlineEnabled ) return;
 			
 			Common.each( BaseConfig.ins.c.hlinePoint, function( _k:int, _item:Object ):void{
