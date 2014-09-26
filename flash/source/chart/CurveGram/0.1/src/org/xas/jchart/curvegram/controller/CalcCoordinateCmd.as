@@ -128,8 +128,10 @@ package org.xas.jchart.curvegram.controller
 					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
 				}
 				
-				facade.registerMediator( new HLabelMediator() );
-				_config.c.maxY -= pHLabelMediator.maxHeight;
+				if( _config.xAxisEnabled ){
+					facade.registerMediator( new HLabelMediator() );
+					_config.c.maxY -= pHLabelMediator.maxHeight;
+				}
 				
 				//_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				if( _config.graphicHeight ){

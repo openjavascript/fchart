@@ -304,6 +304,16 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get xAxisEnabled():Boolean{
+			var _r:Boolean = true;
+			
+			if( cd && cd.xAxis && ( 'enabled' in cd.xAxis ) ){
+				_r = StringUtils.parseBool( cd.xAxis.enabled );
+			}
+			
+			return _r;
+		}
+		
 		public function get dataLabelEnabled():Boolean{
 			var _r:Boolean = true;
 			//return false;

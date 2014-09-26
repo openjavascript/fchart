@@ -45,45 +45,50 @@ package org.xas.jchart.common.view.components.TipsView
 					//_data[ _k ][ 'name' ] = _sitem.name || '';
 					//Log.log( 'xxxxxxx', _sitem.data[_k] );
 					
-					var _name:String = _sitem.name + ''
-					, _value:String = StringUtils.printf( _config.tooltipSerialFormat, 
-						Common.moneyFormat( _sitem.data[ _k ], 3, Common.floatLen( _sitem.data[ _k ] ) )
-					)
-					
-					_data[ _k ].beforeItems.push( {
-						'name': _name.replace( /[\r\n]+/g, '' )
-						, 'value': _value
-					});
+					if(  _sitem.data ){
+						var _name:String = _sitem.name + ''
+						, _value:String = StringUtils.printf( _config.tooltipSerialFormat, 
+							Common.moneyFormat( _sitem.data[ _k ], 3, Common.floatLen( _sitem.data[ _k ] ) )
+						)
+						
+						_data[ _k ].beforeItems.push( {
+							'name': _name.replace( /[\r\n]+/g, '' )
+							, 'value': _value
+						});
+					}
 				});
 				
 				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
 					//_data[ _k ][ 'name' ] = _sitem.name || '';
 					//Log.log( 'xxxxxxx', _sitem.data[_k] );
-					
-					var _name:String = _sitem.name + ''
-					, _value:String = StringUtils.printf( _config.tooltipPointFormat, 
-						Common.moneyFormat( _sitem.data[ _k ], 3, _config.floatLen  )
-					)
-					
-					_data[ _k ].items.push( {
-						'name': _name.replace( /[\r\n]+/g, '' )
-						, 'value': _value
-					}); 
+					if( _sitem.data ){
+						var _name:String = _sitem.name + ''
+						, _value:String = StringUtils.printf( _config.tooltipPointFormat, 
+							Common.moneyFormat( _sitem.data[ _k ], 3, _config.floatLen  )
+						)
+						
+						_data[ _k ].items.push( {
+							'name': _name.replace( /[\r\n]+/g, '' )
+							, 'value': _value
+						});
+					}
 				});
 				
 				Common.each( _config.tooltipAfterSerial, function( _sk:int, _sitem:Object ):void{
 					//_data[ _k ][ 'name' ] = _sitem.name || '';
 					//Log.log( 'xxxxxxx', _sitem.data[_k] );
 					
-					var _name:String = _sitem.name + ''
-					, _value:String = StringUtils.printf( _config.tooltipAfterSerialFormat, 
-						Common.moneyFormat( _sitem.data[ _k ], 3, Common.floatLen( _sitem.data[ _k ] ) )
-					)
-					
-					_data[ _k ].afterItems.push( {
-						'name': _name.replace( /[\r\n]+/g, '' )
-						, 'value': _value
-					});
+					if(  _sitem.data ){
+						var _name:String = _sitem.name + ''
+						, _value:String = StringUtils.printf( _config.tooltipAfterSerialFormat, 
+							Common.moneyFormat( _sitem.data[ _k ], 3, Common.floatLen( _sitem.data[ _k ] ) )
+						)
+						
+						_data[ _k ].afterItems.push( {
+							'name': _name.replace( /[\r\n]+/g, '' )
+							, 'value': _value
+						});
+					}
 				});
 			});
 			

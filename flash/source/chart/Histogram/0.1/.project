@@ -18,7 +18,7 @@
 		<link>
 			<name>[source path] src</name>
 			<type>2</type>
-			<locationURI>MY_WORKSPACE/lib/src</locationURI>
+			<location>G:/My Documents/git/fchart/flash/source/lib/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

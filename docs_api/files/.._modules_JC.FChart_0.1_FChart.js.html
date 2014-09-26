@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>../modules/JC.FChart/0.1/FChart.js - FChart</title>
+    <title>..\modules\JC.FChart\0.1\FChart.js - FChart</title>
     <link rel="stylesheet" href="../assets/css/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -21,7 +21,7 @@
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
             
-                <h1><img src="../jc_logo.png" title="FChart"></h1>
+                <h1><img src="..\jc_logo.png" title="FChart"></h1>
             
         </div>
         <div class="yui3-u-1-4 version">
@@ -62,6 +62,8 @@
                 <li><a href="../classes/JC.FChartNormalData.html">JC.FChartNormalData</a></li>
             
                 <li><a href="../classes/window.jQuery.html">window.jQuery</a></li>
+            
+                <li><a href="../classes/window.jQuery.mousewheel.html">window.jQuery.mousewheel</a></li>
             
                 <li><a href="../classes/window.requirejs.html">window.requirejs</a></li>
             
@@ -106,11 +108,11 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ../modules/JC.FChart/0.1/FChart.js</h1>
+                        <h1 class="file-heading">File: ..\modules\JC.FChart\0.1\FChart.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
-;(function(define, _win) { &#x27;use strict&#x27;; define( [ &#x27;JC.BaseMVC&#x27;, &#x27;swfobject&#x27;, &#x27;json2&#x27; ], function(){
+;(function(define, _win) { &#x27;use strict&#x27;; define( [ &#x27;JC.BaseMVC&#x27;, &#x27;swfobject&#x27;, &#x27;json2&#x27;, &#x27;jquery.mousewheel&#x27;  ], function(){
 /**
  * JC.FChart - flash 图表组件
  *
@@ -118,6 +120,7 @@
  *      &lt;a href=&#x27;JC.BaseMVC.html&#x27;&gt;JC.BaseMVC&lt;/a&gt;
  *      , &lt;a href=&#x27;window.swfobject.html&#x27;&gt;SWFObject&lt;/a&gt;
  *      , &lt;a href=&#x27;window.json2&#x27;&gt;JSON2&lt;/a&gt;
+ *      , &lt;a href=&#x27;window.jQuery.mousewheel&#x27;&gt;jQuery.mousewheel&lt;/a&gt;
  *  &lt;/p&gt;
  *
  *  &lt;p&gt;&lt;a href=&#x27;https://github.com/openjavascript/fchart&#x27; target=&#x27;_blank&#x27;&gt;JC Project Site&lt;/a&gt;
@@ -263,9 +266,14 @@
                         _p.trigger( FChart.Model.UPDATE_CHART_DATA, [ _data ] );
                     }
                     _p._model.height() &amp;&amp; _p.selector().css( { &#x27;height&#x27;: _p._model.height() } );
+                    JC.log( _p._model.type() );
 
-                    if( !_p._model.chartScroll() || _p._model.type() == &#x27;Map&#x27; ){
-                        _p.selector().on( &#x27;mousewheel&#x27;, function(){
+                    if( !_p._model.chartScroll() || _p._model.type().toLowerCase() == &#x27;map&#x27; ){
+                        _p.selector().on( &#x27;mousewheel&#x27;, function( _evt ){
+                            var _swf = $( &#x27;#&#x27; + _p.gid() );
+                            if( _evt.deltaY &amp;&amp; _swf &amp;&amp;  _swf.prop( &#x27;apiReady&#x27; ) &amp;&amp; _swf.prop( &#x27;updateMouseWheel&#x27; ) ){
+                                _swf[0].updateMouseWheel( _evt.deltaY );
+                            }
                             return false;
                         });
                     }
@@ -304,6 +312,10 @@
                 this.trigger( FChart.Model.UPDATE_CHART_DATA, _data );
                 return this;
             }
+        /**
+         *
+         */
+        , gid: function(){ return this._model.gid(); }
 
     });
 
@@ -314,6 +326,14 @@
     FChart.Model.CLEAR_STATUS = &#x27;clear_status&#x27;;
     FChart.Model.UPDATE_CHART_DATA = &#x27;update_data&#x27;;
 
+    /**
+     * flash swf 路径
+     * &lt;br /&gt;{0} = JC.PATH
+     * &lt;br /&gt;{1} = chart file name
+     * @property    Model.FLASH_PATH
+     * @type        {string}
+     * @default     {0}/flash/pub/charts/{1}.swf
+     */
     FChart.Model.FLASH_PATH = &#x27;{0}/flash/pub/charts/{1}.swf&#x27;;
 
     /**
@@ -338,6 +358,9 @@
         , &#x27;vbar&#x27;: &#x27;VHistogram&#x27;
         , &#x27;VHistogram&#x27;: &#x27;VHistogram&#x27;
         , &#x27;Vhistogram&#x27;: &#x27;VHistogram&#x27;
+
+        , &#x27;map&#x27;: &#x27;Map&#x27;
+        , &#x27;Map&#x27;: &#x27;Map&#x27;
 
         , &#x27;pie&#x27;: &#x27;PieGraph&#x27;
         , &#x27;PieGraph&#x27;: &#x27;PieGraph&#x27;
@@ -549,10 +572,12 @@
                     , _element = $( &#x27;#&#x27; + _p._model.gid() )
                     , _dataStr = JSON.stringify( _data ) 
                     ; 
+
                 if( !$( &#x27;#&#x27; +  _p._model.gid() ).length ){
                     _element = $( JC.f.printf( &#x27;&lt;span id=&quot;{0}&quot;&gt;&lt;/span&gt;&#x27;, _p._model.gid() ) );
                     _element.appendTo( _p.selector() );
                 }
+
                 swfobject.embedSWF( 
                     _fpath
                     , _p._model.gid()
@@ -562,13 +587,16 @@
                     , &#x27;&#x27;
                     , { &#x27;testparams&#x27;: 2, &#x27;chart&#x27;: encodeURIComponent( _dataStr ) }
                     , { &#x27;wmode&#x27;: &#x27;transparent&#x27; }
+                    , { &#x27;id&#x27;: _p._model.gid(), &#x27;name&#x27;: _p._model.gid() }
                 );
 
             }
     });
 
     _jdoc.ready( function(){
-        FChart.autoInit &amp;&amp; FChart.init();
+        JC.f.safeTimeout( function(){
+            FChart.autoInit &amp;&amp; FChart.init();
+        }, null, &#x27;winFCHARTInit&#x27;, 1 );
     });
 
     return JC.FChart;
@@ -581,6 +609,7 @@
         , window
     )
 );
+
 
     </pre>
 </div>

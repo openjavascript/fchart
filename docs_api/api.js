@@ -9,6 +9,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "JC.common",
         "JC.f",
         "window.jQuery",
+        "window.jQuery.mousewheel",
         "window.requirejs",
         "window.swfobject"
     ],

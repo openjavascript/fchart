@@ -13,17 +13,15 @@ package
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	
-	import org.libspark.ui.SWFWheel;
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.MapData;
-	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.utils.MouseWheelTrap;
+	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.map.MainFacade;
-	 
+	  
 	  
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")] 

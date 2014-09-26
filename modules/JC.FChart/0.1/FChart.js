@@ -212,6 +212,14 @@
     FChart.Model.CLEAR_STATUS = 'clear_status';
     FChart.Model.UPDATE_CHART_DATA = 'update_data';
 
+    /**
+     * flash swf 路径
+     * <br />{0} = JC.PATH
+     * <br />{1} = chart file name
+     * @property    Model.FLASH_PATH
+     * @type        {string}
+     * @default     {0}/flash/pub/charts/{1}.swf
+     */
     FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf';
 
     /**
