@@ -191,8 +191,8 @@ package org.xas.jchart.map.view.components
 			var _data:Object = _evt.data as Object;
 			if( ExternalInterface.available ){
 				//ExternalInterface.call( 'console.log', 'flash onUpdateMouseWheel:', _data.delta );
-				_data.localX = _ms.x;
-				_data.localY = _ms.y;
+				_data.localX = mouseX - _ms.x;
+				_data.localY = mouseY - _ms.y;
 				
 				updateMouseWheel( _data );
 			}
