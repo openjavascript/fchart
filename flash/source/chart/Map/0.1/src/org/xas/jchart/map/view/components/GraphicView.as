@@ -12,6 +12,7 @@ package org.xas.jchart.map.view.components
 	import flash.external.ExternalInterface;
 	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
+	import flash.geom.Point;
 	import flash.ui.Mouse;
 	import flash.ui.MouseCursor;
 	import flash.utils.Timer;
@@ -190,14 +191,15 @@ package org.xas.jchart.map.view.components
 			var _data:Object = _evt.data as Object;
 			if( ExternalInterface.available ){
 				//ExternalInterface.call( 'console.log', 'flash onUpdateMouseWheel:', _data.delta );
-				_data.localX = mouseX;
-				_data.localY = mouseY;
+				_data.localX = _ms.x;
+				_data.localY = _ms.y;
 				
 				updateMouseWheel( _data );
 			}
 		}
 		
 		protected function onMouseWheel( _evt:MouseEvent ):void{
+			var _tmp:Point = new Point( _ms.x, _ms.y );
 			updateMouseWheel( { delta: _evt.delta, localX: _evt.localX, localY: _evt.localY } );
 		}
 		
