@@ -185,5 +185,21 @@ package
 			}
 		}
 		
+		override public function getTipsHeader( _ix:int ):String{
+			var _r:String = '';
+			c.mapData[ _ix ] && ( _r = c.mapData[ _ix ].name ); 
+			tipsHeader[ _ix ] && ( _r = tipsHeader[ _ix ].name );
+			return _r;
+		}
+		
+		override public function get tipsHeader():Array{
+			var _r:Array = [];
+
+			if( cd && cd.tooltip && cd.tooltip.header ){
+				_r = cd.tooltip.header;
+			}
+			return _r;
+		}
+		
 	}
 }

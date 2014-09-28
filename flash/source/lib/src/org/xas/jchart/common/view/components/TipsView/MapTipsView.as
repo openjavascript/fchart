@@ -11,6 +11,8 @@ package org.xas.jchart.common.view.components.TipsView
 
 	public class MapTipsView extends BaseTipsView
 	{
+		private var _mconfig:Config = BaseConfig.ins as Config;
+		
 		public function MapTipsView()
 		{
 			super();
@@ -18,18 +20,27 @@ package org.xas.jchart.common.view.components.TipsView
 		
 		override protected function buildData():void{
 			
-			if( !_config.c.mapData ){
+			if( !_mconfig.c.mapData ){
 				return;
 			}
 			
 			_data = {};
 			
-			Common.each( _config.c.mapData, function( _k:int, _item:Object ):void{
+			
+			Common.each( _mconfig.c.mapData, function( _k:int, _item:Object ):void{
+				
+				var _format:String = _mconfig.tooltipHeaderFormat
+					, _headerName:String = StringUtils.printf( _format,  _mconfig.getTipsHeader( _k ).replace( /[\r\n]+/g, '' ) || ''  )
+					, _value:String = StringUtils.printf( _mconfig.tooltipPointFormat, 
+						Common.moneyFormat( _item.value, 3, Common.floatLen( _item.value ) )
+					)
+					;
+				
 				_data[ _k ] = {
-					'name': _item.name.replace( /[\r\n]+/g, '' ) || '',
+					'name': _headerName,
 					'items': [{
 						'name': BaseConfig.ins.itemName,
-						'value': _item.value
+						'value': _value
 					}]
 				};
 			});
