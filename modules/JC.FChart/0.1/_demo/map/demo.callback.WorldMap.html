@@ -96,13 +96,13 @@
             console.log('Map inited!');
         }
 
-        function hovered(a) {
+        function hovered( a ) {
+            //JC.dir( a.data );
             console.log('hovered : '+ a.data.name);
         }
 
         function clicked(a) {
-            alert('you clicked : '+ a.data.name);
-
+            alert('you clicked : '+ JSON.stringify( a.data ) );
         }
     </script>
 </body>
