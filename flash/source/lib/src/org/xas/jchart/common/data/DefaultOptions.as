@@ -958,7 +958,7 @@ package org.xas.jchart.common.data
 					"size": 9, 
 					"color": 0x909090
 				}, 
-				"href": "http://jchart.openjavascript.org", 
+				"href": "http://fchart.openjavascript.org", 
 				"text": "jchart.openjavascript.org"
 			}
 		

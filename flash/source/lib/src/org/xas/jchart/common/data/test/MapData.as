@@ -33,7 +33,7 @@ package org.xas.jchart.common.data.test
 				credits: {
 					enabled: true
 					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				tooltip: {
 					"headerFormat": "{0}"
@@ -214,7 +214,7 @@ package org.xas.jchart.common.data.test
 				credits: {
 					enabled: true
 					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				tooltip: {		
 					"headerFormat": "{0}"
@@ -252,7 +252,7 @@ package org.xas.jchart.common.data.test
 				credits: {
 					enabled: false
 					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				tooltip: {
 					"headerFormat": "{0}"
