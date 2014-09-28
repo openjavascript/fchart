@@ -27,14 +27,15 @@ package org.xas.jchart.common.view.components.TipsView
 			_data = {};
 			
 			
-			Common.each( _mconfig.c.mapData, function( _k:int, _item:Object ):void{
+			/*
+			Common.each( _mconfig.tooltipSerial, function( _k:int, _item:Object ):void{
 				
 				var _format:String = _mconfig.tooltipHeaderFormat
-					, _headerName:String = StringUtils.printf( _format,  _mconfig.getTipsHeader( _k ).replace( /[\r\n]+/g, '' ) || ''  )
-					, _value:String = StringUtils.printf( _mconfig.tooltipPointFormat, 
-						Common.moneyFormat( _item.value, 3, Common.floatLen( _item.value ) )
-					)
-					;
+				, _headerName:String = StringUtils.printf( _format,  _mconfig.getTipsHeader( _k ).replace( /[\r\n]+/g, '' ) || ''  )
+				, _value:String = StringUtils.printf( _mconfig.tooltipPointFormat, 
+					Common.moneyFormat( _item.value, 3, Common.floatLen( _item.value ) )
+				)
+				;
 				
 				_data[ _k ] = {
 					'name': _headerName,
@@ -43,6 +44,50 @@ package org.xas.jchart.common.view.components.TipsView
 						'value': _value
 					}]
 				};
+			});	
+			*/
+			//Log.log( _mconfig.tooltipSerial. );
+			
+			Common.each( _mconfig.c.mapData, function( _k:int, _item:Object ):void{
+				
+				var _format:String = _mconfig.tooltipHeaderFormat
+					, _headerName:String = StringUtils.printf( _format,  _mconfig.getTipsHeader( _k ).replace( /[\r\n]+/g, '' ) || ''  )
+					, _value:String = StringUtils.printf( _mconfig.tooltipPointFormat, 
+						Common.moneyFormat( _item.value, 3, Common.floatLen( _item.value ) )
+					)
+					, _items:Array = []
+				;
+				
+				_data[ _k ] = {
+					'name': _headerName
+					, items: [], beforeItems: [], afterItems: []					
+				};
+				
+				if( _mconfig.tooltipSeries && _mconfig.tooltipSeries.length && _mconfig.tooltipSeries[ _k ] ){
+					_data[ _k ].beforeItems.push( {
+						'name': _mconfig.tooltipSeries[ _k ].name,
+						'value': StringUtils.printf( _config.tooltipSerialFormat, 
+							Common.moneyFormat( _mconfig.tooltipSeries[ _k ].value, 3, Common.floatLen( _mconfig.tooltipSeries[ _k ].value ) )
+						)
+
+					});
+				}
+				
+				_data[ _k ].items.push( {
+					'name': BaseConfig.ins.itemName,
+					'value': _value
+				});
+				
+				
+				if( _mconfig.tooltipAfterSeries && _mconfig.tooltipAfterSeries.length && _mconfig.tooltipAfterSeries[ _k ] ){
+					_data[ _k ].afterItems.push( {
+						'name': _mconfig.tooltipAfterSeries[ _k ].name,
+						'value': StringUtils.printf( _config.tooltipSerialFormat, 
+							Common.moneyFormat( _mconfig.tooltipAfterSeries[ _k ].value, 3, Common.floatLen( _mconfig.tooltipAfterSeries[ _k ].value ) )
+						)
+					});
+				}
+				
 			});
 		}
 		

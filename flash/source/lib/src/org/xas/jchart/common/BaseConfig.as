@@ -87,6 +87,10 @@ package org.xas.jchart.common
 		}
 		
 		public function get tooltipSerial():Array{
+			return tooltipSeries;
+		}
+		
+		public function get tooltipSeries():Array{
 			var _r:Array = [];
 			
 			//Log.log( 'tooltipSerial xxx ' );
@@ -98,10 +102,21 @@ package org.xas.jchart.common
 				&& ( _r = this.cd.tooltip.serial )
 				;
 			
+			this.cd
+				&& this.cd.tooltip
+				&& this.cd.tooltip.series
+				&& this.cd.tooltip.series.length
+				&& ( _r = this.cd.tooltip.series )
+				;
+			
 			return _r;
 		}
 		
-		public function get tooltipAfterSerial():Array{
+		public function get tooltipAfterSerial():Array{	
+			return tooltipAfterSeries;
+		}
+		
+		public function get tooltipAfterSeries():Array{
 			var _r:Array = [];
 			
 			//Log.log( 'tooltipSerial xxx ' );
@@ -111,6 +126,13 @@ package org.xas.jchart.common
 				&& this.cd.tooltip.afterSerial
 				&& this.cd.tooltip.afterSerial.length
 				&& ( _r = this.cd.tooltip.afterSerial )
+				;
+			
+			this.cd
+				&& this.cd.tooltip
+				&& this.cd.tooltip.afterSeries
+				&& this.cd.tooltip.afterSeries.length
+				&& ( _r = this.cd.tooltip.afterSeries )
 				;
 			
 			return _r;
