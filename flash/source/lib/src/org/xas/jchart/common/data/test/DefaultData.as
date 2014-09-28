@@ -117,7 +117,7 @@ package org.xas.jchart.common.data.test
 					{
 						"enabled": false
 					}, 
-					"vboldLine":
+					"vsideLine":
 					{
 						"enabled": true
 					}, 
@@ -268,7 +268,7 @@ package org.xas.jchart.common.data.test
 					{
 						"enabled": false
 					}, 
-					"vboldLine":
+					"vsideLine":
 					{
 						"enabled": true
 					}, 

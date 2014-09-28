@@ -33,7 +33,7 @@ package org.xas.jchart.common.view.components.GraphicBgView
 					x: BaseConfig.ins.c.chartX
 						, y: BaseConfig.ins.c.chartY
 						, x2: BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth
-						, y2: BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartHeight 
+						, y2: BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight 
 				}
 				, _ix:int = 0
 				;

@@ -32,7 +32,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 			this.graphics.beginFill( 0xcccccc, .13 );
 						
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
-			Log.log( BaseConfig.ins.floatLen );
+			//Log.log( BaseConfig.ins.floatLen );
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();

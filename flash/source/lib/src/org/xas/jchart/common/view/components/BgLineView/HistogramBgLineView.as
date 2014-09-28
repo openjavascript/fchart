@@ -18,7 +18,7 @@ package org.xas.jchart.common.view.components.BgLineView
 	public class HistogramBgLineView extends BaseBgLineView
 	{
 		private var _hboldLine:Sprite;
-		private var _vboldLine:Sprite;
+		private var _vsideLine:Sprite;
 		
 		public function HistogramBgLineView()
 		{
@@ -63,12 +63,12 @@ package org.xas.jchart.common.view.components.BgLineView
 						&& !BaseConfig.ins.hlineEnabled 
 						&& BaseConfig.ins.yAxisEnabled
 				)
-				|| BaseConfig.ins.vboldLineEnabled
+				|| BaseConfig.ins.vsideLineEnabled
 			) {
-				addChildAt( _vboldLine = new Sprite(), 0 );
-				_vboldLine.graphics.lineStyle( 1, 0x999999, .35 );
-				_vboldLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY - 5 );
-				_vboldLine.graphics.lineTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight + 5 );
+				addChildAt( _vsideLine = new Sprite(), 0 );
+				_vsideLine.graphics.lineStyle( 1, 0x999999, .35 );
+				_vsideLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY - 5 );
+				_vsideLine.graphics.lineTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight + 5 );
 			}
 			
 			if( 

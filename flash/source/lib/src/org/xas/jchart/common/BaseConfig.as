@@ -430,13 +430,13 @@ package org.xas.jchart.common
 			return _r;
 		}		
 		
-		public function get vboldLineEnabled():Boolean{
+		public function get vsideLineEnabled():Boolean{
 			var _r:Boolean = false;
 			//return false;
 			cd 
-			&& cd.vboldLine
-				&& ( 'enabled' in cd.vboldLine )
-				&& ( _r = StringUtils.parseBool( cd.vboldLine.enabled ) );
+			&& cd.vsideLine
+				&& ( 'enabled' in cd.vsideLine )
+				&& ( _r = StringUtils.parseBool( cd.vsideLine.enabled ) );
 			
 			return _r;
 		}
