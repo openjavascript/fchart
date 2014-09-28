@@ -20,7 +20,11 @@ package
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.curvegram.MainFacade;
+<<<<<<< HEAD
 	       
+=======
+	      
+>>>>>>> cc5ee6ffeeb81bc9671f32e7e734319ad05efbdf
 	      
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")]
