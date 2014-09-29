@@ -188,7 +188,7 @@ package
 		override public function getTipsHeader( _ix:int ):String{
 			var _r:String = '';
 			c.mapData[ _ix ] && ( _r = c.mapData[ _ix ].name ); 
-			tipsHeader[ _ix ] && ( _r = tipsHeader[ _ix ].name );
+			tipsHeader[ _ix ] && ( _r = tipsHeader[ _ix ] );
 			return _r;
 		}
 		

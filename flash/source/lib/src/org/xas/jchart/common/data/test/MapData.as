@@ -42,182 +42,149 @@ package org.xas.jchart.common.data.test
 						color: 0xaaaaaa
 					},
 					header:[
-						{
-							"name": "tip header 辽宁"
-						}, {
-							"name": "tip header 河北"
-						}, {
-							"name": "tip header 北京"
-						}, {
-							"name": "tip header 上海"
-						}, {
-							"name": "tip header 江苏"
-						}, {
-							"name": "tip header 吉林"
-						}, {
-							"name": "tip header 黑龙江"
-						}, {
-							"name": "tip header 内蒙古"
-						}, {
-							"name": "tip header 青海"
-						}, {
-							"name": "tip header 山东"
-						}, {
-							"name": "tip header 天津"
-						}, {
-							"name": "tip header 宁夏"
-						}, {
-							"name": "tip header 陕西"
-						}, {
-							"name": "tip header 台湾"
-						}, {
-							"name": "tip header 海南"
-						}, {
-							"name": "tip header 河南"
-						}, {
-							"name": "tip header 新疆"
-						}, {
-							"name": "tip header 甘肃"
-						}, {
-							"name": "tip header 香港"
-						}, {
-							"name": "tip header 西藏"
-						}, {
-							"name": "tip header 四川"
-						}, {
-							"name": "tip header 云南"
-						}, {
-							"name": "tip header 贵州"
-						}, {
-							"name": "tip header 澳门"
-						}, {
-							"name": "tip header 广西"
-						}, {
-							"name": "tip header 广东"
-						}, {
-							"name": "tip header 重庆"
-						}, {
-							"name": "tip header 湖北"
-						}, {
-							"name": "tip header 湖南"
-						}, {
-							"name": "tip header 江西"
-						}, {
-							"name": "tip header 安徽"
-						}, {
-							"name": "tip header 福建"
-						}, {
-							"name": "tip header 浙江"
-						}, {
-							"name": "tip header 山西"
-						} 
+						"tip header 辽宁"
+						, "tip header 河北"
+						, "tip header 北京"
+						, "tip header 上海"
+						, "tip header 江苏"
+						, "tip header 吉林"
+						, "tip header 黑龙江"
+						, "tip header 内蒙古"
+						, "tip header 青海"
+						, "tip header 山东"
+						, "tip header 天津"
+						, "tip header 宁夏"
+						, "tip header 陕西"
+						, "tip header 台湾"
+						, "tip header 海南"
+						, "tip header 河南"
+						, "tip header 新疆"
+						, "tip header 甘肃"
+						, "tip header 香港"
+						, "tip header 西藏"
+						, "tip header 四川"
+						, "tip header 云南"
+						, "tip header 贵州"
+						, "tip header 澳门"
+						, "tip header 广西"
+						, "tip header 广东"
+						, "tip header 重庆"
+						, "tip header 湖北"
+						, "tip header 湖南"
+						, "tip header 江西"
+						, "tip header 安徽"
+						, "tip header 福建"
+						, "tip header 浙江"
+						, "tip header 山西"
 					],
 					series:[
-						{
-							"name": "tip serial 辽宁",
-							"value": 1260122
-						}, {
-							"name": "tip serial 河北",
-							"value": 18697
-						}, {
-							"name": "tip serial 北京",
-							"value": 33288
-						}, {
-							"name": "tip serial 上海",
-							"value": 30825
-						}, {
-							"name": "tip serial 江苏",
-							"value": 18242
-						}, {
-							"name": "tip serial 吉林",
-							"value": 16863
-						}, {
-							"name": "tip serial 黑龙江",
-							"value": 10365
-						}, {
-							"name": "tip serial 内蒙古",
-							"value": 6325
-						}, {
-							"name": "tip serial 青海",
-							"value": 11952
-						}, {
-							"name": "tip serial 山东",
-							"value": 15650
-						}, {
-							"name": "tip serial 天津",
-							"value": 24829
-						}, {
-							"name": "tip serial 宁夏",
-							"value": 18865
-						}, {
-							"name": "tip serial 陕西",
-							"value": 15954
-						}, {
-							"name": "tip serial 台湾",
-							"value": 26559
-						}, {
-							"name": "tip serial 海南",
-							"value": 21820
-						}, {
-							"name": "tip serial 河南",
-							"value": 17850
-						}, {
-							"name": "tip serial 新疆",
-							"value": 6825
-						}, {
-							"name": "tip serial 甘肃",
-							"value": 8843
-						}, {
-							"name": "tip serial 香港",
-							"value": 27825
-						}, {
-							"name": "tip serial 西藏",
-							"value": 7429
-						}, {
-							"name": "tip serial 四川",
-							"value": 15281
-						}, {
-							"name": "tip serial 云南",
-							"value": 8875
-						}, {
-							"name": "tip serial 贵州",
-							"value": 7825
-						}, {
-							"name": "tip serial 澳门",
-							"value": 28565
-						}, {
-							"name": "tip serial 广西",
-							"value": 23845
-						}, {
-							"name": "tip serial 广东",
-							"value": 25025
-						}, {
-							"name": "tip serial 重庆",
-							"value": 22825
-						}, {
-							"name": "tip serial 湖北",
-							"value": 18225
-						}, {
-							"name": "tip serial 湖南",
-							"value": 21325
-						}, {
-							"name": "tip serial 江西",
-							"value": 19620
-						}, {
-							"name": "tip serial 安徽",
-							"value": 17826
-						}, {
-							"name": "tip serial 福建",
-							"value": 20833
-						}, {
-							"name": "tip serial 浙江",
-							"value": 22807
-						}, {
-							"name": "tip serial 山西",
-							"value": 9638
-						} 
+						{ data:[
+							{
+								"name": "tip serial 辽宁",
+								"value": 1260122
+							}, {
+								"name": "tip serial 河北",
+								"value": 18697
+							}, {
+								"name": "tip serial 北京",
+								"value": 33288
+							}, {
+								"name": "tip serial 上海",
+								"value": 30825
+							}, {
+								"name": "tip serial 江苏",
+								"value": 18242
+							}, {
+								"name": "tip serial 吉林",
+								"value": 16863
+							}, {
+								"name": "tip serial 黑龙江",
+								"value": 10365
+							}, {
+								"name": "tip serial 内蒙古",
+								"value": 6325
+							}, {
+								"name": "tip serial 青海",
+								"value": 11952
+							}, {
+								"name": "tip serial 山东",
+								"value": 15650
+							}, {
+								"name": "tip serial 天津",
+								"value": 24829
+							}, {
+								"name": "tip serial 宁夏",
+								"value": 18865
+							}, {
+								"name": "tip serial 陕西",
+								"value": 15954
+							}, {
+								"name": "tip serial 台湾",
+								"value": 26559
+							}, {
+								"name": "tip serial 海南",
+								"value": 21820
+							}, {
+								"name": "tip serial 河南",
+								"value": 17850
+							}, {
+								"name": "tip serial 新疆",
+								"value": 6825
+							}, {
+								"name": "tip serial 甘肃",
+								"value": 8843
+							}, {
+								"name": "tip serial 香港",
+								"value": 27825
+							}, {
+								"name": "tip serial 西藏",
+								"value": 7429
+							}, {
+								"name": "tip serial 四川",
+								"value": 15281
+							}, {
+								"name": "tip serial 云南",
+								"value": 8875
+							}, {
+								"name": "tip serial 贵州",
+								"value": 7825
+							}, {
+								"name": "tip serial 澳门",
+								"value": 28565
+							}, {
+								"name": "tip serial 广西",
+								"value": 23845
+							}, {
+								"name": "tip serial 广东",
+								"value": 25025
+							}, {
+								"name": "tip serial 重庆",
+								"value": 22825
+							}, {
+								"name": "tip serial 湖北",
+								"value": 18225
+							}, {
+								"name": "tip serial 湖南",
+								"value": 21325
+							}, {
+								"name": "tip serial 江西",
+								"value": 19620
+							}, {
+								"name": "tip serial 安徽",
+								"value": 17826
+							}, {
+								"name": "tip serial 福建",
+								"value": 20833
+							}, {
+								"name": "tip serial 浙江",
+								"value": 22807
+							}, {
+								"name": "tip serial 山西",
+								"value": 9638
+							} 
+						]}
 					],
-					afterSeries:[
+					afterSeries:[ { data:[
 						{
 							"name": "tip after serial 辽宁",
 							"value": 126011
@@ -320,7 +287,7 @@ package org.xas.jchart.common.data.test
 						}, {
 							"name": "tip after serial 山西",
 							"value": 9638
-						} 
+						}]}
 					]
 				},
 				yAxis: {

@@ -63,22 +63,26 @@ package org.xas.jchart.common.view.components.TipsView
 					, items: [], beforeItems: [], afterItems: []					
 				};
 				
-				if( _mconfig.tooltipSeries && _mconfig.tooltipSeries.length && _mconfig.tooltipSeries[ _k ] ){
-					_data[ _k ].beforeItems.push( {
-						'name': _mconfig.tooltipSeries[ _k ].name,
-						'value': StringUtils.printf( _config.tooltipSerialFormat, 
-							Common.moneyFormat( _mconfig.tooltipSeries[ _k ].value, 3, Common.floatLen( _mconfig.tooltipSeries[ _k ].value ) )
-						)
-
-					});
-				}
+				
+				Common.each( _mconfig.tooltipSerial, function( _sk:int, _sitem:Object ):void{
+					if( _sitem && _sitem.data && _sitem.data.length && _sitem.data[ _k ] ){
+						_data[ _k ].beforeItems.push( {
+							'name': _sitem.data[ _k ].name,
+							'value': StringUtils.printf( _config.tooltipSerialFormat, 
+								Common.moneyFormat( _sitem.data[ _k ].value, 3, Common.floatLen( _sitem.data[ _k ].value ) )
+							)
+							
+						});
+					}
+				});
+				
 				
 				_data[ _k ].items.push( {
 					'name': BaseConfig.ins.itemName,
 					'value': _value
 				});
 				
-				
+				/*
 				if( _mconfig.tooltipAfterSeries && _mconfig.tooltipAfterSeries.length && _mconfig.tooltipAfterSeries[ _k ] ){
 					_data[ _k ].afterItems.push( {
 						'name': _mconfig.tooltipAfterSeries[ _k ].name,
@@ -87,6 +91,19 @@ package org.xas.jchart.common.view.components.TipsView
 						)
 					});
 				}
+				*/
+				
+				Common.each( _mconfig.tooltipAfterSeries, function( _sk:int, _sitem:Object ):void{
+					if( _sitem && _sitem.data && _sitem.data.length && _sitem.data[ _k ] ){
+						_data[ _k ].afterItems.push( {
+							'name': _sitem.data[ _k ].name,
+							'value': StringUtils.printf( _config.tooltipSerialFormat, 
+								Common.moneyFormat( _sitem.data[ _k ].value, 3, Common.floatLen( _sitem.data[ _k ].value ) )
+							)
+							
+						});
+					}
+				});
 				
 			});
 		}
