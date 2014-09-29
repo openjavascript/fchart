@@ -1,3 +1,13 @@
+/**
+ * json2.js 
+ * <br />JSON is a light-weight, language independent, data interchange format.
+ * <p><a href='https://github.com/douglascrockford/JSON-js' target='_blank'>source</a>
+ * | <a href='http://www.json.org/js.html' target='_blank'>docs</a>
+ * </p>
+ * @namespace   window
+ * @class       JSON
+ * @version     2.0
+ */
 /*
     json2.js
     2013-05-26

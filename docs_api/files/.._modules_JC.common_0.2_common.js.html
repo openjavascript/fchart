@@ -47,6 +47,8 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
+                <li><a href="../classes/.window.html">.window</a></li>
+            
                 <li><a href="../classes/JC.BaseMVC.html">JC.BaseMVC</a></li>
             
                 <li><a href="../classes/JC.BaseMVC.Model.html">JC.BaseMVC.Model</a></li>
@@ -64,6 +66,8 @@
                 <li><a href="../classes/window.jQuery.html">window.jQuery</a></li>
             
                 <li><a href="../classes/window.jQuery.mousewheel.html">window.jQuery.mousewheel</a></li>
+            
+                <li><a href="../classes/window.JSON.html">window.JSON</a></li>
             
                 <li><a href="../classes/window.requirejs.html">window.requirejs</a></li>
             
@@ -209,6 +213,7 @@
         , &quot;fixPath&quot;: fixPath
         , &quot;arrayId&quot;: arrayId
         , &quot;docSize&quot;: docSize
+        , &quot;winSize&quot;: winSize
 
         /**
          * 判断 JC.common 是否需要向后兼容, 如果需要的话, 向 window 添加全局静态函数
@@ -252,6 +257,23 @@
                 });
                 return _r;
             });
+
+    !Array.prototype.first 
+        &amp;&amp; ( Array.prototype.first = 
+            function(){
+                var _r;
+                this.length &amp;&amp; ( _r = this[0] );
+                return _r;
+        });
+
+    !Array.prototype.last
+        &amp;&amp; ( Array.prototype.last = 
+            function(){
+                var _r;
+                this.length &amp;&amp; ( _r = this[ this.length - 1] );
+                return _r;
+        });
+
     /**
      * 全局 css z-index 控制属性
      * &lt;br /&gt; &lt;b&gt;注意&lt;/b&gt;: 这个变量是 window.ZINDEX_COUNT
@@ -809,7 +831,7 @@
 
     /**
      * 判断两个日期是否为同一年
-     * @method  isSameSeason
+     * @method  isSameYear
      * @static
      * @param   {Date}  _d1     需要判断的日期1
      * @param   {Date}  _d2     需要判断的日期2
@@ -1472,6 +1494,12 @@
             .replace( /M/g, function( $0 ){
                 return _monthShortName[ _date.getMonth() ];          
             })
+            .replace( /HH/g, padChar( _date.getHours() ) )
+            .replace( /h/g, _date.getHours() )
+            .replace( /NN/g, padChar( _date.getMinutes() ) )
+            .replace( /n/g, _date.getMinutes() )
+            .replace( /SS/g, padChar( _date.getSeconds() ) )
+            .replace( /s/g, _date.getSeconds() )
             ;
 
         return _r;
@@ -1609,7 +1637,27 @@
 
         return _r;
     }
-
+    /**
+     * 获取 window 的 相关大小
+     * @method  winSize
+     * @param   {window}    _win,  default = window
+     * @return  Object
+     * @static
+     */
+    function winSize( _win ){
+        _win = $( _win || window );
+        var _r = {
+                width: _win.width()
+                , height: _win.height()
+                , scrollLeft: _win.scrollLeft()
+                , scrollTop: _win.scrollTop()
+            };
+        _r.viewportX = _r.scrollLeft;
+        _r.maxViewportX = _r.scrollLeft + _r.width;
+        _r.viewportY = _r.scrollTop;
+        _r.maxViewportY = _r.scrollTop + _r.height;
+        return _r;
+    }
 
     return JC.f;
 

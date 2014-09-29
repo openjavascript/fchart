@@ -47,6 +47,8 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
+                <li><a href="../classes/.window.html">.window</a></li>
+            
                 <li><a href="../classes/JC.BaseMVC.html">JC.BaseMVC</a></li>
             
                 <li><a href="../classes/JC.BaseMVC.Model.html">JC.BaseMVC.Model</a></li>
@@ -64,6 +66,8 @@
                 <li><a href="../classes/window.jQuery.html">window.jQuery</a></li>
             
                 <li><a href="../classes/window.jQuery.mousewheel.html">window.jQuery.mousewheel</a></li>
+            
+                <li><a href="../classes/window.JSON.html">window.JSON</a></li>
             
                 <li><a href="../classes/window.requirejs.html">window.requirejs</a></li>
             
@@ -113,13 +117,18 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 ;(function(define, _win) { &#x27;use strict&#x27;; define( [ &#x27;JC.BaseMVC&#x27;, &#x27;swfobject&#x27;, &#x27;json2&#x27;, &#x27;jquery.mousewheel&#x27;  ], function(){
+
+JC.use &amp;&amp; !window.swfobject &amp;&amp; JC.use( &#x27;plugins.swfobject&#x27; );
+JC.use &amp;&amp; !window.JSON &amp;&amp; JC.use( &#x27;plugins.jsons&#x27; );
+JC.use &amp;&amp; !jQuery.event.special.mousewheel &amp;&amp; JC.use( &#x27;plugins.jquery.mousewheel&#x27; );
+
 /**
  * JC.FChart - flash 图表组件
  *
  *  &lt;p&gt;&lt;b&gt;require&lt;/b&gt;:
  *      &lt;a href=&#x27;JC.BaseMVC.html&#x27;&gt;JC.BaseMVC&lt;/a&gt;
  *      , &lt;a href=&#x27;window.swfobject.html&#x27;&gt;SWFObject&lt;/a&gt;
- *      , JSON2
+ *      , &lt;a href=&#x27;window.JSON.html&#x27;&gt;JSON2&lt;/a&gt;
  *      , &lt;a href=&#x27;window.jQuery.mousewheel.html&#x27;&gt;jQuery.mousewheel&lt;/a&gt;
  *  &lt;/p&gt;
  *
@@ -333,8 +342,26 @@
      * @property    Model.FLASH_PATH
      * @type        {string}
      * @default     {0}/flash/pub/charts/{1}.swf
+     * @static
      */
-    FChart.Model.FLASH_PATH = &#x27;{0}/flash/pub/charts/{1}.swf&#x27;;
+    FChart.Model.FLASH_PATH = &#x27;{0}/flash/pub/charts/{1}.swf?{2}&#x27;;
+
+    /**
+     * flash swf 缓存版本控制
+     * @property    Model.VERSION
+     * @type        {string}
+     * @default     requirejs.s.contexts._.config.urlArgs || &#x27;v=&#x27; + JC.pathPostfix || &#x27;v=fchart&#x27;
+     * @static
+     */
+    FChart.Model.VERSION = &#x27;fchart&#x27;;
+    JC.pathPostfix &amp;&amp; ( FChart.Model.VERSION = &#x27;v=&#x27; + JC.pathPostfix );
+    window.requirejs 
+        &amp;&amp; window.requirejs.s
+        &amp;&amp; window.requirejs.s.contexts
+        &amp;&amp; window.requirejs.s.contexts._
+        &amp;&amp; window.requirejs.s.contexts._.config
+        &amp;&amp; window.requirejs.s.contexts._.config.urlArgs
+        &amp;&amp; ( FChart.Model.VERSION = window.requirejs.s.contexts._.config.urlArgs );
 
     /**
      * 图表类型映射
@@ -503,7 +530,11 @@
         , path:
             function(){
                 var _p = this
-                    , _r = JC.f.printf( _p.attrProp( &#x27;chartPath&#x27; ) || FChart.Model.FLASH_PATH, JC.PATH, _p.type() );
+                    , _r = JC.f.printf( _p.attrProp( &#x27;chartPath&#x27; ) || FChart.Model.FLASH_PATH
+                        , JC.PATH
+                        , _p.type() 
+                        , FChart.Model.VERSION 
+                    );
                 return _r;
             }
     });

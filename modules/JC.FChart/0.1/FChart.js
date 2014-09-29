@@ -10,7 +10,7 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
  *  <p><b>require</b>:
  *      <a href='JC.BaseMVC.html'>JC.BaseMVC</a>
  *      , <a href='window.swfobject.html'>SWFObject</a>
- *      , JSON2
+ *      , <a href='window.JSON.html'>JSON2</a>
  *      , <a href='window.jQuery.mousewheel.html'>jQuery.mousewheel</a>
  *  </p>
  *

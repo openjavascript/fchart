@@ -132,6 +132,8 @@
                 && ( _selector = $(_selector) )
                 ;
 
+            typeof _selector == 'object' && ( _selector = $( _selector ) );
+
             if( !(_selector && _selector.length ) || ( typeof _selector == 'string' ) ) return null;
 
             _staticClass.Model._instanceName = _staticClass.Model._instanceName || 'CommonIns';
@@ -472,7 +474,7 @@
          * @method  scriptTplProp
          * @param   {selector|string}  _selector    如果 _key 为空将视 _selector 为 _key, _selector 为 this.selector()
          * @param   {string}           _key
-         * @return  bool
+         * @return  string
          */
         , scriptTplProp:
             function( _selector, _key ){
@@ -492,6 +494,28 @@
 
                 return _r;
             }
+        /**
+         * 获取 脚本数据 jquery 选择器
+         * @method  scriptDataProp
+         * @param   {selector|string}  _selector    如果 _key 为空将视 _selector 为 _key, _selector 为 this.selector()
+         * @param   {string}           _key
+         * @return  object
+         */
+        , scriptDataProp:
+            function( _selector, _key ){
+                var _r = null, _tmp;
+                _tmp = this.scriptTplProp( _selector, _key );
+
+                if( _tmp ){
+                    _tmp = _tmp.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, '' );
+                    _tmp = _tmp.replace( /[\r\n]/g, '' );
+                    _tmp = _tmp.replace( /\}[\s]*?,[\s]*?\}$/g, '}}');
+                    _r = eval( '(' + _tmp + ')' );
+                }
+
+                return _r;
+            }
+
         /**
          * 获取 selector 属性的 json 数据
          * @method  jsonProp

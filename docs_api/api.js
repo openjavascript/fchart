@@ -8,6 +8,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "JC.FChartNormalData",
         "JC.common",
         "JC.f",
+        "window.JSON",
         "window.jQuery",
         "window.jQuery.mousewheel",
         "window.requirejs",
