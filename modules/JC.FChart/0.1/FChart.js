@@ -1,4 +1,9 @@
 ;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2', 'jquery.mousewheel'  ], function(){
+
+JC.use && !window.swfobject && JC.use( 'plugins.swfobject' );
+JC.use && !window.JSON && JC.use( 'plugins.jsons' );
+JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel' );
+
 /**
  * JC.FChart - flash 图表组件
  *
@@ -219,8 +224,26 @@
      * @property    Model.FLASH_PATH
      * @type        {string}
      * @default     {0}/flash/pub/charts/{1}.swf
+     * @static
      */
-    FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf';
+    FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf?{2}';
+
+    /**
+     * flash swf 缓存版本控制
+     * @property    Model.VERSION
+     * @type        {string}
+     * @default     requirejs.s.contexts._.config.urlArgs || 'v=' + JC.pathPostfix || 'v=fchart'
+     * @static
+     */
+    FChart.Model.VERSION = 'fchart';
+    JC.pathPostfix && ( FChart.Model.VERSION = 'v=' + JC.pathPostfix );
+    window.requirejs 
+        && window.requirejs.s
+        && window.requirejs.s.contexts
+        && window.requirejs.s.contexts._
+        && window.requirejs.s.contexts._.config
+        && window.requirejs.s.contexts._.config.urlArgs
+        && ( FChart.Model.VERSION = window.requirejs.s.contexts._.config.urlArgs );
 
     /**
      * 图表类型映射
@@ -389,7 +412,11 @@
         , path:
             function(){
                 var _p = this
-                    , _r = JC.f.printf( _p.attrProp( 'chartPath' ) || FChart.Model.FLASH_PATH, JC.PATH, _p.type() );
+                    , _r = JC.f.printf( _p.attrProp( 'chartPath' ) || FChart.Model.FLASH_PATH
+                        , JC.PATH
+                        , _p.type() 
+                        , FChart.Model.VERSION 
+                    );
                 return _r;
             }
     });
