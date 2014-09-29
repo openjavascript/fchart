@@ -959,7 +959,7 @@ package org.xas.jchart.common.data
 					"color": 0x909090
 				}, 
 				"href": "http://fchart.openjavascript.org", 
-				"text": "jchart.openjavascript.org"
+				"text": "fchart.openjavascript.org"
 			}
 		
 		public function DefaultOptions()

@@ -78,7 +78,7 @@
                 }],
                 credits: {
                     enabled: true
-                    , text: 'jchart.openjavascript.org'
+                    , text: 'fchart.openjavascript.org'
                     , href: 'http://fchart.openjavascript.org/'
                 },
                 displayAllLabel: true,

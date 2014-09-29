@@ -1872,7 +1872,7 @@ package org.xas.jchart.common.data.test
 				]    				
 				, credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				}
 				, chart: {
@@ -2572,7 +2572,7 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
@@ -2587,7 +2587,7 @@ package org.xas.jchart.common.data.test
 				, yAxis: { title: { text: 'vtitle 中文' } }
 				, credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				xAxis: {
@@ -2642,7 +2642,7 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
@@ -2686,7 +2686,7 @@ package org.xas.jchart.common.data.test
 				}
 			});
 			
-			_data.push( {"title":{},"subtitle":{},"xAxis":{"categories":["111111","2","3","4","5","6","7","8","9","10","11","122222"]},"yAxis":{"title":{}},"series":[{"name":"Temperature","data":[10,0,3,10,20,27,28,32,30,25,15,5]},{"name":"Rainfall","data":[20,21,20,100,200,210,220,100,20,10,20,10]}],"credits":{"enabled":false,"text":"jchart.openjavascript.org","href":"http://fchart.openjavascript.org/"},"displayAllLabel":true});
+			_data.push( {"title":{},"subtitle":{},"xAxis":{"categories":["111111","2","3","4","5","6","7","8","9","10","11","122222"]},"yAxis":{"title":{}},"series":[{"name":"Temperature","data":[10,0,3,10,20,27,28,32,30,25,15,5]},{"name":"Rainfall","data":[20,21,20,100,200,210,220,100,20,10,20,10]}],"credits":{"enabled":false,"text":"fchart.openjavascript.org","href":"http://fchart.openjavascript.org/"},"displayAllLabel":true});
 			
 			_data.push(                     {
 				title: {
@@ -2714,7 +2714,7 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
@@ -2767,7 +2767,7 @@ package org.xas.jchart.common.data.test
 				],
 				credits: {
 					enabled: true,
-					text: 'jchart.openjavascript.org',
+					text: 'fchart.openjavascript.org',
 					href: 'http://fchart.openjavascript.org/'
 				}
 				, displayAllLabel: false
@@ -2804,7 +2804,7 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
@@ -2844,7 +2844,7 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
@@ -2885,7 +2885,7 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
+					, text: 'fchart.openjavascript.org'
 					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
