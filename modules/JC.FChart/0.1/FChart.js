@@ -229,10 +229,10 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
     FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf?{2}';
 
     /**
-     * flash 缓存版本
+     * flash swf 缓存版本控制
      * @property    Model.VERSION
      * @type        {string}
-     * @default     requirejs.s.contexts._.config.urlArgs || JC.pathPostfix || 'fchart'
+     * @default     requirejs.s.contexts._.config.urlArgs || 'v=' + JC.pathPostfix || 'v=fchart'
      * @static
      */
     FChart.Model.VERSION = 'fchart';
