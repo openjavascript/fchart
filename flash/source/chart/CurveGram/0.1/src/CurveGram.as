@@ -20,18 +20,14 @@ package
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.curvegram.MainFacade;
-<<<<<<< HEAD
-	       
-=======
-	      
->>>>>>> cc5ee6ffeeb81bc9671f32e7e734319ad05efbdf
+
 	      
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
 	//[SWF(frameRate="30", width="1400", height="460")]
-	//[SWF(frameRate="30", width="800", height="400")]
+	//[SWF(frameRate="30", width="800", height="400")] 
 	[SWF(frameRate="30", width="800", height="360")]
 	public class CurveGram extends Sprite 
 	{   

@@ -23,7 +23,7 @@ package
 	  
 	  
 	[SWF(frameRate="30", width="800", height="500")]
-	public class PieGraph extends Sprite 
+	public class PieGraph extends Sprite  
 	{ 
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
