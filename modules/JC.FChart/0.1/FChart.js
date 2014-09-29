@@ -5,8 +5,8 @@
  *  <p><b>require</b>:
  *      <a href='JC.BaseMVC.html'>JC.BaseMVC</a>
  *      , <a href='window.swfobject.html'>SWFObject</a>
- *      , <a href='window.json2'>JSON2</a>
- *      , <a href='window.jQuery.mousewheel'>jQuery.mousewheel</a>
+ *      , JSON2
+ *      , <a href='window.jQuery.mousewheel.html'>jQuery.mousewheel</a>
  *  </p>
  *
  *  <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JC Project Site</a>
