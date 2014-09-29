@@ -10,6 +10,13 @@ if( ! $sroot ) $sroot = $_SERVER["DOCUMENT_ROOT"];
 $fileDir = dirname( __FILE__ );
 $fileDir = str_replace($sroot, '', $fileDir); 
 
+/*
+$target = isset( $_REQUEST[ 'target' ] ) ? $_REQUEST[ 'target' ] : _self;
+$target = preg_replace( '/<[^>].*?>/g', '', $target );
+
+echo $target;
+ */
+
 //echo "$sroot<br /> " . __FILE__  . "<br/> ". $fileDir;
 
 if( $fileDir == '/home/qiushaowei/htdocs/uxcjs/tools/php' ){
