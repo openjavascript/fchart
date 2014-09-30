@@ -42,27 +42,30 @@ package org.xas.jchart.rate.controller
 			
 			if( BaseConfig.ins.cd ){			
 				
-				if( BaseConfig.ins.cd.title && BaseConfig.ins.cd.title.text ){
+				if( BaseConfig.ins.titleEnable && BaseConfig.ins.cd.title && BaseConfig.ins.cd.title.text ){
 					facade.registerMediator( new TitleMediator( BaseConfig.ins.cd.title.text ) )	
 					BaseConfig.ins.c.title = { x: _c.width / 2, y: _c.minY, item: pTitleMediator };
 					BaseConfig.ins.c.minY += pTitleMediator.view.height;			
 				}
 				
-				if( BaseConfig.ins.cd.subtitle && BaseConfig.ins.cd.subtitle.text ){
+				if( BaseConfig.ins.subtitleEnable && BaseConfig.ins.cd.subtitle && BaseConfig.ins.cd.subtitle.text ){
 					facade.registerMediator( new SubtitleMediator( BaseConfig.ins.cd.subtitle.text ) )
 					
 					BaseConfig.ins.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
 					BaseConfig.ins.c.minY += pSubtitleMediator.view.height + 5;
 				}				
 				
-				if( BaseConfig.ins.cd.yAxis && BaseConfig.ins.cd.yAxis.title && BaseConfig.ins.cd.yAxis.title.text ){
+				if( BaseConfig.ins.vtitleEnabled && BaseConfig.ins.cd.yAxis && BaseConfig.ins.cd.yAxis.title && BaseConfig.ins.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( BaseConfig.ins.cd.yAxis.title.text ) )
 					
 					BaseConfig.ins.c.vtitle = { x: BaseConfig.ins.c.minX, y: BaseConfig.ins.c.x + BaseConfig.ins.c.height / 2, item: pVTitleMediator };
 					BaseConfig.ins.c.minX += pVTitleMediator.view.width - 5;
 				}
 				
-				if( BaseConfig.ins.cd.credits && BaseConfig.ins.cd.credits.enabled && ( BaseConfig.ins.cd.credits.text || BaseConfig.ins.cd.credits.href ) ){
+				if( BaseConfig.ins.creditsEnabled 
+					&&  BaseConfig.ins.cd.credits 
+					&& BaseConfig.ins.cd.credits.enabled 
+					&& ( BaseConfig.ins.cd.credits.text || BaseConfig.ins.cd.credits.href ) ){
 					facade.registerMediator( new CreditMediator( BaseConfig.ins.cd.credits.text, BaseConfig.ins.cd.credits.href ) )
 					
 					BaseConfig.ins.c.credits = { x: BaseConfig.ins.c.maxX, y: BaseConfig.ins.c.maxY, item: pCreditMediator };
@@ -92,7 +95,7 @@ package org.xas.jchart.rate.controller
 				BaseConfig.ins.c.chartMaxY = BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight;
 				
 				facade.registerMediator( new GraphicBgMediator() );	
-				facade.registerMediator( new TipsMediator() );
+				BaseConfig.ins.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 								
 				calcGraphic();	
 				

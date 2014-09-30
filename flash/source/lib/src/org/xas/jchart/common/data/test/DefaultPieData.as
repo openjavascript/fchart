@@ -32,16 +32,25 @@ package org.xas.jchart.common.data.test
 				series:[{
 					name: 'Browser share',
 					data: [
-						['Firefox',   45.0]
+						{
+							name: 'Firefox'
+							,  y: 50.01
+							, style: { size: 40 }
+						}
 					]
 				}]
-				, plotOptions: {
-					pie: {
-						dataLabels: {
-							enabled: true
-						}
-					}
+				, radius: {
+					borderWidth: 20
 				}
+				, yAxis: {
+					maxvalue: 100
+				}
+				
+				, dataLabels: {
+					enabled: true
+					, format: '{0}%'
+				}
+
 			});
 						
 			_data.push({

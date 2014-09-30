@@ -17,21 +17,20 @@ package org.xas.jchart.rate.view.components
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.ui.RateUI;
-	import org.xas.jchart.common.ui.widget.PiePart;
+	import org.xas.jchart.common.ui.widget.RateBall;
 	
 	public class GraphicView extends Sprite
-	{	
-		private var _boxs:Vector.<RateUI>;
-		
-		private var _preIndex:int = -1;
-		private var _piePart:Vector.<PiePart>;
-		
+	{			
 		private var _hideTimer:Timer;
+		private var _rateBall:RateBall;	
+		
+		private var _config:Config;
 		
 		public function GraphicView()
 		{
 			super(); 
+			
+			_config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
@@ -45,27 +44,39 @@ package org.xas.jchart.rate.view.components
 		
 		public function update():void{
 			
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.piePart && BaseConfig.ins.c.piePart.length ) ) return;
+			if( !( _config.c && _config.c.piePart && _config.c.piePart.length ) ) return;
 			
 			graphics.clear();
-			_piePart = new Vector.<PiePart>();
 			
-			if( !BaseConfig.ins.c.piePart.length ) return;
+			if( !_config.c.piePart.length ) return;
 			
-			var _k:int = 0, _item:Object = BaseConfig.ins.c.piePart[0];
+			var _k:int = 0, _item:Object = _config.c.piePart[0];
 			
 			if( _item.data.y === 0 ) return;
+			
+			_rateBall = new RateBall( 
+				_item.data.y, _config.yAxisMaxValue
+				, new Point( _item.cx, _item.cy )
+				, _item.radius
+				, _config.borderWidth
+				, _config.textStyle
+			);
+			addChild( _rateBall );
+			
+			Log.printJSON( _config.textStyle );
+			/*
 			var _pp:PiePart = new PiePart( 
 				new Point( _item.cx, _item.cy )
 				, _item.startAngle, _item.endAngle
 				, _item.radius
 				, _k
-				, { 'color': BaseConfig.ins.itemColor( _k ) }
-			);				
+				, { 'color': _config.itemColor( _k ) }
+			);
+						
 			_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
 			_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
 			addChild( _pp );
-			_piePart.push( _pp );
+			*/
 		}
 				
 		protected function onMouseOver( _evt:MouseEvent ):void{
@@ -95,17 +106,17 @@ package org.xas.jchart.rate.view.components
 		}
 		
 		protected function onMouseClick( _evt:MouseEvent ):void{
-			var _pp:PiePart = _evt.target as PiePart;
-			if( !(　_pp && BaseConfig.ins.displaySeries.length >= 2 ) )  return;
-			_pp.toggle();
+
 		}
 		
 		protected function onMouseMove( _evt:MouseEvent ):void{
 			//Log.log( 'GraphicView onMouseMove', new Date().getTime() );
+			/*
 			var _pp:PiePart = _evt.target as PiePart;
 			if( !_pp ) return;
 			//Log.log( _pp.dataIndex );
 			dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, { evt: _evt, index: _pp.dataIndex } ) );
+			*/
 		}	
 
 	}

@@ -340,7 +340,7 @@ package org.xas.jchart.common
 			var _r:Boolean = true;
 			//return false;
 			cd 
-			&& cd.plotOptions
+				&& cd.plotOptions
 				&& cd.plotOptions.pie
 				&& cd.plotOptions.pie.dataLabels
 				&& ( 'enabled' in cd.plotOptions.pie.dataLabels )
@@ -657,6 +657,16 @@ package org.xas.jchart.common
 				&& ( _r = chartData.xAxis.title.style )
 				;
 			return _r;
+		}		
+		public function get titleEnable():Boolean{
+			var _r:Boolean = true
+			chartData 
+				&& chartData.xAxis
+				&& chartData.xAxis.title
+				&& ( 'enabled' in chartData.xAxis.title )
+				&& ( _r = chartData.xAxis.title.enabled )
+				;
+			return _r;
 		}
 		public function get labelsStyle():Object{
 			var _r:Object = {};
@@ -680,6 +690,17 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get vtitleEnabled():Boolean{
+			var _r:Boolean = true;
+			chartData 
+				&& chartData.yAxis
+				&& chartData.yAxis.title
+				&& ( 'enabled' in chartData.yAxis.title )
+				&& ( _r = chartData.yAxis.title.enabled )
+				;
+			return _r;
+		}
+		
 		public function get vlabelsStyle():Object{
 			var _r:Object = {};
 			chartData 
@@ -699,6 +720,15 @@ package org.xas.jchart.common
 				&& ( _r = chartData.subtitle.style )
 				;
 			return _r;
+		}		
+		public function get subtitleEnable():Boolean{
+			var _r:Boolean = true
+			chartData 
+				&& chartData.subtitle
+				&& ( 'enabled' in chartData.subtitle )
+				&& ( _r = StringUtils.parseBool( chartData.subtitle.enabled ) )
+				;
+			return _r;
 		}
 		
 		public function get creditsStyle():Object{
@@ -707,6 +737,15 @@ package org.xas.jchart.common
 			&& chartData.credits
 				&& chartData.credits.style
 				&& ( _r = chartData.credits.style )
+				;
+			return _r;
+		}		
+		public function get creditsEnabled():Boolean{
+			var _r:Boolean = true;
+			chartData 
+				&& chartData.credits
+				&& ( 'enabled' in chartData.credits )
+				&& ( _r = chartData.credits.enabled )
 				;
 			return _r;
 		}

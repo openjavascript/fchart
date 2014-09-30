@@ -132,5 +132,119 @@ package
 			
 			return _r;
 		}
+		
+		override public function get subtitleEnable():Boolean{
+			var _r:Boolean = false
+			chartData 
+				&& chartData.subtitle
+				&& ( 'enabled' in chartData.subtitle )
+				&& ( _r = StringUtils.parseBool( chartData.subtitle.enabled ) )
+				;
+			return _r;
+		}
+		
+		override public function get titleEnable():Boolean{
+			var _r:Boolean = false
+			chartData 
+				&& chartData.xAxis
+				&& chartData.xAxis.title
+				&& ( 'enabled' in chartData.xAxis.title )
+				&& ( _r = chartData.xAxis.title.enabled )
+				;
+			return _r;
+		}
+		
+		override public function get creditsEnabled():Boolean{
+			var _r:Boolean = false;
+			chartData 
+			&& chartData.credits
+				&& ( 'enabled' in chartData.credits )
+				&& ( _r = chartData.credits.enabled )
+				;
+			return _r;
+		}
+		
+		override public function get vtitleEnabled():Boolean{
+			var _r:Boolean = false;
+			chartData 
+			&& chartData.yAxis
+				&& chartData.yAxis.title
+				&& ( 'enabled' in chartData.yAxis.title )
+				&& ( _r = chartData.yAxis.title.enabled )
+				;
+			return _r;
+		}
+				
+		override public function get tooltipEnabled():Boolean{
+			var _r:Boolean = false;
+			cd 
+				&& cd.tooltip
+				&& ( 'enabled' in cd.tooltip )
+				&& ( _r = StringUtils.parseBool( cd.tooltip.enabled ) );
+			
+			return _r;
+		}
+		
+		
+		override public function get dataLabelEnabled():Boolean{
+			var _r:Boolean = false;
+			//return false;
+			cd 
+			&& cd.plotOptions
+				&& cd.plotOptions.pie
+				&& cd.plotOptions.pie.dataLabels
+				&& ( 'enabled' in cd.plotOptions.pie.dataLabels )
+				&& ( _r = cd.plotOptions.pie.dataLabels.enabled );
+			
+			return _r;
+		}
+		
+		public function get borderWidth():Number{
+			var _r:Number = 20;
+			cd 
+				&& cd.radius
+				&& ( 'borderWidth' in cd.radius )
+				&& ( _r = cd.radius.borderWidth );
+			return _r;
+		}
+		
+		
+		override public function get yAxisMaxValue():Number{
+			var _r:Number = 100;
+			
+			this.cd && this.cd.rateLabel && ( 'maxvalue' in this.cd.rateLabel )
+				&& ( _r = this.cd.rateLabel.maxvalue || _r );
+			
+			this.cd && this.cd.yAxis && ( 'maxvalue' in this.cd.yAxis )
+				&& ( _r = this.cd.yAxis.maxvalue || _r );
+			
+			return _r;
+		}
+		
+		public function get textStyle():Array{
+			var _r:Array = [ {
+				size: 20
+				, color: 0x000000
+				, font: "Microsoft YaHei"
+			}];
+			
+			this.series
+				&& this.series.length
+				&& ( 'style' in this.series[0] )
+				&& ( _r.push( this.series[0].style ) );
+			
+			return _r;
+		}
+		
+		override public function get serialLabelEnabled():Boolean{
+			var _r:Boolean = true;
+			//return false;
+			cd 
+			&& cd.dataLabels
+				&& ( 'enabled' in cd.dataLabels )
+				&& ( _r = StringUtils.parseBool( cd.dataLabels.enabled ) );
+			
+			return _r;
+		}
 	}
 }
