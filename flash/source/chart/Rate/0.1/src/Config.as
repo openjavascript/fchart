@@ -50,6 +50,7 @@ package
 			//Log.printJSON( _tmpSeries[0].data );
 			
 			Common.each( _tmpSeries[0].data, function( _k:int, _item: * ):void{
+				if( _k > 0 ) return;
 				var _o:Object, _a:Array = _item as Array;
 				if( !_a ){
 					_o = _item as Object;
@@ -125,10 +126,11 @@ package
 				
 		override public function get legendEnabled():Boolean{
 			var _r:Boolean = false;
-			
+			/*
 			if( cd && cd.legend && ( 'enabled' in cd.legend ) ){
 				_r = StringUtils.parseBool( cd.legend.enabled );
 			}
+			*/
 			
 			return _r;
 		}
@@ -189,12 +191,14 @@ package
 		override public function get dataLabelEnabled():Boolean{
 			var _r:Boolean = false;
 			//return false;
+			/*
 			cd 
 			&& cd.plotOptions
 				&& cd.plotOptions.pie
 				&& cd.plotOptions.pie.dataLabels
 				&& ( 'enabled' in cd.plotOptions.pie.dataLabels )
 				&& ( _r = cd.plotOptions.pie.dataLabels.enabled );
+			*/
 			
 			return _r;
 		}
@@ -223,7 +227,7 @@ package
 		
 		public function get textStyle():Array{
 			var _r:Array = [ {
-				size: 20
+				size: 28
 				, color: 0x000000
 				, font: "Microsoft YaHei"
 			}];
@@ -246,5 +250,6 @@ package
 			
 			return _r;
 		}
+		
 	}
 }

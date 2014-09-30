@@ -63,7 +63,7 @@ package org.xas.jchart.rate.view.components
 			);
 			addChild( _rateBall );
 			
-			Log.printJSON( _config.textStyle );
+			//Log.printJSON( _config.textStyle );
 			/*
 			var _pp:PiePart = new PiePart( 
 				new Point( _item.cx, _item.cy )
