@@ -68,6 +68,8 @@ package org.xas.jchart.rate.view.components
 				, _item.data.dataBorderBgFillColor || 0xFDF0F2
 			);
 			addChild( _rateBall );
+			_rateBall.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
+			_rateBall.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
 			/*
 			name: 'Firefox'
 			,  y: 50.01
@@ -89,8 +91,6 @@ package org.xas.jchart.rate.view.components
 				, { 'color': _config.itemColor( _k ) }
 			);
 						
-			_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
-			_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
 			addChild( _pp );
 			*/
 		}
@@ -99,7 +99,7 @@ package org.xas.jchart.rate.view.components
 			
 			_hideTimer.running && _hideTimer.stop();
 			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
 			//Log.log( 'show tips' );
 			
@@ -127,12 +127,11 @@ package org.xas.jchart.rate.view.components
 		
 		protected function onMouseMove( _evt:MouseEvent ):void{
 			//Log.log( 'GraphicView onMouseMove', new Date().getTime() );
-			/*
-			var _pp:PiePart = _evt.target as PiePart;
-			if( !_pp ) return;
+			
+			var _pp:RateBall = _evt.target as RateBall;
 			//Log.log( _pp.dataIndex );
-			dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, { evt: _evt, index: _pp.dataIndex } ) );
-			*/
+			dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, { evt: _evt, index: 0 } ) );
+			
 		}	
 
 	}

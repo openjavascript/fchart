@@ -54,6 +54,10 @@ package org.xas.jchart.common.data.test
 					enabled: true
 					, format: '{0}%'
 				}
+				
+				, tooltip: {
+					enabled: true
+				}
 
 			});
 						
