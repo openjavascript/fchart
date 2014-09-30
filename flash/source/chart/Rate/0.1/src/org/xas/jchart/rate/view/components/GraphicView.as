@@ -62,15 +62,25 @@ package org.xas.jchart.rate.view.components
 				, _config.textStyle
 				, _config.dataLabelFormat
 				, _config.serialLabelEnabled
-				, _item.data.borderBgColor
-				, _item.data.borderBgFillColor
-				, _item.data.dataBorderBgColor
-				, _item.data.dataBorderBgFillColor
+				, _item.data.borderBgColor || 0xECECEC
+				, _item.data.borderBgFillColor || 0xffffff
+				, _item.data.dataBorderBgColor || 0xFEB556
+				, _item.data.dataBorderBgFillColor || 0xFDF0F2
 			);
 			addChild( _rateBall );
+			/*
+			name: 'Firefox'
+			,  y: 50.01
+			, style: { size: 40 }
+			, borderBgColor: 0xECECEC
+			, borderBgFillColor: 0xffffff
+			, dataBorderBgColor: 0xFEB556
+			, dataBorderBgFillColor: 0xFDF0F2
+			*/
 			
 			//Log.printJSON( _config.textStyle );
 			/*
+			
 			var _pp:PiePart = new PiePart( 
 				new Point( _item.cx, _item.cy )
 				, _item.startAngle, _item.endAngle

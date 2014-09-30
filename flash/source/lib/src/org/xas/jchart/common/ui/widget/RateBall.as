@@ -116,9 +116,11 @@ package org.xas.jchart.common.ui.widget
 			_dataInnerBg.graphics.drawCircle( _cp.x, _cp.y, borderSize );
 			
 			if( _displayText ){
+				var _floatLen:int = Common.floatLen( _value );
+				_floatLen === 1 && ( _floatLen = 2 );
 				addChild( _text = new TextField( ) );
 				_text.text =
-					StringUtils.printf( _textFormat, Common.moneyFormat( _value, 3, Common.floatLen( _value ) )) ;
+					StringUtils.printf( _textFormat, Common.moneyFormat( _value, 3, _floatLen )) ;
 				_text.autoSize = TextFieldAutoSize.LEFT;
 				_textStyle && Common.implementStyle( _text, _textStyle );
 				_text.x = _cp.x - _text.width / 2;
