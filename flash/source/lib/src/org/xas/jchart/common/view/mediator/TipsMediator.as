@@ -32,6 +32,7 @@ package org.xas.jchart.common.view.mediator
 				case 'PieGraphFacade':
 				case 'DDountFacade':
 				case 'NDountFacade':
+				case 'DountFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new PieTipsView() );
 					break;

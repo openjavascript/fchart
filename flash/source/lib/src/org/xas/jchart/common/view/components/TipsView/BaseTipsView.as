@@ -57,9 +57,8 @@ package org.xas.jchart.common.view.components.TipsView
 		}
 		
 		protected function showTips( _evt: JChartEvent ):void{
-			var _srcEvt:MouseEvent = _evt.data as MouseEvent;			
-			//Log.log( 'TipsView showTips' );
-			if( !( _data && _data[ 0 ] ) ) return;
+			var _srcEvt:MouseEvent = _evt.data as MouseEvent;	
+			if( !( _data && _data[ 0 ] ) ) return;	
 			_tips.buildLayout( _data[ 0 ] ).show( new Point( 10000, 0 ) );
 		}
 		

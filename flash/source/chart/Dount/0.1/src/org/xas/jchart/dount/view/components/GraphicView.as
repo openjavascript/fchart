@@ -1,133 +1,91 @@
-package org.xas.jchart.ndount.view.components
+package org.xas.jchart.dount.view.components
 {
 	import com.adobe.utils.StringUtil;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import flash.utils.Timer;
 	
-	import org.xas.core.utils.ElementUtility;
-	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.ui.NDountUI;
-	import org.xas.jchart.common.ui.widget.DDountPart;
-	import org.xas.jchart.common.ui.widget.NDountPart;
-	import org.xas.jchart.common.ui.widget.PiePart;
+	import org.xas.jchart.common.ui.DountUI;
+	import org.xas.jchart.common.ui.widget.*;
 	
 	public class GraphicView extends Sprite
 	{	
-		private var _boxs:Vector.<NDountUI>;
+		private var _boxs:Vector.<DountUI>;
 		
 		private var _preIndex:int = -1;
-		private var _piePart:Vector.<NDountPart>;
+		private var _piePart:Vector.<DountPart>;
 		
-		private var _bgCircle:Sprite;
+		private var _hideTimer:Timer;
+		
 		private var _config:Config;
+		private var _currentPart:DountPart;
 		
 		public function GraphicView()
 		{
-			super(); 
 			_config = BaseConfig.ins as Config;
+			super(); 
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
+			
+			_hideTimer = new Timer( 200, 1 );
+			_hideTimer.addEventListener( TimerEvent.TIMER, onTimerHideDone );
+			//_hideTimer.start();
+			
 			/*
 			addEventListener( JChartEvent.SHOW_TIPS, showTips );
 			addEventListener( JChartEvent.UPDATE_TIPS, updateTips );
 			addEventListener( JChartEvent.HIDE_TIPS, hideTips );
 			*/
+			
 		}
 		
 		private function addToStage( _evt:Event ):void{
 			
-			//addChild( new PiePart( new Point( 200, 200 ), 0, 100 ) );			
-			//addChild( new PiePart( new Point( 200, 200 ), 0, 360, 100 ) );
+			//addChild( new DountPart( new Point( 200, 200 ), 0, 100 ) );			
+			//addChild( new DountPart( new Point( 200, 200 ), 0, 360, 100 ) );
 		}
 		
 		public function update():void{
 			
-			//Log.log( 'GraphicView update', _config.c.piePart.length );
-			ElementUtility.removeAllChild( this );
-			graphics.clear();
-			
-			/*
-			addChild( _bgCircle = new Sprite() );
-			_bgCircle.graphics.beginFill( 0xE6E6E6 );
-			_bgCircle.graphics.drawCircle( _config.c.cx, _config.c.cy, _config.c.radius );
-			*/
-			
-			var _countRadius:Number = _config.c.radius, _radiusStep:Number = _config.radiusStep;
-			
-			var _ddp:NDountPart = new NDountPart(
-				new Point( _config.c.cx, _config.c.cy )
-				, 0, 360
-				, _countRadius, _countRadius - _radiusStep
-				, 0
-				, { 'color': 0xE6E6E6 }
-				, {}
-			);
-			addChild( _ddp );
-			
 			if( !( _config.c && _config.c.piePart && _config.c.piePart.length ) ) return;
+			//Log.log( 'GraphicView update', _config.c.piePart.length );
 			
-			_countRadius -= _radiusStep;
-			
-			_piePart = new Vector.<NDountPart>();
+			graphics.clear();
+			_piePart = new Vector.<DountPart>();
 			
 			Common.each( _config.c.piePart, function( _k:int, _item:Object ):void{
 				if( _item.data.y === 0 ) return;
-				//Log.printJSON( _item );
-				/*
-				var _pp:PiePart = new PiePart( 
-										new Point( _item.cx, _item.cy )
-										, _item.startAngle, _item.endAngle
-										, _item.radius
-										, _k
-										, { 'color': _config.itemColor( _k ) }
-									);
-				*/
-				var _pp:NDountPart = new NDountPart(
+
+				var _pp:DountPart = new DountPart(
 					new Point( _item.cx, _item.cy )
 					, _item.startAngle, _item.endAngle
-					, _countRadius, _countRadius - _radiusStep
+					, _item.radius, _item.radius * _config.radiusInnerRate
 					, _k
 					, { 'color': _config.itemColor( _k ) }
 					, {}
 				);
-				_countRadius -= 10;
-				_pp.addEventListener( JChartEvent.UPDATE_STATUS, onPiePartUpdateStatus );
+				
+				_pp.addEventListener( JChartEvent.UPDATE_STATUS, onDountPartUpdateStatus );
 				_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
 				_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
 				_pp.addEventListener( MouseEvent.CLICK, onMouseClick );
 				addChild( _pp );
-				//_pp.x = 10000;
 				_piePart.push( _pp );
 				
 				//Log.log( _item.cx, _item.cy, _item.startAngle, _item.endAngle, _item.radius );
 			});
-			
-			/*
-			if( _config.c.piePart.length > 1 ){
-				Common.each( _config.c.piePart, function( _k:int, _item:Object ):void{
-					var _spaceLine:Sprite = new Sprite()
-						, _ePoint:Point
-						;
-					_ePoint = GeoUtils.moveByAngle( _item.endAngle, new Point( _item.cx, _item.cy ), _item.radius );
-						
-					_spaceLine.graphics.lineStyle( 4, 0xffffff );
-					_spaceLine.graphics.moveTo( _item.cx, _item.cy );
-					_spaceLine.graphics.lineTo( _ePoint.x, _ePoint.y );					
-					addChild( _spaceLine );
-				});	
-			}
-			*/
 						
 			var _selectedIndex:int = -1;
 			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
@@ -142,26 +100,18 @@ package org.xas.jchart.ndount.view.components
 			}
 			
 			if( _selectedIndex >= 0 && _selectedIndex <= (_piePart.length - 1 ) && _piePart.length > 1 ){
-				//_piePart[ _selectedIndex ].selected( true );
+				_piePart[ _selectedIndex ].selected( true );
 			}
-			/*
-			var _part:NDountPart = new NDountPart(
-					new Point( _config.c.cx, _config.c.cy )
-					, 0, 90
-					, 200, 200 - 20, 200 - 28, 200 - 28 - 2
-					, 0
-					, { 'color': _config.itemColor( 0 ) }
-					, {}
-					, 270
-				);
-			addChild( _part );
-			*/
 		}
 				
 		protected function onMouseOver( _evt:MouseEvent ):void{
+			var _target:DountPart = _evt.currentTarget as DountPart;
+			//Log.log( _target.dataIndex );
+			_currentPart = _target;
 			
+			_hideTimer.running && _hideTimer.stop();
 			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+			root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
 			//Log.log( 'show tips' );
 			
@@ -170,27 +120,37 @@ package org.xas.jchart.ndount.view.components
 		protected function onMouseOut( _evt:MouseEvent ):void{
 			try{
 				root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-				dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );
+				//dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );
+				_hideTimer.running && _hideTimer.stop();
+				_hideTimer.start();
 			}catch( ex:Error ){}
 			//Log.log( 'hide tips' );
 			
 		}
 		
+		protected function onTimerHideDone( _evt:TimerEvent ):void{
+			//Log.log( 'timer done' );
+			_currentPart = null;
+			dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS ) );
+		}
+		
 		protected function onMouseClick( _evt:MouseEvent ):void{
-			var _pp:PiePart = _evt.target as PiePart;
+			var _pp:DountPart = _evt.currentTarget as DountPart;
 			if( !(　_pp && _config.displaySeries.length >= 2 ) )  return;
 			_pp.toggle();
+			
 		}
 		
 		protected function onMouseMove( _evt:MouseEvent ):void{
 			//Log.log( 'GraphicView onMouseMove', new Date().getTime() );
-			var _pp:PiePart = _evt.target as PiePart;
+			var _pp:DountPart = _currentPart;
+			//Log.log( _evt.target as DountPart );
 			if( !_pp ) return;
-			//Log.log( _pp.dataIndex );
+			//Log.log( 'dataIndex', _pp.dataIndex );
 			dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, { evt: _evt, index: _pp.dataIndex } ) );
 		}	
 				
-		private function onPiePartUpdateStatus( _evt:JChartEvent ):void{
+		private function onDountPartUpdateStatus( _evt:JChartEvent ):void{
 			var _data:Object = _evt.data as Object;
 			
 			
@@ -202,7 +162,7 @@ package org.xas.jchart.ndount.view.components
 				&& _config.selected <= ( _piePart.length - 1 ) 
 				&& _config.selected != _data.dataIndex 
 			){
-				//_piePart[ _config.selected ].unselected();
+				_piePart[ _config.selected ].unselected();
 			}
 			
 			if( _data.selected ){
@@ -219,7 +179,7 @@ package org.xas.jchart.ndount.view.components
 		private function hideTips( _evt: JChartEvent ):void{	
 			
 			if( _preIndex >= 0 ){
-				Common.each( _boxs, function( _k:int, _item:NDountUI ):void{
+				Common.each( _boxs, function( _k:int, _item:DountUI ):void{
 					_boxs[ _k ].items[ _preIndex ].unhover();
 				});
 			}
@@ -236,11 +196,11 @@ package org.xas.jchart.ndount.view.components
 			if( _preIndex == _ix ) return;
 			
 			if( _preIndex >= 0 ){
-				Common.each( _boxs, function( _k:int, _item:NDountUI ):void{
+				Common.each( _boxs, function( _k:int, _item:DountUI ):void{
 					_preIndex >= 0 && _boxs[ _k ].items[ _preIndex ].unhover();
 				});
 			}
-			Common.each( _boxs, function( _k:int, _item:NDountUI ):void{
+			Common.each( _boxs, function( _k:int, _item:DountUI ):void{
 				_ix >= 0 && _boxs[ _k ].items[ _ix ].hover();
 			});
 			

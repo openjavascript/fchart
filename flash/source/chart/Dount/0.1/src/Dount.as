@@ -1,7 +1,5 @@
 package
 {
-	import com.adobe.serialization.json.JSONDecoder;
-	
 	import flash.display.LoaderInfo;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
@@ -13,7 +11,7 @@ package
 	import flash.utils.Timer;
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
-	 
+	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
@@ -21,24 +19,24 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultPieData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.ddount.MainFacade; 
+	import org.xas.jchart.dount.MainFacade; 
 	  
-	 
-	[SWF(frameRate="30", width="1200", height="220")] 
-	public class DDount extends Sprite
+	  
+	[SWF(frameRate="30", width="800", height="500")]
+	public class Dount extends Sprite  
 	{ 
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
 		private var _data:Object;
 		private var _facade:Facade;
 		private var _resizeTimer:Timer;
-		private var _ins:DDount;
+		private var _ins:Dount; 
 		private var _loaderInfo:Object;
 		
-		public function DDount()
+		public function Dount() 
 		{			
 			flash.system.Security.allowDomain("*");	
-			_ins = this;  
+			_ins = this; 
 			
 			this.root.stage.scaleMode = StageScaleMode.NO_SCALE;
 			this.root.stage.align = StageAlign.TOP_LEFT;
@@ -47,7 +45,7 @@ package
 			
 			addEventListener( JChartEvent.PROCESS, process );
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
-			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage ); 	
+			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );	
 		}
 		
 		private function onEnterFrame( $evt:Event ):void
@@ -55,20 +53,20 @@ package
 			if( root.stage.stageWidth > 0 && root.stage.stageHeight > 0 )
 			{
 				removeEventListener( Event.ENTER_FRAME, onEnterFrame );
-				init(); 
+				init();
 			}
 		}
 		private function init():void
 		{			
 			_inited = true;
 			
-			BaseConfig.ins.setDebug( true ); 
+			BaseConfig.ins.setDebug( true );
 			runData();
 			
 			if( ExternalInterface.available ){
 				ExternalInterface.addCallback( 'update', extenalUpdate );
 			}
-			//BaseConfig.ins.setChartData( {}); 
+			//BaseConfig.ins.setChartData( {});
 		}
 		
 		private function extenalUpdate( _data:Object ):void{
@@ -155,11 +153,7 @@ package
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};				
 				if( _loaderInfo.chart ){
-					try{
-						_data = JSON.parse( decodeURIComponent( _loaderInfo.chart ) );
-					}catch( ex:Error ){
-						_data = JSON.parse( _loaderInfo.chart );
-					}
+					_data = JSON.parse( _loaderInfo.chart );
 				}				
 				_data = _data || {};
 			}

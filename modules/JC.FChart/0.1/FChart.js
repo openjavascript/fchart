@@ -251,6 +251,7 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
      * <br />柱状图: bar, Histogram, histogram
      * <br />垂直柱状图: var, VHistogram, Vhistogram
      * <br />饼状图: pie, PieGraph, piegraph
+     * <br />圆环图: dount, Dount
      * @property    Model.TYPE_MAP
      * @type        {object}
      * @static
@@ -274,6 +275,9 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         , 'pie': 'PieGraph'
         , 'PieGraph': 'PieGraph'
         , 'piegraph': 'PieGraph'
+
+        , 'dount': 'Dount'
+        , 'Dount': 'Dount'
     };
 
 

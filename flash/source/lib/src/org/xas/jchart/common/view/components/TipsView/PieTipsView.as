@@ -3,6 +3,7 @@ package org.xas.jchart.common.view.components.TipsView
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
+	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
@@ -42,10 +43,10 @@ package org.xas.jchart.common.view.components.TipsView
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
 				, _ix:int = _evt.data.index as int
 				;		
-			//Log.log( 'TipsView ix', _ix, _srcEvt.stageX, _srcEvt.stageY );
 			if( !( _data && _data[ _ix ] ) ) return;
 			//Log.printObject( _data[ _ix ] );
 			_tips.update( _data[ _ix ], new Point( _srcEvt.stageX, _srcEvt.stageY ), [ BaseConfig.ins.itemColor( _ix ) ] );
+			//Log.log( 'updateTips', _ix );
 		}
 
 	}

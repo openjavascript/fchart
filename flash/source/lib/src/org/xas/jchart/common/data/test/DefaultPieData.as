@@ -67,7 +67,9 @@ package org.xas.jchart.common.data.test
 						, ['Others 12',   0.7]
 					]
 				}]
-				//,offsetAngle: 180
+				, radius: {
+					innerRate: .5
+				}
 			});
 			
 			_data.push({
