@@ -99,9 +99,11 @@ package org.xas.jchart.rate.controller
 								
 				calcGraphic();	
 				
-				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
-				}
+				CONFIG::debug {	
+					if( !ExternalInterface.available ){
+						facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
+					}
+				} 
 				
 				//Log.log( BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartHeight );
 			}
