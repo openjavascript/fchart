@@ -27,11 +27,13 @@ package org.xas.jchart.common.view.components.TipsView
 			
 			Common.each( BaseConfig.ins.displaySeries, function( _k:int, _item:Object ):void{
 				_data[ _k ] = { 
-					'name': _item.name || ''
+					'name': StringUtils.printf( _config.tooltipHeaderFormat,  ( _item.name || '' ).replace( /[\r\n]+/g, '' ) )
 					, 'items': [ 
 						{ 
 							'name': BaseConfig.ins.itemName
-							, 'value': Common.moneyFormat( _item.y || 0, 3, BaseConfig.ins.floatLen ) 
+							, 'value': StringUtils.printf( _config.tooltipPointFormat, 
+								Common.moneyFormat( _item.y || 0, 3, _config.floatLen  )
+							)
 						}  
 					] 
 				};

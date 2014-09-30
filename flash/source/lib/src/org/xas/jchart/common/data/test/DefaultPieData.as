@@ -57,6 +57,7 @@ package org.xas.jchart.common.data.test
 				
 				, tooltip: {
 					enabled: true
+					, 'pointFormat': '{0}%'
 				}
 
 			});
