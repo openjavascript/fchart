@@ -144,7 +144,7 @@ package org.xas.jchart.common
 		}	
 		
 		protected var _chartData:Object;
-		public function setChartData( _d:Object ):Object { 
+		public function setChartData( _d:Object ):Object { 		
 			reset();
 			_chartData = _d;
 			calcRate();
@@ -1114,7 +1114,8 @@ package org.xas.jchart.common
 		public function reset():void{
 			_isFloatLenReady = false;
 			_isMaxValueReady = false;
-			_maxValue = 0;
+			_maxValue = 0;			
+			selected = -1;
 		}
 				
 		public function BaseConfig()

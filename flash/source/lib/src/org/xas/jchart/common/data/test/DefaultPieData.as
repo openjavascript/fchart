@@ -22,6 +22,39 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			
+			_data.push({
+				title: {
+					text:'浏览器使用份额'
+				},
+				subtitle: {
+					text: 'for PC'
+				}, 
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				,offsetAngle: 90
+				, plotOptions: {
+					pie: {
+						dataLabels: {
+							enabled: true
+						}
+					}
+				}
+			});
+			
 			_data.push({
 				title: {
 					text:'浏览器使用份额'
@@ -366,38 +399,7 @@ package org.xas.jchart.common.data.test
 					enabled: false
 				}
 			});
-			
-			_data.push({
-				title: {
-					text:'浏览器使用份额'
-				},
-				subtitle: {
-					text: 'for PC'
-				}, 
-				series:[{
-					name: 'Browser share',
-					data: [
-						['Firefox',   45.0],
-						['IE',       26.8],
-						{
-							name: 'Chrome',
-							y: 12.8,
-							selected: true
-						},
-						['Safari',    8.5],
-						['Opera',     6.2],
-						['Others',   0.7]
-					]
-				}]
-				,offsetAngle: 90
-				, plotOptions: {
-					pie: {
-						dataLabels: {
-							enabled: true
-						}
-					}
-				}
-			});
+
 			
 			_data.push({
 				title: {
