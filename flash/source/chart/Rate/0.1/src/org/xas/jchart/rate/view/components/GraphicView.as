@@ -60,6 +60,12 @@ package org.xas.jchart.rate.view.components
 				, _item.radius
 				, _config.borderWidth
 				, _config.textStyle
+				, _config.dataLabelFormat
+				, _config.serialLabelEnabled
+				, _item.data.borderBgColor
+				, _item.data.borderBgFillColor
+				, _item.data.dataBorderBgColor
+				, _item.data.dataBorderBgFillColor
 			);
 			addChild( _rateBall );
 			

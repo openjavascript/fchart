@@ -36,6 +36,10 @@ package org.xas.jchart.common.data.test
 							name: 'Firefox'
 							,  y: 50.01
 							, style: { size: 40 }
+							, borderBgColor: 0xECECEC
+							, borderBgFillColor: 0xffffff
+							, dataBorderBgColor: 0xFEB556
+							, dataBorderBgFillColor: 0xFDF0F2
 						}
 					]
 				}]

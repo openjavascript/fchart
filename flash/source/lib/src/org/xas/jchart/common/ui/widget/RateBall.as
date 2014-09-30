@@ -9,7 +9,6 @@ package org.xas.jchart.common.ui.widget
 	import org.xas.core.utils.EffectUtility;
 	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
-	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 
 	public class RateBall extends Sprite
@@ -31,7 +30,20 @@ package org.xas.jchart.common.ui.widget
 		private var _text:TextField;
 		
 		private var _textStyle:Array;
+		private var _textFormat:String;
+		private var _displayText:Boolean;
 		
+		private var _borderBgColor:uint;
+		private var _borderBgFillColor:uint;
+		private var _dataBorderBgColor:uint;
+		private var _dataBorderBgFillColor:uint;
+		
+		/*
+		, _item.borderBgColor || 0xECECEC
+		, _item.borderBgFillColor || 0xffffff
+		, _item.dataBorderBgColor || 0xFEB556
+		, _item.dataBorderBgFillColor || 0xFDF0F2
+		*/
 		
 		public function RateBall( 
 			_value:Number
@@ -40,6 +52,13 @@ package org.xas.jchart.common.ui.widget
 			, _radius:Number
 			, _borderWidth:Number
 			, _textStyle:Array = null
+			, _textFormat:String = '{0}'
+			, _displayText:Boolean = true
+			  
+			, _borderBgColor:uint = 0xECECEC
+			, _borderBgFillColor:uint = 0xffffff
+			, _dataBorderBgColor:uint = 0xFEB556
+			, _dataBorderBgFillColor:uint = 0xFDF0F2
 		)
 		{			
 			this._value = _value;
@@ -53,6 +72,13 @@ package org.xas.jchart.common.ui.widget
 			this._radius = _radius;
 			this._borderWidth = _borderWidth;
 			this._textStyle = _textStyle;
+			this._textFormat = _textFormat;			
+			this._displayText = _displayText;	
+			
+			this._borderBgColor = _borderBgColor;	
+			this._borderBgFillColor = _borderBgFillColor;	
+			this._dataBorderBgColor = _dataBorderBgColor;	
+			this._dataBorderBgFillColor = _dataBorderBgFillColor;
 			
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
 		}
@@ -64,11 +90,11 @@ package org.xas.jchart.common.ui.widget
 		protected function init():void{
 			
 			addChild( _bg = new Sprite() );
-			_bg.graphics.beginFill( 0xECECEC );
+			_bg.graphics.beginFill( _borderBgColor );
 			_bg.graphics.drawCircle( _cp.x, _cp.y, _radius );
 			
 			addChild( _innerBg = new Sprite() );
-			_bg.graphics.beginFill( 0xffffff );
+			_bg.graphics.beginFill( _borderBgFillColor );
 			_bg.graphics.drawCircle( _cp.x, _cp.y, borderSize );
 			
 			_borderMask = new Sprite();
@@ -76,7 +102,7 @@ package org.xas.jchart.common.ui.widget
 			_borderMask.graphics.drawRect( 0, maskY, _cp.x + _radius, _cp.y + _radius );
 			
 			addChild( _border = new Sprite() );
-			_border.graphics.beginFill( 0xFEB556 );
+			_border.graphics.beginFill( _dataBorderBgColor );
 			_border.mask = _borderMask;
 			_border.graphics.drawCircle( _cp.x, _cp.y, _radius );
 			
@@ -85,14 +111,14 @@ package org.xas.jchart.common.ui.widget
 			_dataInnerBgMask.graphics.drawRect( 0, maskY, _cp.x + _radius, _cp.y + _radius );
 			
 			addChild( _dataInnerBg = new Sprite() );
-			_dataInnerBg.graphics.beginFill( 0xFDF0F2 );
+			_dataInnerBg.graphics.beginFill( _dataBorderBgFillColor );
 			_dataInnerBg.mask = _dataInnerBgMask;
 			_dataInnerBg.graphics.drawCircle( _cp.x, _cp.y, borderSize );
 			
-			if( BaseConfig.ins.serialLabelEnabled ){
+			if( _displayText ){
 				addChild( _text = new TextField( ) );
 				_text.text =
-					StringUtils.printf( BaseConfig.ins.dataLabelFormat, Common.moneyFormat( _value, 3, Common.floatLen( _value ) )) ;
+					StringUtils.printf( _textFormat, Common.moneyFormat( _value, 3, Common.floatLen( _value ) )) ;
 				_text.autoSize = TextFieldAutoSize.LEFT;
 				_textStyle && Common.implementStyle( _text, _textStyle );
 				_text.x = _cp.x - _text.width / 2;
