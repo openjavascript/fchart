@@ -162,32 +162,7 @@ package org.xas.jchart.common
 		
 		protected var _rate:Array;
 		public function get rate():Array{ return _rate; }
-		
-		protected var _maxNum:Number = 0;
-		public function get maxNum():Number{ return _maxNum; }
-		
-		
-		public function get chartMaxNum():Number{
-			return finalMaxNum * rate[0];
-		}
-		
-		protected var _minNum:Number = 0;
-		public function get minNum():Number{ return _minNum; }
-		protected function calcminNum():Number{
-			var _r:Number = 0, _tmp:Array;
-			if( this.isPercent ) return 0;
-			if( cd && cd.series ){
-				_tmp = [];
-				Common.each( displaySeries, function( _k:int, _item:Number ):*{
-					_tmp = _tmp.concat( displaySeries[ _k ].data );
-				});
-				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
-				
-				_r > 0 && ( _r = 0 );
-				_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
-			}
-			return _r;
-		}
+
 
 		
 		protected var _floatLen:int = 0;
@@ -498,6 +473,32 @@ package org.xas.jchart.common
 			
 			return _r;
 		}
+				
+		protected var _maxNum:Number = 0;
+		public function get maxNum():Number{ return _maxNum; }
+		
+		
+		public function get chartMaxNum():Number{
+			return finalMaxNum * rate[0];
+		}
+		
+		protected var _minNum:Number = 0;
+		public function get minNum():Number{ return _minNum; }
+		protected function calcMinNum():Number{
+			var _r:Number = 0, _tmp:Array;
+			if( this.isPercent ) return 0;
+			if( cd && cd.series ){
+				_tmp = [];
+				Common.each( displaySeries, function( _k:int, _item:Number ):*{
+					_tmp = _tmp.concat( displaySeries[ _k ].data );
+				});
+				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
+				
+				_r > 0 && ( _r = 0 );
+				_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
+			}
+			return _r;
+		}
 		
 		protected function calcMaxNum():Number{
 			var _r:Number = 0, _tmp:Array;
@@ -548,22 +549,22 @@ package org.xas.jchart.common
 			if( !_data ) return;
 			
 			_maxNum = calcMaxNum();
-			_minNum = calcminNum();
+			_minNum = calcMinNum();
 			_absNum = Math.abs( _minNum );
 			_finalMaxNum = Math.max( _maxNum, _absNum );
 			
 			if( _data && Common.hasNegative( displaySeries ) ){				
 				if( _maxNum > _absNum ){
-					if( Math.abs( _finalMaxNum * 0.333333333333333 ) > _absNum ){
-						_rate = [ 1, 0.666666666666666, 0.333333333333333, 0, -0.333333333333333];
+					if( Math.abs( _finalMaxNum * 0.33 ) > _absNum ){
+						_rate = [ 1, 0.66, 0.33, 0, -0.33];
 						_rateZeroIndex = 3;
 					}
 				}else{
 					if( _maxNum == 0 ){
 						_rate = [ 0, -0.25, -0.5, -0.75, -1 ];
 						_rateZeroIndex = 0;
-					}else if( Math.abs( _finalMaxNum * 0.333333333333333 ) > _maxNum ){
-						_rate = [ 0.333333333333333, 0, -0.333333333333333, -0.666666666666666, -1 ];
+					}else if( Math.abs( _finalMaxNum * 0.33 ) > _maxNum ){
+						_rate = [ 0.33, 0, -0.33, -0.66, -1 ];
 						_rateZeroIndex = 1;
 					}
 				}

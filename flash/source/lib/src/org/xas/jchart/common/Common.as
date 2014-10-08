@@ -1,32 +1,41 @@
 package org.xas.jchart.common
 {
+	import flash.display.DisplayObject;
+	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
-	import org.xas.jchart.common.Common;
-	
-	import flash.geom.Point;
-	import flash.display.DisplayObject;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.Common;
 	
 	public class Common
 	{		
-		
+				
 		public static function numberUp( _in:Number, _floatLen:int = 5 ):Number{
 			var _out:Number = 0, _inStr:String = _in.toFixed( _floatLen )
 				, _part:Array = _inStr.split( '.' )
-				, _int:Number = _part[0], _float:Number = parseFloat( '0.' + _part[ 1 ] )
+				, _int:Number = Math.abs( _part[0] ), _float:Number = parseFloat( '0.' + _part[ 1 ] )
+				, _isNegative:Boolean = _in < 0
 				, _ar:Array
 				, i:int, j:int, tmp:Number
+				, _midNum:int, _char:int
 				;
 			
 			//Log.log( 'xxxxxx', _int.toString() );
 			
 			if( /[1-9]/.test( _int.toString( ) ) ){
-				tmp = Math.pow( 10, _int.toString().length - 1  ), _out = tmp * ( parseInt( _int.toString().charAt(0 )) +  1);
-				if( _out < _in ){
-					_out = tmp * 10;
+				tmp = Math.pow( 10, _int.toString().length - 1  );
+				_char = parseInt( _int.toString().charAt(0 ));
+				_midNum = tmp * _char + ( tmp * ( _char + 1 ) - tmp * _char ) / 2;
+				
+				if( _in < _midNum ){
+					_out = _midNum;
+				}else{					
+					_out = tmp * ( _char  +  1);
+					if( _out < _in ){
+						_out = tmp * 10;
+					}
 				}
 				
 			}else{						
@@ -43,6 +52,8 @@ package org.xas.jchart.common
 					}
 				}
 			}
+			
+			_isNegative && ( _out = -_out );
 			
 			return _out;
 		}

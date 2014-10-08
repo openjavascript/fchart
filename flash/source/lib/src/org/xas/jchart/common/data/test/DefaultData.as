@@ -22,6 +22,158 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			
+			_data.push( 
+				{
+					"hoverBg":
+					{
+						"style":
+						{
+							"borderColor": 11842740, 
+							"bgColor": 15790320, 
+							"borderWidth": 2
+						}, 
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"headerYSpace": 6, 
+						"headerStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 14, 
+							"color": 7829367
+						}, 
+						"itemYSpace": 6, 
+						"enabled": true, 
+						"valueStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 6144104
+						}, 
+						"pointFormat": "{0} ", 
+						"labelStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 11184810
+						}, 
+						"serial":
+						[
+							{
+								"name": "区分度", 
+								"data":
+								[
+									"3.87", 
+									"3.85", 
+									"3.83", 
+									"3.82", 
+									"3.80", 
+									"3.79", 
+									"3.78", 
+									"3.78", 
+									"3.76", 
+									"3.76"
+								]
+							}
+						], 
+						"headerFormat": "{0}", 
+						"headerIcon":
+						{
+							"style":
+							{
+								"color": 6144104
+							}, 
+							"enabled": true
+						}, 
+						"valueLabelXSpace": 0
+					}, 
+					"xAxis":
+					{
+						"enabled": false,
+						"categories":
+						[
+							"口腔护理", 
+							"身体护理", 
+							"洗护清洁", 
+							"游戏点卡", 
+							"彩妆", 
+							"生鲜食品", 
+							"童装", 
+							"粮油米面", 
+							"饮料", 
+							"配饰"
+						]
+					}, 
+					"yAxis":
+					{
+						"enabled": true
+					},
+					"hline":
+					{
+						"enabled": true
+					}, 
+					"vline":
+					{
+						"enabled": false
+					}, 
+					"vsideLine":
+					{
+						"enabled": true
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "样本覆盖率", 
+							"data":
+							[
+								"3.87", 
+								"3.85", 
+								"3.83", 
+								"3.82", 
+								"3.80", 
+								"3.79", 
+								"3.78", 
+								"3.78", 
+								"3.76", 
+								"3.76"
+							]
+						}
+					], 
+					
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241, 
+						16760576, 
+						16740608, 
+						16713395, 
+						4317926, 
+						12837540, 
+						16757436, 
+						14399741
+					], 
+					"displayAllLabel": true, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": false
+					}
+				});	
+			
 			_data.push( 
 				{
 					"hoverBg":
@@ -172,157 +324,7 @@ package org.xas.jchart.common.data.test
 						"enabled": false
 					}
 				});		
-			
-			_data.push( 
-				{
-					"hoverBg":
-					{
-						"style":
-						{
-							"borderColor": 11842740, 
-							"bgColor": 15790320, 
-							"borderWidth": 2
-						}, 
-						"enabled": true
-					}, 
-					"tooltip":
-					{
-						"headerYSpace": 6, 
-						"headerStyle":
-						{
-							"font": "Microsoft YaHei", 
-							"size": 14, 
-							"color": 7829367
-						}, 
-						"itemYSpace": 6, 
-						"enabled": true, 
-						"valueStyle":
-						{
-							"font": "Microsoft YaHei", 
-							"size": 12, 
-							"color": 6144104
-						}, 
-						"pointFormat": "{0} ", 
-						"labelStyle":
-						{
-							"font": "Microsoft YaHei", 
-							"size": 12, 
-							"color": 11184810
-						}, 
-						"serial":
-						[
-							{
-								"name": "区分度", 
-								"data":
-								[
-									"3.87", 
-									"3.85", 
-									"3.83", 
-									"3.82", 
-									"3.80", 
-									"3.79", 
-									"3.78", 
-									"3.78", 
-									"3.76", 
-									"3.76"
-								]
-							}
-						], 
-						"headerFormat": "{0}", 
-						"headerIcon":
-						{
-							"style":
-							{
-								"color": 6144104
-							}, 
-							"enabled": true
-						}, 
-						"valueLabelXSpace": 0
-					}, 
-					"xAxis":
-					{
-						"enabled": false,
-						"categories":
-						[
-							"口腔护理", 
-							"身体护理", 
-							"洗护清洁", 
-							"游戏点卡", 
-							"彩妆", 
-							"生鲜食品", 
-							"童装", 
-							"粮油米面", 
-							"饮料", 
-							"配饰"
-						]
-					}, 
-					"yAxis":
-					{
-						"enabled": true
-					},
-					"hline":
-					{
-						"enabled": true
-					}, 
-					"vline":
-					{
-						"enabled": false
-					}, 
-					"vsideLine":
-					{
-						"enabled": true
-					}, 
-					"chart":
-					{
-						"bgAlpha": 1, 
-						"bgColor": 16777215
-					}, 
-					"legend":
-					{
-						"enabled": false
-					}, 
-					"series":
-					[
-						{
-							"name": "样本覆盖率", 
-							"data":
-							[
-								"3.87", 
-								"3.85", 
-								"3.83", 
-								"3.82", 
-								"3.80", 
-								"3.79", 
-								"3.78", 
-								"3.78", 
-								"3.76", 
-								"3.76"
-							]
-						}
-					], 
-
-					"colors":
-					[
-						44015, 
-						10333619, 
-						639232, 
-						816836, 
-						16713241, 
-						16760576, 
-						16740608, 
-						16713395, 
-						4317926, 
-						12837540, 
-						16757436, 
-						14399741
-					], 
-					"displayAllLabel": true, 
-					"dataLabels":
-					{
-						"format": "{0}", 
-						"enabled": false
-					}
-				});		
+	
 			
 			
 			_data.push( 

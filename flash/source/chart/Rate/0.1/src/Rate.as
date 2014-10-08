@@ -142,14 +142,13 @@ package
 			removeEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );
 			removeEventListener( Event.ENTER_FRAME, onEnterFrame );
 			_timer &&_timer.stop();
-		}
+		} 
 		
 		private function runData():void{
 			
 			var _data:Object = {};
 			
-			if( !ExternalInterface.available ){
-				
+			if( !ExternalInterface.available ){				
 				CONFIG::debug {					
 				 	_data =  DefaultPieData.instance.data[0];
 				}

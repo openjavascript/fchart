@@ -26,7 +26,7 @@ package
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
-	//[SWF(frameRate="30", width="1400", height="460")] 
+	//[SWF(frameRate="30", width="1400", height="460")]  
 	[SWF(frameRate="30", width="600", height="600")]
 	public class VHistogram extends Sprite 
 	{ 
