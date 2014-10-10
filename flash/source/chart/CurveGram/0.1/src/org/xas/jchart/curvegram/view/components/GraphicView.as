@@ -17,6 +17,7 @@ package org.xas.jchart.curvegram.view.components
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.CurveGramUI;
+	import org.xas.jchart.common.ui.widget.JFillLine;
 	
 	public class GraphicView extends Sprite
 	{	
@@ -56,6 +57,19 @@ package org.xas.jchart.curvegram.view.components
 					, _gitem:CurveGramUI
 					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
 					;
+					
+				if( _config.isFillLine( _item.data ) ){
+					addChild( 
+						new JFillLine( 
+							_vectorPath
+							, { 
+								thickness: 2
+								, lineColor: _config.itemColor( _k )
+								, fillOpacity: _config.lineFillOpacity( _item.data ) 
+							}
+						) 
+					);
+				}
 				
 				addChild( 
 					_gitem = new CurveGramUI( 

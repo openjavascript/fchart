@@ -63,6 +63,7 @@ package org.xas.jchart.common.data.test
 								5
 							]
 							, dashStyle: 'Dash'
+							, fillColor: {}
 						}, 
 						{
 							"name": "Rainfall", 

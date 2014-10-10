@@ -10,7 +10,7 @@ package
 		{
 			super();
 		}
-
+		
 		
 		public function lineDashStyle( _seriesPart:Object ):String{
 			var _r:String = 'Solid';
@@ -22,8 +22,40 @@ package
 				&& ( _r = this.cd.plotOptions.line.dashStyle );
 			
 			_seriesPart
-				&& _seriesPart.dashStyle
+			&& _seriesPart.dashStyle
 				&& ( _r = _seriesPart.dashStyle );				
+			
+			return _r;
+		}
+		
+		public function isFillLine( _seriesPart:Object ):Boolean{
+			var _r:Boolean;
+			
+			this.cd
+				&& this.cd.plotOptions
+				&& this.cd.plotOptions.area
+				&& ( 'fillColor' in this.cd.plotOptions.area )
+				&& ( _r = true );
+			
+			_seriesPart
+			&& ( 'fillColor' in _seriesPart )
+				&& ( _r = true );				
+			
+			return _r;
+		}
+		
+		public function lineFillOpacity( _seriesPart:Object ):Number{
+			var _r:Number = .35;
+			
+			this.cd
+				&& this.cd.plotOptions
+				&& this.cd.plotOptions.area
+				&& ( 'fillOpacity' in this.cd.plotOptions.area )
+				&& ( _r = this.cd.plotOptions.area.fillOpacity );
+			
+			_seriesPart
+				&& ( 'fillOpacity' in _seriesPart )
+				&& ( _r = _seriesPart.fillOpacity );				
 			
 			return _r;
 		}
