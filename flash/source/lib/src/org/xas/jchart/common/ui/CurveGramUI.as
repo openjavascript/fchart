@@ -6,6 +6,7 @@ package org.xas.jchart.common.ui
 	
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.ui.icon.*;
+	import org.xas.jchart.common.ui.widget.JLine;
 	
 	public class CurveGramUI extends Sprite
 	{
@@ -15,14 +16,25 @@ package org.xas.jchart.common.ui
 		private var _point:Vector.<Point>;
 		private var _items:Vector.<CircleIcon>;
 		public function get items():Vector.<CircleIcon>{ return _items; }
+		private var _jline:JLine;
+		private var _vectorPath:Vector.<Point>;
+		private var _lineType:String;
 		
-		public function CurveGramUI( _cmd:Vector.<int>, _path:Vector.<Number>, _color:uint )
+		public function CurveGramUI( 
+			_cmd:Vector.<int>
+			, _path:Vector.<Number>
+			, _color:uint
+			, _vecotrPath:Vector.<Point> = null
+			, _lineType:String = 'Solid'
+		)
 		{
 			super();
 			
 			this._cmd = _cmd;
 			this._path = _path;
 			this._color = _color;
+			this._vectorPath = _vecotrPath;
+			this._lineType = _lineType;
 			
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
 		}
@@ -35,8 +47,14 @@ package org.xas.jchart.common.ui
 			//graphics.clear();
 			//graphics.beginFill( 0xffffff, 0 );
 			graphics.lineStyle( 2, _color );
-			graphics.drawPath( _cmd, _path );
 			//graphics.endFill();
+			//_lineType = "Dash";
+			if( _vectorPath ){
+				_jline = new JLine( _vectorPath, _lineType, { thickness: 2, lineColor: _color } );
+				addChild( _jline );
+			}else{
+				graphics.drawPath( _cmd, _path );
+			}
 			_point = new Vector.<Point>;
 			_items = new Vector.<CircleIcon>();
 			while( _path.length ){

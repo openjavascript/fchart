@@ -3,6 +3,8 @@ package org.xas.jchart.curvegram.controller
 	import flash.external.ExternalInterface;
 	import flash.geom.Point;
 	
+	import mx.containers.Panel;
+	
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
@@ -180,6 +182,7 @@ package org.xas.jchart.curvegram.controller
 			facade.registerMediator( new GraphicMediator() );
 			
 			_config.c.paths = [];
+			_config.c.vectorPaths = [];
 			if( !( _config.series && _config.series.length ) ) return;
 			_config.c.partWidth = _config.c.itemWidth / _config.displaySeries.length;
 
@@ -189,6 +192,7 @@ package org.xas.jchart.curvegram.controller
 				var _cmd:Vector.<int> = new Vector.<int>
 				, _path:Vector.<Number> = new Vector.<Number>
 				, _positions:Array = []
+				, _vectorPath:Vector.<Point> = new Vector.<Point>
 				;				
 				
 				Common.each( _item.data, function( _sk:int, _num:Number ):void{
@@ -252,6 +256,7 @@ package org.xas.jchart.curvegram.controller
 						
 						_cmd.push( _sk === 0 ? 1 : 2 );
 						_path.push( _x, _y );
+						_vectorPath.push( new Point( _x, _y ) );
 						_positions.push( { x: _x, y: _y, value: _sNum } );
 						
 
@@ -260,7 +265,8 @@ package org.xas.jchart.curvegram.controller
 				});
 				//Log.log( 'xxxxxxxxxxxxx' );
 				
-				_config.c.paths.push( { cmd: _cmd, path: _path, position: _positions } );
+				_config.c.paths.push( { cmd: _cmd, path: _path, position: _positions, data: _item } );
+				_config.c.vectorPaths.push( _vectorPath );
 			});
 
 		}

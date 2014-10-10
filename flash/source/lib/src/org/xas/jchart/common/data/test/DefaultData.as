@@ -22,6 +22,88 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			_data.push( 
+				{
+					"xAxis":
+					{
+						"categories":
+						[
+							"111111", 
+							"2", 
+							"3", 
+							"4", 
+							"5", 
+							"6", 
+							"7", 
+							"8", 
+							"9", 
+							"10", 
+							"11", 
+							"122222"
+						]
+					}, 
+					"displayAllLabel": true, 
+					"series":
+					[
+						{
+							"name": "Temperature", 
+							"data":
+							[
+								10, 
+								0, 
+								3, 
+								10, 
+								20, 
+								27, 
+								28, 
+								32, 
+								30, 
+								25, 
+								15, 
+								5
+							]
+							, dashStyle: 'Dash'
+						}, 
+						{
+							"name": "Rainfall", 
+							"data":
+							[
+								20, 
+								21, 
+								20, 
+								100, 
+								200, 
+								210, 
+								220, 
+								100, 
+								20, 
+								10, 
+								20, 
+								10
+							]
+							, dashStyle: 'Dot'
+						}
+					], 
+					"title":
+					{
+					}, 
+					"credits":
+					{
+						"enabled": false, 
+						"href": "http://fchart.openjavascript.org/", 
+						"text": "fchart.openjavascript.org"
+					}, 
+					"subtitle":
+					{
+					}, 
+					"yAxis":
+					{
+						"title":
+						{
+						}
+					}
+				}
+			);
 			
 			_data.push( 
 				{
@@ -171,6 +253,11 @@ package org.xas.jchart.common.data.test
 					{
 						"format": "{0}", 
 						"enabled": false
+					},
+					plotOptions: {
+						line: {
+							dashStyle: 'LongDash'
+						}
 					}
 				});	
 			
@@ -2687,10 +2774,9 @@ package org.xas.jchart.common.data.test
 					enabled: true
 				}
 			});
+
 			
-			_data.push( {"title":{},"subtitle":{},"xAxis":{"categories":["111111","2","3","4","5","6","7","8","9","10","11","122222"]},"yAxis":{"title":{}},"series":[{"name":"Temperature","data":[10,0,3,10,20,27,28,32,30,25,15,5]},{"name":"Rainfall","data":[20,21,20,100,200,210,220,100,20,10,20,10]}],"credits":{"enabled":false,"text":"fchart.openjavascript.org","href":"http://fchart.openjavascript.org/"},"displayAllLabel":true});
-			
-			_data.push(                     {
+			_data.push( {
 				title: {
 					text:'Chart Title'
 				},
