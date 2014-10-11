@@ -77,7 +77,9 @@ package org.xas.jchart.common.view.components.SerialLabel
 							TweenLite.delayedCall( BaseConfig.ins.animationDuration, 
 								function():void{
 									TweenLite.to( _label, BaseConfig.ins.animationDuration
-										, { alpha: 1, ease: Expo.easeOut } );
+										, { 
+											alpha: 1, ease: Expo.easeOut 
+										} );
 								});
 						}
 						
