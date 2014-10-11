@@ -1157,6 +1157,25 @@ package org.xas.jchart.common
 			_maxValue = 0;			
 			selected = -1;
 		}
+		
+		public function get animation():Object {
+			var _r:Object = {};
+			this.cd && ( 'animation' in this.cd ) && ( _r =  this.cd.animation );
+			return _r;
+		}
+		
+		public function get animationEnabled():Boolean {
+			var _r:Boolean;
+			return true;
+			'enabled' in animation && ( _r =  StringUtils.parseBool( this.animation.enabled ) );
+			return _r;
+		}
+		
+		public function get animationDuration():Number {
+			var _r:Number = .75;
+			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
+			return _r;
+		}
 				
 		public function BaseConfig()
 		{

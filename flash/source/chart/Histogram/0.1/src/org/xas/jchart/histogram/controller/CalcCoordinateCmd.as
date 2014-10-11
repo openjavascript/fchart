@@ -247,6 +247,7 @@ package org.xas.jchart.histogram.controller
 									Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
 								* _h;
 								//Log.log( _h, _config.finalMaxNum );
+								_rectItem.isNegative = true;
 							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
 								_h = ( _num / _config.chartMaxNum || 1 ) * _h;

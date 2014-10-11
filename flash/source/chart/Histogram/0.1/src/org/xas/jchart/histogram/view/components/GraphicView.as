@@ -65,6 +65,11 @@ package org.xas.jchart.histogram.view.components
 						_sitem.x, _sitem.y
 						, _sitem.width, _sitem.height
 						, _color 
+						, {
+							animationEnabled: BaseConfig.ins.animationEnabled
+							, isNegative: _sitem.isNegative
+							, duration: BaseConfig.ins.animationDuration
+						}
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );
