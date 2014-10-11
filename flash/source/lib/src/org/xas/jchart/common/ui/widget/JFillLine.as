@@ -1,5 +1,8 @@
 package org.xas.jchart.common.ui.widget
 {
+	import flash.display.GradientType;
+	import flash.display.SpreadMethod;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.GeoUtils;
@@ -37,28 +40,64 @@ package org.xas.jchart.common.ui.widget
 		private var _ins:JFillLine;
 		private var _thickness:int = 2;
 		private var _lineColor:uint = 0x00ff00;
+		private var _isGradient:Boolean;
+		private var _opacity:Number = .35;
 		
-		public function JFillLine( _path:Vector.<Point>, _data:Object=null)
+		public function JFillLine( _path:Vector.<Point>, _data:Object=null, _isGradient:Boolean = false )
 		{
 			_ins = this;
 			_data = _data || {};
 			super(_data);
 			
 			this._path = _path;
+			this._isGradient = _isGradient;
 			
 			_data.thickness && ( _thickness = _data.thickness );
 			_data.lineColor && ( _lineColor = _data.lineColor );
+			'fillOpacity' in _data && ( _opacity = _data.fillOpacity );
 			
 			init();
 		}
 		
 		private function init():void{
 			if( !( _path && _path.length > 1 ) ) return;
-			
 			this.graphics.lineStyle( 0, _lineColor );
-			this.graphics.beginFill( _lineColor, .2 );
-			
+						
+			if( _isGradient ){
+				var _minY:Number = minY()
+					, _realY:Number = _minY - BaseConfig.ins.c.chartY
+					, _realY1:Number = _minY - BaseConfig.ins.c.chartY
+					, _height:Number = BaseConfig.ins.c.chartHeight - _realY
+					, _matrix:Matrix = new Matrix()
+					, _colors:Array = [ _lineColor, 0xffffff ]
+					, _alphas:Array = [ .8, .0 ]
+					, _ratios:Array = [  0,  255 ]
+					;
+				
+				_matrix.createGradientBox(
+					BaseConfig.ins.c.chartWidth
+					, _height
+					, (Math.PI/180)*90, 0, _minY
+				);
+				
+				this.graphics.beginGradientFill(GradientType.LINEAR, _colors, _alphas, _ratios, _matrix);
+			}else{
+				this.graphics.beginFill( _lineColor, _opacity );
+			}				
 			solidLine(); 
+			this.graphics.endFill();
+		}
+		
+		private function minY():Number{
+			var _r:Number = BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight;
+			
+			Common.each( _path, function( _k:int, _item:Point ):void{
+				if( _item.y < _r ){
+					_r = _item.y;
+				}
+			});
+			
+			return _r;
 		}
 
 		

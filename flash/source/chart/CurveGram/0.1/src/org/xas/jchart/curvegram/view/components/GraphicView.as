@@ -50,14 +50,15 @@ package org.xas.jchart.curvegram.view.components
 			
 			graphics.clear();
 			_boxs = new Vector.<CurveGramUI>;
-			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
 			
+			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
+				
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
-					, _path:Vector.<Number> = _item.path as Vector.<Number>
-					, _gitem:CurveGramUI
-					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
-					;
-					
+				, _path:Vector.<Number> = _item.path as Vector.<Number>
+				, _gitem:CurveGramUI
+				, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
+				;
+				
 				if( _config.isFillLine( _item.data ) ){
 					addChild( 
 						new JFillLine( 
@@ -67,9 +68,20 @@ package org.xas.jchart.curvegram.view.components
 								, lineColor: _config.itemColor( _k )
 								, fillOpacity: _config.lineFillOpacity( _item.data ) 
 							}
+							, _config.isLineGradient( _item.data )
 						) 
 					);
 				}
+
+			});
+			
+			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
+			
+				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
+					, _path:Vector.<Number> = _item.path as Vector.<Number>
+					, _gitem:CurveGramUI
+					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
+					;
 				
 				addChild( 
 					_gitem = new CurveGramUI( 

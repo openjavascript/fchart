@@ -2,6 +2,7 @@ package
 {
 	import flash.geom.Point;
 	
+	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 
 	public class Config extends BaseConfig
@@ -43,6 +44,26 @@ package
 			
 			return _r;
 		}
+		
+		public function isLineGradient( _seriesPart:Object ):Boolean{
+			var _r:Boolean;
+			
+			this.cd
+				&& this.cd.plotOptions
+				&& this.cd.plotOptions.area
+				&& this.cd.plotOptions.area.fillColor
+				&& ( 'linearGradient' in this.cd.plotOptions.area.fillColor )
+				&& ( _r =  StringUtils.parseBool( this.cd.plotOptions.area.fillColor.linearGradient ) );
+			
+			_seriesPart
+				&& _seriesPart.fillColor 
+				&& ( 'linearGradient' in _seriesPart.fillColor )
+				&& ( _r = StringUtils.parseBool( _seriesPart.fillColor.linearGradient ) );				
+			
+			return _r;
+		}
+		
+		
 		
 		public function lineFillOpacity( _seriesPart:Object ):Number{
 			var _r:Number = .35;

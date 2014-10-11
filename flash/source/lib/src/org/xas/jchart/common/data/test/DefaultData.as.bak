@@ -223,7 +223,7 @@ package org.xas.jchart.common.data.test
 						}
 					}
 				});
-			
+						
 			_data.push({
 				title: {
 					text:'Chart Title'
@@ -510,7 +510,7 @@ package org.xas.jchart.common.data.test
 						}
 					}
 				});	
-			
+
 			
 			
 			_data.push( 
@@ -1408,7 +1408,7 @@ package org.xas.jchart.common.data.test
 					} 
 				}
 			);
-			
+		
 			
 			_data.push( 
 				{
@@ -2340,7 +2340,7 @@ package org.xas.jchart.common.data.test
 					"headerFormat": "{0}"			
 					, "pointFormat": "{0} %"
 					//, enabled: false
-					
+
 				}
 				//isPercent: true,
 				, displayAllLabel: true
@@ -2496,7 +2496,7 @@ package org.xas.jchart.common.data.test
 					style: { color: 0x5DC979, size: 18 }
 				}
 			});
-			
+					
 			_data.push({
 				
 				xAxis: {
@@ -2553,7 +2553,7 @@ package org.xas.jchart.common.data.test
 					, bgAlpha: 1
 				}
 			});
-			
+
 			
 			_data.push({
 				xAxis: {
@@ -2683,7 +2683,7 @@ package org.xas.jchart.common.data.test
 					, 0x09c100
 					, 0x0c76c4 				
 					, 0xff0619
-					
+
 				]
 				, maxItem: {
 					style: { color: 0x5DC979, size: 18 }
@@ -2732,7 +2732,7 @@ package org.xas.jchart.common.data.test
 					style: { color: 0x5DC979, size: 18 }
 				}
 			});
-			
+
 			
 			_data.push({
 				title: {
@@ -2873,7 +2873,7 @@ package org.xas.jchart.common.data.test
 					enabled: true
 				}
 			});
-			
+
 			
 			_data.push( {
 				title: {
@@ -2960,7 +2960,7 @@ package org.xas.jchart.common.data.test
 				, displayAllLabel: false
 			} );
 			
-			
+
 			
 			_data.push({
 				title: {
