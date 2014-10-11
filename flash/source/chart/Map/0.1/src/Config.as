@@ -161,7 +161,7 @@ package
 			return _r;
 		}
 
-		override protected function calcminNum():Number{
+		override protected function calcMinNum():Number{
 			var _r:Number = 0, _tmp:Array;
 			if( this.isPercent ) return 0;
 			if( cd.series[0] && cd.series[0].data ){
