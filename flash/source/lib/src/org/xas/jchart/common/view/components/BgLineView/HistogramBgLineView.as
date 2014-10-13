@@ -179,6 +179,10 @@ package org.xas.jchart.common.view.components.BgLineView
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.hpoint )  ) return;
 			if( !BaseConfig.ins.vlineEnabled ) return;
 			
+			
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			
 			Common.each( BaseConfig.ins.c.hpoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point;
@@ -189,8 +193,33 @@ package org.xas.jchart.common.view.components.BgLineView
 						return;
 					}
 				}
-				graphics.moveTo( _sp.x, _sp.y );
-				graphics.lineTo( _ep.x, _ep.y );
+				
+				var _ele:DSprite = new DSprite();
+				_ele.graphics.lineStyle( 1, 0x999999, .35 );
+				addChild( _ele );				
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_ele.max = Math.ceil( _ep.y - _sp.y );
+					_ele.count = 0;
+					
+					TweenLite.delayedCall( _delay, function():void{						
+						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+							, { 
+								count: _ele.max
+								//, ease: Expo.easeIn
+								, onUpdate: function():void{
+									_ele.graphics.clear();
+									_ele.graphics.lineStyle( 1, 0x999999, .35 );
+									_ele.graphics.moveTo( _sp.x, _sp.y );
+									_ele.graphics.lineTo( _ep.x, _ep.y );
+								}
+							} );
+					});
+					
+				}else{
+					_ele.graphics.moveTo( _sp.x, _sp.y );
+					_ele.graphics.lineTo( _ep.x, _ep.y );
+				}
 				
 			});	
 		}
