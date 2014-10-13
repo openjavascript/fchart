@@ -1087,10 +1087,7 @@ package org.xas.jchart.common
 			
 			return _r;
 		}
-		
-		
-		
-		
+			
 		public function get itemBgParams():Object{
 			var _r:Object = {};
 			
@@ -1166,7 +1163,7 @@ package org.xas.jchart.common
 		
 		public function get animationEnabled():Boolean {
 			var _r:Boolean;
-			return true;
+			//return true;
 			'enabled' in animation && ( _r =  StringUtils.parseBool( this.animation.enabled ) );
 			return _r;
 		}

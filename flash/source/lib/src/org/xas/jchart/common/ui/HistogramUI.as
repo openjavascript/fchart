@@ -15,6 +15,7 @@ package org.xas.jchart.common.ui
 		private var _maxY:Number;
 		public var count:Number = 0;
 		private var _duration:Number = .75;
+		private var _delay:Number = 0;
 		
 		public function HistogramUI( 
 			_x:Number, _y:Number
@@ -36,6 +37,7 @@ package org.xas.jchart.common.ui
 			//this._isAnimation = _isAnimation;
 			//this._isNegative = _isNegative;
 			( 'duration' in _data ) &&  ( _duration =  _data.duration );　 
+			( 'delay' in _data ) &&  ( _delay =  _data.delay );　 
 			
 			init();
 		}
@@ -62,31 +64,36 @@ package org.xas.jchart.common.ui
 		private function animationDraw():void{			
 			var _ins:HistogramUI = this;
 			
-			this.count = 0;
-			this.x = _x;
+			_ins.count = 0;
+			_ins.x = _x;
 			
-			if( data.isNegative ){
-				this.y = _y;				
-				TweenLite.to( this, _duration, { count: _h, ease:Circ.easeInOut
-					, onUpdate: 
-					function():void{
-						graphics.clear();
-						graphics.beginFill( _color, 1 );
-						graphics.drawRect( 0, 0, _w, count );
-					}
-				} );
-			}else{
-				this.y = _maxY;				
-				TweenLite.to( this, _duration, { count: _h, ease:Circ.easeInOut
-					, onUpdate: 
-					function():void{
-						graphics.clear();
-						graphics.beginFill( _color, 1 );
-						graphics.drawRect( 0, 0, _w, count );
-						_ins.y = _maxY - count;
-					}
-				} );
-			}
+			
+			TweenLite.delayedCall( _delay, function():void{
+				
+				if( data.isNegative ){
+					_ins.y = _y;				
+					TweenLite.to( _ins, _duration, { count: _h, ease:Circ.easeInOut
+						, onUpdate: 
+						function():void{
+							graphics.clear();
+							graphics.beginFill( _color, 1 );
+							graphics.drawRect( 0, 0, _w, count );
+						}
+					} );
+				}else{
+					_ins.y = _maxY;				
+					TweenLite.to( _ins, _duration, { count: _h, ease:Circ.easeInOut
+						, onUpdate: 
+						function():void{
+							graphics.clear();
+							graphics.beginFill( _color, 1 );
+							graphics.drawRect( 0, 0, _w, count );
+							_ins.y = _maxY - count;
+						}
+					} );
+				}		
+			});
+
 		}
 	}
 }
