@@ -47,6 +47,8 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
+                <li><a href="../classes/.window.html">.window</a></li>
+            
                 <li><a href="../classes/JC.BaseMVC.html">JC.BaseMVC</a></li>
             
                 <li><a href="../classes/JC.BaseMVC.Model.html">JC.BaseMVC.Model</a></li>
@@ -62,6 +64,10 @@
                 <li><a href="../classes/JC.FChartNormalData.html">JC.FChartNormalData</a></li>
             
                 <li><a href="../classes/window.jQuery.html">window.jQuery</a></li>
+            
+                <li><a href="../classes/window.jQuery.mousewheel.html">window.jQuery.mousewheel</a></li>
+            
+                <li><a href="../classes/window.JSON.html">window.JSON</a></li>
             
                 <li><a href="../classes/window.requirejs.html">window.requirejs</a></li>
             
@@ -243,6 +249,8 @@
                 &amp;&amp; !/&lt;/.test( _selector ) 
                 &amp;&amp; ( _selector = $(_selector) )
                 ;
+
+            typeof _selector == &#x27;object&#x27; &amp;&amp; ( _selector = $( _selector ) );
 
             if( !(_selector &amp;&amp; _selector.length ) || ( typeof _selector == &#x27;string&#x27; ) ) return null;
 
@@ -584,7 +592,7 @@
          * @method  scriptTplProp
          * @param   {selector|string}  _selector    如果 _key 为空将视 _selector 为 _key, _selector 为 this.selector()
          * @param   {string}           _key
-         * @return  bool
+         * @return  string
          */
         , scriptTplProp:
             function( _selector, _key ){
@@ -604,6 +612,28 @@
 
                 return _r;
             }
+        /**
+         * 获取 脚本数据 jquery 选择器
+         * @method  scriptDataProp
+         * @param   {selector|string}  _selector    如果 _key 为空将视 _selector 为 _key, _selector 为 this.selector()
+         * @param   {string}           _key
+         * @return  object
+         */
+        , scriptDataProp:
+            function( _selector, _key ){
+                var _r = null, _tmp;
+                _tmp = this.scriptTplProp( _selector, _key );
+
+                if( _tmp ){
+                    _tmp = _tmp.replace( /^[\s]*?\/\/[\s\S]*?[\r\n]/gm, &#x27;&#x27; );
+                    _tmp = _tmp.replace( /[\r\n]/g, &#x27;&#x27; );
+                    _tmp = _tmp.replace( /\}[\s]*?,[\s]*?\}$/g, &#x27;}}&#x27;);
+                    _r = eval( &#x27;(&#x27; + _tmp + &#x27;)&#x27; );
+                }
+
+                return _r;
+            }
+
         /**
          * 获取 selector 属性的 json 数据
          * @method  jsonProp

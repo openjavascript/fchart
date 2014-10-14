@@ -161,7 +161,7 @@ package
 			return _r;
 		}
 
-		override protected function calcminNum():Number{
+		override protected function calcMinNum():Number{
 			var _r:Number = 0, _tmp:Array;
 			if( this.isPercent ) return 0;
 			if( cd.series[0] && cd.series[0].data ){
@@ -183,6 +183,22 @@ package
 				( cd.yAxis.ratenum > 2 ) && setRateNum( cd.yAxis.ratenum );
 				( rateNum > 5 ) && setRateNum( 5 );
 			}
+		}
+		
+		override public function getTipsHeader( _ix:int ):String{
+			var _r:String = '';
+			c.mapData[ _ix ] && ( _r = c.mapData[ _ix ].name ); 
+			tipsHeader[ _ix ] && ( _r = tipsHeader[ _ix ] );
+			return _r;
+		}
+		
+		override public function get tipsHeader():Array{
+			var _r:Array = [];
+
+			if( cd && cd.tooltip && cd.tooltip.header ){
+				_r = cd.tooltip.header;
+			}
+			return _r;
 		}
 		
 	}

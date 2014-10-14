@@ -33,6 +33,8 @@ package org.xas.jchart.common.event
 		public static const SHOW_LEGEND_ARROW:String = 'show_legend_arrow';
 		public static const HIDE_LEGEND_ARROW:String = 'hide_legend_arrow';
 		
+		public static const UPDATE_MOUSEWHEEL:String = 'update_mousewheel';
+		
 		public function JChartEvent($type:String, $data:Object=null)
 		{
 			super($type, $data);

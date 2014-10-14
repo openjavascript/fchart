@@ -1,6 +1,8 @@
 package org.xas.jchart.common.view.components.VLabelView
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -54,7 +56,10 @@ package org.xas.jchart.common.view.components.VLabelView
 					, { color: 0x838383 }
 					, BaseConfig.ins.vlabelsStyle
 				] );
-				
+											
+				if( BaseConfig.ins.animationEnabled ){
+					_titem.visible = false;
+				}
 				addChild( _titem );
 				
 				_labels.push( _titem );
@@ -69,8 +74,25 @@ package org.xas.jchart.common.view.components.VLabelView
 			
 			Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
-				_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace;
-				_tf.y = _item.start.y - _tf.height / 2;
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_tf.visible = true;
+					_tf.y = _item.start.y - _tf.height / 2;
+					_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace - 200;
+					
+					TweenLite.delayedCall( 0, 
+						function():void{
+							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+								, { 
+									x: _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace
+									, y: _item.start.y - _tf.height / 2
+									, ease: Expo.easeOut } );
+						});
+				}else{
+					_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace;
+					_tf.y = _item.start.y - _tf.height / 2;
+				}
+				
 			});
 		}
 

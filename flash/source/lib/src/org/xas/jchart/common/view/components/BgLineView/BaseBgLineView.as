@@ -10,6 +10,7 @@ package org.xas.jchart.common.view.components.BgLineView
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
 	
+	import org.xas.core.utils.ElementUtility;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
@@ -29,6 +30,8 @@ package org.xas.jchart.common.view.components.BgLineView
 		}
 
 		protected function update( _evt:JChartEvent ):void{
+			
+			ElementUtility.removeAllChild( this );
 			
 			this.graphics.clear();
 			this.graphics.lineStyle( 1, 0x999999, .35 );

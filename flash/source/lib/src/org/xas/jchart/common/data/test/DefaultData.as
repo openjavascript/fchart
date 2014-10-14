@@ -22,11 +22,649 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			_data.push({
+				title: {
+					text:'Chart Title'
+				},
+				subtitle: {
+					text: 'sub title'
+				}, 
+				xAxis: {
+					categories: [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ]
+				}, 
+				yAxis: {
+					title: {
+						text: '(Vertical Title - 中文)'
+					}
+					, format: '{0}%'
+				},
+				tooltip: {					
+					"pointFormat": "{0}%", 
+					"headerFormat": "{0}月"
+				},
+				series:[{
+					name: 'Temperature'
+					, data: [-5000, 0, 300, -2000, -2000, 2700, 2800, 3200, 3000, 2500, 1500, -5800]
+					, style: { 'stroke': '#ff7100' } 
+					, pointStyle: {}
+					, fillColor: {}
+					, fillOpacity: .35
+				}, {
+					name: 'Rainfall',
+					data: [2000, 2100, 2000, 10000, 20000, 21000, 22000, 10000, 2000, 1000, 2000, 1000]
+				}],
+				credits: {
+					enabled: true
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				}
+			});
+			
+			
+			_data.push( 
+				{
+					"hoverBg":
+					{
+						"style":
+						{
+							"borderColor": 11842740, 
+							"bgColor": 15790320, 
+							"borderWidth": 2
+						}, 
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"headerYSpace": 6, 
+						"headerStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 14, 
+							"color": 7829367
+						}, 
+						"itemYSpace": 6, 
+						"enabled": true, 
+						"valueStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 6144104
+						}, 
+						"pointFormat": "{0} ", 
+						"labelStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 11184810
+						}, 
+						"serial":
+						[
+							{
+								"name": "区分度", 
+								"data":
+								[
+									"3.87", 
+									"3.85", 
+									"3.83", 
+									"3.82", 
+									"3.80", 
+									"3.79", 
+									"3.78", 
+									"3.78", 
+									"3.76", 
+									"3.76"
+								]
+							}
+						], 
+						"headerFormat": "{0}", 
+						"headerIcon":
+						{
+							"style":
+							{
+								"color": 6144104
+							}, 
+							"enabled": true
+						}, 
+						"valueLabelXSpace": 0
+					}, 
+					"xAxis":
+					{
+						"enabled": false,
+						"categories":
+						[
+							"口腔护理", 
+							"身体护理", 
+							"洗护清洁", 
+							"游戏点卡", 
+							"彩妆", 
+							"生鲜食品", 
+							"童装", 
+							"粮油米面", 
+							"饮料", 
+							"配饰"
+						]
+					}, 
+					"yAxis":
+					{
+						"enabled": true
+					},
+					"hline":
+					{
+						"enabled": false
+					}, 
+					"vline":
+					{
+						"enabled": false
+					}, 
+					"vsideLine":
+					{
+						"enabled": true
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "样本覆盖率", 
+							"data":
+							[
+								"3.87", 
+								"3.85", 
+								"3.83", 
+								"3.82", 
+								"3.80", 
+								"3.79", 
+								"3.78", 
+								"3.78", 
+								"3.76", 
+								"3.76"
+							]
+						}
+					], 
+					
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241, 
+						16760576, 
+						16740608, 
+						16713395, 
+						4317926, 
+						12837540, 
+						16757436, 
+						14399741
+					], 
+					"displayAllLabel": true, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": false
+					},
+					plotOptions: {
+						area: {
+							fillColor: { linearGradient: true }
+						}
+					}
+				});
+			
+			_data.push({
+				title: {
+					text:'Chart Title'
+				},
+				subtitle: {
+					text: 'sub title'
+				}, 
+				xAxis: {
+					categories: [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ]
+				}, 
+				yAxis: {
+					title: {
+						text: '(Vertical Title - 中文)'
+					}
+					, format: '{0}%'
+				},
+				tooltip: {					
+					"pointFormat": "{0}%", 
+					"headerFormat": "{0}月"
+				},
+				series:[{
+					name: 'Temperature'
+					, data: [-5000, 0, 300, -2000, -2000, 2700, 2800, 3200, 3000, 2500, 1500, -5800]
+					, style: { 'stroke': '#ff7100' } 
+					, pointStyle: {}
+				}, {
+					name: 'Rainfall',
+					data: [2000, 2100, 2000, 10000, 20000, 21000, 22000, 10000, 2000, 1000, 2000, 1000]
+					, fillColor: { linearGradient: true }
+				}],
+				credits: {
+					enabled: true
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: false
+				},
+				plotOptions: {
+					area: {
+						fillColor: {}
+					}
+				}
+			});
+			
+			_data.push( 
+				{
+					"xAxis":
+					{
+						"categories":
+						[
+							"111111", 
+							"2", 
+							"3", 
+							"4", 
+							"5", 
+							"6", 
+							"7", 
+							"8", 
+							"9", 
+							"10", 
+							"11", 
+							"122222"
+						]
+					}, 
+					"displayAllLabel": true, 
+					"series":
+					[
+						{
+							"name": "Temperature", 
+							"data":
+							[
+								10, 
+								0, 
+								3, 
+								10, 
+								20, 
+								27, 
+								28, 
+								32, 
+								30, 
+								25, 
+								15, 
+								5
+							]
+							, dashStyle: 'Dash'
+							, fillColor: {}
+						}, 
+						{
+							"name": "Rainfall", 
+							"data":
+							[
+								20, 
+								21, 
+								20, 
+								100, 
+								200, 
+								210, 
+								220, 
+								100, 
+								20, 
+								10, 
+								20, 
+								10
+							]
+							, dashStyle: 'Dot'
+							, fillColor: {}
+						}
+					], 
+					"title":
+					{
+					}, 
+					"credits":
+					{
+						"enabled": false, 
+						"href": "http://fchart.openjavascript.org/", 
+						"text": "fchart.openjavascript.org"
+					}, 
+					"subtitle":
+					{
+					}, 
+					"yAxis":
+					{
+						"title":
+						{
+						}
+					}
+				}
+			);
+			
+			_data.push( 
+				{
+					"hoverBg":
+					{
+						"style":
+						{
+							"borderColor": 11842740, 
+							"bgColor": 15790320, 
+							"borderWidth": 2
+						}, 
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"headerYSpace": 6, 
+						"headerStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 14, 
+							"color": 7829367
+						}, 
+						"itemYSpace": 6, 
+						"enabled": true, 
+						"valueStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 6144104
+						}, 
+						"pointFormat": "{0} ", 
+						"labelStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 11184810
+						}, 
+						"serial":
+						[
+							{
+								"name": "区分度", 
+								"data":
+								[
+									"3.87", 
+									"3.85", 
+									"3.83", 
+									"3.82", 
+									"3.80", 
+									"3.79", 
+									"3.78", 
+									"3.78", 
+									"3.76", 
+									"3.76"
+								]
+							}
+						], 
+						"headerFormat": "{0}", 
+						"headerIcon":
+						{
+							"style":
+							{
+								"color": 6144104
+							}, 
+							"enabled": true
+						}, 
+						"valueLabelXSpace": 0
+					}, 
+					"xAxis":
+					{
+						"enabled": false,
+						"categories":
+						[
+							"口腔护理", 
+							"身体护理", 
+							"洗护清洁", 
+							"游戏点卡", 
+							"彩妆", 
+							"生鲜食品", 
+							"童装", 
+							"粮油米面", 
+							"饮料", 
+							"配饰"
+						]
+					}, 
+					"yAxis":
+					{
+						"enabled": true
+					},
+					"hline":
+					{
+						"enabled": true
+					}, 
+					"vline":
+					{
+						"enabled": false
+					}, 
+					"vsideLine":
+					{
+						"enabled": true
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "样本覆盖率", 
+							"data":
+							[
+								"3.87", 
+								"3.85", 
+								"3.83", 
+								"3.82", 
+								"3.80", 
+								"3.79", 
+								"3.78", 
+								"3.78", 
+								"3.76", 
+								"3.76"
+							]
+						}
+					], 
+					
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241, 
+						16760576, 
+						16740608, 
+						16713395, 
+						4317926, 
+						12837540, 
+						16757436, 
+						14399741
+					], 
+					"displayAllLabel": true, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": false
+					},
+					plotOptions: {
+						line: {
+							dashStyle: 'LongDash'
+						}
+					}
+				});	
+			
+			
+			
+			_data.push( 
+				{
+					"hoverBg":
+					{
+						"style":
+						{
+							"borderColor": 11842740, 
+							"bgColor": 15790320, 
+							"borderWidth": 2
+						}, 
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"headerYSpace": 6, 
+						"headerStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 14, 
+							"color": 7829367
+						}, 
+						"itemYSpace": 6, 
+						"enabled": true, 
+						"valueStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 6144104
+						}, 
+						"pointFormat": "{0} ", 
+						"labelStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 11184810
+						}, 
+						"serial":
+						[
+							{
+								"name": "区分度", 
+								"data":
+								[
+									"3.87", 
+									"3.85", 
+									"3.83", 
+									"3.82", 
+									"3.80", 
+									"3.79", 
+									"3.78", 
+									"3.78", 
+									"3.76", 
+									"3.76"
+								]
+							}
+						], 
+						"headerFormat": "{0}", 
+						"headerIcon":
+						{
+							"style":
+							{
+								"color": 6144104
+							}, 
+							"enabled": true
+						}, 
+						"valueLabelXSpace": 0
+					}, 
+					"xAxis":
+					{
+						"enabled": false,
+						"categories":
+						[
+							"口腔护理", 
+							"身体护理", 
+							"洗护清洁", 
+							"游戏点卡", 
+							"彩妆", 
+							"生鲜食品", 
+							"童装", 
+							"粮油米面", 
+							"饮料", 
+							"配饰"
+						]
+					}, 
+					"yAxis":
+					{
+						"enabled": true
+					},
+					"hline":
+					{
+						"enabled": true
+					}, 
+					"vline":
+					{
+						"enabled": false
+					},  
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "样本覆盖率", 
+							"data":
+							[
+								"3.87", 
+								"3.85", 
+								"3.83", 
+								"3.82", 
+								"3.80", 
+								"3.79", 
+								"3.78", 
+								"3.78", 
+								"3.76", 
+								"3.76"
+							]
+						}
+					], 
+					
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241, 
+						16760576, 
+						16740608, 
+						16713395, 
+						4317926, 
+						12837540, 
+						16757436, 
+						14399741
+					], 
+					"displayAllLabel": true, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": false
+					}
+				});	
 			
 			_data.push({
 				
 				xAxis: {
-					categories: [ '网页游戏', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
+					categories: [ '网页\n游戏\n3333', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
 				}
 				, yAxis: {
 					enabled: false	
@@ -47,6 +685,9 @@ package org.xas.jchart.common.data.test
 							name: '区分度',
 							data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
 						}
+					]
+					, "header": [ 
+						'1', '2', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏'
 					]
 					
 					, headerYSpace: 6
@@ -82,7 +723,7 @@ package org.xas.jchart.common.data.test
 					enabled: false
 				}
 				, dataLabels: {
-					enabled: true
+					enabled: false
 					, format: '{0}%'
 				}
 				, vline: {
@@ -768,7 +1409,7 @@ package org.xas.jchart.common.data.test
 					} 
 				}
 			);
-		
+			
 			
 			_data.push( 
 				{
@@ -1420,8 +2061,8 @@ package org.xas.jchart.common.data.test
 				]    				
 				, credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				}
 				, chart: {
 					bgColor: 0xffffff
@@ -1700,7 +2341,7 @@ package org.xas.jchart.common.data.test
 					"headerFormat": "{0}"			
 					, "pointFormat": "{0} %"
 					//, enabled: false
-
+					
 				}
 				//isPercent: true,
 				, displayAllLabel: true
@@ -1856,7 +2497,7 @@ package org.xas.jchart.common.data.test
 					style: { color: 0x5DC979, size: 18 }
 				}
 			});
-					
+			
 			_data.push({
 				
 				xAxis: {
@@ -1913,7 +2554,7 @@ package org.xas.jchart.common.data.test
 					, bgAlpha: 1
 				}
 			});
-
+			
 			
 			_data.push({
 				xAxis: {
@@ -2043,7 +2684,7 @@ package org.xas.jchart.common.data.test
 					, 0x09c100
 					, 0x0c76c4 				
 					, 0xff0619
-
+					
 				]
 				, maxItem: {
 					style: { color: 0x5DC979, size: 18 }
@@ -2092,7 +2733,7 @@ package org.xas.jchart.common.data.test
 					style: { color: 0x5DC979, size: 18 }
 				}
 			});
-
+			
 			
 			_data.push({
 				title: {
@@ -2120,8 +2761,8 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
 				legend: {
@@ -2135,8 +2776,8 @@ package org.xas.jchart.common.data.test
 				, yAxis: { title: { text: 'vtitle 中文' } }
 				, credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				xAxis: {
 					categories: [2111111111111, 2, 3, 4, 5, 6, 7, 8, 999999999999]
@@ -2190,8 +2831,8 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
 				legend: {
@@ -2234,9 +2875,8 @@ package org.xas.jchart.common.data.test
 				}
 			});
 			
-			_data.push( {"title":{},"subtitle":{},"xAxis":{"categories":["111111","2","3","4","5","6","7","8","9","10","11","122222"]},"yAxis":{"title":{}},"series":[{"name":"Temperature","data":[10,0,3,10,20,27,28,32,30,25,15,5]},{"name":"Rainfall","data":[20,21,20,100,200,210,220,100,20,10,20,10]}],"credits":{"enabled":false,"text":"jchart.openjavascript.org","href":"http://jchart.openjavascript.org/"},"displayAllLabel":true});
 			
-			_data.push(                     {
+			_data.push( {
 				title: {
 					text:'Chart Title'
 				},
@@ -2262,8 +2902,8 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
 				legend: {
@@ -2315,51 +2955,13 @@ package org.xas.jchart.common.data.test
 				],
 				credits: {
 					enabled: true,
-					text: 'jchart.openjavascript.org',
-					href: 'http://jchart.openjavascript.org/'
+					text: 'fchart.openjavascript.org',
+					href: 'http://fchart.openjavascript.org/'
 				}
 				, displayAllLabel: false
 			} );
 			
-			_data.push({
-				title: {
-					text:'Chart Title'
-				},
-				subtitle: {
-					text: 'sub title'
-				}, 
-				xAxis: {
-					categories: [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ]
-				}, 
-				yAxis: {
-					title: {
-						text: '(Vertical Title - 中文)'
-					}
-					, format: '{0}%'
-				},
-				tooltip: {					
-					"pointFormat": "{0}%", 
-					"headerFormat": "{0}月"
-				},
-				series:[{
-					name: 'Temperature'
-					, data: [-5000, 0, 300, -2000, -2000, 2700, 2800, 3200, 3000, 2500, 1500, -5800]
-					, style: { 'stroke': '#ff7100' } 
-					, pointStyle: {}
-				}, {
-					name: 'Rainfall',
-					data: [2000, 2100, 2000, 10000, 20000, 21000, 22000, 10000, 2000, 1000, 2000, 1000]
-				}],
-				credits: {
-					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
-				},
-				displayAllLabel: true,
-				legend: {
-					enabled: false
-				}
-			});
+			
 			
 			_data.push({
 				title: {
@@ -2392,8 +2994,8 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
 				legend: {
@@ -2433,8 +3035,8 @@ package org.xas.jchart.common.data.test
 				}],
 				credits: {
 					enabled: true
-					, text: 'jchart.openjavascript.org'
-					, href: 'http://jchart.openjavascript.org/'
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
 				legend: {

@@ -21,10 +21,10 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultPieData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.ddount.MainFacade;
+	import org.xas.jchart.ddount.MainFacade; 
 	  
 	 
-	[SWF(frameRate="30", width="1200", height="220")]
+	[SWF(frameRate="30", width="1200", height="220")]  
 	public class DDount extends Sprite
 	{ 
 		private var _inited: Boolean = false;

@@ -5,6 +5,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.external.ExternalInterface;
 	import flash.system.Security;
@@ -18,16 +19,14 @@ package
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.MapData;
-	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.utils.MouseWheelTrap;
-	import org.xas.jchart.map.MainFacade;
-	 
-	  
+	import org.xas.jchart.common.event.JChartEvent; 
+	import org.xas.jchart.map.MainFacade; 
+	   
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")] 
 	//[SWF(frameRate="30", width="600", height="425")]
-	//[SWF(frameRate="30", width="590", height="360")]
-	//[SWF(frameRate="30", width="1400", height="460")]
+	//[SWF(frameRate="30", width="590", height="360")] 
+	//[SWF(frameRate="30", width="1400", height="460")]   
 	[SWF(frameRate="30", width="800", height="600")]
 	public class Map extends Sprite { 
 		private var _inited: Boolean = false;
@@ -51,14 +50,13 @@ package
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );	
 			
-			//MouseWheelTrap.setup( this.stage );
 		}
 		
 		private function onEnterFrame( $evt:Event ):void{
 			if( root.stage.stageWidth > 0 && root.stage.stageHeight > 0 ) {
 				removeEventListener( Event.ENTER_FRAME, onEnterFrame );
 				init();
-			}
+			} 
 		}
 		
 		private function init():void{
@@ -69,6 +67,16 @@ package
 			
 			if( ExternalInterface.available ) {
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				ExternalInterface.addCallback( 'updateMouseWheel', updateMouseWheel );
+			}
+		}	
+		
+		private function updateMouseWheel( _delta:int ):void{
+			_delta = _delta > 0 ? 3 : -3;
+			
+			if( ExternalInterface.available ){
+				//ExternalInterface.call( 'console.log', 'flash delta:', _delta );
+				_facade && _facade.sendNotification( JChartEvent.UPDATE_MOUSEWHEEL, { delta: _delta } );
 			}
 		}
 		
@@ -76,7 +84,7 @@ package
 			BaseConfig.ins.clearData();
 			BaseConfig.ins.updateDisplaySeries( null, _data );
 			BaseConfig.ins.setChartData( _data );
-			_facade.sendNotification( JChartEvent.DRAW );
+			_facade.sendNotification( JChartEvent.DRAW );		
 		}
 		
 		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{

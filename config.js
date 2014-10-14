@@ -7,7 +7,7 @@ JC.PATH = JC.PATH || scriptPath();
 window.requirejs && 
 requirejs.config( {
     baseUrl: JC.PATH
-    , urlArgs: 'v=20140212&nocache=' + new Date().getTime()
+    , urlArgs: 'v=' + new Date().getTime()
     , paths: {
         'JC.common': 'modules/JC.common/0.2/common'
         , 'JC.BaseMVC': 'modules/JC.BaseMVC/0.1/BaseMVC'
@@ -16,6 +16,8 @@ requirejs.config( {
 
         , 'JC.FChartNormalData': 'modules/JC.FChartNormalData/0.1/FChart.NormalData'
         , 'JC.FChartCircleData': 'modules/JC.FChartCircleData/0.1/FChart.FChartCircleData'
+
+        , 'jquery.mousewheel': 'modules/jquery.mousewheel/3.1.12/jquery.mousewheel'
 
         , 'json2': 'modules/JSON/2/JSON'
         , 'swfobject': 'modules/swfobject/2.3/swfobject'

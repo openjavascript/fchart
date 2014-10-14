@@ -1,16 +1,22 @@
-;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2' ], function(){
+;(function(define, _win) { 'use strict'; define( [ 'JC.BaseMVC', 'swfobject', 'json2', 'jquery.mousewheel'  ], function(){
+
+JC.use && !window.swfobject && JC.use( 'plugins.swfobject' );
+JC.use && !window.JSON && JC.use( 'plugins.jsons' );
+JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel' );
+
 /**
  * JC.FChart - flash 图表组件
  *
  *  <p><b>require</b>:
  *      <a href='JC.BaseMVC.html'>JC.BaseMVC</a>
  *      , <a href='window.swfobject.html'>SWFObject</a>
- *      , <a href='window.json2'>JSON2</a>
+ *      , <a href='window.JSON.html'>JSON2</a>
+ *      , <a href='window.jQuery.mousewheel.html'>jQuery.mousewheel</a>
  *  </p>
  *
  *  <p><a href='https://github.com/openjavascript/fchart' target='_blank'>JC Project Site</a>
  *      | <a href='http://fchart.openjavascript.org/docs_api/classes/JC.FChart.html' target='_blank'>API docs</a>
- *      | <a href='../../modules/JC.FChart/0.1/_demo' target='_blank'>demo link</a></p>
+ *      | <a href='../../modules/JC.FChart/0.1/_demo?target=_blank' target='_blank'>demo link</a></p>
  *  
  *  <h2>页面只要引用本脚本, 默认会处理 div class="js_compFChart"</h2>
  *
@@ -77,8 +83,8 @@
                 }],
                 credits: {
                     enabled: true
-                    , text: 'jchart.openjavascript.org'
-                    , href: 'http://jchart.openjavascript.org/'
+                    , text: 'fchart.openjavascript.org'
+                    , href: 'http://fchart.openjavascript.org/'
                 },
                 displayAllLabel: true,
                 legend: {
@@ -152,9 +158,13 @@
                     }
                     _p._model.height() && _p.selector().css( { 'height': _p._model.height() } );
 
-                    if( !_p._model.chartScroll() ){
-                        _p.selector().on( 'mousewheel', function(){
-                            //return false;
+                    if( !_p._model.chartScroll() || _p._model.type().toLowerCase() == 'map' ){
+                        _p.selector().on( 'mousewheel', function( _evt ){
+                            var _swf = $( '#' + _p.gid() );
+                            if( _evt.deltaY && _swf &&  _swf.prop( 'apiReady' ) && _swf.prop( 'updateMouseWheel' ) ){
+                                _swf[0].updateMouseWheel( _evt.deltaY );
+                            }
+                            return false;
                         });
                     }
 
@@ -192,6 +202,10 @@
                 this.trigger( FChart.Model.UPDATE_CHART_DATA, _data );
                 return this;
             }
+        /**
+         *
+         */
+        , gid: function(){ return this._model.gid(); }
 
     });
 
@@ -202,40 +216,67 @@
     FChart.Model.CLEAR_STATUS = 'clear_status';
     FChart.Model.UPDATE_CHART_DATA = 'update_data';
 
-    FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf';
+    /**
+     * flash swf 路径
+     * <br />{0} = JC.PATH
+     * <br />{1} = chart file name
+     * @property    Model.FLASH_PATH
+     * @type        {string}
+     * @default     {0}/flash/pub/charts/{1}.swf
+     * @static
+     */
+    FChart.Model.FLASH_PATH = '{0}/flash/pub/charts/{1}.swf?{2}';
+
+    /**
+     * flash swf 缓存版本控制
+     * @property    Model.VERSION
+     * @type        {string}
+     * @default     requirejs.s.contexts._.config.urlArgs || 'v=' + JC.pathPostfix || 'v=fchart'
+     * @static
+     */
+    FChart.Model.VERSION = 'fchart';
+    JC.pathPostfix && ( FChart.Model.VERSION = 'v=' + JC.pathPostfix );
+    window.requirejs 
+        && window.requirejs.s
+        && window.requirejs.s.contexts
+        && window.requirejs.s.contexts._
+        && window.requirejs.s.contexts._.config
+        && window.requirejs.s.contexts._.config.urlArgs
+        && ( FChart.Model.VERSION = window.requirejs.s.contexts._.config.urlArgs );
 
     /**
      * 图表类型映射
-     * <br />曲线图: line, CurveGram, curvegram
-     * <br />柱状图: bar, Histogram, histogram
-     * <br />垂直柱状图: var, VHistogram, Vhistogram
-     * <br />饼状图: pie, PieGraph, piegraph
+     * <br />曲线图: line, curvegram
+     * <br />柱状图: bar, histogram
+     * <br />垂直柱状图: var, vhistogram
+     * <br />饼状图: pie, piegraph
+     * <br />圆环图: dount
+     * <br />评分球: rate
      * @property    Model.TYPE_MAP
      * @type        {object}
      * @static
      */
     FChart.Model.TYPE_MAP = {
         'line': 'CurveGram'
-        , 'CurveGram': 'CurveGram'
         , 'curvegram': 'CurveGram'
 
         , 'bar': 'Histogram'
-        , 'Histogram': 'Histogram'
         , 'histogram': 'Histogram'
 
         , 'vbar': 'VHistogram'
-        , 'VHistogram': 'VHistogram'
-        , 'Vhistogram': 'VHistogram'
+        , 'vhistogram': 'VHistogram'
 
         , 'map': 'Map'
-        , 'Map': 'Map'
 
         , 'trend': 'Trend'
         , 'Trend': 'Trend'
 
         , 'pie': 'PieGraph'
-        , 'PieGraph': 'PieGraph'
         , 'piegraph': 'PieGraph'
+
+        , 'dount': 'Dount'
+
+        , 'rate': 'Rate'
     };
 
 
@@ -370,11 +411,15 @@
                 return (_r||'').toString().toLowerCase();
             }
         , typeMap: function( _type ){ return FChart.Model.TYPE_MAP[ _type ]; }
-        , type: function(){ return this.typeMap( this.chartType() ); }
+        , type: function(){ return this.typeMap( this.chartType() ) || ''; }
         , path:
             function(){
                 var _p = this
-                    , _r = JC.f.printf( _p.attrProp( 'chartPath' ) || FChart.Model.FLASH_PATH, JC.PATH, _p.type() );
+                    , _r = JC.f.printf( _p.attrProp( 'chartPath' ) || FChart.Model.FLASH_PATH
+                        , JC.PATH
+                        , _p.type() 
+                        , FChart.Model.VERSION 
+                    );
                 return _r;
             }
     });
@@ -385,6 +430,43 @@
                 //JC.log( 'FChart.View.init:', new Date().getTime() );
                 var _p = this;
             }
+        /**
+         * 渲染图表外观
+         */
+        , draw: 
+            function( _data ){
+                if( !this._model.type() ) return;
+                var _p = this
+                    , _path =  _p._model.path()
+                    , _fpath =  _path.replace( /[\/]+/g, '/' )
+                    , _element = $( '#' + _p._model.gid() )
+                    , _dataStr = JSON.stringify( _data ) 
+                    ; 
+
+                if( !$( '#' +  _p._model.gid() ).length ){
+                    _element = $( JC.f.printf( '<span id="{0}"></span>', _p._model.gid() ) );
+                    _element.appendTo( _p.selector() );
+                }
+
+                var _flashVar = { 'chart': encodeURIComponent( _dataStr ) }
+                    , _flashParams = { 'wmode': 'transparent' }
+                    , _flashAttrs = { 'id': _p._model.gid(), 'name': _p._model.gid() }
+                    ;
+
+                swfobject.embedSWF( 
+                    _fpath
+                    , _p._model.gid()
+                    , _p._model.sourceWidth()
+                    , _p._model.height()
+                    , '10' 
+                    , ''
+                    , _flashVar
+                    , _flashParams
+                    , _flashAttrs
+                );
+
+            }
+
         /**
          * 图表高度
          */
@@ -431,38 +513,12 @@
                 _p._model.data( _data );
                 _p.draw( _data );
             }
-        /**
-         * 渲染图表外观
-         */
-        , draw: 
-            function( _data ){
-                if( !this._model.type() ) return;
-                var _p = this
-                    , _path =  _p._model.path()
-                    , _fpath =  _path.replace( /[\/]+/g, '/' )
-                    , _element = $( '#' + _p._model.gid() )
-                    , _dataStr = JSON.stringify( _data ) 
-                    ; 
-                if( !$( '#' +  _p._model.gid() ).length ){
-                    _element = $( JC.f.printf( '<span id="{0}"></span>', _p._model.gid() ) );
-                    _element.appendTo( _p.selector() );
-                }
-                swfobject.embedSWF( 
-                    _fpath
-                    , _p._model.gid()
-                    , _p._model.sourceWidth()
-                    , _p._model.height()
-                    , '10' 
-                    , ''
-                    , { 'testparams': 2, 'chart': encodeURIComponent( _dataStr ) }
-                    , { 'wmode': 'transparent' }
-                );
-
-            }
     });
 
     _jdoc.ready( function(){
-        FChart.autoInit && FChart.init();
+        JC.f.safeTimeout( function(){
+            FChart.autoInit && FChart.init();
+        }, null, 'winFCHARTInit', 1 );
     });
 
     return JC.FChart;
@@ -475,3 +531,4 @@
         , window
     )
 );
+

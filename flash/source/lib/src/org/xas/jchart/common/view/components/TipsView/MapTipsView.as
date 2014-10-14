@@ -11,6 +11,8 @@ package org.xas.jchart.common.view.components.TipsView
 
 	public class MapTipsView extends BaseTipsView
 	{
+		private var _mconfig:Config = BaseConfig.ins as Config;
+		
 		public function MapTipsView()
 		{
 			super();
@@ -18,20 +20,91 @@ package org.xas.jchart.common.view.components.TipsView
 		
 		override protected function buildData():void{
 			
-			if( !_config.c.mapData ){
+			if( !_mconfig.c.mapData ){
 				return;
 			}
 			
 			_data = {};
 			
-			Common.each( _config.c.mapData, function( _k:int, _item:Object ):void{
+			
+			/*
+			Common.each( _mconfig.tooltipSerial, function( _k:int, _item:Object ):void{
+				
+				var _format:String = _mconfig.tooltipHeaderFormat
+				, _headerName:String = StringUtils.printf( _format,  _mconfig.getTipsHeader( _k ).replace( /[\r\n]+/g, '' ) || ''  )
+				, _value:String = StringUtils.printf( _mconfig.tooltipPointFormat, 
+					Common.moneyFormat( _item.value, 3, Common.floatLen( _item.value ) )
+				)
+				;
+				
 				_data[ _k ] = {
-					'name': _item.name.replace( /[\r\n]+/g, '' ) || '',
+					'name': _headerName,
 					'items': [{
 						'name': BaseConfig.ins.itemName,
-						'value': _item.value
+						'value': _value
 					}]
 				};
+			});	
+			*/
+			//Log.log( _mconfig.tooltipSerial. );
+			
+			Common.each( _mconfig.c.mapData, function( _k:int, _item:Object ):void{
+				
+				var _format:String = _mconfig.tooltipHeaderFormat
+					, _headerName:String = StringUtils.printf( _format,  _mconfig.getTipsHeader( _k ).replace( /[\r\n]+/g, '' ) || ''  )
+					, _value:String = StringUtils.printf( _mconfig.tooltipPointFormat, 
+						Common.moneyFormat( _item.value, 3, Common.floatLen( _item.value ) )
+					)
+					, _items:Array = []
+				;
+				
+				_data[ _k ] = {
+					'name': _headerName
+					, items: [], beforeItems: [], afterItems: []					
+				};
+				
+				
+				Common.each( _mconfig.tooltipSerial, function( _sk:int, _sitem:Object ):void{
+					if( _sitem && _sitem.data && _sitem.data.length && _sitem.data[ _k ] ){
+						_data[ _k ].beforeItems.push( {
+							'name': _sitem.data[ _k ].name,
+							'value': StringUtils.printf( _config.tooltipSerialFormat, 
+								Common.moneyFormat( _sitem.data[ _k ].value, 3, Common.floatLen( _sitem.data[ _k ].value ) )
+							)
+							
+						});
+					}
+				});
+				
+				
+				_data[ _k ].items.push( {
+					'name': BaseConfig.ins.itemName,
+					'value': _value
+				});
+				
+				/*
+				if( _mconfig.tooltipAfterSeries && _mconfig.tooltipAfterSeries.length && _mconfig.tooltipAfterSeries[ _k ] ){
+					_data[ _k ].afterItems.push( {
+						'name': _mconfig.tooltipAfterSeries[ _k ].name,
+						'value': StringUtils.printf( _config.tooltipSerialFormat, 
+							Common.moneyFormat( _mconfig.tooltipAfterSeries[ _k ].value, 3, Common.floatLen( _mconfig.tooltipAfterSeries[ _k ].value ) )
+						)
+					});
+				}
+				*/
+				
+				Common.each( _mconfig.tooltipAfterSeries, function( _sk:int, _sitem:Object ):void{
+					if( _sitem && _sitem.data && _sitem.data.length && _sitem.data[ _k ] ){
+						_data[ _k ].afterItems.push( {
+							'name': _sitem.data[ _k ].name,
+							'value': StringUtils.printf( _config.tooltipSerialFormat, 
+								Common.moneyFormat( _sitem.data[ _k ].value, 3, Common.floatLen( _sitem.data[ _k ].value ) )
+							)
+							
+						});
+					}
+				});
+				
 			});
 		}
 		

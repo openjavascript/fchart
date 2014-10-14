@@ -17,15 +17,20 @@ package org.xas.jchart.curvegram.view.components
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.CurveGramUI;
+	import org.xas.jchart.common.ui.widget.JFillLine;
 	
 	public class GraphicView extends Sprite
 	{	
 		private var _boxs:Vector.<CurveGramUI>;
 		private var _preIndex:int = -1;
 		
+		private var _config:Config;
+		
 		public function GraphicView()
 		{
 			super(); 
+			
+			_config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
@@ -41,18 +46,52 @@ package org.xas.jchart.curvegram.view.components
 
 		private function update( _evt:JChartEvent ):void{
 			
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.paths && BaseConfig.ins.c.paths.length ) ) return;
+			if( !( _config.c && _config.c.paths && _config.c.paths.length ) ) return;
 			
 			graphics.clear();
 			_boxs = new Vector.<CurveGramUI>;
-			Common.each( BaseConfig.ins.c.paths, function( _k:int, _item:Object ):void{
+			
+			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
+				
+				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
+				, _path:Vector.<Number> = _item.path as Vector.<Number>
+				, _gitem:CurveGramUI
+				, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
+				;
+				
+				if( _config.isFillLine( _item.data ) ){
+					addChild( 
+						new JFillLine( 
+							_vectorPath
+							, { 
+								thickness: 2
+								, lineColor: _config.itemColor( _k )
+								, fillOpacity: _config.lineFillOpacity( _item.data ) 
+							}
+							, _config.isLineGradient( _item.data )
+						) 
+					);
+				}
+
+			});
+			
+			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
 			
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
 					, _path:Vector.<Number> = _item.path as Vector.<Number>
 					, _gitem:CurveGramUI
+					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
 					;
 				
-				addChild( _gitem = new CurveGramUI( _cmd, _path, BaseConfig.ins.itemColor( _k ) ) );
+				addChild( 
+					_gitem = new CurveGramUI( 
+						_cmd
+						, _path
+						, _config.itemColor( _k )
+						, _vectorPath 
+						, _config.lineDashStyle( _item.data )
+					) 
+				);
 				_boxs.push( _gitem );
 			});
 		}

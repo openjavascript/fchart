@@ -37,12 +37,6 @@ package org.xas.jchart.common.ui.widget
 		private var _inRadius:Number;
 		public function get inRadius():Number{ return _inRadius; }
 		
-		private var _lineRadius:Number;
-		public function get lineRadius():Number{ return _lineRadius; }
-		
-		private var _lineInRadius:Number;
-		public function get lineInRadius():Number{ return _lineInRadius; }
-		
 		private var _beginAngle:Number;
 		public function get beginAngle():Number{ return _beginAngle; }
 		
@@ -57,11 +51,12 @@ package org.xas.jchart.common.ui.widget
 		private var _hoverStyle:Object;
 		
 		private var _dataIndex:int = 0;
-		public function get dataIndex():int{ return _dataIndex; }		
-		
-		private var _lineColor:uint = 0xffffff, _fillColor:uint = 0x000000;
+		public function get dataIndex():int{ return _dataIndex; }
 		
 		private var _dountSprite:Sprite;
+		
+		
+		private var _lineColor:uint = 0xffffff, _fillColor:uint = 0x000000;
 
 		
 		public function DountPart( 
@@ -91,8 +86,12 @@ package org.xas.jchart.common.ui.widget
 		}
 		
 		private function addToStage( _evt:Event ):void{
+			addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
+			addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
+			addEventListener( MouseEvent.CLICK, onMouseClick );
+			
+			addEventListener( JChartEvent.UPDATE, onUpdate );
 						
-			//Log.log( this._beginAngle, this._endAngle );
 			draw();
 		}
 		
@@ -100,6 +99,7 @@ package org.xas.jchart.common.ui.widget
 			
 			ElementUtility.removeAllChild( this );
 			addChild( _dountSprite = new Sprite() );
+			//addChild( _lineSprite = new Sprite() );
 			
 			if( _style && _style.color ){
 				_lineColor = _style.color;
@@ -107,11 +107,22 @@ package org.xas.jchart.common.ui.widget
 			}
 			
 			drawDount();
+			/*
+			var _mtx:Matrix, _p:Point;
+				_mtx = new Matrix();
+				_p = Common.distanceAngleToPoint( 2, midAngle );
+				_mtx.tx = _p.x;
+				_mtx.ty = _p.y;
+				
+			this.transform.matrix = _mtx;
+			*/
 		}
 		
 		private function drawDount():void{			
 			_dountSprite.graphics.lineStyle(1, _lineColor);
 			_dountSprite.graphics.beginFill( _fillColor );	
+			//_lineSprite.graphics.lineStyle( 1, _lineColor );
+			//_lineSprite.graphics.beginFill( _fillColor );	
 			
 			var p1:Point, p2:Point, tmpPoint:Point
 				, lp:Point, lp2:Point, ltmpPoint:Point
@@ -126,17 +137,13 @@ package org.xas.jchart.common.ui.widget
 				)
 				;
 			_dountSprite.graphics.moveTo( p1.x, p1.y );
-			
+					
 			countAngle = _beginAngle;
 			angleStep = .5;
 			
 			
 			if( _beginAngle > _endAngle ){
 				_endAngle += 360;
-			}
-			
-			if( _beginAngle == _endAngle || ( _beginAngle == 0 && _endAngle == 360 ) ){
-				_dountSprite.graphics.lineStyle( 1, _fillColor );
 			}
 			
 			if( _beginAngle == _endAngle ){
@@ -148,13 +155,12 @@ package org.xas.jchart.common.ui.widget
 				{
 					tmpPoint = GeoUtils.moveByAngle( _endAngle, _centerPoint, _inRadius );
 					_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
+	
 					break;
 				}
 				tmpPoint = GeoUtils.moveByAngle( countAngle, _centerPoint, _inRadius );
 				_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
-				
-				//Log.log( countAngle, _radius );
-				
+						
 				countAngle += angleStep;
 			}
 			
@@ -167,6 +173,7 @@ package org.xas.jchart.common.ui.widget
 				;
 			_dountSprite.graphics.lineTo( p2.x, p2.y );
 			
+				
 			countAngle = _endAngle;
 			angleStep = .5;
 			
@@ -174,10 +181,7 @@ package org.xas.jchart.common.ui.widget
 			if( _beginAngle > _endAngle ){
 				_endAngle += 360;
 			}
-			
-			if( _beginAngle == _endAngle || ( _beginAngle == 0 && _endAngle == 360 ) ){
-				_dountSprite.graphics.lineStyle( 1, _fillColor );
-			}
+
 			
 			if( _beginAngle == _endAngle ){
 				_endAngle += 360;		
@@ -193,12 +197,102 @@ package org.xas.jchart.common.ui.widget
 				tmpPoint = GeoUtils.moveByAngle( countAngle, _centerPoint, _outRadius );
 				_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
 				
-				//Log.log( countAngle, _radius );
-				
 				countAngle -= angleStep;
 			}
 			_dountSprite.graphics.lineTo( p1.x, p1.y );
 		}
+		
+		private function onUpdate( _evt:JChartEvent ):void{
+			update( _selected = _evt.data as Boolean );	
+			this.dispatchEvent( 
+				new JChartEvent( 
+					JChartEvent.UPDATE_STATUS
+					, { selected: _selected, dataIndex: dataIndex, type: 'click' }
+				) 
+			);	
+		}
+		
+		private function update( _setter:Boolean ):void{
+			//Log.log( 'PiePart selected', _selected );
+			var _matrix:Matrix = new Matrix()
+				, _distance:Number = 10
+				, _point:Point
+				, _obj:Object
+				, _tw:TweenLite
+				;
+			
+			//TweenLite.defaultEase = com.greensock.easing.Elastic;
+			if( _selected ){
+				_obj = { x:0, y: 0 };
+				_point = Common.distanceAngleToPoint( _distance, midAngle );
+				_tw = new TweenLite( _obj, .5, { 
+					x: _point.x
+					, y: _point.y
+					, onUpdate:
+					function():void{
+						//Log.log( _obj.x, _obj.y );
+						_matrix.tx = _obj.x;
+						_matrix.ty = _obj.y;
+						transform.matrix = _matrix;
+					}
+					, ease: com.greensock.easing.Expo.easeOut
+				} );
+				/*
+				_matrix.tx = _point.x;
+				_matrix.ty = _point.y;
+				*/
+			} else {
+				_obj = { x: transform.matrix.tx, y: transform.matrix.ty };
+				_point = Common.distanceAngleToPoint( _distance, midAngle );
+				_tw = new TweenLite( _obj, .5, { 
+					x: 0
+					, y: 0
+					, onUpdate:
+					function():void{
+						//Log.log( _obj.x, _obj.y );
+						_matrix.tx = _obj.x;
+						_matrix.ty = _obj.y;
+						transform.matrix = _matrix;
+					}
+					, ease: com.greensock.easing.Expo.easeOut
+				} );
+			}
+			this.transform.matrix = _matrix;			
+		}
+
+		
+		
+		public function unselected():void{
+			update( _selected = false );
+		}
+		
+		private var _selected:Boolean = false;
+		public function get isSelected():Boolean{ return this._selected; }
+		
+		public function selected( _select:Boolean ):DountPart{
+			this.dispatchEvent( new JChartEvent( JChartEvent.UPDATE, _select ) );
+			return this;
+		}
+		
+		public function toggle():DountPart{
+			selected( !_selected );
+			return this;
+		}
+		
+		protected function onMouseOver( _evt:MouseEvent ):void{
+			flash.ui.Mouse.cursor = MouseCursor.BUTTON;	
+		}
+		
+		protected function onMouseOut( _evt:MouseEvent ):void{
+			flash.ui.Mouse.cursor = MouseCursor.AUTO;	
+		}
+		
+		private function onMouseClick( _evt:MouseEvent ):void
+		{
+			//Log.log( 'PiePart click' );
+			//selected( !_selected );
+		}
+
 
 	}
 }

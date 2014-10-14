@@ -1,6 +1,8 @@
 package org.xas.jchart.common.view.components.SerialLabel
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -32,7 +34,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 			this.graphics.beginFill( 0xcccccc, .13 );
 						
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
-			Log.log( BaseConfig.ins.floatLen );
+			//Log.log( BaseConfig.ins.floatLen );
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
@@ -69,6 +71,16 @@ package org.xas.jchart.common.view.components.SerialLabel
 							_label.x = BaseConfig.ins.c.minX + 3;
 						}else if( _label.x + _label.width >= BaseConfig.ins.c.maxX ){
 							_label.x = BaseConfig.ins.c.maxX - _label.width;
+						}
+						if( BaseConfig.ins.animationEnabled ){
+							_label.alpha = 0;
+							TweenLite.delayedCall( BaseConfig.ins.animationDuration, 
+								function():void{
+									TweenLite.to( _label, BaseConfig.ins.animationDuration
+										, { 
+											alpha: 1, ease: Expo.easeOut 
+										} );
+								});
 						}
 						
 						addChild( _label );

@@ -1,5 +1,8 @@
 package org.xas.jchart.common.view.components.HLabelView
 {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
+	
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -56,6 +59,9 @@ package org.xas.jchart.common.view.components.HLabelView
 							_titem.visible = false;
 						}
 					}
+					if( BaseConfig.ins.animationEnabled ){
+						_titem.visible = false;
+					}
 					
 					addChild( _titem );
 					
@@ -73,6 +79,12 @@ package org.xas.jchart.common.view.components.HLabelView
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
+				if( !_config.displayAllLabel ){
+					if( !( _k in _config.labelDisplayIndex ) ){
+						return;
+					}
+				}
+				
 				/* 指定标签定位的坐标 */
 				var _x:Number = _item.end.x - _tf.width / 2;
 				
@@ -84,8 +96,22 @@ package org.xas.jchart.common.view.components.HLabelView
 					}
 				}
 				
-				_tf.x = _x;
-				_tf.y = _item.end.y - 2;
+				if( BaseConfig.ins.animationEnabled ){
+					_tf.visible = true;
+					_tf.y = _item.end.y + 200;
+					_tf.x = _x;
+					TweenLite.delayedCall( 0, 
+						function():void{
+							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+								, { 
+									x: _x
+									, y: _item.end.y - 2
+									, ease: Expo.easeOut } );
+						});
+				}else{					
+					_tf.x = _x;
+					_tf.y = _item.end.y - 2;
+				}
 			});
 		}
 	}

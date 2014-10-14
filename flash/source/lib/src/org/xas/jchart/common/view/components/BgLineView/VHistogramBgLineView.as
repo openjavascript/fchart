@@ -14,10 +14,11 @@ package org.xas.jchart.common.view.components.BgLineView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-
+ 
 	public class VHistogramBgLineView extends BaseBgLineView
 	{
 		private var _hboldLine:Sprite;
+		private var _vsideLine:Sprite;
 		
 		public function VHistogramBgLineView()
 		{
@@ -33,26 +34,67 @@ package org.xas.jchart.common.view.components.BgLineView
 			
 			if( !BaseConfig.ins.hlineEnabled ) {
 				addChildAt( _hboldLine = new Sprite(), 0 );
-				_hboldLine.graphics.lineStyle( 2, 0x999999, .35 );
+				_hboldLine.graphics.lineStyle( 1, 0x999999, .35 );
 				_hboldLine.graphics.moveTo( BaseConfig.ins.c.minX, BaseConfig.ins.c.maxY );
-				_hboldLine.graphics.lineTo( BaseConfig.ins.c.minX, BaseConfig.ins.c.minY );
+				_hboldLine.graphics.lineTo( BaseConfig.ins.c.minX, BaseConfig.ins.c.minY  );
 				return;	
 			}
 			
-			Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
+			Common.each( BaseConfig.ins.c.vpointReal, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point
 				, _sx:Number = _sp.x, _ex:Number = _ep.x
 				;
 				
 				graphics.moveTo( _sx, _sp.y );
-				graphics.lineTo( _ex, _ep.y );
+				graphics.lineTo( _ex, _ep.y  );
 				
 			});
 		}
 		
 		override protected function drawVLine():void{
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.hlinePoint )  ) return;
+			if( 
+				( 
+					!BaseConfig.ins.vlineEnabled 
+					&& !BaseConfig.ins.hlineEnabled 
+					&& BaseConfig.ins.yAxisEnabled
+				)
+				|| BaseConfig.ins.vsideLineEnabled
+			) {
+				addChildAt( _vsideLine = new Sprite(), 0 );
+				_vsideLine.graphics.lineStyle( 1, 0x999999, .35 );
+				
+				_vsideLine.graphics.moveTo( BaseConfig.ins.c.chartX - 10
+					, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight  );
+				
+				_vsideLine.graphics.lineTo( BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth 
+					, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
+			}
+			
+			
+			if( 
+				( 
+					!BaseConfig.ins.vlineEnabled 
+					&& !BaseConfig.ins.hlineEnabled 
+					&& BaseConfig.ins.yAxisEnabled
+				)
+			) {
+				
+				Common.each( BaseConfig.ins.c.vpointReal, function( _k:int, _item:Object ):void{
+					var _sp:Point =_item.start as Point
+					, _ep:Point = _item.end as Point
+					, _sx:Number = _sp.x, _ex:Number = BaseConfig.ins.c.chartX
+					;
+					if( !BaseConfig.ins.yAxisEnabled ){
+						_sx += BaseConfig.ins.c.arrowLength - 2;
+					}
+					
+					graphics.moveTo( _sp.x, _ep.y - BaseConfig.ins.c.arrowLength );
+					graphics.lineTo( _ep.x, _ep.y );
+				});
+			}
+			
 			if( !BaseConfig.ins.vlineEnabled ) return;
 			
 			Common.each( BaseConfig.ins.c.hlinePoint, function( _k:int, _item:Object ):void{

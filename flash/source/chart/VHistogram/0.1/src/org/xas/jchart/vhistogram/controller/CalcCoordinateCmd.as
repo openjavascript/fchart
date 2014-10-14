@@ -43,6 +43,8 @@ package org.xas.jchart.vhistogram.controller
 			
 			if( _config.cd ){
 				
+				_config.c.arrowLength = 8;
+				
 				if( _config.cd.title && _config.cd.title.text ){
 					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
@@ -88,6 +90,7 @@ package org.xas.jchart.vhistogram.controller
 				if( _config.yAxisEnabled ){
 					facade.registerMediator( new VLabelMediator() );
 					_config.c.maxY -= pVLabelMediator.maxHeight;
+					_config.c.maxY -= 2;
 				}
 
 				_config.c.hoverPadY = 10;
@@ -108,13 +111,15 @@ package org.xas.jchart.vhistogram.controller
 					_yPad += _config.c.serialLabelPadY;
 				}
 				
-				_config.c.arrowLength = 8;
-				
 				if( _config.categories && _config.categories.length ){
 					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
 				}
-				facade.registerMediator( new HLabelMediator() );
-				_config.c.minX += pHLabelMediator.maxWidth;
+				
+				if( _config.xAxisEnabled ){
+					facade.registerMediator( new HLabelMediator() );
+					_config.c.minX += pHLabelMediator.maxWidth;
+				}
+				
 				_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
 			
 				if( _config.graphicHeight ){
@@ -293,7 +298,7 @@ package org.xas.jchart.vhistogram.controller
 				});
 				
 				_config.c.vpointReal.push( {
-					start: new Point( _startX, _config.c.minY + _sideLen )
+					start: new Point( _startX, _config.c.minY )
 					, end: new Point( _startX, _config.c.maxY + _sideLen )
 				});
 			});

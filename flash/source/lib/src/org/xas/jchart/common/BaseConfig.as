@@ -1,6 +1,7 @@
 package org.xas.jchart.common
 {
 	import flash.display.DisplayObject;
+	import flash.external.ExternalInterface;
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.Log;
@@ -22,7 +23,16 @@ package org.xas.jchart.common
 		
 		protected static var _ins:BaseConfig;
 		public static function setIns( _ins:BaseConfig ):BaseConfig{
+			
+			if( ExternalInterface.available ) {
+				ExternalInterface.addCallback( 'apiReady', apiReady );
+			}
+			
 			return BaseConfig._ins = _ins;
+		}
+		
+		private static function apiReady():Boolean{
+			return true;
 		}
 		
 		public static function get ins():BaseConfig{
@@ -87,6 +97,10 @@ package org.xas.jchart.common
 		}
 		
 		public function get tooltipSerial():Array{
+			return tooltipSeries;
+		}
+		
+		public function get tooltipSeries():Array{
 			var _r:Array = [];
 			
 			//Log.log( 'tooltipSerial xxx ' );
@@ -98,10 +112,21 @@ package org.xas.jchart.common
 				&& ( _r = this.cd.tooltip.serial )
 				;
 			
+			this.cd
+				&& this.cd.tooltip
+				&& this.cd.tooltip.series
+				&& this.cd.tooltip.series.length
+				&& ( _r = this.cd.tooltip.series )
+				;
+			
 			return _r;
 		}
 		
-		public function get tooltipAfterSerial():Array{
+		public function get tooltipAfterSerial():Array{	
+			return tooltipAfterSeries;
+		}
+		
+		public function get tooltipAfterSeries():Array{
 			var _r:Array = [];
 			
 			//Log.log( 'tooltipSerial xxx ' );
@@ -113,6 +138,13 @@ package org.xas.jchart.common
 				&& ( _r = this.cd.tooltip.afterSerial )
 				;
 			
+			this.cd
+				&& this.cd.tooltip
+				&& this.cd.tooltip.afterSeries
+				&& this.cd.tooltip.afterSeries.length
+				&& ( _r = this.cd.tooltip.afterSeries )
+				;
+			
 			return _r;
 		}
 		
@@ -122,7 +154,7 @@ package org.xas.jchart.common
 		}	
 		
 		protected var _chartData:Object;
-		public function setChartData( _d:Object ):Object { 
+		public function setChartData( _d:Object ):Object { 		
 			reset();
 			_chartData = _d;
 			calcRate();
@@ -140,32 +172,7 @@ package org.xas.jchart.common
 		
 		protected var _rate:Array;
 		public function get rate():Array{ return _rate; }
-		
-		protected var _maxNum:Number = 0;
-		public function get maxNum():Number{ return _maxNum; }
-		
-		
-		public function get chartMaxNum():Number{
-			return finalMaxNum * rate[0];
-		}
-		
-		protected var _minNum:Number = 0;
-		public function get minNum():Number{ return _minNum; }
-		protected function calcminNum():Number{
-			var _r:Number = 0, _tmp:Array;
-			if( this.isPercent ) return 0;
-			if( cd && cd.series ){
-				_tmp = [];
-				Common.each( displaySeries, function( _k:int, _item:Number ):*{
-					_tmp = _tmp.concat( displaySeries[ _k ].data );
-				});
-				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
-				
-				_r > 0 && ( _r = 0 );
-				_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
-			}
-			return _r;
-		}
+
 
 		
 		protected var _floatLen:int = 0;
@@ -304,11 +311,21 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get xAxisEnabled():Boolean{
+			var _r:Boolean = true;
+			
+			if( cd && cd.xAxis && ( 'enabled' in cd.xAxis ) ){
+				_r = StringUtils.parseBool( cd.xAxis.enabled );
+			}
+			
+			return _r;
+		}
+		
 		public function get dataLabelEnabled():Boolean{
 			var _r:Boolean = true;
 			//return false;
 			cd 
-			&& cd.plotOptions
+				&& cd.plotOptions
 				&& cd.plotOptions.pie
 				&& cd.plotOptions.pie.dataLabels
 				&& ( 'enabled' in cd.plotOptions.pie.dataLabels )
@@ -418,6 +435,17 @@ package org.xas.jchart.common
 				&& ( _r = StringUtils.parseBool( cd.vline.enabled ) );
 			
 			return _r;
+		}		
+		
+		public function get vsideLineEnabled():Boolean{
+			var _r:Boolean = false;
+			//return false;
+			cd 
+			&& cd.vsideLine
+				&& ( 'enabled' in cd.vsideLine )
+				&& ( _r = StringUtils.parseBool( cd.vsideLine.enabled ) );
+			
+			return _r;
 		}
 		
 		public function get hlineEnabled():Boolean{
@@ -453,6 +481,32 @@ package org.xas.jchart.common
 				&& ( 'enabled' in cd.plotOptions.dount.cdataLabels )
 				&& ( _r = cd.plotOptions.dount.cdataLabels.enabled );
 			
+			return _r;
+		}
+				
+		protected var _maxNum:Number = 0;
+		public function get maxNum():Number{ return _maxNum; }
+		
+		
+		public function get chartMaxNum():Number{
+			return finalMaxNum * rate[0];
+		}
+		
+		protected var _minNum:Number = 0;
+		public function get minNum():Number{ return _minNum; }
+		protected function calcMinNum():Number{
+			var _r:Number = 0, _tmp:Array;
+			if( this.isPercent ) return 0;
+			if( cd && cd.series ){
+				_tmp = [];
+				Common.each( displaySeries, function( _k:int, _item:Number ):*{
+					_tmp = _tmp.concat( displaySeries[ _k ].data );
+				});
+				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
+				
+				_r > 0 && ( _r = 0 );
+				_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
+			}
 			return _r;
 		}
 		
@@ -505,22 +559,22 @@ package org.xas.jchart.common
 			if( !_data ) return;
 			
 			_maxNum = calcMaxNum();
-			_minNum = calcminNum();
+			_minNum = calcMinNum();
 			_absNum = Math.abs( _minNum );
 			_finalMaxNum = Math.max( _maxNum, _absNum );
 			
 			if( _data && Common.hasNegative( displaySeries ) ){				
 				if( _maxNum > _absNum ){
-					if( Math.abs( _finalMaxNum * 0.333333333333333 ) > _absNum ){
-						_rate = [ 1, 0.666666666666666, 0.333333333333333, 0, -0.333333333333333];
+					if( Math.abs( _finalMaxNum * 0.33 ) > _absNum ){
+						_rate = [ 1, 0.66, 0.33, 0, -0.33];
 						_rateZeroIndex = 3;
 					}
 				}else{
 					if( _maxNum == 0 ){
 						_rate = [ 0, -0.25, -0.5, -0.75, -1 ];
 						_rateZeroIndex = 0;
-					}else if( Math.abs( _finalMaxNum * 0.333333333333333 ) > _maxNum ){
-						_rate = [ 0.333333333333333, 0, -0.333333333333333, -0.666666666666666, -1 ];
+					}else if( Math.abs( _finalMaxNum * 0.33 ) > _maxNum ){
+						_rate = [ 0.33, 0, -0.33, -0.66, -1 ];
 						_rateZeroIndex = 1;
 					}
 				}
@@ -614,6 +668,16 @@ package org.xas.jchart.common
 				&& ( _r = chartData.xAxis.title.style )
 				;
 			return _r;
+		}		
+		public function get titleEnable():Boolean{
+			var _r:Boolean = true
+			chartData 
+				&& chartData.xAxis
+				&& chartData.xAxis.title
+				&& ( 'enabled' in chartData.xAxis.title )
+				&& ( _r = chartData.xAxis.title.enabled )
+				;
+			return _r;
 		}
 		public function get labelsStyle():Object{
 			var _r:Object = {};
@@ -637,6 +701,17 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get vtitleEnabled():Boolean{
+			var _r:Boolean = true;
+			chartData 
+				&& chartData.yAxis
+				&& chartData.yAxis.title
+				&& ( 'enabled' in chartData.yAxis.title )
+				&& ( _r = chartData.yAxis.title.enabled )
+				;
+			return _r;
+		}
+		
 		public function get vlabelsStyle():Object{
 			var _r:Object = {};
 			chartData 
@@ -656,6 +731,15 @@ package org.xas.jchart.common
 				&& ( _r = chartData.subtitle.style )
 				;
 			return _r;
+		}		
+		public function get subtitleEnable():Boolean{
+			var _r:Boolean = true
+			chartData 
+				&& chartData.subtitle
+				&& ( 'enabled' in chartData.subtitle )
+				&& ( _r = StringUtils.parseBool( chartData.subtitle.enabled ) )
+				;
+			return _r;
 		}
 		
 		public function get creditsStyle():Object{
@@ -664,6 +748,15 @@ package org.xas.jchart.common
 			&& chartData.credits
 				&& chartData.credits.style
 				&& ( _r = chartData.credits.style )
+				;
+			return _r;
+		}		
+		public function get creditsEnabled():Boolean{
+			var _r:Boolean = true;
+			chartData 
+				&& chartData.credits
+				&& ( 'enabled' in chartData.credits )
+				&& ( _r = chartData.credits.enabled )
 				;
 			return _r;
 		}
@@ -1004,10 +1097,7 @@ package org.xas.jchart.common
 			
 			return _r;
 		}
-		
-		
-		
-		
+			
 		public function get itemBgParams():Object{
 			var _r:Object = {};
 			
@@ -1071,11 +1161,32 @@ package org.xas.jchart.common
 		public function reset():void{
 			_isFloatLenReady = false;
 			_isMaxValueReady = false;
-			_maxValue = 0;
+			_maxValue = 0;			
+			selected = -1;
+		}
+		
+		public function get animation():Object {
+			var _r:Object = {};
+			this.cd && ( 'animation' in this.cd ) && ( _r =  this.cd.animation );
+			return _r;
+		}
+		
+		public function get animationEnabled():Boolean {
+			var _r:Boolean;
+			//return true;
+			'enabled' in animation && ( _r =  StringUtils.parseBool( this.animation.enabled ) );
+			return _r;
+		}
+		
+		public function get animationDuration():Number {
+			var _r:Number = .75;
+			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
+			return _r;
 		}
 		
 		public function BaseConfig()
 		{
 		}
+		
 	}
 }

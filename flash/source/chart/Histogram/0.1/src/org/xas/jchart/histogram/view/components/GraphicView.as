@@ -47,6 +47,9 @@ package org.xas.jchart.histogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			
 			//Log.log( BaseConfig.ins.maxValue );
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
@@ -65,6 +68,12 @@ package org.xas.jchart.histogram.view.components
 						_sitem.x, _sitem.y
 						, _sitem.width, _sitem.height
 						, _color 
+						, {
+							animationEnabled: BaseConfig.ins.animationEnabled
+							, isNegative: _sitem.isNegative
+							, duration: BaseConfig.ins.animationDuration
+							, delay: _delay
+						}
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );

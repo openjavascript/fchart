@@ -48,6 +48,17 @@ package org.xas.jchart.common.view.components.GraphicBgView
 			this.x = BaseConfig.ins.c.chartX;
 			this.y = BaseConfig.ins.c.chartY;
 			this.graphics.endFill();
+			
+			/*
+			this.graphics.beginFill( 0xcccccc, 1 );
+			this.graphics.drawRect(
+				0, 0, BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartHeight 
+			);
+			this.graphics.endFill();
+			*/
+			
+			this.x = BaseConfig.ins.c.chartX;
+			this.y = BaseConfig.ins.c.chartY;
 		}
 		
 		protected function onMouseEnter( _evt:MouseEvent ):void{

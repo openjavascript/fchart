@@ -120,8 +120,11 @@ package org.xas.jchart.histogram.controller
 				if( _config.categories && _config.categories.length ){
 					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2
 				}
-				facade.registerMediator( new HLabelMediator() );
-				_config.c.maxY -= pHLabelMediator.maxHeight;
+				
+				if( _config.xAxisEnabled ){
+					facade.registerMediator( new HLabelMediator() );
+					_config.c.maxY -= pHLabelMediator.maxHeight;
+				}
 			
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
@@ -244,6 +247,7 @@ package org.xas.jchart.histogram.controller
 									Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
 								* _h;
 								//Log.log( _h, _config.finalMaxNum );
+								_rectItem.isNegative = true;
 							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
 								_h = ( _num / _config.chartMaxNum || 1 ) * _h;

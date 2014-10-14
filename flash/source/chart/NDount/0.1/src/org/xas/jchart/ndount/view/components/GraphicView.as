@@ -19,7 +19,6 @@ package org.xas.jchart.ndount.view.components
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.NDountUI;
 	import org.xas.jchart.common.ui.widget.DDountPart;
-	import org.xas.jchart.common.ui.widget.DountPart;
 	import org.xas.jchart.common.ui.widget.NDountPart;
 	import org.xas.jchart.common.ui.widget.PiePart;
 	
@@ -28,7 +27,7 @@ package org.xas.jchart.ndount.view.components
 		private var _boxs:Vector.<NDountUI>;
 		
 		private var _preIndex:int = -1;
-		private var _piePart:Vector.<DountPart>;
+		private var _piePart:Vector.<NDountPart>;
 		
 		private var _bgCircle:Sprite;
 		private var _config:Config;
@@ -66,7 +65,7 @@ package org.xas.jchart.ndount.view.components
 			
 			var _countRadius:Number = _config.c.radius, _radiusStep:Number = _config.radiusStep;
 			
-			var _ddp:DountPart = new DountPart(
+			var _ddp:NDountPart = new NDountPart(
 				new Point( _config.c.cx, _config.c.cy )
 				, 0, 360
 				, _countRadius, _countRadius - _radiusStep
@@ -80,7 +79,7 @@ package org.xas.jchart.ndount.view.components
 			
 			_countRadius -= _radiusStep;
 			
-			_piePart = new Vector.<DountPart>();
+			_piePart = new Vector.<NDountPart>();
 			
 			Common.each( _config.c.piePart, function( _k:int, _item:Object ):void{
 				if( _item.data.y === 0 ) return;
@@ -94,7 +93,7 @@ package org.xas.jchart.ndount.view.components
 										, { 'color': _config.itemColor( _k ) }
 									);
 				*/
-				var _pp:DountPart = new DountPart(
+				var _pp:NDountPart = new NDountPart(
 					new Point( _item.cx, _item.cy )
 					, _item.startAngle, _item.endAngle
 					, _countRadius, _countRadius - _radiusStep

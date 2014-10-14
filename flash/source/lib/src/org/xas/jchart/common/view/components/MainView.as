@@ -5,6 +5,7 @@ package org.xas.jchart.common.view.components
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.GeoUtils;
+	import org.xas.jchart.common.ui.widget.JLine;
 	import org.xas.jchart.common.ui.widget.PiePart;
 	import org.xas.jchart.common.ui.widget.RectBgLine;
 	
@@ -68,6 +69,16 @@ package org.xas.jchart.common.view.components
 			/*
 			var _rb:RectBgLine = new RectBgLine( 100, 400 );
 				_index9.addChild( _rb );
+			*/
+			/*
+			var _path:Vector.<Point> = new Vector.<Point>;
+				_path.push( new Point( 20, 50 ) );
+				_path.push( new Point( 200, 60 ) );
+				_path.push( new Point( 300, 60 ) );
+				_path.push( new Point( 500, 10 ) );
+				
+				var _line:JLine = new JLine( _path, 'LongDash' );
+				addChild( _line );
 			*/
 		}
 
