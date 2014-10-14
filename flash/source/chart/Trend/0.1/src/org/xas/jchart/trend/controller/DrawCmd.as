@@ -1,4 +1,4 @@
-package org.xas.jchart.curvegram.controller
+package org.xas.jchart.trend.controller
 {
 	import flash.net.registerClassAlias;
 	

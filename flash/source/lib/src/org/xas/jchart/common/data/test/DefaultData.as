@@ -667,7 +667,7 @@ package org.xas.jchart.common.data.test
 				xAxis: {
 					categories: [ '网页\n游戏\n3333', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
 				}
-				, yAxis: {					
+				, yAxis: {
 					enabled: false	
 				}
 				, series:[{
@@ -677,7 +677,7 @@ package org.xas.jchart.common.data.test
 					name: '样式覆盖率',
 					data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
 				}]
-				, tooltip: {		
+				, tooltip: {
 					"headerFormat": "{0}"			
 					, "pointFormat": "{0}%"
 					//, enabled: false
@@ -3021,7 +3021,7 @@ package org.xas.jchart.common.data.test
 					}
 					, format: '{0}%'
 				},
-				tooltip: {			
+				tooltip: {
 					"pointFormat": "{0}", 
 					"headerFormat": "{0}月"
 				},

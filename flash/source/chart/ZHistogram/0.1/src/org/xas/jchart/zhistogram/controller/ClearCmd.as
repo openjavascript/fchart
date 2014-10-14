@@ -1,4 +1,4 @@
-package org.xas.jchart.curvegram.controller
+package org.xas.jchart.zhistogram.controller
 {
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -7,7 +7,7 @@ package org.xas.jchart.curvegram.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
-	import org.xas.jchart.curvegram.view.mediator.*;
+	import org.xas.jchart.zhistogram.view.mediator.*;
 	
 	public class ClearCmd extends SimpleCommand implements ICommand
 	{
@@ -35,8 +35,8 @@ package org.xas.jchart.curvegram.controller
 			facade.hasMediator( TipsMediator.name ) && facade.removeMediator( TipsMediator.name );
 			facade.hasMediator( TestMediator.name ) && facade.removeMediator( TestMediator.name );	
 			facade.hasMediator( SerialLabelMediator.name ) && facade.removeMediator( SerialLabelMediator.name );
-			facade.hasMediator( HoverBgMediator.name ) && facade.removeMediator( HoverBgMediator.name );
-			facade.hasMediator( ToggleBgMediator.name ) && facade.removeMediator( ToggleBgMediator.name );
+			facade.hasMediator( HoverBgMediator.name ) && facade.removeMediator( HoverBgMediator.name );	
+			facade.hasMediator( ItemBgMediator.name ) && facade.removeMediator( ItemBgMediator.name );	
 		}
 	}
 }

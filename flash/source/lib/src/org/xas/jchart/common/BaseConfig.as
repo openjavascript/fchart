@@ -11,6 +11,16 @@ package org.xas.jchart.common
 
 	public class BaseConfig
 	{
+		/* trend */
+		protected var _hlabelNum:Number = 5;
+		public function get hlabelNum():Number{ return _hlabelNum; }
+		
+		protected var _dataFlow:Array = null;
+		public function get dataFlow():Array{ return _dataFlow; }
+		
+		protected var _baseDate:String = "";
+		public function get baseDate():String{ return _baseDate; }
+		
 		protected static var _ins:BaseConfig;
 		public static function setIns( _ins:BaseConfig ):BaseConfig{
 			
@@ -1173,7 +1183,7 @@ package org.xas.jchart.common
 			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
 			return _r;
 		}
-				
+		
 		public function BaseConfig()
 		{
 		}

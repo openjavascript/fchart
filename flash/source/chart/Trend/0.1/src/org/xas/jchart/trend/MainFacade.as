@@ -1,4 +1,4 @@
-package org.xas.jchart.curvegram
+package org.xas.jchart.trend
 {
 	import flash.net.registerClassAlias;
 	
@@ -6,14 +6,14 @@ package org.xas.jchart.curvegram
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.curvegram.controller.CalcCoordinateCmd;
-	import org.xas.jchart.curvegram.controller.ClearCmd;
-	import org.xas.jchart.curvegram.controller.DrawCmd;
-	import org.xas.jchart.curvegram.controller.FilterDataCmd;
+	import org.xas.jchart.trend.controller.CalcCoordinateCmd;
+	import org.xas.jchart.trend.controller.ClearCmd;
+	import org.xas.jchart.trend.controller.DrawCmd;
+	import org.xas.jchart.trend.controller.FilterDataCmd;
 	
 	public class MainFacade extends BaseFacade implements IFacade
 	{
-		public static const name:String = 'CurveGramFacade';
+		public static const name:String = 'TrendFacade';
 		
 		public function MainFacade( _name:String )
 		{

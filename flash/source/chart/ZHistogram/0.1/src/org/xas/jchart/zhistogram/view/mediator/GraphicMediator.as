@@ -1,48 +1,26 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.zhistogram.view.mediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
-	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.BgView.DDountBgView;
-	import org.xas.jchart.common.view.components.ItemBgView.BaseItemBgView;
-	import org.xas.jchart.common.view.components.ItemBgView.HistogramItemBgView;
-	import org.xas.jchart.common.view.components.ItemBgView.VHistogramItemBgView;
-	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.zhistogram.view.components.GraphicView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class ItemBgMediator extends Mediator implements IMediator
+	public class GraphicMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PItemBgMediator';
-		private var _view:BaseItemBgView;
-		public function get view():BaseItemBgView{ return _view; }
+		public static const name:String = 'PChartMediator';
+		private var _view:GraphicView;
+		public function get view():GraphicView{ return _view; }
 		
-		public function ItemBgMediator( )
+		public function GraphicMediator()
 		{
 			super( name );
 			
 		}
 		
 		override public function onRegister():void{
-			//Log.log( 'ItemBgMediator register' );				
-			switch( (facade as BaseFacade).name ){
-				case 'ZHistogramFacade':
-				case 'HistogramFacade':
-				{
-					mainMediator.view.index4.addChild( _view = new HistogramItemBgView() );
-					break;
-				}
-				case 'VHistogramFacade':
-				{
-					mainMediator.view.index4.addChild( _view = new VHistogramItemBgView() );
-					break;
-				}
-				default:{
-					mainMediator.view.index4.addChild( _view = new BaseItemBgView() );
-					break;
-				}
-			}	
+			mainMediator.view.index7.addChild( _view = new GraphicView() );			
 		}
 		
 		override public function onRemove():void{

@@ -8,6 +8,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.HLabelView.BaseHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.CurveGramHLabelView;
+	import org.xas.jchart.common.view.components.HLabelView.TrendHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.HistogramHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.VHistogramHLabelView;
 	
@@ -30,6 +31,7 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index5.addChild( _view = new CurveGramHLabelView() );
 					break;
 				}
+				case 'ZHistogramFacade':
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new HistogramHLabelView() );
@@ -38,6 +40,11 @@ package org.xas.jchart.common.view.mediator
 				case 'VHistogramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new VHistogramHLabelView() );
+					break;
+				}
+				case 'TrendFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new TrendHLabelView() );
 					break;
 				}
 				default:{

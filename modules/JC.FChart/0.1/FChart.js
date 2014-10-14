@@ -268,6 +268,9 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
 
         , 'map': 'Map'
 
+        , 'trend': 'Trend'
+        , 'Trend': 'Trend'
+
         , 'pie': 'PieGraph'
         , 'piegraph': 'PieGraph'
 
