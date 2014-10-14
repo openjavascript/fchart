@@ -21,7 +21,6 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-			
 			_data.push({
 				title: {
 					text:'Chart Title'
@@ -105,6 +104,8 @@ package org.xas.jchart.common.data.test
 							"size": 12, 
 							"color": 11184810
 						}, 
+						'serialFormat': '{0}%',
+						'afterSerialFormat': '{0}%',
 						"serial":
 						[
 							{
