@@ -1,4 +1,4 @@
-package org.xas.jchart.curvegram.controller
+package org.xas.jchart.zhistogram.controller
 {
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -11,7 +11,7 @@ package org.xas.jchart.curvegram.controller
 	import org.xas.jchart.common.view.mediator.HLabelMediator;
 	import org.xas.jchart.common.view.mediator.TipsMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator;
-	import org.xas.jchart.curvegram.view.mediator.GraphicMediator;
+	import org.xas.jchart.zhistogram.view.mediator.GraphicMediator;
 	
 	public class FilterDataCmd extends SimpleCommand implements ICommand
 	{

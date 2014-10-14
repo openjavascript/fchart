@@ -1,4 +1,4 @@
-package org.xas.jchart.curvegram.controller
+package org.xas.jchart.zhistogram.controller
 {
 	import flash.external.ExternalInterface;
 	import flash.geom.Point;
@@ -13,7 +13,7 @@ package org.xas.jchart.curvegram.controller
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
-	import org.xas.jchart.curvegram.view.mediator.*;
+	import org.xas.jchart.zhistogram.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -23,6 +23,7 @@ package org.xas.jchart.curvegram.controller
 		public function CalcCoordinateCmd()
 		{
 			super();
+			
 			_config = BaseConfig.ins as Config;
 		}
 		
@@ -34,17 +35,14 @@ package org.xas.jchart.curvegram.controller
 			
 			_c.minX = _c.x + _config.vlabelSpace + 2;
 			_c.minY = _c.y + 5;
-			_c.maxX = _c.x + _config.stageWidth - 6;
+			_c.maxX = _c.x + _config.stageWidth - 5;
 			_c.maxY = _c.y + _config.stageHeight - 5;
-			
-			if( _config.serialLabelEnabled ){
-				_c.minX += 10;
-				_c.maxX -= 10;
-			}
-			
-			var _yPad:Number = _c.minY;
 						
-			facade.registerMediator( new BgMediator( ) )		
+			facade.registerMediator( new BgMediator( ) );
+			var _yPad:Number = _c.minY;
+			
+			//Log.log( _config.rate.length );
+			//Log.log( _config.maxNum, _config.finalMaxNum, _config.chartMaxNum, 11111 );
 			
 			if( _config.cd ){			
 				
@@ -82,28 +80,25 @@ package org.xas.jchart.curvegram.controller
 						x: _config.width / 2 - pLegendMediator.view.width / 2
 						, y: _config.c.maxY
 					};
-					_config.c.maxY -= 5;
+					_config.c.maxY -= 2;
 				}
 				
 				_config.c.maxX -= 5;
 				
-				_config.c.linePadding = 0;
-				if( !_config.vlineEnabled ){
-					_config.c.linePadding = 60;
-					_config.c.vlabelSpace = 5;
-					_config.c.minX += _config.c.vlabelSpace;
-				};
-				
 				if( _config.yAxisEnabled ){
 					facade.registerMediator( new VLabelMediator() );
 					_config.c.minX += pVLabelMediator.maxWidth;
-				}else{
 				}
+
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
 					facade.registerMediator( new HoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 					_yPad += _config.c.hoverPadY;
+				}
+				
+				if( _config.itemBgEnabled ){
+					facade.registerMediator( new ItemBgMediator() );
 				}
 				
 				_config.c.serialLabelPadY = 15;
@@ -118,17 +113,16 @@ package org.xas.jchart.curvegram.controller
 				if( _config.yAxisEnabled ){
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
 				}else{
+					//_config.c.chartWidth = _config.c.maxX - 5;
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 				}
 				
 				if( _config.categories && _config.categories.length ){
-					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
+					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2
 				}
-				
 				facade.registerMediator( new HLabelMediator() );
 				_config.c.maxY -= pHLabelMediator.maxHeight;
-				
-				//_config.c.chartHeight = _config.c.maxY - _config.c.minY;
+			
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
 					_config.c.chartHeight = _config.graphicHeight - _yPad;		
@@ -144,18 +138,15 @@ package org.xas.jchart.curvegram.controller
 				}else{	
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
+							
 				
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
 				
 				facade.registerMediator( new GraphicBgMediator() );	
-				//facade.registerMediator( new TipsMediator() );
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
-
+				//Log.log( _config.tooltipEnabled );
 				
-				if( _config.toggleBgEnabled ){	
-					facade.registerMediator( new ToggleBgMediator() );
-				}
 				
 				calcChartPoint();
 				
@@ -174,90 +165,124 @@ package org.xas.jchart.curvegram.controller
 		private function calcGraphic():void{			
 			facade.registerMediator( new GraphicMediator() );
 			
-			_config.c.paths = [];
-			if( !( _config.series && _config.series.length ) ) return;
-			_config.c.partWidth = _config.c.itemWidth / _config.displaySeries.length;
-
+			_config.c.rects = [];
+			_config.c.dataRect = [];
 			
-			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+			if( !( _config.series && _config.series.length ) ) return;
+			
+			_config.c.partSpace = 0; 
+			_config.c.partWidth = 
+				_config.c.itemWidth / _config.displaySeries.length
+				;
+			
+			if( _config.displaySeries.length > 1 ){				
+				_config.c.partSpace = 4; 
+				_config.c.partWidth = 
+					(
+						_config.c.itemWidth - (_config.displaySeries.length - 1) * _config.c.partSpace
+					) / _config.displaySeries.length
+					;
+			}
+			
+			//_config.c.partWidth > 50 && ( _config.c.partWidth = 50 );
+			var _partWidth:Number = _config.c.partWidth
+				;
+			//_partWidth > 50 && ( _partWidth = 50 );
+			if( _partWidth > 50 ){
+				_partWidth = 50;
+			}
+			
+			
+			Common.each( _config.cd.xAxis.categories, function( _k:int, _item:Object ):void{
 				
-				var _cmd:Vector.<int> = new Vector.<int>
-				, _path:Vector.<Number> = new Vector.<Number>
-				, _positions:Array = []
-				;				
+				var _items:Array = []
+					, _pointItem:Object = _config.c.hlinePoint[ _k ]
+					, _sp:Point = _pointItem.start as Point
+					, _ep:Point = _pointItem.end as Point
+					//, _x:Number = _sp.x + ( _config.c.itemWidth - _config.c.itemWidth / 2 )
+					, _x:Number = _sp.x 
+						+ ( _config.c.itemWidth 
+							- _partWidth * _config.displaySeries.length / 2
+							- _config.c.partSpace * ( ( _config.displaySeries.length || 1 ) - 1 ) / 2 
+						)
+					, _tmp:Number = 0
+					, _tmpDataRect:Object = {
+						x: _sp.x, y: _sp.y
+						, width: _config.c.itemWidth * 2
+						, height: _ep.y - _sp.y 
+					}
+					, _tmpYAr:Array = []
+					, _tmpHAr:Array = []
+					;
 				
-				Common.each( _item.data, function( _sk:int, _num:Number ):void{
+				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
 					var _rectItem:Object = {}
-						, _pointItem:Object = _config.c.hpointReal[ _sk ]
-						, _sp:Point = _pointItem.start as Point
-						, _ep:Point = _pointItem.end as Point
-						, _h:Number
-						, _x:Number, _y:Number
+						, _num:Number = _sitem.data[ _k ]
 						, _itemNum:Number
+						, _h:Number, _y:Number
 						, _dataHeight:Number
-						, _dataY:Number
-						, _sNum:Number = _num;
 						;
-						//Log.log( _sk, _sp.x, _sp.y );
 						
 						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
 							_h = _config.c.vpart * _config.rateZeroIndex;
-							if( _num > 0 ){
-								_h = ( _num / _config.itemMax( _sk ) || 1 ) * _h;
-							}
-							if( _num == 0 ){
-								_h = 0;
-							}
+							_h = ( _num / _config.itemMax( _k ) || 0 ) * _h;
 							_y = _sp.y 
 							+ _config.c.vpart * _config.rateZeroIndex - _h
 							;
-							if( _sk === 0 ){
-								//Log.log( _num / _config.itemMax( _sk ) * 100, _num, _config.itemMax( _sk ) );
+							if( _k === 0 ){
+								//Log.log( _num / _config.itemMax( _k ) * 100, _num, _config.itemMax( _k ) );
 							}
-							
-							//Log.log( _config.itemMax( _sk ), _num, ( _num / _config.itemMax( _sk ) || 1 ) * 100 );
 						}else{
-							if( Common.isNegative( _num ) && _num != 0 ){
+							if( Common.isNegative( _num ) || _num == 0 ){
 								_num = Math.abs( _num );
 								_dataHeight = _config.c.vpart * _config.rateZeroIndex;
 								
 								_h = _config.c.chartHeight - _dataHeight;
 								_y = _sp.y + _dataHeight ;
-								
 								_h = 
 								( _num / 
 									Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
 								* _h;
-								_y += _h;
 								//Log.log( _h, _config.finalMaxNum );
-							}else{							
+							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
-								if( _num > 0 ){
-									_h = ( _num / _config.chartMaxNum || 1 ) * _h;
-								}
-								if( _num == 0 ){
-									_h = 0;
-								}
+								_h = ( _num / _config.chartMaxNum || 1 ) * _h;
 								_y = _sp.y 
 								+ _config.c.vpart * _config.rateZeroIndex - _h
 								;
 							}
-						}
-						_x = _sp.x;
+						}						
+						//Log.log( _h, _y );
 						
-						_cmd.push( _sk === 0 ? 1 : 2 );
-						_path.push( _x, _y );
-						_positions.push( { x: _x, y: _y, value: _sNum } );
+						_rectItem.x = _x + _sk * _partWidth + _config.c.partSpace * _sk;
 						
-
-					//Log.log( _y, _sp.y, _config.c.vpart, _config.rateZeroIndex, _h, _config.finalMaxNum );
+						_rectItem.y = _y;
+						_rectItem.width = _partWidth;
+						_rectItem.height = _h;
+						_rectItem.value = _sitem.data[ _k ];
 						
+						_tmpYAr.push( _y );
+						_tmpHAr.push( _h );
+						
+						_items.push( _rectItem );
 				});
-				//Log.log( 'xxxxxxxxxxxxx' );
 				
-				_config.c.paths.push( { cmd: _cmd, path: _path, position: _positions } );
+				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
+				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
+				
+				if( _config.hoverBgEnabled ){
+					_tmpDataRect.y -= _config.c.hoverPadY;
+					_tmpDataRect.height += _config.c.hoverPadY
+				}
+				
+				if( _config.serialLabelEnabled ){
+					_tmpDataRect.y -= _config.c.serialLabelPadY;
+					_tmpDataRect.height += _config.c.serialLabelPadY
+				}
+				
+				_config.c.rects.push( _items );
+				_config.c.dataRect.push( _tmpDataRect );
 			});
-
 		}
 		
 		private function calcChartPoint():void{
@@ -276,10 +301,9 @@ package org.xas.jchart.curvegram.controller
 			_config.c.vpoint = [];
 			_config.c.vpointReal = [];
 			
+			
 			var _padX:Number = 0;
 			if( !_config.yAxisEnabled ){
-				//_padX = _config.c.arrowLength - ( _config.c.arrowLength -  _config.c.chartX );
-				_padX = _config.vlabelSpace + 2;
 			}
 			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
@@ -297,50 +321,53 @@ package org.xas.jchart.curvegram.controller
 		}
 		
 		private function calcChartHPoint():void{
-			var _partN:Number = 　_config.c.chartWidth / ( ( _config.categories.length - 1 ) || 1 ) 
-				, _rpartN:Number = ( _config.c.chartWidth - _config.c.linePadding ) / ( ( _config.categories.length - 1 ) || 1)
+			if( !_config.yAxisEnabled ){
+				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
+			}
+			var _partN:Number = _config.c.chartWidth / ( _config.categories.length )
 				, _sideLen:Number = _config.c.arrowLength
 				;
+			
 			_config.c.hpart = _partN;
-			_config.c.rhpart = _rpartN;
 			_config.c.hpoint = [];
 			_config.c.hlinePoint = [];
 			_config.c.hpointReal = [];
-			_config.c.itemWidth = _partN / 2;
-			_config.c.ritemWidth = _rpartN / 2;
-			
+			_config.c.itemWidthRate = 2;
+			_config.c.itemWidth = _partN / _config.c.itemWidthRate;
 						
 			Common.each( _config.categories, function( _k:int, _item:* ):void{
-				var _n:Number = _config.c.minX + _partN * _k + 5
-					, _rn:Number = _config.c.minX +  _config.c.linePadding / 2 + _rpartN * _k + 5
-					, _sideLen:int = _config.c.arrowLength
-					;
+				var _n:Number = _config.c.minX + _partN * _k + 5, _sideLen:int = _config.c.arrowLength;
+				
+				if( _k === 0 ){					
+					_config.c.hlinePoint.push( {
+						start: new Point( _n, _config.c.minY )
+						, end: new Point( _n, _config.c.maxY + 1 )
+					});					
+				}
 								
 				_config.c.hlinePoint.push( {
-					start: new Point( _n, _config.c.minY )
-					, end: new Point( _n, _config.c.maxY + 1 )
+					start: new Point( _n + _partN, _config.c.minY )
+					, end: new Point( _n + _partN, _config.c.maxY + 1 )
 				});
 				
-				if( !_config.displayAllLabel ){
-					if( !( _k in _config.labelDisplayIndex ) ){
-						_sideLen = 0;
-					}
-				}
-				
 				_config.c.hpoint.push( {
-					start: new Point( _n, _config.c.maxY )
-					, end: new Point( _n, _config.c.maxY + _sideLen )
+					start: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.maxY )
+					, end: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.maxY + _sideLen )
 				});
 				
 				_config.c.hpointReal.push( {
-					start: new Point( _rn, _config.c.minY )
-					, end: new Point( _rn, _config.c.maxY )
+					start: new Point( _n, _config.c.minY )
+					, end: new Point( _n, _config.c.maxY )
 				});
 			});
 		}
 		
 		private function get pLegendMediator():LegendMediator{
 			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		}
+		
+		private function get pSerialLabelMediator():SerialLabelMediator{
+			return facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
 		}
 		
 		private function get pHLabelMediator():HLabelMediator{

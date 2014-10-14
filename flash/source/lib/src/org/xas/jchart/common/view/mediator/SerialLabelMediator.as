@@ -27,6 +27,7 @@ package org.xas.jchart.common.view.mediator
 		override public function onRegister():void{
 			//Log.log( 'DataLabelMediator register' );				
 			switch( (facade as BaseFacade).name ){
+				case 'ZHistogramFacade':
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new HistogramSerialLabelView() );

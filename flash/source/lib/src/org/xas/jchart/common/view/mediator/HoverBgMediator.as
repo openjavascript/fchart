@@ -27,6 +27,7 @@ package org.xas.jchart.common.view.mediator
 		override public function onRegister():void{
 			//Log.log( 'HoverBgMediator register' );				
 			switch( (facade as BaseFacade).name ){
+				case 'ZHistogramFacade':
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index6.addChild( _view = new HistogramHoverBgView() );

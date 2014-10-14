@@ -90,7 +90,7 @@ package org.xas.jchart.common.ui
 			return t.height !==  ta.height;
 		}
 		
-		public function buildLayout( _data:Object ):TipsUI{			
+		public function buildLayout( _data:Object ):TipsUI{
 			this._data = _data;
 	
 			//Log.printJSON( _afterSerial  );
@@ -262,12 +262,13 @@ package org.xas.jchart.common.ui
 				_nameTxf.width > _nameMaxLen && ( _nameMaxLen = _nameTxf.width );
 				_valTxf.width > _valueMaxLen && ( _valueMaxLen = _valTxf.width );
 			});
+			
 			Common.each( _afterSerialData.items, function( _k:int, _item:Object ):void{
 				_nameTxf = _item.name as TextField;
 				_valTxf = _item.value as TextField;
 				
 				if( _data ){
-					_nameTxf.text = _data.afterItems[ _k ].name + ': ';		
+					_nameTxf.text = _data.afterItems[ _k ].name + ': ';
 					_valTxf.text = _data.afterItems[ _k ].value;		
 				}
 				
@@ -364,14 +365,8 @@ package org.xas.jchart.common.ui
 			_x < 0 && ( _x = 0 );
 			_y < 0 && ( _y = 0 );
 			
-			//Log.log( _x2, root.stage.x + root.stage.width );
-			
-			//Log.log( _x, _y, this.width, this.height, _y + this.height, _y2, this.root.stage.stageHeight );
-			
 			this.x = _x;
 			this.y = _y;
-			//Log.log( 'TipsUI updateTips', _point.x, _point.y );
-			
 		}
 		
 		private function rectPosition( _point:Object, _rect:Object ):void{

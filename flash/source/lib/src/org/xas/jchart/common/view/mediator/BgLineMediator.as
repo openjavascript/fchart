@@ -26,6 +26,11 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index5.addChild( _view = new CurveGramBgLineView() );
 					break;
 				}
+				case 'TrendFacade':{
+					mainMediator.view.index5.addChild( _view = new TrendBgLineView() );
+					break;
+				}
+				case 'ZHistogramFacade':
 				case 'HistogramFacade':{
 					mainMediator.view.index5.addChild( _view = new HistogramBgLineView() );
 					break;

@@ -12,6 +12,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.TipsView.NormalTipsView;
 	import org.xas.jchart.common.view.components.TipsView.PieTipsView;
 	import org.xas.jchart.common.view.components.TipsView.MapTipsView;
+	import org.xas.jchart.common.view.components.TipsView.TrendTipsView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class TipsMediator extends Mediator implements IMediator
@@ -38,10 +39,7 @@ package org.xas.jchart.common.view.mediator
 				}
 				case 'CurveGramFacade':
 				case 'HistogramFacade':
-				{
-					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
-					break;
-				}
+				case 'ZHistogramFacade':
 				case 'VHistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
@@ -52,14 +50,16 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index8.addChild( _view = new MapTipsView() );
 					break;
 				}
+				case 'TrendFacade':{
+					mainMediator.view.index8.addChild( _view = new TrendTipsView() );
+					break;
+				}
 				default:{
 					mainMediator.view.index8.addChild( _view = new BaseTipsView() ); 
 					break;
 				}
 			}
-			
 			ElementUtility.topIndex( _view );
-			//Log.log( 'TipsMediator register' );	
 		}
 		
 		override public function onRemove():void{
@@ -93,7 +93,6 @@ package org.xas.jchart.common.view.mediator
 				}			
 			}
 		}
-		
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

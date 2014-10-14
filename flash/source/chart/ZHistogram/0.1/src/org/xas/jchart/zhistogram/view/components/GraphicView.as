@@ -1,4 +1,4 @@
-package org.xas.jchart.curvegram.view.components
+package org.xas.jchart.zhistogram.view.components
 {
 	import com.adobe.utils.StringUtil;
 	
@@ -16,17 +16,18 @@ package org.xas.jchart.curvegram.view.components
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.ui.CurveGramUI;
+	import org.xas.jchart.common.ui.HistogramUI;
+	import org.xas.jchart.common.ui.widget.JTextField;
 	
 	public class GraphicView extends Sprite
 	{	
-		private var _boxs:Vector.<CurveGramUI>;
+		private var _boxs:Vector.<Sprite>;
 		private var _preIndex:int = -1;
 		
 		public function GraphicView()
 		{
 			super(); 
-			
+		
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
 			addEventListener( JChartEvent.UPDATE, update );
@@ -41,55 +42,63 @@ package org.xas.jchart.curvegram.view.components
 
 		private function update( _evt:JChartEvent ):void{
 			
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.paths && BaseConfig.ins.c.paths.length ) ) return;
-			
 			graphics.clear();
-			_boxs = new Vector.<CurveGramUI>;
-			Common.each( BaseConfig.ins.c.paths, function( _k:int, _item:Object ):void{
 			
-				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
-					, _path:Vector.<Number> = _item.path as Vector.<Number>
-					, _gitem:CurveGramUI
-					;
+			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
+			_boxs = new Vector.<Sprite>();
+			
+			//Log.log( BaseConfig.ins.maxValue );
+			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
-				addChild( _gitem = new CurveGramUI( _cmd, _path, BaseConfig.ins.itemColor( _k ) ) );
-				_boxs.push( _gitem );
+				var _box:Sprite = new Sprite();
+				Common.each( _item, function( _sk:int, _sitem:Object ):void{
+							
+					var _color:uint = BaseConfig.ins.itemColor( _sk );
+					if( _sitem.value == BaseConfig.ins.maxValue ){
+						//Log.log( BaseConfig.ins.maxValue, _sitem.value );
+						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
+							_color = BaseConfig.ins.maxItemParams.style.color;
+						}
+					}
+					
+					var _item:HistogramUI = new HistogramUI(
+						_sitem.x, _sitem.y
+						, _sitem.width, _sitem.height
+						, _color 
+					);
+					_item.mouseEnabled = false;
+					_box.addChild( _item );
+				});
+				addChild( _box );
+				_boxs.push( _box );
 			});
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{
 		}
 		
-		private function hideTips( _evt: JChartEvent ):void{	
-			
-			if( _preIndex >= 0 ){
-				Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-					_boxs[ _k ].items[ _preIndex ].unhover();
-				});
+		private function hideTips( _evt: JChartEvent ):void{			
+			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
+				_boxs[ _preIndex ].alpha = 1;
 			}
 			_preIndex = -1;
-			
 		}		
 		
 		private function updateTips( _evt: JChartEvent ):void{
-			
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
 				, _ix:int = _evt.data.index as int
 				;	
 			if( !( _boxs && _boxs.length ) ) return;
 			if( _preIndex == _ix ) return;
+			if( !_boxs[ _ix ] ) return;
 			
-			if( _preIndex >= 0 ){
-				Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-					_preIndex >= 0 && _boxs[ _k ].items[ _preIndex ].unhover();
-				});
+			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
+				_boxs[ _preIndex ].alpha = 1;
 			}
-			Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-				_ix >= 0 && _boxs[ _k ].items[ _ix ].hover();
-			});
 			
+			_boxs[ _ix ].alpha = .65;
 			_preIndex = _ix;
 		}
-		
+
 	}
 }

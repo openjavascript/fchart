@@ -230,6 +230,9 @@
         , 'map': 'Map'
         , 'Map': 'Map'
 
+        , 'trend': 'Trend'
+        , 'Trend': 'Trend'
+
         , 'pie': 'PieGraph'
         , 'PieGraph': 'PieGraph'
         , 'piegraph': 'PieGraph'
