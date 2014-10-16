@@ -47,7 +47,6 @@ package org.xas.jchart.zhistogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
-			//Log.log( BaseConfig.ins.maxValue );
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
@@ -55,7 +54,7 @@ package org.xas.jchart.zhistogram.view.components
 							
 					var _color:uint = BaseConfig.ins.itemColor( _sk );
 					if( _sitem.value == BaseConfig.ins.maxValue ){
-						//Log.log( BaseConfig.ins.maxValue, _sitem.value );
+						
 						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
 							_color = BaseConfig.ins.maxItemParams.style.color;
 						}
@@ -90,7 +89,7 @@ package org.xas.jchart.zhistogram.view.components
 				;	
 			if( !( _boxs && _boxs.length ) ) return;
 			if( _preIndex == _ix ) return;
-			if( !_boxs[ _ix ] ) return;
+			if( _ix > _boxs.length - 1 ) return;
 			
 			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
 				_boxs[ _preIndex ].alpha = 1;

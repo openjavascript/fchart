@@ -41,8 +41,8 @@ package org.xas.jchart.common.view.components
 			
 			_itemWidth = _config.c.radius * 2 -  _config.displaySeries.length * _config.radiusStep * 2 - 20;
 
-			Log.log( _config.floatLen );
-			//[{"y":45,"name":"全体覆盖率"},{"y":35,"name":"样本覆盖率"}]
+			//Log.log( _config.floatLen );
+			//[{"y":45,"name":"全体覆盖�?},{"y":35,"name":"样本覆盖�?}]
 			Common.each( _config.displaySeries, function( _k:int, _item:* ):*{
 				_t = Common.moneyFormat( _item.y + '', 3, _config.floatLen );
 				
@@ -112,7 +112,7 @@ package org.xas.jchart.common.view.components
 					
 				case 2:
 				{
-					Log.log( _config.c.cx, _config.c.radius, _labels[1].width, _space );
+					//Log.log( _config.c.cx, _config.c.radius, _labels[1].width, _space );
 					_labels[0].x = _config.c.cx - _config.c.radius + _space;
 					_labels[0].y = _config.c.cy - _labels[0].height;
 					

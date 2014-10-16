@@ -11,6 +11,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.HLabelView.TrendHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.HistogramHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.VHistogramHLabelView;
+	import org.xas.jchart.common.view.components.HLabelView.ZHistogramHLabelView;
 	
 	public class HLabelMediator extends Mediator implements IMediator
 	{
@@ -32,6 +33,10 @@ package org.xas.jchart.common.view.mediator
 					break;
 				}
 				case 'ZHistogramFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new ZHistogramHLabelView() );
+					break;
+				}
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new HistogramHLabelView() );

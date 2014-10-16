@@ -41,10 +41,7 @@ package org.xas.jchart.zhistogram.controller
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
-			//Log.log( _config.rate.length );
-			//Log.log( _config.maxNum, _config.finalMaxNum, _config.chartMaxNum, 11111 );
-			
-			if( _config.cd ){			
+			if( _config.cd ){
 				
 				if( _config.cd.title && _config.cd.title.text ){
 					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )	
@@ -57,7 +54,7 @@ package org.xas.jchart.zhistogram.controller
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height + 5;
-				}				
+				}
 				
 				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
@@ -113,12 +110,11 @@ package org.xas.jchart.zhistogram.controller
 				if( _config.yAxisEnabled ){
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
 				}else{
-					//_config.c.chartWidth = _config.c.maxX - 5;
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 				}
 				
-				if( _config.categories && _config.categories.length ){
-					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2
+				if( _config.displaySeries && _config.displaySeries.length ){//_config.categories && _config.categories.length
+					_config.c.labelWidth = _config.c.chartWidth / ( _config.displaySeries.length ) / 2
 				}
 				facade.registerMediator( new HLabelMediator() );
 				_config.c.maxY -= pHLabelMediator.maxHeight;
@@ -135,7 +131,7 @@ package org.xas.jchart.zhistogram.controller
 					if( _config.c.credits ){
 						_config.c.credits.y -= _hpad;
 					}
-				}else{	
+				}else{
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
 							
@@ -145,18 +141,16 @@ package org.xas.jchart.zhistogram.controller
 				
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
-				//Log.log( _config.tooltipEnabled );
-				
 				
 				calcChartPoint();
 				
-				calcGraphic();	
+				calcGraphic();
+				
+				_config.c.totalArray = _config.totalArray;
 				
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
 				}
-				
-				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
 									
 			sendNotification( JChartEvent.SHOW_CHART );			
@@ -171,40 +165,25 @@ package org.xas.jchart.zhistogram.controller
 			if( !( _config.series && _config.series.length ) ) return;
 			
 			_config.c.partSpace = 0; 
-			_config.c.partWidth = 
-				_config.c.itemWidth / _config.displaySeries.length
-				;
+			_config.c.partWidth =  _config.c.itemWidth / _config.displaySeries.length;
 			
 			if( _config.displaySeries.length > 1 ){				
 				_config.c.partSpace = 4; 
-				_config.c.partWidth = 
-					(
-						_config.c.itemWidth - (_config.displaySeries.length - 1) * _config.c.partSpace
-					) / _config.displaySeries.length
-					;
+				_config.c.partWidth = ( _config.c.itemWidth - 
+					( _config.displaySeries.length - 1 ) * _config.c.partSpace )
+					/ _config.displaySeries.length;
 			}
 			
-			//_config.c.partWidth > 50 && ( _config.c.partWidth = 50 );
-			var _partWidth:Number = _config.c.partWidth
-				;
-			//_partWidth > 50 && ( _partWidth = 50 );
-			if( _partWidth > 50 ){
-				_partWidth = 50;
-			}
+			var _partWidth:Number = _config.c.partWidth;
+			_partWidth > 50 && ( _partWidth = 50 );
 			
-			
-			Common.each( _config.cd.xAxis.categories, function( _k:int, _item:Object ):void{
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
 				
 				var _items:Array = []
 					, _pointItem:Object = _config.c.hlinePoint[ _k ]
 					, _sp:Point = _pointItem.start as Point
 					, _ep:Point = _pointItem.end as Point
-					//, _x:Number = _sp.x + ( _config.c.itemWidth - _config.c.itemWidth / 2 )
-					, _x:Number = _sp.x 
-						+ ( _config.c.itemWidth 
-							- _partWidth * _config.displaySeries.length / 2
-							- _config.c.partSpace * ( ( _config.displaySeries.length || 1 ) - 1 ) / 2 
-						)
+					, _x:Number = _sp.x + _config.c.itemWidth - _partWidth / 2
 					, _tmp:Number = 0
 					, _tmpDataRect:Object = {
 						x: _sp.x, y: _sp.y
@@ -213,53 +192,43 @@ package org.xas.jchart.zhistogram.controller
 					}
 					, _tmpYAr:Array = []
 					, _tmpHAr:Array = []
-					;
-				
-				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
+					, _baseY:Number = _sp.y;
+					
+				Common.each( _item.data, function( _sk:int, _sitem:Number ):void{
 					var _rectItem:Object = {}
-						, _num:Number = _sitem.data[ _k ]
+						, _num:Number = _sitem
 						, _itemNum:Number
 						, _h:Number, _y:Number
-						, _dataHeight:Number
-						;
+						, _dataHeight:Number;
 						
 						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
 							_h = _config.c.vpart * _config.rateZeroIndex;
 							_h = ( _num / _config.itemMax( _k ) || 0 ) * _h;
-							_y = _sp.y 
-							+ _config.c.vpart * _config.rateZeroIndex - _h
-							;
-							if( _k === 0 ){
-								//Log.log( _num / _config.itemMax( _k ) * 100, _num, _config.itemMax( _k ) );
-							}
+							_y = _baseY + _config.c.vpart * _config.rateZeroIndex - _h;
 						}else{
 							if( Common.isNegative( _num ) || _num == 0 ){
 								_num = Math.abs( _num );
 								_dataHeight = _config.c.vpart * _config.rateZeroIndex;
 								
 								_h = _config.c.chartHeight - _dataHeight;
-								_y = _sp.y + _dataHeight ;
-								_h = 
-								( _num / 
-									Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
-								* _h;
-								//Log.log( _h, _config.finalMaxNum );
+								_y = _baseY + _dataHeight ;
+								_h = ( _num / Math.abs( _config.finalMaxNum * 
+									_config.rate[ _config.rate.length - 1 ] ) ) * _h;
+								isNaN( _h ) && ( _h = 0 );
 							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
 								_h = ( _num / _config.chartMaxNum || 1 ) * _h;
-								_y = _sp.y 
-								+ _config.c.vpart * _config.rateZeroIndex - _h
-								;
+								_y = _baseY + _config.c.vpart * _config.rateZeroIndex - _h;
 							}
-						}						
-						//Log.log( _h, _y );
+						}
 						
-						_rectItem.x = _x + _sk * _partWidth + _config.c.partSpace * _sk;
-						
+						_rectItem.x = _x;
 						_rectItem.y = _y;
 						_rectItem.width = _partWidth;
 						_rectItem.height = _h;
-						_rectItem.value = _sitem.data[ _k ];
+						_rectItem.value = _sitem;
+						
+						_baseY -= _h;
 						
 						_tmpYAr.push( _y );
 						_tmpHAr.push( _h );
@@ -324,7 +293,7 @@ package org.xas.jchart.zhistogram.controller
 			if( !_config.yAxisEnabled ){
 				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
-			var _partN:Number = _config.c.chartWidth / ( _config.categories.length )
+			var _partN:Number = _config.c.chartWidth / ( _config.displaySeries.length )//_config.categories.length
 				, _sideLen:Number = _config.c.arrowLength
 				;
 			
@@ -335,7 +304,7 @@ package org.xas.jchart.zhistogram.controller
 			_config.c.itemWidthRate = 2;
 			_config.c.itemWidth = _partN / _config.c.itemWidthRate;
 						
-			Common.each( _config.categories, function( _k:int, _item:* ):void{
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
 				var _n:Number = _config.c.minX + _partN * _k + 5, _sideLen:int = _config.c.arrowLength;
 				
 				if( _k === 0 ){					
