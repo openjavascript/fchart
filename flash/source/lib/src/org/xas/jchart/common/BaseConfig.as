@@ -87,6 +87,10 @@ package org.xas.jchart.common
 		public function serialDataLabelValue( _serialIx:int, _itemIx:int ):String{
 			var _r:String = '', _item:Object = displaySeries[ _serialIx ];		
 			
+			if( !_item ){
+				return '';
+			}
+			
 			if( 'labelData' in _item ){
 				_r = _item.labelData[ _itemIx ];
 			}else{
@@ -1032,8 +1036,8 @@ package org.xas.jchart.common
 			return StringUtils.parseBool( this.cd.isItemPercent );
 		}
 		
-		private var _maxValue:Number = 0;
-		private var _isMaxValueReady:Boolean;
+		protected var _maxValue:Number = 0;
+		protected var _isMaxValueReady:Boolean;
 		
 		public function get maxValue():Number{
 			if( !_isMaxValueReady && this.series && this.series.length ){
@@ -1047,7 +1051,7 @@ package org.xas.jchart.common
 			}
 			
 			return _maxValue;
-		}		
+		}
 		
 		public function get maxItemParams():Object{
 			var _r:Object = {};

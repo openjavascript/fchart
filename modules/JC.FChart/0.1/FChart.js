@@ -266,6 +266,9 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         , 'vbar': 'VHistogram'
         , 'vhistogram': 'VHistogram'
 
+        , 'zbar': 'ZHistogram'
+        , 'zhistogram': 'ZHistogram'
+
         , 'map': 'Map'
 
         , 'trend': 'Trend'

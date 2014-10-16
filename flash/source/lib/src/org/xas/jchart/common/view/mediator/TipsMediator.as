@@ -13,6 +13,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.TipsView.PieTipsView;
 	import org.xas.jchart.common.view.components.TipsView.MapTipsView;
 	import org.xas.jchart.common.view.components.TipsView.TrendTipsView;
+	import org.xas.jchart.common.view.components.TipsView.ZHistogramTipsView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class TipsMediator extends Mediator implements IMediator
@@ -41,10 +42,14 @@ package org.xas.jchart.common.view.mediator
 				}
 				case 'CurveGramFacade':
 				case 'HistogramFacade':
-				case 'ZHistogramFacade':
 				case 'VHistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
+					break;
+				}
+				case 'ZHistogramFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new ZHistogramTipsView() );
 					break;
 				}
 				case 'MapFacade':

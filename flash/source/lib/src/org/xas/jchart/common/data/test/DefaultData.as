@@ -44,6 +44,7 @@ package org.xas.jchart.common.data.test
 				series:[{
 					name: 'Temperature'
 					, data: [-5000, 0, 300, -2000, -2000, 2700, 2800, 3200, 3000, 2500, 1500, -5800]
+					, label: [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12"]
 					, style: { 'stroke': '#ff7100' } 
 					, pointStyle: {}
 					, fillColor: {}
@@ -51,6 +52,7 @@ package org.xas.jchart.common.data.test
 				}, {
 					name: 'Rainfall',
 					data: [2000, 2100, 2000, 10000, 20000, 21000, 22000, 10000, 2000, 1000, 2000, 1000]
+					, label: [ "R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12"]
 				}],
 				credits: {
 					enabled: true
@@ -66,7 +68,6 @@ package org.xas.jchart.common.data.test
 					, duration: .75
 				}
 			});
-			
 			
 			_data.push( 
 				{
@@ -3045,7 +3046,53 @@ package org.xas.jchart.common.data.test
 				}
 				, isPercent: true
 			});
+			
+			_data.push({
+				title: {
+					text:'Chart Title'
+				},
+				subtitle: {
+					text: 'sub title'
+				}, 
+				xAxis: {
+					categories: [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ]
+				}, 
+				yAxis: {
+					title: {
+						text: '(Vertical Title - 中文)'
+					}
+					, format: '{0}'
+				},
+				tooltip: {					
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: 'Phone'
+					, data: [ 27000, 23600, 16200, 14100, 8400 ]
+					, label: [ "iphone", "samsung", "huawei", "mi", "meizu" ]
+					, format: '{0}台 占{1}%'
+				}, {
+					name: 'Computer',
+					data: [19170, 32060, 13600, 7000, 14800, 21800 ]
+					, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", "ThinkPad" ]
+					, format: '{0}台 约占{1}%'
+				}],
+				credits: {
+					enabled: true
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				}
+			});
+			
 		}
-		
 	}
 }

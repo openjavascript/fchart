@@ -28,7 +28,7 @@ package
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
 	//[SWF(frameRate="30", width="1400", height="460")]
-	[SWF(frameRate="30", width="800", height="360")]
+	[SWF(frameRate="30", width="1200", height="600")]
 	public class ZHistogram extends Sprite 
 	{ 
 		private var _inited: Boolean = false;
@@ -49,8 +49,6 @@ package
 			
 			BaseConfig.setIns( new Config() );
 			 
-			//update( {} );	
-			  
 			addEventListener( JChartEvent.PROCESS, process );
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
 			addEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );	
@@ -75,7 +73,6 @@ package
 			if( ExternalInterface.available ){
 				ExternalInterface.addCallback( 'update', extenalUpdate );
 			}
-			//BaseConfig.ins.setChartData( {}); 
 		}
 		
 		private function extenalUpdate( _data:Object ):void{
@@ -100,7 +97,6 @@ package
 		}
 		
 		private function process( _evt:JChartEvent ):void{
-			//Log.printJSON( _evt.data );
 			var _data:Object = _evt.data as Object;
 			BaseConfig.ins.setRoot( _ins.root );
 			if( _data ){
@@ -142,7 +138,6 @@ package
 			
 			if( !BaseConfig.ins.chartData ) return;
 			dispatchEvent( new JChartEvent( JChartEvent.PROCESS, BaseConfig.ins.chartData ) );
-			//_facade.sendNotification( JChartEvent.CLEAR );
 		}
 		
 		private function onRemovedFromStage( _evt:Event ):void{
@@ -157,8 +152,8 @@ package
 			
 			var _data:Object = {};
 			
-			if( !ExternalInterface.available ){		
-				_data = DefaultData.instance.data[0];
+			if( !ExternalInterface.available ){
+				_data = DefaultData.instance.data[41];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
