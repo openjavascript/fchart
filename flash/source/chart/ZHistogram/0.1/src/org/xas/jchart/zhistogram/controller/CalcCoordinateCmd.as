@@ -165,13 +165,15 @@ package org.xas.jchart.zhistogram.controller
 			if( !( _config.series && _config.series.length ) ) return;
 			
 			_config.c.partSpace = 0; 
-			_config.c.partWidth =  _config.c.itemWidth / _config.displaySeries.length;
+			_config.c.partWidth =  _config.c.itemWidth;
 			
 			if( _config.displaySeries.length > 1 ){				
 				_config.c.partSpace = 4; 
+				/*
 				_config.c.partWidth = ( _config.c.itemWidth - 
 					( _config.displaySeries.length - 1 ) * _config.c.partSpace )
 					/ _config.displaySeries.length;
+				*/
 			}
 			
 			var _partWidth:Number = _config.c.partWidth;

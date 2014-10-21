@@ -60,6 +60,10 @@ package org.xas.jchart.common.view.components.TipsView
 				, _fmt:String = _orgData.format ? _orgData.format : _config.tooltipPointFormat;
 				
 				_orgData.label && ( _name = _orgData.label[ _sk ] );
+				BaseConfig.ins.categories 
+					&& BaseConfig.ins.categories[ _sk ] 
+					&& ( _name = BaseConfig.ins.categories[ _sk ] );
+				
 				
 				_d.items.push( {
 					'name': _name.replace( /[\r\n]+/g, '' )

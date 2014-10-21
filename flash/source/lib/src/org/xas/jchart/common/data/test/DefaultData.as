@@ -21,6 +21,127 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
+			
+			_data.push(             {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: false
+				}
+			});
+
+		
+			_data.push(             {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "A级客户", "B级客户", "C级客户", "D级客户" ]
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 20, 30, 40, 50 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 20, 35, 50 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 30, 20, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 12, 32, 13, 23 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 9, 12, 31, 23]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				}
+			});
+			
 			_data.push({
 				title: {
 					text:'Chart Title'
@@ -3074,8 +3195,8 @@ package org.xas.jchart.common.data.test
 					, format: '{0}台 占{1}%'
 				}, {
 					name: 'Computer',
-					data: [19170, 32060, 13600, 7000, 14800, 21800 ]
-					, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", "ThinkPad" ]
+					data: [19170, 32060, 13600, 7000, 14800, ]
+					, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", ]
 					, format: '{0}台 约占{1}%'
 				}],
 				credits: {
