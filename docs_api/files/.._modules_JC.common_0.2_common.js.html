@@ -214,6 +214,7 @@
         , &quot;arrayId&quot;: arrayId
         , &quot;docSize&quot;: docSize
         , &quot;winSize&quot;: winSize
+        , &quot;gid&quot;: gid
 
         /**
          * 判断 JC.common 是否需要向后兼容, 如果需要的话, 向 window 添加全局静态函数
@@ -311,6 +312,17 @@
         
         return _r;
     }
+    /**
+     * 生成全局唯一ID
+     * @method  gid
+     * @return string
+     * @static
+     */
+    function gid(){
+        return &#x27;jc_gid_&#x27; + JC.f.ts() + &#x27;_&#x27; + (JC.GID_COUNT++);
+    }
+    JC.GID_COUNT = 1;
+
     /**
      * 把函数的参数转为数组
      * @method  sliceArgs
@@ -1173,7 +1185,7 @@
      *      &lt;dt&gt;可识别的组件&lt;/dt&gt;
      *      &lt;dd&gt;
      *          JC.AutoSelect, JC.AutoChecked, JC.AjaxUpload, JC.Calendar
-     *          , JC.Drag, JC.DCalendar, JC.Placeholder, JC.TableFreeze, JC.ImageCutter
+     *          , JC.Drag, JC.DCalendar, JC.Placeholder, JC.TableFreeze, JC.ImageCutter, JC.Tab
      *          &lt;br /&gt;Bizs.DisableLogic, Bizs.FormLogic, Bizs.MoneyTips, Bizs.AutoSelectComplete
      *      &lt;/dd&gt;
      * &lt;/d&gt;
@@ -1221,6 +1233,8 @@
          * 图片裁切
          */
         JC.ImageCutter &amp;&amp; JC.ImageCutter.init( _selector );
+
+        JC.Tab &amp;&amp; JC.Tab.init &amp;&amp; JC.Tab.init( _selector );
 
         if( !window.Bizs ) return;
         /**
