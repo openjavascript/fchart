@@ -153,7 +153,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){
-				_data = DefaultData.instance.data[41];
+				_data = DefaultData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

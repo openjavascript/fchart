@@ -43,5 +43,48 @@ package
 			return _max;
 		}
 		
+		override public function updateDisplaySeries( _filter:Object = null, _data:Object = null ):BaseConfig{
+			_data = _data || chartData;
+			if( !( _data && _data.series && _data.series.length ) ) return this;
+			_displaySeries = JSON.parse( JSON.stringify( _data.series ) ) as Array;
+			_displaySeriesIndexMap = null;
+			if( _filter ){
+				var _tmp:Array = [], _count:int = 0;
+				_displaySeriesIndexMap = {};
+				Common.each( _displaySeries, function( _k:int, _item:Object ):void{
+					var _tmpData:Array = [];
+					Common.each( _item.data, function( _sk:int, _sitem:Number ):void{
+						if( !(_sk in _filter) ){
+							_tmpData.push( _sitem );	
+							_displaySeriesIndexMap[ _count++ ] = _sk;
+						}
+					});
+					_item.data = _tmpData;
+					/*
+					if( !(_k in _filter) ){
+						_tmp.push( _item );	
+					}
+					*/
+				});
+				//_displaySeries = _tmp;
+			}
+			_filterData = _filter || {};
+			
+			return this;
+		}
+				
+		override public function itemColor( _ix:uint, _fixColorIndex:Boolean = true ):uint{
+			var _r:uint = 0, _colors:Array = colors;
+			
+			if( _fixColorIndex && displaySeriesIndexMap && ( _ix in displaySeriesIndexMap ) ){
+				//Log.log( 'find', _ix, filterData[ _ix ] );
+				//_ix = _filterData[ _ix ];
+				_ix = displaySeriesIndexMap[ _ix ];
+			}
+			
+			_r = _colors[ _ix % ( _colors.length ) ];			
+			return _r;
+		}
+		
 	}
 }

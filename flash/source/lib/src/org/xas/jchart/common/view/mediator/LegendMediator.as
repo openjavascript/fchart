@@ -10,6 +10,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.*;
 	import org.xas.jchart.common.view.components.LegendView.BaseLegendView;
 	import org.xas.jchart.common.view.components.LegendView.MapLegendView;
+	import org.xas.jchart.common.view.components.LegendView.ZHistogramLegendView;
 	
 	public class LegendMediator extends Mediator implements IMediator
 	{
@@ -29,6 +30,11 @@ package org.xas.jchart.common.view.mediator
 				case 'MapFacade':
 				{
 					mainMediator.view.index7.addChild( _view = new MapLegendView() );
+					break;
+				}
+				case 'ZHistogramFacade':
+				{
+					mainMediator.view.index7.addChild( _view = new ZHistogramLegendView() );
 					break;
 				}
 				default:{

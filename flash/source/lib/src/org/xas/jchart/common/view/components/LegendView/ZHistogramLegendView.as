@@ -15,24 +15,15 @@ package org.xas.jchart.common.view.components.LegendView
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.LegendItemUI;
-	
-	public class BaseLegendView extends Sprite
+
+	public class ZHistogramLegendView extends BaseLegendView
 	{
-		protected var _items:Vector.<LegendItemUI>;
-		
-		public function BaseLegendView()
+		public function ZHistogramLegendView()
 		{
 			super();
-			addEventListener( Event.ADDED_TO_STAGE, addToStage );
-			addEventListener( JChartEvent.SHOW_LEGEND_ARROW, updateLegendArrow );
-			addEventListener( JChartEvent.HIDE_LEGEND_ARROW, hideLegendArrow );
 		}
 		
-		protected function addToStage( _evt:Event ):void{
-			showChart();
-		}
-		
-		protected function showChart( ):void{
+		override protected function showChart( ):void{
 			this.graphics.clear();
 			
 			if( !( BaseConfig.ins.chartData && BaseConfig.ins.chartData.series && BaseConfig.ins.chartData.series.length ) ) return;
@@ -40,7 +31,7 @@ package org.xas.jchart.common.view.components.LegendView
 			
 			_items = new Vector.<LegendItemUI>();
 			
-			Common.each( BaseConfig.ins.series, function( _k:int, _item:Object ):void{
+			Common.each( BaseConfig.ins.categories, function( _k:int, _item:String ):void{
 				
 				var _styles:Object = {};
 				_styles = Common.extendObject( 
@@ -55,7 +46,7 @@ package org.xas.jchart.common.view.components.LegendView
 					, BaseConfig.ins.legendItemStyle
 				);
 				
-				addChild( _tmp = new LegendItemUI( _item, _styles ) );
+				addChild( _tmp = new LegendItemUI( { name: _item }, _styles ) );
 				_tmp.addEventListener( JChartEvent.UPDATE_STATUS, onUpdateStatus );
 				_tmp.x = _x;
 				_items.push( _tmp );
@@ -68,7 +59,7 @@ package org.xas.jchart.common.view.components.LegendView
 			});
 		}
 		
-		protected function onUpdateStatus( _evt:JChartEvent ):void{
+		override protected function onUpdateStatus( _evt:JChartEvent ):void{
 			var _selected:Boolean = _evt.data as Boolean
 				, _filterObject:Object = {}
 				;
@@ -80,14 +71,5 @@ package org.xas.jchart.common.view.components.LegendView
 			
 			dispatchEvent( new JChartEvent( JChartEvent.FILTER_DATA, _filterObject ) );
 		}
-		
-		protected function updateLegendArrow( _evt:JChartEvent ):void{
-			
-		}
-		
-		protected function hideLegendArrow( _evt:JChartEvent ):void{
-			
-		}
-
 	}
 }
