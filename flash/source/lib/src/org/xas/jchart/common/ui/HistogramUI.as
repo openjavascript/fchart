@@ -61,7 +61,7 @@ package org.xas.jchart.common.ui
 			graphics.drawRect( 0, 0, _w, _h );
 		}
 		
-		private function animationDraw():void{			
+		protected function animationDraw():void{
 			var _ins:HistogramUI = this;
 			
 			_ins.count = 0;

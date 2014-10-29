@@ -100,7 +100,7 @@ package org.xas.jchart.zhistogram.controller
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					//facade.registerMediator( new SerialLabelMediator() );
 					_config.c.minY += _config.c.serialLabelPadY;
 					_yPad += _config.c.serialLabelPadY;
 				}

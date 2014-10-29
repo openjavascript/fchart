@@ -16,7 +16,7 @@ package org.xas.jchart.zhistogram.view.components
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.ui.HistogramUI;
+	import org.xas.jchart.common.ui.ZHistogramUI;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
 	public class GraphicView extends Sprite
@@ -47,6 +47,9 @@ package org.xas.jchart.zhistogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
@@ -60,10 +63,16 @@ package org.xas.jchart.zhistogram.view.components
 						}
 					}
 					
-					var _item:HistogramUI = new HistogramUI(
+					var _item:ZHistogramUI = new ZHistogramUI(
 						_sitem.x, _sitem.y
 						, _sitem.width, _sitem.height
 						, _color 
+						, {
+							animationEnabled: BaseConfig.ins.animationEnabled
+							, isNegative: _sitem.isNegative
+							, duration: BaseConfig.ins.animationDuration
+							, delay: _delay
+						}
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );

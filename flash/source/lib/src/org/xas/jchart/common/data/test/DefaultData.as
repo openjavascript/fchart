@@ -3191,12 +3191,12 @@ package org.xas.jchart.common.data.test
 				series:[{
 					name: 'Phone'
 					, data: [ 27000, 23600, 16200, 14100, 8400 ]
-					, label: [ "iphone", "samsung", "huawei", "mi", "meizu" ]
+					//, label: [ "iphone", "samsung", "huawei", "mi", "meizu" ]
 					, format: '{0}台 占{1}%'
 				}, {
 					name: 'Computer',
 					data: [19170, 32060, 13600, 7000, 14800, ]
-					, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", ]
+					//, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", ]
 					, format: '{0}台 约占{1}%'
 				}],
 				credits: {
