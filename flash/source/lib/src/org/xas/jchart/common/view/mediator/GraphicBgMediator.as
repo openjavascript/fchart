@@ -12,6 +12,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.GraphicBgView.VHistogramGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.PieGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.TrendGraphicBgView;
+	import org.xas.jchart.common.view.components.GraphicBgView.ZHistogramGraphicBgView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class GraphicBgMediator extends Mediator implements IMediator
@@ -37,7 +38,10 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index5.addChild( _view = new CurveGramGraphicBgView() );
 					break;
 				}
-				case 'ZHistogramFacade':
+				case 'ZHistogramFacade':{
+					mainMediator.view.index5.addChild( _view = new ZHistogramGraphicBgView() );
+					break;
+				}
 				case 'HistogramFacade':{
 					mainMediator.view.index5.addChild( _view = new HistogramGraphicBgView() );
 					break;
