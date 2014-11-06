@@ -19,9 +19,17 @@ package org.xas.jchart.common.view.components.LegendView
 	public class BaseLegendView extends Sprite
 	{
 		protected var _items:Vector.<LegendItemUI>;
+		protected var _interval:Number;
+		protected var _dir:Number;
+		protected var _isVertical:Boolean;
+		protected var _data:Array;
 		
 		public function BaseLegendView()
 		{
+			this._interval = BaseConfig.ins.legendInterval;
+			this._dir = BaseConfig.ins.legendDir;
+			this._isVertical = Boolean( Math.floor( this._dir / 3 ) & 1 );
+			
 			super();
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			addEventListener( JChartEvent.SHOW_LEGEND_ARROW, updateLegendArrow );
@@ -29,18 +37,19 @@ package org.xas.jchart.common.view.components.LegendView
 		}
 		
 		protected function addToStage( _evt:Event ):void{
+			
+			if( !( BaseConfig.ins.chartData && BaseConfig.ins.series && BaseConfig.ins.series.length ) ) return;
+			this._data = BaseConfig.ins.series;
 			showChart();
 		}
 		
 		protected function showChart( ):void{
 			this.graphics.clear();
-			
-			if( !( BaseConfig.ins.chartData && BaseConfig.ins.chartData.series && BaseConfig.ins.chartData.series.length ) ) return;
+
 			var _x:int = 0, _tmp:LegendItemUI;
-			
 			_items = new Vector.<LegendItemUI>();
-			
-			Common.each( BaseConfig.ins.series, function( _k:int, _item:Object ):void{
+
+			Common.each( _data, function( _k:int, _item:Object ):void{
 				
 				var _styles:Object = {};
 				_styles = Common.extendObject( 
@@ -50,31 +59,43 @@ package org.xas.jchart.common.view.components.LegendView
 				
 				_styles.color = BaseConfig.ins.itemColor( _k, false );
 				
-				_styles = Common.extendObject( 
-					_styles
-					, BaseConfig.ins.legendItemStyle
-				);
+				_styles = Common.extendObject( _styles, BaseConfig.ins.legendItemStyle );
 				
-				addChild( _tmp = new LegendItemUI( _item, _styles ) );
+				addChild( _tmp = new LegendItemUI( 'name' in _item ? _item : { name : _item }, _styles ) );
 				_tmp.addEventListener( JChartEvent.UPDATE_STATUS, onUpdateStatus );
-				_tmp.x = _x;
-				_items.push( _tmp );
+				
+				if( _isVertical ) { /* 纵向 */
+					_x = putVerticalLegend( _tmp, _x );
+				} else { /* 横向 */
+					_x = putTransverseLegend( _tmp, _x );
+				}
 				
 				if( _k in BaseConfig.ins.filterData ){
 					_tmp.toggle();
 				} 
-				
-				_x = _x + 2 + _tmp.width;
+
 			});
+			
+		}
+		
+		protected function putVerticalLegend( _legend:LegendItemUI, _point:Number ):Number{
+			_legend.y = _point;
+			_items.push( _legend );
+			return _point + _interval + _legend.height;
+		}
+		
+		protected function putTransverseLegend( _legend:LegendItemUI, _point:Number ):Number{
+			_legend.x = _point;
+			_items.push( _legend );
+			return _point + _interval + _legend.width
 		}
 		
 		protected function onUpdateStatus( _evt:JChartEvent ):void{
 			var _selected:Boolean = _evt.data as Boolean
 				, _filterObject:Object = {}
 				;
-			//Log.log( 'onUpdateStatus', _selected );
+			
 			Common.each( _items, function( _k:int, _item:LegendItemUI ):void{
-				//Log.log( 'selected', _item.selected );
 				_item.selected && ( _filterObject[ _k ] = _k );
 			});
 			

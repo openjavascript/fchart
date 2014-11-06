@@ -51,6 +51,9 @@ package org.xas.jchart.curvegram.view.components
 			graphics.clear();
 			_boxs = new Vector.<CurveGramUI>;
 			
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			
 			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
 				
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
@@ -84,13 +87,18 @@ package org.xas.jchart.curvegram.view.components
 					;
 				
 				addChild( 
-					_gitem = new CurveGramUI( 
+					_gitem = new CurveGramUI(
 						_cmd
 						, _path
 						, _config.itemColor( _k )
 						, _vectorPath 
 						, _config.lineDashStyle( _item.data )
-					) 
+						, {
+							animationEnabled: BaseConfig.ins.animationEnabled
+							, duration: BaseConfig.ins.animationDuration
+							, delay: _delay
+						}
+					)
 				);
 				_boxs.push( _gitem );
 			});

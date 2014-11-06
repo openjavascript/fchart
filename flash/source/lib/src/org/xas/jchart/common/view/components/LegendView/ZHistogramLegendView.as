@@ -23,49 +23,21 @@ package org.xas.jchart.common.view.components.LegendView
 			super();
 		}
 		
-		override protected function showChart( ):void{
-			this.graphics.clear();
+		override protected function addToStage( _evt:Event ):void{
 			
-			if( !( BaseConfig.ins.chartData && BaseConfig.ins.chartData.series && BaseConfig.ins.chartData.series.length ) ) return;
-			var _x:int = 0, _tmp:LegendItemUI;
+			if( !( BaseConfig.ins.chartData && BaseConfig.ins.categories 
+				&& BaseConfig.ins.categories.length ) ) return;
 			
-			_items = new Vector.<LegendItemUI>();
-			
-			Common.each( BaseConfig.ins.categories, function( _k:int, _item:String ):void{
-				
-				var _styles:Object = {};
-				_styles = Common.extendObject( 
-					DefaultOptions.title.style
-					, DefaultOptions.legend.itemStyle
-				);
-				
-				_styles.color = BaseConfig.ins.itemColor( _k, false );
-				
-				_styles = Common.extendObject( 
-					_styles
-					, BaseConfig.ins.legendItemStyle
-				);
-				
-				addChild( _tmp = new LegendItemUI( { name: _item }, _styles ) );
-				_tmp.addEventListener( JChartEvent.UPDATE_STATUS, onUpdateStatus );
-				_tmp.x = _x;
-				_items.push( _tmp );
-				
-				if( _k in BaseConfig.ins.filterData ){
-					_tmp.toggle();
-				} 
-				
-				_x = _x + 2 + _tmp.width;
-			});
+			this._data = BaseConfig.ins.categories;
+			showChart();
 		}
 		
 		override protected function onUpdateStatus( _evt:JChartEvent ):void{
 			var _selected:Boolean = _evt.data as Boolean
 				, _filterObject:Object = {}
 				;
-			//Log.log( 'onUpdateStatus', _selected );
+
 			Common.each( _items, function( _k:int, _item:LegendItemUI ):void{
-				//Log.log( 'selected', _item.selected );
 				_item.selected && ( _filterObject[ _k ] = _k );
 			});
 			

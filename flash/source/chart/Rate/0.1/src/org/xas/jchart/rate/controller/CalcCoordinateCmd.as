@@ -37,9 +37,6 @@ package org.xas.jchart.rate.controller
 						
 			facade.registerMediator( new BgMediator( ) )		
 			
-			//Log.log( BaseConfig.ins.rate.length );
-			//Log.log( BaseConfig.ins.maxNum, BaseConfig.ins.finalMaxNum, BaseConfig.ins.chartMaxNum, 11111 );
-			
 			if( BaseConfig.ins.cd ){			
 				
 				if( BaseConfig.ins.titleEnable && BaseConfig.ins.cd.title && BaseConfig.ins.cd.title.text ){

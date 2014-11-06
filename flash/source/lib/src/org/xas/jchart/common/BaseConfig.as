@@ -11,6 +11,7 @@ package org.xas.jchart.common
 
 	public class BaseConfig
 	{
+		
 		/* trend */
 		protected var _hlabelNum:Number = 5;
 		public function get hlabelNum():Number{ return _hlabelNum; }
@@ -282,7 +283,7 @@ package org.xas.jchart.common
 		}
 		
 		public function get legendEnabled():Boolean{
-			var _r:Boolean = true;
+			var _r:Boolean = false;
 			
 			if( cd && cd.legend && ( 'enabled' in cd.legend ) ){
 				_r = StringUtils.parseBool( cd.legend.enabled );
@@ -1188,8 +1189,56 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		public function BaseConfig()
-		{
+		/* legend start */
+		
+		public function get legendInterval():Number {
+			var _interval:Number= 2;
+			if( legendEnabled && ( 'interval' in cd.legend ) ){
+				_interval = cd.legend.interval;
+			}
+			return _interval;
+		}
+		
+		public function get legendDir():Number {
+			var _interval:Number= 7;
+			var _intervalDesc:String;
+			if( legendEnabled && ( 'direction' in cd.legend ) ){
+				_interval = cd.legend.direction;
+				
+				if( isNaN( _interval ) ){
+					_intervalDesc = cd.legend.direction;
+					
+					switch( _intervalDesc ){
+						case 'TOP_LEFT' : { _interval = 0;break; }
+						case 'TOP_CENTER' : { _interval = 1;break; }
+						case 'TOP_RIGHT' : { _interval = 2;break; }
+							
+						case 'RIGHT_TOP' : { _interval = 3;break; }
+						case 'RIGHT_MIDDLE' : { _interval = 4;break; }
+						case 'RIGHT_BOTTOM' : { _interval = 5;break; }
+							
+						case 'BOTTOM_LEFT' : { _interval = 6;break; }
+						case 'BOTTOM_CENTER' : { _interval = 7;break; }
+						case 'BOTTOM_RIGHT' : { _interval = 8;break; }
+							
+						case 'LEFT_TOP' : { _interval = 9;break; }
+						case 'LEFT_MIDDLE' : { _interval = 10;break; }
+						case 'LEFT_BOTTOM' : { _interval = 11;break; }
+						
+						default : { _interval = 7;break; }
+					}
+				} else {
+					if( _interval < 0 || _interval > 11 ){
+						_interval = 7;
+					}
+				}
+			}
+			return _interval;
+		}
+		
+		/* legend end */
+		
+		public function BaseConfig() {
 		}
 		
 	}

@@ -43,9 +43,8 @@ package org.xas.jchart.common.ui
 			_ins.y = _y;
 			
 			TweenLite.delayedCall( _delay, function():void{
-				
 				if( data.isNegative ){
-					_ins.x = _x;				
+					_ins.x = _x;
 					TweenLite.to( _ins, _duration, { count: _w, ease:Circ.easeInOut
 						, onUpdate: 
 						function():void{

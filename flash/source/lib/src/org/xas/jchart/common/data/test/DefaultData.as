@@ -73,6 +73,8 @@ package org.xas.jchart.common.data.test
 				displayAllLabel: true,
 				legend: {
 					enabled: true
+					, interval: 20
+					, direction: 'TOP_CENTER'
 				},
 				animation: {
 					enabled: true
@@ -183,6 +185,7 @@ package org.xas.jchart.common.data.test
 				displayAllLabel: true,
 				legend: {
 					enabled: true
+					, direction: 1
 				},
 				animation: {
 					enabled: true
@@ -385,7 +388,12 @@ package org.xas.jchart.common.data.test
 				},
 				displayAllLabel: true,
 				legend: {
-					enabled: false
+					enabled: true
+					, direction: 3
+				},
+				animation: {
+					enabled: true
+					, duration: .75
 				},
 				plotOptions: {
 					area: {
@@ -3176,7 +3184,7 @@ package org.xas.jchart.common.data.test
 					text: 'sub title'
 				}, 
 				xAxis: {
-					categories: [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12' ]
+					categories: [ '1', '2', '3', '4', '5' ]
 				}, 
 				yAxis: {
 					title: {

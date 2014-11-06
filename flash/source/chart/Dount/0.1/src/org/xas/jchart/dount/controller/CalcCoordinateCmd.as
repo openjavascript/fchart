@@ -14,6 +14,7 @@ package org.xas.jchart.dount.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.dount.view.mediator.*;
+	import org.xas.jchart.common.proxy.LegendProxy;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -53,7 +54,15 @@ package org.xas.jchart.dount.controller
 					
 					BaseConfig.ins.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
 					BaseConfig.ins.c.minY += pSubtitleMediator.view.height + 5;
-				}				
+				}
+				
+				if( BaseConfig.ins.legendEnabled ){
+					
+					facade.registerProxy( new LegendProxy() );
+					facade.registerMediator( new LegendMediator() );
+					
+					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
+				}
 				
 				if( BaseConfig.ins.cd.yAxis && BaseConfig.ins.cd.yAxis.title && BaseConfig.ins.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( BaseConfig.ins.cd.yAxis.title.text ) )
@@ -68,16 +77,6 @@ package org.xas.jchart.dount.controller
 					BaseConfig.ins.c.credits = { x: BaseConfig.ins.c.maxX, y: BaseConfig.ins.c.maxY, item: pCreditMediator };
 					BaseConfig.ins.c.maxY -= pCreditMediator.view.height;
 				}	
-				
-				if( BaseConfig.ins.legendEnabled ){
-					facade.registerMediator( new LegendMediator() );
-					BaseConfig.ins.c.maxY -= pLegendMediator.view.height;
-					BaseConfig.ins.c.legend = { 
-						x: BaseConfig.ins.width / 2 - pLegendMediator.view.width / 2
-						, y: BaseConfig.ins.c.maxY
-					};
-					BaseConfig.ins.c.maxY -= 2;
-				}
 				
 				BaseConfig.ins.c.maxX -= 5;
 				
@@ -266,9 +265,12 @@ package org.xas.jchart.dount.controller
 			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
 		}
 		
-		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
+		}
+		
+		private function get pLegendProxy():LegendProxy{
+			return facade.retrieveProxy( LegendProxy.name ) as LegendProxy;
 		}
 		
 		private function corner():uint{

@@ -14,6 +14,7 @@ package org.xas.jchart.ndount.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.ndount.view.mediator.*;
+	import org.xas.jchart.common.proxy.LegendProxy;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -39,9 +40,6 @@ package org.xas.jchart.ndount.controller
 						
 			facade.registerMediator( new BgMediator( ) )		
 			
-			//Log.log( _config.rate.length );
-			//Log.log( _config.maxNum, _config.finalMaxNum, _config.chartMaxNum, 11111 );
-			
 			if( _config.cd ){			
 				
 				if( _config.cd.title && _config.cd.title.text ){
@@ -55,7 +53,15 @@ package org.xas.jchart.ndount.controller
 					
 					_config.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height + 5;
-				}				
+				}
+				
+				if( _config.legendEnabled ){
+					
+					facade.registerProxy( new LegendProxy() );
+					facade.registerMediator( new LegendMediator() );
+					
+					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
+				}
 				
 				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
@@ -70,16 +76,6 @@ package org.xas.jchart.ndount.controller
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
 				}	
-				
-				if( _config.legendEnabled ){
-					facade.registerMediator( new LegendMediator() );
-					_config.c.maxY -= pLegendMediator.view.height;
-					_config.c.legend = { 
-						x: _config.width / 2 - pLegendMediator.view.width / 2
-						, y: _config.c.maxY
-					};
-					_config.c.maxY -= 2;
-				}
 				
 				_config.c.maxX -= 5;
 				
@@ -274,9 +270,12 @@ package org.xas.jchart.ndount.controller
 			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
 		}
 		
-		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
+		}
+		
+		private function get pLegendProxy():LegendProxy{
+			return facade.retrieveProxy( LegendProxy.name ) as LegendProxy;
 		}
 		
 		private function corner():uint{

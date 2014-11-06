@@ -155,6 +155,7 @@ package
 			if( !ExternalInterface.available ){
 				_data = DefaultData.instance.data[43];
 			}else{
+				Log.log(this.root.stage.loaderInfo);
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
 				if( _loaderInfo.chart ){
