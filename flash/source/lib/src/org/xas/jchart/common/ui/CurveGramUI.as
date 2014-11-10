@@ -99,7 +99,7 @@ package org.xas.jchart.common.ui
 			var tmpPoint:Point;
 			var _totalLength:Number = _data.totalLineLength( _vectorPath );
 			_maskLine.count = 0;
-			TweenLite.to( _maskLine, 1.6, { count: _totalLength
+			TweenLite.to( _maskLine, 1.4, { count: _totalLength
 				, onUpdate: function():void{
 					_pathPoint = _data.calPosition( _vectorPath, _maskLine.count );
 					for( var _i:Number = _drawPointLen - 1; _i < _pathPoint.length; _i++ ){
