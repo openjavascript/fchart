@@ -2,12 +2,23 @@ package org.xas.jchart.common.ui
 {
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Circ;
+	import com.greensock.easing.Linear;
 	
+	import flash.display.Graphics;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.net.registerClassAlias;
 	
+	import mx.skins.halo.PopUpMenuIcon;
+	
+	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.proxy.LineProxy;
+	import org.xas.jchart.common.proxy.data.line.BaseLineData;
 	import org.xas.jchart.common.ui.icon.*;
 	import org.xas.jchart.common.ui.widget.JLine;
 	import org.xas.jchart.common.ui.widget.JSprite;
@@ -29,6 +40,8 @@ package org.xas.jchart.common.ui
 		private var _delay:Number = 0;
 		public var tint:Number = 0;
 		
+		private var _config:Config;
+		
 		public function CurveGramUI( 
 			_cmd:Vector.<int>
 			, _path:Vector.<Number>
@@ -47,6 +60,8 @@ package org.xas.jchart.common.ui
 			this._lineType = _lineType;
 			this._thickness = 2;
 			
+			this._config = BaseConfig.ins as Config;
+			
 			_data = _data || {};
 			
 			( 'duration' in _data ) &&  ( _duration =  _data.duration );　 
@@ -61,8 +76,7 @@ package org.xas.jchart.common.ui
 		
 		private function init():void{
 			
-			graphics.lineStyle( 2, _color );
-			data.animationEnabled = false;
+			data.animationEnabled = true;
 			
 			if( data.animationEnabled && _vectorPath && _vectorPath.length > 1 ){
 				animationDraw();
@@ -72,44 +86,67 @@ package org.xas.jchart.common.ui
 		}
 		
 		private function animationDraw():void{
-			var _ins:CurveGramUI = this;
-			//_ins.tint = 0;
-			//_ins.x = _x;
-			_jline = new JLine( _vectorPath, _lineType, { thickness: 2, lineColor: 0x0000ff } );
-			addChild( _jline );
-//			Log.log(_vectorPath);
-//			Log.log('---------------------');
-			if( _vectorPath ) {
-				Log.log(_color);
-				tint = _color;
-				TweenLite.delayedCall( _delay, function():void{
-					TweenLite.to( _ins, _duration, { tint: _color, ease: Circ.easeInOut });
-				});
+			
+			var _maskLine:JLine = new JLine( null, null, {} );
+			var _g:Graphics = _maskLine.graphics;
+			_g.moveTo( _vectorPath[0].x, _vectorPath[0].y );
+			_g.lineStyle( 2,_color );
+			addChild( _maskLine );
 				
-//				TweenLite.delayedCall( _delay, function():void{
-//					var _linePath:Vector.<Point> = new Vector.<Point>;
-//					_linePath[0] = _vectorPath[0];
-//					for(var i:Number = 1; i < _vectorPath.length; i++){
-//						_linePath[1] = _vectorPath[i];
-//						Log.log(_linePath);
-//						TweenLite.to( _ins, _duration, { count: 2, ease: Circ.easeInOut
-//							, onUpdate: function():void{
-//								_jline = new JLine( _linePath, _lineType, { thickness: 1, lineColor: _color } );
-//								addChild( _jline );
-//							}
-//						});
-//						_linePath.shift();
-//					};
-//					
-//				});
-			} else {
-				graphics.drawPath( _cmd, _path );
-			}
+			var _data:BaseLineData = new BaseLineData();
+			var _drawPointLen:Number = 1;
+			var _pathPoint :Vector.<Point> = new Vector.<Point>;
+			var tmpPoint:Point;
+			var _totalLength:Number = _data.totalLineLength( _vectorPath );
+			_maskLine.count = 0;
+			TweenLite.to( _maskLine, 1.6, { count: _totalLength
+				, onUpdate: function():void{
+					_pathPoint = _data.calPosition( _vectorPath, _maskLine.count );
+					for( var _i:Number = _drawPointLen - 1; _i < _pathPoint.length; _i++ ){
+						tmpPoint = _pathPoint[ _i ];
+						_g.lineTo( tmpPoint.x, tmpPoint.y );
+					}
+					_drawPointLen = _pathPoint.length;
+					if( _maskLine.count == _totalLength ){
+						staticDraw();
+						_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
+					}
+				}
+			});
 			
 		}
 		
-		private function staticDraw():void{
+		private function drawLine( _maskLine:JLine, _pos:Number, _g:Graphics ,_durTime:Number, _t:Number ):void{
+			if( _pos + 1 >= _vectorPath.length ){
+				staticDraw();
+				_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
+				return;
+			}
 			
+			_maskLine.count = 0;
+			var _basePoint:Point = _vectorPath[ _pos ];
+			var _endPoint:Point = _vectorPath[ ++_pos ];
+			_g.moveTo( _basePoint.x, _basePoint.y );
+			var _total:Number = GeoUtils.pointLength( _basePoint.x, _basePoint.y, _endPoint.x, _endPoint.y );
+			var _targetPoint:Point;
+			
+			TweenLite.to( _maskLine, _total / _t, { count: _total, ease:Linear.easeNone
+				, onUpdate: function():void{
+					
+					_targetPoint = GeoUtils.moveByAngle( 
+						GeoUtils.pointAngle( _basePoint, _endPoint ), _basePoint, _maskLine.count );
+					
+					_g.lineTo( _targetPoint.x, _targetPoint.y );
+
+					if( _maskLine.count >= _total ){
+						drawLine( _maskLine, _pos, _g, _durTime, _t );
+					}
+				}
+			});
+		}
+		
+		private function staticDraw():void{
+			graphics.lineStyle( 2, _color );
 			if( _vectorPath ){
 				_jline = new JLine( _vectorPath, _lineType, { thickness: 2, lineColor: _color } );
 				addChild( _jline );

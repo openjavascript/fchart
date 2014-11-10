@@ -111,7 +111,8 @@ package org.xas.jchart.curvegram.view.components
 			
 			if( _preIndex >= 0 ){
 				Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-					_boxs[ _k ].items[ _preIndex ].unhover();
+					_boxs[ _k ] && _boxs[ _k ].items 
+						&& _boxs[ _k ].items[ _preIndex ].unhover();
 				});
 			}
 			_preIndex = -1;
@@ -122,17 +123,25 @@ package org.xas.jchart.curvegram.view.components
 			
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
 				, _ix:int = _evt.data.index as int
-				;	
-			if( !( _boxs && _boxs.length ) ) return;
+				;
+			
+			
+			if( !_boxs || _boxs.length == 0 ) return;
 			if( _preIndex == _ix ) return;
 			
 			if( _preIndex >= 0 ){
 				Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-					_preIndex >= 0 && _boxs[ _k ].items[ _preIndex ].unhover();
+					
+					( _k  < _boxs.length ) && _boxs[ _k ].items  
+						&& ( _preIndex < _boxs[ _k ].items.length ) && _boxs[ _k ].items[ _preIndex ].unhover();
+						
 				});
 			}
 			Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-				_ix >= 0 && _boxs[ _k ].items[ _ix ].hover();
+				
+				( _k  < _boxs.length ) && _boxs[ _k ].items
+					&& ( _ix < _boxs[ _k ].items.length ) && _boxs[ _k ].items[ _ix ].hover();
+				
 			});
 			
 			_preIndex = _ix;

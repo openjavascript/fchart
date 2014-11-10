@@ -37,6 +37,8 @@ package org.xas.jchart.common.ui.widget
 		private var _thickness:int = 2;
 		private var _lineColor:uint = 0x00ff00;
 		
+		public var count:Number;
+		
 		public function JLine( _path:Vector.<Point>, _type:String = 'Solid', _data:Object=null)
 		{
 			_ins = this;

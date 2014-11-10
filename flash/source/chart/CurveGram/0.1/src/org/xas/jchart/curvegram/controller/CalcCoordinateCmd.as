@@ -14,9 +14,9 @@ package org.xas.jchart.curvegram.controller
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.proxy.*;
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.curvegram.view.mediator.*;
-	import org.xas.jchart.common.proxy.LegendProxy;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -49,7 +49,7 @@ package org.xas.jchart.curvegram.controller
 						
 			facade.registerMediator( new BgMediator( ) )		
 			
-			if( _config.cd ){			
+			if( _config.cd ){
 				
 				if( _config.cd.title && _config.cd.title.text ){
 					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )	
@@ -168,7 +168,6 @@ package org.xas.jchart.curvegram.controller
 					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
 				}
 				
-				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
 									
 			sendNotification( JChartEvent.SHOW_CHART );			
@@ -380,6 +379,10 @@ package org.xas.jchart.curvegram.controller
 		
 		private function get pLegendProxy():LegendProxy{
 			return facade.retrieveProxy( LegendProxy.name ) as LegendProxy;
+		}
+		
+		private function get pLineProxy():LineProxy{
+			return facade.retrieveProxy( LineProxy.name ) as LineProxy;
 		}
 		
 		private function corner():uint{
