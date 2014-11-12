@@ -228,6 +228,7 @@ package org.xas.jchart.zhistogram.controller
 						_rectItem.width = _partWidth;
 						_rectItem.height = _h;
 						_rectItem.value = _sitem;
+						_rectItem.isNegative = Common.isNegative( _num );
 						
 						_baseY -= _h;
 						

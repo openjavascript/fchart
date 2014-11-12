@@ -47,15 +47,29 @@ package org.xas.jchart.zhistogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
-			var _delay:Number = 0;
-			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			var _delay:Number;
+			//BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
 			
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
+				addChild( _box );
+				_boxs.push( _box );
+				
+				var _totalHeight:Number = 0;
+				for( var _i:Number = 0; _i < _item.length; _i++ ){
+					_totalHeight += _item[ _i ].height;
+				}
+				
+				var _duration:Number;
+				var _color:uint;
+				
+				_delay = 0;
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
-							
-					var _color:uint = BaseConfig.ins.itemColor( _sk );
+					
+					_color = BaseConfig.ins.itemColor( _sk );
+					_duration = _sitem.height / _totalHeight / 2;
+					
 					if( _sitem.value == BaseConfig.ins.maxValue ){
 						
 						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
@@ -67,6 +81,7 @@ package org.xas.jchart.zhistogram.view.components
 						_sitem.x, _sitem.y
 						, _sitem.width, _sitem.height
 						, _color 
+						, _duration
 						, {
 							animationEnabled: BaseConfig.ins.animationEnabled
 							, isNegative: _sitem.isNegative
@@ -76,9 +91,9 @@ package org.xas.jchart.zhistogram.view.components
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );
+					
+					_delay += _duration;
 				});
-				addChild( _box );
-				_boxs.push( _box );
 			});
 		}
 		

@@ -2,12 +2,13 @@ package org.xas.jchart.common.ui
 {
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Circ;
+	import com.greensock.easing.Linear;
 	
 	import flash.display.Sprite;
 	
 	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.ui.widget.JSprite;
 	import org.xas.jchart.common.ui.HistogramUI;
+	import org.xas.jchart.common.ui.widget.JSprite;
 	
 	public class ZHistogramUI extends HistogramUI
 	{
@@ -16,22 +17,24 @@ package org.xas.jchart.common.ui
 		private var _maxY:Number;
 		private var _duration:Number = .75;
 		private var _delay:Number = 0;
+		private var _data:Object;
 		
 		public function ZHistogramUI( 
 			_x:Number, _y:Number
 			, _w:Number, _h:Number
 			, _color:uint
+			, _duration:Number
 			, _data:Object = null
-		)
-		{
+		) {
 			this._x = _x;
 			this._y = _y;
 			this._w = _w;
 			this._h = _h;
 			this._maxY = _y + _h;
 			this._color = _color;
+			this._duration = _duration;
 			
-			_data = _data || {};
+			this._data = _data || {};
 			
 			super( _x, _y, _w, _h, _color, _data);
 		}
@@ -40,27 +43,29 @@ package org.xas.jchart.common.ui
 			var _ins:ZHistogramUI = this;
 			
 			_ins.count = 0;
-			_ins.y = _y;
+			_ins.x = _x;
 			
-			TweenLite.delayedCall( _delay, function():void{
+			TweenLite.delayedCall( _data.delay, function():void{
+				
 				if( data.isNegative ){
-					_ins.x = _x;
-					TweenLite.to( _ins, _duration, { count: _w, ease:Circ.easeInOut
+					_ins.y = _y;
+					TweenLite.to( _ins, _duration, { count: _h, ease:Linear.easeNone
 						, onUpdate: 
 						function():void{
 							graphics.clear();
 							graphics.beginFill( _color, 1 );
-							graphics.drawRect( 0, 0, count, _h );
+							graphics.drawRect( 0, 0, _w, count );
 						}
 					} );
-				}else{
-					_ins.x = _x;
-					TweenLite.to( _ins, _duration, { count: _w, ease:Circ.easeInOut
+				} else {
+					_ins.y = _y;
+					TweenLite.to( _ins, _duration, { count: _h, ease:Linear.easeNone
 						, onUpdate: 
 						function():void{
 							graphics.clear();
 							graphics.beginFill( _color, 1 );
-							graphics.drawRect( 0, 0, count, _h );
+							graphics.drawRect( 0, 0, _w, count );
+							_ins.y = _maxY - count;
 						}
 					} );
 				}		

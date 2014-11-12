@@ -85,7 +85,6 @@ package org.xas.jchart.common.ui
 					TweenLite.to( _ins, _duration, { count: _h, ease:Circ.easeInOut
 						, onUpdate: 
 						function():void{
-							Log.log( count );
 							graphics.clear();
 							graphics.beginFill( _color, 1 );
 							graphics.drawRect( 0, 0, _w, count );
