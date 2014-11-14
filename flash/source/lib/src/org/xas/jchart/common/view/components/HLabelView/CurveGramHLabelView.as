@@ -1,5 +1,8 @@
 package org.xas.jchart.common.view.components.HLabelView
 {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
+	
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -42,9 +45,9 @@ package org.xas.jchart.common.view.components.HLabelView
 						if( _config.cd.xAxis.categories === 1 ){
 							
 						}else if( _k === 0 ){
-							_align = 'left';
+							//_align = 'left';
 						}else if( _k === _config.cd.xAxis.categories.length - 1 ){
-							_align = 'right';
+							//_align = 'right';
 						}
 					}
 					
@@ -59,7 +62,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					if( _config.c.labelWidth && _config.xAxisWordwrap ){
 						var _twidth:Number = _config.c.labelWidth;
 						if( _twidth < 14 ) _twidth = 14;
-						_titem.width = _twidth * 1.8;
+						_titem.width = _twidth * 1.5;
 						_titem.wordWrap = true;
 					}
 					
@@ -67,6 +70,9 @@ package org.xas.jchart.common.view.components.HLabelView
 						if( !( _k in _config.labelDisplayIndex ) ){
 							_titem.visible = false;
 						}
+					}
+					if( BaseConfig.ins.animationEnabled ){
+						_titem.visible = false;
 					}
 					
 					addChild( _titem );
@@ -91,25 +97,55 @@ package org.xas.jchart.common.view.components.HLabelView
 				}else{
 					vlineDisabledPosition( _k, _item );
 				}
+				var _y:Number = _item.end.y;
+				if( _config.vlineEnabled ){
+					_y += _config.c.arrowLength - 1;
+				}else{
+					_y += 2;
+				}
 				
-				_tf.y = _item.end.y + _config.c.arrowLength;
+				if( BaseConfig.ins.animationEnabled ){
+					
+					if( !_config.displayAllLabel ){
+						if( !( _k in _config.labelDisplayIndex ) ){
+							return;
+						}
+					}
+					_tf.visible = true;
+					
+					_tf.y = _y + 200;
+					TweenLite.delayedCall( 0, 
+						function():void{
+							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+								, { 
+									y: _y
+									, ease: Expo.easeOut } );
+						});
+				}else{					
+					_tf.y = _y;
+				}
+				
 			});
 		}
 		
 		private function normalPosition( _index:int, _item:Object ):void{
 			var _tf:TextField = _labels[ _index ]		
 				, _x:Number = _item.end.x - _tf.width / 2
+				, _k:int = _index
 				;
-			
-			if( _index === 0 ){
-				//Log.log( _config.c.linePadding, 0, _tf.width );
-				_x < _config.c.chartX && ( _x = _config.c.chartX - 3 );
-			}else if( _index === _config.c.hpointReal.length - 1 ){
+						
+			if( _k === 0 ){					
+				_x < _config.c.chartX && ( 
+					_x = _config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
+				);
+				Log.log( _tf.width + ', ' + _config.c.labelWidth );
+			}else if( _k === _config.c.hpointReal.length - 1 ){
 				if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-					_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
-					//Log.log( _config.c.linePadding, 'last', _tf.width );
+					//_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+					_x = _config.c.chartX + _config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
 				}
 			}
+			
 			
 			_tf.x = _x;
 		}

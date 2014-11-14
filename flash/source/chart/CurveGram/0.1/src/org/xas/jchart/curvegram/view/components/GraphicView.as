@@ -85,6 +85,8 @@ package org.xas.jchart.curvegram.view.components
 					, _gitem:CurveGramUI
 					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
 					;
+					
+				//if( _k !== 1 ) return;
 				
 				addChild( 
 					_gitem = new CurveGramUI(

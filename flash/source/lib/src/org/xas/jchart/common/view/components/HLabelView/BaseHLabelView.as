@@ -21,6 +21,8 @@ package org.xas.jchart.common.view.components.HLabelView
 		protected var _labels:Vector.<TextField>;
 		public function get labels():Vector.<TextField>{ return _labels; }
 		
+		protected var _tmpLabels:Vector.<TextField>;
+		
 		protected var _maxHeight:Number = 0;
 		public function get maxHeight():Number{ return _maxHeight; }
 		

@@ -9,7 +9,7 @@ package
 	import flash.external.ExternalInterface;
 	import flash.system.Security;
 	import flash.utils.Timer;
-	import flash.utils.setInterval;
+	import flash.utils.setInterval; 
 	import flash.utils.setTimeout;
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
@@ -20,7 +20,7 @@ package
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.zhistogram.MainFacade;
+	import org.xas.jchart.zhistogram.MainFacade;    
 	      
 	     
 	//[SWF(frameRate="30", width="790", height="230")]

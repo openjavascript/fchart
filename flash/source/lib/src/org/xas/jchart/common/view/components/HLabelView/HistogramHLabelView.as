@@ -7,6 +7,7 @@ package org.xas.jchart.common.view.components.HLabelView
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	
+	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
@@ -50,7 +51,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					if( _config.c.labelWidth && _config.xAxisWordwrap ){
 						var _twidth:Number = _config.c.labelWidth;
 						if( _twidth < 14 ) _twidth = 14;
-						_titem.width = _twidth * 1.8;
+						_titem.width = _twidth * 1.5;
 						_titem.wordWrap = true;
 					}
 					
@@ -88,13 +89,19 @@ package org.xas.jchart.common.view.components.HLabelView
 				/* 指定标签定位的坐标 */
 				var _x:Number = _item.end.x - _tf.width / 2;
 				
-				if( _k === 0 ){
-					_x < _config.c.chartX && ( _x = _config.c.chartX - 3 );
+				
+				if( _k === 0 ){					
+					_x < _config.c.chartX && ( 
+						_x = _config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
+					);
+					Log.log( _tf.width + ', ' + _config.c.labelWidth );
 				}else if( _k === _config.c.hpointReal.length - 1 ){
 					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+						//_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+						_x = _config.c.chartX + _config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
 					}
 				}
+				
 				
 				if( BaseConfig.ins.animationEnabled ){
 					_tf.visible = true;

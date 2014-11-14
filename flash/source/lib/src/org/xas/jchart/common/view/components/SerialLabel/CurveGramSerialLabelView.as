@@ -1,6 +1,7 @@
 package org.xas.jchart.common.view.components.SerialLabel
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -19,6 +20,8 @@ package org.xas.jchart.common.view.components.SerialLabel
 	
 	public class CurveGramSerialLabelView extends BaseSerialLabelView
 	{	
+		protected var _list:Vector.<JTextField>;
+		
 		public function CurveGramSerialLabelView()
 		{
 			super();
@@ -30,8 +33,14 @@ package org.xas.jchart.common.view.components.SerialLabel
 		override protected function showChart( _evt: JChartEvent ):void{
 			
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.paths && BaseConfig.ins.c.paths.length ) ) return;
+			_list = new Vector.<JTextField>();
 			
+			var _p:BaseSerialLabelView = this;
 			
+			if( BaseConfig.ins.animationEnabled ){
+				_p.visible = false;
+			}
+						
 			this.graphics.clear();			
 			this.graphics.beginFill( 0xcccccc, .13 );
 			
@@ -76,6 +85,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 						}
 						
 						addChild( _label );
+						_list.push( _label );
 						
 						( _label.height > _maxHeight ) && ( _maxHeight = _label.height );
 					}
@@ -85,6 +95,17 @@ package org.xas.jchart.common.view.components.SerialLabel
 				//addChild( _gitem = new CurveGramUI( _cmd, _path, BaseConfig.ins.itemColor( _k ) ) );
 				//_boxs.push( _gitem );
 			});
+			
+			if( BaseConfig.ins.animationEnabled ){
+				
+				var _delay:Number = 0;
+				BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+				
+				TweenLite.delayedCall( 1, function():void{
+					_p.visible = true;
+				});
+				
+			}
 						
 			/*
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
