@@ -52,7 +52,10 @@ package org.xas.jchart.rate.view.components
 			
 			var _k:int = 0, _item:Object = _config.c.piePart[0];
 			
-			if( _item.data.y === 0 ) return;
+			//if( _item.data.y === 0 ) return;
+			if( _item.data.y === 0 ){
+				Log.log( 'is zero' );
+			}
 			
 			_rateBall = new RateBall( 
 				_item.data.y, _config.yAxisMaxValue

@@ -141,10 +141,7 @@ package org.xas.jchart.common.data.test
 				},
 				vline: {
 					enabled: false
-				},
-				dataLabels: {
-					enabled: true
-				},            
+				},         
 				plotOptions: {
 					line: {
 						dashStyle: 'ShortDash'
