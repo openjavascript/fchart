@@ -8,6 +8,8 @@ package org.xas.jchart.common.view.components.SerialLabel
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import org.xas.core.utils.EffectUtility;
 	import org.xas.core.utils.Log;
@@ -41,7 +43,6 @@ package org.xas.jchart.common.view.components.SerialLabel
 					if( BaseConfig.ins.serialLabelEnabled ){
 						
 						var _label:JTextField = new JTextField( _sitem );
-						//_label.text = StringUtils.printf( BaseConfig.ins.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, BaseConfig.ins.floatLen ) );
 						_label.text = BaseConfig.ins.serialDataLabelValue( _sk, _k );
 						
 						_label.autoSize = TextFieldAutoSize.LEFT;
@@ -59,13 +60,23 @@ package org.xas.jchart.common.view.components.SerialLabel
 						
 						_label.y = _sitem.y + _sitem.height / 2 - _label.height / 2;
 						
-						//Log.log(_sitem.x);
 						if( _sitem.value >= 0 ){
 							_label.x = _sitem.x + 5 + (!!_sitem.width ? _sitem.width : 0);
 						}else{
 							_label.x = _sitem.x - _label.width - 5;
 						}
-						//Log.log( _label.x);
+						
+						if( BaseConfig.ins.animationEnabled ){
+							_label.alpha = 0;
+							TweenLite.delayedCall( BaseConfig.ins.animationDuration, 
+								function():void{
+									TweenLite.to( _label, BaseConfig.ins.animationDuration
+										, { 
+											alpha: 1, ease: Expo.easeOut 
+										} );
+								});
+						}
+						
 						addChild( _label );
 						
 						( _label.height > _maxHeight ) && ( _maxHeight = _label.height );
