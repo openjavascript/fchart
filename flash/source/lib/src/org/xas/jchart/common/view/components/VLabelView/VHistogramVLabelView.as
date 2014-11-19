@@ -18,6 +18,8 @@ package org.xas.jchart.common.view.components.VLabelView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	public class VHistogramVLabelView extends BaseVLabelView
 	{
@@ -81,8 +83,28 @@ package org.xas.jchart.common.view.components.VLabelView
 					_x < 5 && ( _x = _config.c.chartX - 3 );
 				}
 				
-				_tf.x = _x;
-				_tf.y = _item.end.y;
+//				_tf.x = _x;
+//				_tf.y = _item.end.y;
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_tf.visible = true;
+					_tf.x = _x;
+					_tf.y = _item.end.y + 200;
+					
+					TweenLite.delayedCall( 0, 
+						function():void{
+							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+								, { 
+									x: _x
+									, y: _item.end.y
+									, ease: Expo.easeOut } );
+						});
+				}else{
+//					_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace;
+//					_tf.y = _item.start.y - _tf.height / 2;
+					_tf.x = _x;
+					_tf.y = _item.end.y;
+				}
 			});
 		}
 

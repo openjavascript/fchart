@@ -16,7 +16,7 @@ package org.xas.jchart.vhistogram.view.components
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.ui.HistogramUI;
+	import org.xas.jchart.common.ui.VHistogramUI;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
 	public class GraphicView extends Sprite
@@ -47,7 +47,9 @@ package org.xas.jchart.vhistogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
-			//Log.log( BaseConfig.ins.maxValue );
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
@@ -55,16 +57,22 @@ package org.xas.jchart.vhistogram.view.components
 							
 					var _color:uint = BaseConfig.ins.itemColor( _sk );
 					if( _sitem.value == BaseConfig.ins.maxValue ){
-						//Log.log( BaseConfig.ins.maxValue, _sitem.value );
+						
 						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
 							_color = BaseConfig.ins.maxItemParams.style.color;
 						}
 					}
 					
-					var _item:HistogramUI = new HistogramUI(
+					var _item:VHistogramUI = new VHistogramUI(
 						_sitem.x, _sitem.y
 						, _sitem.width, _sitem.height
-						, _color 
+						, _color
+						, {
+							animationEnabled: BaseConfig.ins.animationEnabled
+							, isNegative: _sitem.isNegative
+							, duration: BaseConfig.ins.animationDuration
+							, delay: _delay
+						}
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );

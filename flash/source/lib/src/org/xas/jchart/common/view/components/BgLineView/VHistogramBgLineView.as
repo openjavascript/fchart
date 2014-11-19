@@ -14,6 +14,8 @@ package org.xas.jchart.common.view.components.BgLineView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.ui.widget.DSprite;
+	import com.greensock.TweenLite;
  
 	public class VHistogramBgLineView extends BaseBgLineView
 	{
@@ -43,11 +45,39 @@ package org.xas.jchart.common.view.components.BgLineView
 			Common.each( BaseConfig.ins.c.vpointReal, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point
-				, _sx:Number = _sp.x, _ex:Number = _ep.x
+				, _sy:Number = _sp.y, _ey:Number = _ep.y
 				;
 				
-				graphics.moveTo( _sx, _sp.y );
-				graphics.lineTo( _ex, _ep.y  );
+				var _ele:DSprite = new DSprite();
+				
+				_ele.graphics.lineStyle( 1, 0x999999, .35 );
+				addChild( _ele );
+				
+				var _delay:Number = 0;
+				
+				BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_ele.max = Math.ceil( _ey - _sy );
+					_ele.count = 0;
+					
+					TweenLite.delayedCall( _delay, function():void{		
+						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+							, { 
+								count: _ele.max
+								, onUpdate: function():void{
+									_ele.graphics.clear();
+									_ele.graphics.lineStyle( 1, 0x999999, .35 );
+									_ele.graphics.moveTo( _sp.x, _ey );
+									_ele.graphics.lineTo( _ep.x, _ey - _ele.count );
+								}
+							} );
+					});
+					
+				} else {
+					_ele.graphics.moveTo( _sp.x, _sp.y );
+					_ele.graphics.lineTo( _ep.x, _ep.y );
+				}
 				
 			});
 		}
@@ -71,7 +101,6 @@ package org.xas.jchart.common.view.components.BgLineView
 				_vsideLine.graphics.lineTo( BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth 
 					, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
 			}
-			
 			
 			if( 
 				( 
@@ -97,20 +126,49 @@ package org.xas.jchart.common.view.components.BgLineView
 			
 			if( !BaseConfig.ins.vlineEnabled ) return;
 			
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			
 			Common.each( BaseConfig.ins.c.hlinePoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point;
 				;
 				
-				graphics.moveTo( _sp.x, _sp.y );
-				graphics.lineTo( _ep.x, _ep.y );
+				var _ele:DSprite = new DSprite();
+				_ele.graphics.lineStyle( 1, 0x999999, .35 );
+				addChild( _ele );				
 				
-			});	
+				if( BaseConfig.ins.animationEnabled ){
+					_ele.max = Math.ceil( _ep.x - _sp.x );
+					_ele.count = 0;
+					
+					TweenLite.delayedCall( _delay, function():void{						
+						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+							, { 
+								count: _ele.max
+								
+								, onUpdate: function():void{
+									
+									_ele.graphics.clear();
+									_ele.graphics.lineStyle( 1, 0x999999, .35 );
+									_ele.graphics.moveTo( _sp.x, _ep.y );
+									_ele.graphics.lineTo( _sp.x + _ele.count, _ep.y );
+								}
+							} );
+					});
+				}else{
+					_ele.graphics.moveTo( _sp.x, _sp.y );
+					_ele.graphics.lineTo( _ep.x, _ep.y );
+				}
+			});
 		}
 		
 		override protected function drawLineArrow():void{
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.hpoint )  ) return;
 			if( !BaseConfig.ins.vlineEnabled ) return;
+			
+			var _delay:Number = 0;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
 			
 			Common.each( BaseConfig.ins.c.hpoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
@@ -122,8 +180,35 @@ package org.xas.jchart.common.view.components.BgLineView
 						return;
 					}
 				}
-				graphics.moveTo( _sp.x, _sp.y );
-				graphics.lineTo( _ep.x, _ep.y );
+				
+				var _ele:DSprite = new DSprite();
+				_ele.graphics.lineStyle( 1, 0x999999, .35 );
+				addChild( _ele );
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_ele.max = Math.ceil( _ep.y - _sp.y );
+					_ele.count = 0;
+					
+					TweenLite.delayedCall( _delay, function():void{						
+						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+							, { 
+								count: _ele.max
+								, onUpdate: function():void{
+									_ele.graphics.clear();
+									_ele.graphics.lineStyle( 1, 0x999999, .35 );
+									_ele.graphics.moveTo( _sp.x, _sp.y );
+									_ele.graphics.lineTo( _ep.x, _ep.y );
+								}
+							});
+					});
+					
+				}else{
+					_ele.graphics.moveTo( _sp.x, _sp.y );
+					_ele.graphics.lineTo( _ep.x, _ep.y );
+				}
+				
+//				graphics.moveTo( _sp.x, _sp.y );
+//				graphics.lineTo( _ep.x, _ep.y );
 				
 			});	
 		}

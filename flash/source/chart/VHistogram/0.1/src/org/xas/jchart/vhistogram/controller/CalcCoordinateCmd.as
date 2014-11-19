@@ -227,6 +227,7 @@ package org.xas.jchart.vhistogram.controller
 										_config.rate[ _config.rate.length - 1 ] ) ) * _h;
 								}
 								_nx -= _h;
+								_rectItem.isNegative = true;
 							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
 								_h = ( _num / _config.chartMaxNum || 1 ) * _h;

@@ -9,6 +9,8 @@ package org.xas.jchart.common.view.components.HLabelView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 
 	public class VHistogramHLabelView extends BaseHLabelView
 	{
@@ -76,8 +78,23 @@ package org.xas.jchart.common.view.components.HLabelView
 				
 				/* 指定标签定位的坐标 */
 				var _y:Number = _item.end.y - _tf.height / 2;
-				_tf.x = _item.start.x - _tf.width;
-				_tf.y = _y;
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_tf.visible = true;
+					_tf.x = _item.start.x - _tf.width - 200;
+					_tf.y = _y;
+					TweenLite.delayedCall( 0, 
+						function():void{
+							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+								, { 
+									x: _item.start.x - _tf.width
+									, y: _y
+									, ease: Expo.easeOut } );
+						});
+				}else{					
+					_tf.x = _item.start.x - _tf.width;
+					_tf.y = _y;
+				}
 			});
 		}
 	}
