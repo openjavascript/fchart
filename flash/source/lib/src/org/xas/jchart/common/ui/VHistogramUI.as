@@ -68,8 +68,6 @@ package org.xas.jchart.common.ui
 			_ins.count = 0;
 			_ins.y = _y;
 			
-			Log.log( _delay );
-			
 			TweenLite.delayedCall( _delay, function():void{
 				
 				if( data.isNegative ){
