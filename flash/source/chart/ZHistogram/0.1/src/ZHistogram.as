@@ -9,7 +9,7 @@ package
 	import flash.external.ExternalInterface;
 	import flash.system.Security;
 	import flash.utils.Timer;
-	import flash.utils.setInterval; 
+	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
@@ -71,7 +71,9 @@ package
 			runData();
 
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 		}
 		

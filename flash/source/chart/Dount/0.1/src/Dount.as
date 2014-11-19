@@ -18,7 +18,7 @@ package
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultPieData;
-	import org.xas.jchart.common.event.JChartEvent; 
+	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.dount.MainFacade; 
 	  
 	  
@@ -64,7 +64,9 @@ package
 			runData();
 			
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 			//BaseConfig.ins.setChartData( {});
 		}

@@ -289,7 +289,7 @@ package org.xas.jchart.curvegram.controller
 			var _padX:Number = 0;
 			if( !_config.yAxisEnabled ){
 				//_padX = _config.c.arrowLength - ( _config.c.arrowLength -  _config.c.chartX );
-				_padX = _config.vlabelSpace + 2;
+				//_padX = _config.vlabelSpace + 2;
 			}
 			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{

@@ -11,7 +11,7 @@ package
 	import flash.utils.Timer;
 	import flash.utils.setInterval;
 	import flash.utils.setTimeout;
-	 
+	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
@@ -75,7 +75,9 @@ package
 			runData();
 
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 			//BaseConfig.ins.setChartData( {}); 
 		}

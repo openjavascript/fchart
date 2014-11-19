@@ -26,7 +26,10 @@ package org.xas.jchart.common
 		public static function setIns( _ins:BaseConfig ):BaseConfig{
 			
 			if( ExternalInterface.available ) {
-				ExternalInterface.addCallback( 'apiReady', apiReady );
+				try{
+					ExternalInterface.addCallback( 'apiReady', apiReady );
+				}catch( ex:Error ){
+				}
 			}
 			
 			return BaseConfig._ins = _ins;

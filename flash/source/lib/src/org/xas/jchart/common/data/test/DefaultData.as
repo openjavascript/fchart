@@ -73,6 +73,12 @@ package org.xas.jchart.common.data.test
 				}
 				, floatLen: 6
 				, displayAllLabel: false
+				, vline: {
+					enabled: false
+				}
+				, hline: {
+					enabled: false
+				}
 			});
 			
 			_data.push(             {
