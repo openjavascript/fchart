@@ -10,7 +10,7 @@ package
 	import flash.system.Security;
 	import flash.utils.Timer;
 	import flash.utils.setInterval;
-	import flash.utils.setTimeout; 
+	import flash.utils.setTimeout;
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
@@ -18,15 +18,15 @@ package
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.event.JChartEvent; 
-	import org.xas.jchart.curvegram.MainFacade;
+	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.curvegram.MainFacade;    
 
 	      
 	//[SWF(frameRate="30", width="790", height="230")]
 	//[SWF(frameRate="30", width="385", height="225")] 
-	//[SWF(frameRate="30", width="600", height="425")]
+	//[SWF(frameRate="30", width="600", height="425")] 
 	//[SWF(frameRate="30", width="590", height="360")]
-	//[SWF(frameRate="30", width="1400", height="460")]
+	//[SWF(frameRate="30", width="1400", height="460")] 
 	//[SWF(frameRate="30", width="800", height="400")]   
 	[SWF(frameRate="30", width="800", height="360")] 
 	public class CurveGram extends Sprite 
@@ -70,7 +70,10 @@ package
 			runData();
 			
 			if( ExternalInterface.available ){
-				ExternalInterface.addCallback( 'update', extenalUpdate );
+				try{
+					ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){					
+				}
 			}
 			//BaseConfig.ins.setChartData( {});
 		}

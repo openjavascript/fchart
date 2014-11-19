@@ -1,6 +1,7 @@
 package org.xas.jchart.common.view.components.BgLineView
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -55,11 +56,43 @@ package org.xas.jchart.common.view.components.BgLineView
 			
 			Common.each( _config.c.vpoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
-				, _ep:Point = _item.end as Point;
+				, _ep:Point = _item.end as Point
+				, _sx:Number = _sp.x, _ex:Number = _ep.x
 				;
+				var _ele:DSprite = new DSprite();
+				if( !BaseConfig.ins.yAxisEnabled ){
+					_sx += BaseConfig.ins.c.arrowLength - 2;
+				}
+				_ele.graphics.lineStyle( 1, 0x999999, .35 );
+				addChild( _ele );
 				
-				graphics.moveTo( _sp.x, _sp.y );
-				graphics.lineTo( _ep.x, _ep.y );
+				var _delay:Number = 0;
+				BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+				
+				if( BaseConfig.ins.animationEnabled ){
+					_ele.max = Math.ceil( _ex - _sx );
+					_ele.count = 0;
+					
+					//Log.log( _ele.max, _ep.x, _sp.x );
+					TweenLite.delayedCall( _delay, function():void{		
+						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+							, { 
+								count: _ele.max
+								//, ease: Expo.easeIn
+								, onUpdate: function():void{
+									//Log.log( _ele.count );
+									_ele.graphics.clear();
+									_ele.graphics.lineStyle( 1, 0x999999, .35 );
+									_ele.graphics.moveTo( _sx, _sp.y );
+									_ele.graphics.lineTo( _sx + _ele.count, _ep.y );
+								}
+							} );
+					});
+					
+				}else{
+					_ele.graphics.moveTo( _sx, _sp.y );
+					_ele.graphics.lineTo( _ex, _ep.y );
+				}
 				
 			});
 		}
@@ -88,7 +121,6 @@ package org.xas.jchart.common.view.components.BgLineView
 					&& BaseConfig.ins.yAxisEnabled
 				)
 			) {
-				
 				Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
 					var _sp:Point =_item.start as Point
 					, _ep:Point = _item.end as Point
@@ -102,8 +134,9 @@ package org.xas.jchart.common.view.components.BgLineView
 					graphics.lineTo( _ex, _ep.y );
 				});
 			}
-
+			
 			_items = new Vector.<VLineIcon>;
+			if( !BaseConfig.ins.vlineEnabled ) return;
 			Common.each( _config.c.hpointReal, function( _k:int, _item:Object ):void{
 				var _tmp:VLineIcon
 				, _hpItem:Object = _item

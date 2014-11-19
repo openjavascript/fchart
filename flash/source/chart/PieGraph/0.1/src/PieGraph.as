@@ -64,7 +64,9 @@ package
 			runData();
 			
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 			//BaseConfig.ins.setChartData( {});
 		}

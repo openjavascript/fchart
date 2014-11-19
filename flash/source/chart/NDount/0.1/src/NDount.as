@@ -16,7 +16,7 @@ package
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
-	import org.xas.core.ui.error.BaseError; 
+	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultPieData;
@@ -66,7 +66,9 @@ package
 			runData();
 			
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 			//BaseConfig.ins.setChartData( {}); 
 		}

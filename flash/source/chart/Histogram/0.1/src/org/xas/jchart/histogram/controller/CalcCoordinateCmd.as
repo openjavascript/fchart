@@ -114,7 +114,11 @@ package org.xas.jchart.histogram.controller
 				}
 				
 				if( _config.categories && _config.categories.length ){
-					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2
+					if( _config.displayAllLabel ){
+						_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
+					}else{
+						_config.c.labelWidth = _config.c.chartWidth / 7;
+					}
 				}
 				
 				if( _config.xAxisEnabled ){

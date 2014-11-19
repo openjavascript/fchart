@@ -19,7 +19,7 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.TrendData;
-	import org.xas.jchart.common.event.JChartEvent; 
+	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.trend.MainFacade;
 	    
 	  
@@ -71,7 +71,9 @@ package
 			runData();
 			
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 			//BaseConfig.ins.setChartData( {});
 		}

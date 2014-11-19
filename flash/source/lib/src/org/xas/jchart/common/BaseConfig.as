@@ -26,7 +26,10 @@ package org.xas.jchart.common
 		public static function setIns( _ins:BaseConfig ):BaseConfig{
 			
 			if( ExternalInterface.available ) {
-				ExternalInterface.addCallback( 'apiReady', apiReady );
+				try{
+					ExternalInterface.addCallback( 'apiReady', apiReady );
+				}catch( ex:Error ){
+				}
 			}
 			
 			return BaseConfig._ins = _ins;
@@ -164,6 +167,7 @@ package org.xas.jchart.common
 			_chartData = _d;
 			calcRate();
 			calcLabelDisplayIndex();
+			_chartData && ( _chartData.legend = _chartData.legend || {} );
 			return _d;
 		}
 		public function get chartData():Object { return _chartData; }	
@@ -283,7 +287,7 @@ package org.xas.jchart.common
 		}
 		
 		public function get legendEnabled():Boolean{
-			var _r:Boolean = false;
+			var _r:Boolean = true;
 			
 			if( cd && cd.legend && ( 'enabled' in cd.legend ) ){
 				_r = StringUtils.parseBool( cd.legend.enabled );
@@ -1193,7 +1197,7 @@ package org.xas.jchart.common
 		
 		public function get legendInterval():Number {
 			var _interval:Number= 2;
-			if( legendEnabled && ( 'interval' in cd.legend ) ){
+			if( cd && cd.legend && legendEnabled && ( 'interval' in cd.legend ) ){
 				_interval = cd.legend.interval;
 			}
 			return _interval;

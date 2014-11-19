@@ -20,7 +20,7 @@ package
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.zhistogram.MainFacade;
+	import org.xas.jchart.zhistogram.MainFacade;    
 	      
 	     
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -71,7 +71,9 @@ package
 			runData();
 
 			if( ExternalInterface.available ){
+				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				}catch( ex:Error ){}
 			}
 		}
 		

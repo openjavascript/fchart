@@ -80,5 +80,11 @@ package
 			
 			return _r;
 		}
+		
+		override public function get animationDuration():Number {
+			var _r:Number = 1;
+			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
+			return _r;
+		}
 	}
 }
