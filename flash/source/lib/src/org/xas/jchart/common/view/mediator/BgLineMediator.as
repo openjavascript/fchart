@@ -23,7 +23,7 @@ package org.xas.jchart.common.view.mediator
 			
 			switch( (facade as BaseFacade).name ){
 				case 'CurveGramFacade':{
-					mainMediator.view.index5.addChild( _view = new CurveGramBgLineView() );
+					mainMediator.view.index3.addChild( _view = new CurveGramBgLineView() );
 					break;
 				}
 				case 'TrendFacade':{

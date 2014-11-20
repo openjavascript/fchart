@@ -31,23 +31,23 @@ package org.xas.jchart.common.view.mediator
 			
 			switch( (facade as BaseFacade).name ){
 				case 'TrendFacade':{
-					mainMediator.view.index5.addChild( _view = new TrendGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new TrendGraphicBgView() );
 					break;
 				}
 				case 'CurveGramFacade':{
-					mainMediator.view.index5.addChild( _view = new CurveGramGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new CurveGramGraphicBgView() );
 					break;
 				}
 				case 'ZHistogramFacade':{
-					mainMediator.view.index5.addChild( _view = new ZHistogramGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new ZHistogramGraphicBgView() );
 					break;
 				}
 				case 'HistogramFacade':{
-					mainMediator.view.index5.addChild( _view = new HistogramGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new HistogramGraphicBgView() );
 					break;
 				}
 				case 'VHistogramFacade':{
-					mainMediator.view.index5.addChild( _view = new VHistogramGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new VHistogramGraphicBgView() );
 					break;
 				}
 				case 'PieGraphFacade':
@@ -55,11 +55,11 @@ package org.xas.jchart.common.view.mediator
 				case 'NDountFacade':
 				case 'DountFacade':
 				{
-					mainMediator.view.index5.addChild( _view = new PieGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new PieGraphicBgView() );
 					break;
 				}
 				default:{
-					mainMediator.view.index5.addChild( _view = new BaseGraphicBgView() );
+					mainMediator.view.index2.addChild( _view = new BaseGraphicBgView() );
 					break;
 				}
 			}

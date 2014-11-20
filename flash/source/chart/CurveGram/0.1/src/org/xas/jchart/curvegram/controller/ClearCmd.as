@@ -37,6 +37,7 @@ package org.xas.jchart.curvegram.controller
 			facade.hasMediator( SerialLabelMediator.name ) && facade.removeMediator( SerialLabelMediator.name );
 			facade.hasMediator( HoverBgMediator.name ) && facade.removeMediator( HoverBgMediator.name );
 			facade.hasMediator( ToggleBgMediator.name ) && facade.removeMediator( ToggleBgMediator.name );
+			facade.hasMediator( GroupMediator.name ) && facade.removeMediator( GroupMediator.name );
 		}
 	}
 }

@@ -270,6 +270,20 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function getTipsValue( _sitem:Object, _k:int, _format:String, _floatLen:int = 0 ):String{
+			var _r:String = '';
+			
+			if( _sitem.tipsData ){
+				_r = _sitem.tipsData[ _k ]
+			}else if( _sitem.data ){
+				_r = StringUtils.printf( _format, 
+						Common.moneyFormat( _sitem.data[ _k ], 3, _floatLen )
+					);
+			}
+			
+			return _r;
+		}
+		
 		public function get tipTitlePostfix():String{
 			var _r:String = '{0}';
 			if( cd && cd.xAxis && ( 'tipTitlePostfix' in  cd.xAxis ) ){
@@ -1239,6 +1253,59 @@ package org.xas.jchart.common
 			}
 			return _interval;
 		}
+		
+		public function pointEnabled( _item:Object = null ):Boolean{
+			var _r:Boolean = true;
+			
+			this.cd
+				&& this.cd.point
+				&& ( 'enabled' in this.cd.point )
+				&& ( _r = StringUtils.parseBool( this.cd.point.enabled ) );
+			
+			_item 
+				&& _item.point
+				&& ( 'enabled' in _item.point )
+				&& ( _r = StringUtils.parseBool( _item.point.enabled ) );
+			
+			return _r;
+		}
+		
+		public function get group():Object{
+			var _r:Object = cd.group || {};			
+			!( 'enabled'  in _r ) && ( _r.enabled = true );			
+			return _r;
+		}
+		
+		public function get groupEnabled():Boolean{
+			var _r:Boolean = StringUtils.parseBool( group.enabled );
+			!( group.data && group.data.length ) && ( _r = false );
+			return _r;
+		}
+		
+		public function get groupBgColors():Array{
+			var _r:Array = [0xf2f2f2]; 
+			group.background 
+				&& group.background.colors
+				&& group.background.colors.length
+				&& ( _r = group.background.colors );
+			return _r;
+		}
+		
+		public function groupLastBgColors( _color:uint ):uint{
+			group.background 
+				&& ( 'lastColor' in group.background )
+				&& ( _color = group.background.lastColor );
+			
+			return _color;
+		}
+		
+		public function get groupLabelStyle():Object{
+			var _r:Object = { color: 0x838383, size: 14 };
+			group.label 
+				&& group.label.style
+				&& ( _r = Common.extendObject( _r, group.label.style ) );
+			return _r;
+		}	
 		
 		/* legend end */
 		
