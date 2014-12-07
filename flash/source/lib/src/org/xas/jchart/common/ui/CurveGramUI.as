@@ -52,6 +52,7 @@ package org.xas.jchart.common.ui
 			, _data:Object = null
 		)
 		{
+			_data = _data || {};
 			super(_data);
 			
 			this._cmd = _cmd;
@@ -210,6 +211,9 @@ package org.xas.jchart.common.ui
 		}
 		
 		private function drawIcon():void{
+			
+			if( !this.data.pointEnabled ) return;
+			
 			_point = new Vector.<Point>;
 			_items = new Vector.<CircleIcon>();
 			while( _path.length ){

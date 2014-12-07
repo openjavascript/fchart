@@ -47,9 +47,13 @@ package org.xas.jchart.common.view.components.TipsView
 					
 					if(  _sitem.data ){
 						var _name:String = _sitem.name + ''
+						, _value:String = BaseConfig.ins.getTipsValue( _sitem, _k, _config.tooltipSerialFormat, Common.floatLen( _sitem.data[ _k ] ) )
+						;
+						/*
 						, _value:String = StringUtils.printf( _config.tooltipSerialFormat, 
 							Common.moneyFormat( _sitem.data[ _k ], 3, Common.floatLen( _sitem.data[ _k ] ) )
 						)
+						*/
 						
 						_data[ _k ].beforeItems.push( {
 							'name': _name.replace( /[\r\n]+/g, '' )
@@ -63,9 +67,13 @@ package org.xas.jchart.common.view.components.TipsView
 					//Log.log( 'xxxxxxx', _sitem.data[_k] );
 					if( _sitem.data ){
 						var _name:String = _sitem.name + ''
+						, _value:String = BaseConfig.ins.getTipsValue( _sitem, _k, _config.tooltipPointFormat, _config.floatLen  )
+						/*
 						, _value:String = StringUtils.printf( _config.tooltipPointFormat, 
 							Common.moneyFormat( _sitem.data[ _k ], 3, _config.floatLen  )
 						)
+						*/
+						;
 						
 						_data[ _k ].items.push( {
 							'name': _name.replace( /[\r\n]+/g, '' )
@@ -80,9 +88,13 @@ package org.xas.jchart.common.view.components.TipsView
 					
 					if(  _sitem.data ){
 						var _name:String = _sitem.name + ''
+						, _value:String = BaseConfig.ins.getTipsValue( _sitem, _k, _config.tooltipAfterSerialFormat, Common.floatLen( _sitem.data[ _k ] ) )
+						/*
 						, _value:String = StringUtils.printf( _config.tooltipAfterSerialFormat, 
 							Common.moneyFormat( _sitem.data[ _k ], 3, Common.floatLen( _sitem.data[ _k ] ) )
 						)
+						*/
+						;
 						
 						_data[ _k ].afterItems.push( {
 							'name': _name.replace( /[\r\n]+/g, '' )

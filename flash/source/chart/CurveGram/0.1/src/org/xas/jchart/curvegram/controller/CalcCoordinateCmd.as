@@ -64,6 +64,15 @@ package org.xas.jchart.curvegram.controller
 					_config.c.minY += pSubtitleMediator.view.height + 5;
 				}
 				
+				if( _config.groupEnabled ){
+					if( _config.cd.subtitle && _config.cd.subtitle.text ){
+						facade.registerMediator( new GroupMediator( _config.c.minY - 5 ) );
+					}else{
+						facade.registerMediator( new GroupMediator( _config.c.minY ) );
+					}
+					_config.c.minY += pGroupMediator.maxHeight;
+				}
+				
 				if( _config.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
@@ -347,6 +356,10 @@ package org.xas.jchart.curvegram.controller
 					, end: new Point( _rn, _config.c.maxY )
 				});
 			});
+		}
+		
+		private function get pGroupMediator():GroupMediator{
+			return facade.retrieveMediator( GroupMediator.name ) as GroupMediator;
 		}
 		
 		private function get pLegendMediator():LegendMediator{

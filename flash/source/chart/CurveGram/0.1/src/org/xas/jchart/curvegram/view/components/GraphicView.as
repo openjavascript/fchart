@@ -99,6 +99,7 @@ package org.xas.jchart.curvegram.view.components
 							animationEnabled: BaseConfig.ins.animationEnabled
 							, duration: BaseConfig.ins.animationDuration
 							, delay: _delay
+							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
 						}
 					)
 				);

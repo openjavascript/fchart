@@ -19,7 +19,7 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultPieData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.rate.MainFacade; 
+	import org.xas.jchart.rate.MainFacade;  
 	  
 	  
 	[SWF(frameRate="30", width="800", height="500")] 

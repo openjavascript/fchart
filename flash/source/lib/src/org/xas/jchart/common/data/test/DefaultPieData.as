@@ -22,6 +22,47 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			
+			_data.push({
+				title: {
+					text:'浏览器使用份额'
+				},
+				subtitle: {
+					text: 'for PC'
+				}, 
+				series:[{
+					name: 'Browser share',
+					data: [
+						{
+							name: 'Firefox'
+							,  y: 0
+							, style: { size: 40 }
+							, borderBgColor: 0xECECEC
+							, borderBgFillColor: 0xffffff
+							, dataBorderBgColor: 0xFEB556
+							, dataBorderBgFillColor: 0xFDF0F2
+						}
+					]
+				}]
+				, radius: {
+					borderWidth: 20
+				}
+				, yAxis: {
+					maxvalue: 100
+				}
+				
+				, dataLabels: {
+					enabled: true
+					, format: '{0}%'
+				}
+				
+				, tooltip: {
+					enabled: true
+					, 'pointFormat': '{0}%'
+				}
+				
+			});
+			
 			_data.push({
 				title: {
 					text:'浏览器使用份额'

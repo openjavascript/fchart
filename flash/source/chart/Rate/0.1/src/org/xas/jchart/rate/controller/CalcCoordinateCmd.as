@@ -133,7 +133,7 @@ package org.xas.jchart.rate.controller
 				;
 
 			Common.each( BaseConfig.ins.displaySeries, function( _k:int, _item:Object ):void {
-				if( _item.y === 0 ) return;
+				//if( _item.y === 0 ) return;
 				var _pieP:Object = { 
 						cx: BaseConfig.ins.c.cx
 						, cy: BaseConfig.ins.c.cy

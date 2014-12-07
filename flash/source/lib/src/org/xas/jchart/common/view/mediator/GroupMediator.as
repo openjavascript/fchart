@@ -4,37 +4,38 @@ package org.xas.jchart.common.view.mediator
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.BgView.BaseBgView;
-	import org.xas.jchart.common.view.components.BgView.DDountBgView;
+	import org.xas.jchart.common.view.components.GroupView.*;
 	import org.xas.jchart.common.view.components.TitleView;
 	
-	public class BgMediator extends Mediator implements IMediator
+	public class GroupMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PBgMediator';
-		private var _view:BaseBgView;
-		public function get view():BaseBgView{ return _view; }
+		public static const name:String = 'PGroupMediator';
+		private var _view:BaseGroupView;
+		public function get view():BaseGroupView{ return _view; }
 		
-		public function BgMediator( )
-		{
+		private var _startY:Number = 0;
+		
+		public function GroupMediator( _minY:Number )
+		{		
+			_startY = _minY;
 			super( name );
-			
 		}
 		
 		override public function onRegister():void{
-			//Log.log( 'BgMediator register' );				
+			//Log.log( 'DataLabelMediator register' );
+						
 			switch( (facade as BaseFacade).name ){
-				case 'DDountFacade':
-				case 'NDountFacade':
-				case 'DountFacade':
-				case 'RateFacade':
+
+				case 'CurveGramFacade':
 				{
-					mainMediator.view.index1.addChild( _view = new DDountBgView() );
+					mainMediator.view.index2.addChild( _view = new CurveGramGroupView( _startY ) );
 					break;
 				}
 				default:{
-					mainMediator.view.index1.addChild( _view = new BaseBgView() );
+					mainMediator.view.index2.addChild( _view = new BaseGroupView( _startY ) );
 					break;
 				}
 			}	
@@ -59,6 +60,12 @@ package org.xas.jchart.common.view.mediator
 				}
 			
 			}
+		}
+		
+		public function get maxHeight():Number{
+			var _r:Number = 0;
+			_view && ( _r = _view.maxHeight );
+			return _r;
 		}
 		
 		

@@ -18,7 +18,7 @@ package
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.curvegram.MainFacade;    
 
 	      
