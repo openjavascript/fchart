@@ -37,6 +37,7 @@ package org.xas.jchart.common.view.components.TipsView
 		private function getDataByIndex( _ix:int ):Object{
 			var _d:Object = { items: [], beforeItems: [], afterItems: [] };
 			var _orgData:Object = _config.displaySeries[ _ix ];
+			var _seriesData:Object = _config.series[ _ix ];
 			
 			if(!_orgData){ return null; }
 			
@@ -55,15 +56,17 @@ package org.xas.jchart.common.view.components.TipsView
 				}
 			});
 			
+			var _sdata:Array = _seriesData.data;
 			Common.each( _orgData.data, function( _sk:int, _sitem:Number ):void{
+				
 				var _name:String = ""
 				, _fmt:String = _orgData.format ? _orgData.format : _config.tooltipPointFormat;
 				
-				_orgData.label && ( _name = _orgData.label[ _sk ] );
+				_orgData.label && ( _name = _name );
+				
 				BaseConfig.ins.categories 
 					&& BaseConfig.ins.categories[ _sk ] 
 					&& ( _name = BaseConfig.ins.categories[ _sk ] );
-				
 				
 				_d.items.push( {
 					'name': _name.replace( /[\r\n]+/g, '' )
@@ -84,7 +87,7 @@ package org.xas.jchart.common.view.components.TipsView
 					});
 				}
 			});
-			
+
 			return _d;
 		}
 		
@@ -126,11 +129,13 @@ package org.xas.jchart.common.view.components.TipsView
 				}else{
 					_tips.update( _d, _pos ).show(new Point( _pos.x, _pos.y ) );
 				}
+				
 			} else {
 				addChild( _tips = new TipsUI() );
 				_tips.buildLayout( getDataByIndex( _ix ) ).show( new Point( _pos.x, _pos.y ) );
 				tipsBox[ _ix ] = _tips;
 			}
+			
 			curTips = _tips;
 			curIndex = _ix;
 		}

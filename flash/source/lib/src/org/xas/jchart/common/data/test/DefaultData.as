@@ -81,7 +81,7 @@ package org.xas.jchart.common.data.test
 				}
 			});
 			
-			_data.push(             {
+			_data.push({
 				chart: {
 					type: 'zbar' 
 					, bgColor: 0xffffff

@@ -41,7 +41,8 @@ package
 		
 		public function CurveGram()
 		{			
-			flash.system.Security.allowDomain("*");	
+			Security.allowDomain("*");
+			Security.allowInsecureDomain("*");
 			_ins = this; 
 			
 			this.root.stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -72,10 +73,9 @@ package
 			if( ExternalInterface.available ){
 				try{
 					ExternalInterface.addCallback( 'update', extenalUpdate );
-				}catch( ex:Error ){					
+				}catch( ex:Error ){
 				}
 			}
-			//BaseConfig.ins.setChartData( {});
 		}
 		
 		private function extenalUpdate( _data:Object ):void{
@@ -100,7 +100,6 @@ package
 		}
 		
 		private function process( _evt:JChartEvent ):void{
-			//Log.printJSON( _evt.data );
 			var _data:Object = _evt.data as Object;
 			BaseConfig.ins.setRoot( _ins.root );
 			if( _data ){
@@ -142,7 +141,6 @@ package
 			
 			if( !BaseConfig.ins.chartData ) return;
 			dispatchEvent( new JChartEvent( JChartEvent.PROCESS, BaseConfig.ins.chartData ) );
-			//_facade.sendNotification( JChartEvent.CLEAR );
 		}
 		
 		private function onRemovedFromStage( _evt:Event ):void{
