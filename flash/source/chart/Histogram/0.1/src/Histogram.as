@@ -10,7 +10,7 @@ package
 	import flash.system.Security;
 	import flash.utils.Timer;
 	import flash.utils.setInterval;
-	import flash.utils.setTimeout;
+	import flash.utils.setTimeout; 
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
@@ -19,7 +19,7 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.histogram.MainFacade;  
 	        
 

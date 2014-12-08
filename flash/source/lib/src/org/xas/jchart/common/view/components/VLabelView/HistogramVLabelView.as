@@ -38,11 +38,15 @@ package org.xas.jchart.common.view.components.VLabelView
 			
 			Common.each( BaseConfig.ins.realRate, function( _k:int, _item:Number ):*{
 				
-				_t = Common.moneyFormat( _item, 3, BaseConfig.ins.realRateFloatLen || 0 );
+				var _floatLen:int = BaseConfig.ins.realRateFloatLen;
 				
-				_titem = new TextField();
+				if( BaseConfig.ins.floatLen === 0 && BaseConfig.ins.maxNum >= 8 ){
+					_floatLen = 0;
+				}
 				
+				_t = Common.moneyFormat( _item, 3, _floatLen || 0 );
 				
+				_titem = new TextField();				
 				
 				if( BaseConfig.ins.isPercent ){
 					_titem.text = _t + '%';

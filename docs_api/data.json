@@ -3855,13 +3855,13 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1258,
+            "line": 1263,
             "description": "inject jquery val func, for hidden change event",
             "class": "JC.common"
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1276,
+            "line": 1281,
             "description": "逗号格式化金额",
             "itemtype": "method",
             "name": "moneyFormat",
@@ -3895,7 +3895,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1331,
+            "line": 1336,
             "description": "日期格式化 (具体格式请查看 PHP Date Formats)",
             "itemtype": "method",
             "name": "dateFormat",
@@ -3919,7 +3919,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1412,
+            "line": 1417,
             "description": "扩展对象属性",
             "itemtype": "method",
             "name": "extendObject",
@@ -3948,7 +3948,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1434,
+            "line": 1439,
             "description": "timeout 控制逻辑, 避免相同功能的 setTimeout 重复执行",
             "itemtype": "method",
             "name": "safeTimeout",
@@ -3982,7 +3982,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1455,
+            "line": 1460,
             "description": "URL 请求时, 获取对URL参数进行编码的函数",
             "itemtype": "method",
             "name": "encoder",
@@ -4002,7 +4002,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1473,
+            "line": 1478,
             "description": "深度克隆对象",
             "itemtype": "method",
             "name": "cloneObject",
@@ -4021,7 +4021,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1516,
+            "line": 1521,
             "description": "获取 document 的 相关大小",
             "itemtype": "method",
             "name": "docSize",
@@ -4040,7 +4040,7 @@
         },
         {
             "file": "../modules/JC.common/0.2/common.js",
-            "line": 1545,
+            "line": 1550,
             "description": "获取 window 的 相关大小",
             "itemtype": "method",
             "name": "winSize",
@@ -4716,7 +4716,7 @@
         },
         {
             "message": "Missing item type\ninject jquery val func, for hidden change event",
-            "line": " ../modules/JC.common/0.2/common.js:1258"
+            "line": " ../modules/JC.common/0.2/common.js:1263"
         },
         {
             "message": "Missing item type\nrequirejs config.js for JC Chart Project",
