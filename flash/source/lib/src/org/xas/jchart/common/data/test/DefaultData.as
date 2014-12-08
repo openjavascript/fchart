@@ -256,9 +256,6 @@ package org.xas.jchart.common.data.test
 				}
 			});
 			
-<<<<<<< HEAD
-			_data.push({
-=======
 			_data.push( {
 				chart: {
 					type: 'bar' 
@@ -384,8 +381,7 @@ package org.xas.jchart.common.data.test
 					}
 				});
 			
-			_data.push(             {
->>>>>>> 33167a2e7568dfea43cda083dcd7f02e9878d219
+			_data.push( {
 				chart: {
 					type: 'zbar' 
 					, bgColor: 0xffffff
