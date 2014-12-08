@@ -20,7 +20,7 @@ package
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent; 
-	import org.xas.jchart.zhistogram.MainFacade;    
+	import org.xas.jchart.zhistogram.MainFacade;     
 	      
 	     
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -155,7 +155,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){
-				_data = DefaultData.instance.data[43];
+				_data = DefaultData.instance.data[0];
 			}else{
 				Log.log(this.root.stage.loaderInfo);
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	

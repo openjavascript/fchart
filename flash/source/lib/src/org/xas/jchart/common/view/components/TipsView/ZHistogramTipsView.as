@@ -65,8 +65,8 @@ package org.xas.jchart.common.view.components.TipsView
 				_orgData.label && ( _name = _name );
 				
 				BaseConfig.ins.categories 
-					&& BaseConfig.ins.categories[ _sk ] 
-					&& ( _name = BaseConfig.ins.categories[ _sk ] );
+					&& BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] 
+					&& ( _name = BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] );
 				
 				_d.items.push( {
 					'name': _name.replace( /[\r\n]+/g, '' )
