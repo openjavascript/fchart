@@ -138,7 +138,9 @@ package org.xas.jchart.common.ui
 							//_jline.parent.removeChild( _jline );
 							//_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
 							//staticDraw();
-							//_jline.mask = _maskLine as Sprite;							
+							//_jline.mask = _maskLine as Sprite;				
+							_jline.mask = null;
+							_maskLine.visible = false;
 							drawIcon();
 						}
 					}
