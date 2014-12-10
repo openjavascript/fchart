@@ -74,6 +74,8 @@
         , "isSameYear": isSameYear
         , "weekOfYear": weekOfYear
         , "seasonOfYear": seasonOfYear
+        , "dayOfWeek": dayOfWeek
+        , "dayOfSeason": dayOfSeason
         , "jcAutoInitComps": jcAutoInitComps
 
         , "maxDayOfMonth": maxDayOfMonth
@@ -538,7 +540,7 @@
      * @method  parseFinance
      * @static
      * @param   {number}    _i
-     * @param   {int}       _dot, default = 2
+     * @param   {int}       _dot  default = 2
      * @return  number
      */
     function parseFinance( _i, _dot ){
@@ -641,7 +643,7 @@
     * @method  cloneDate
     * @static
     * @param   {Date}  _date   需要克隆的日期
-    * @return  {Date}  需要克隆的日期对象
+    * @return  {Date}
     */
     function cloneDate( _date ){ var d = new Date(); d.setTime( _date.getTime() ); return d; }
     /**
@@ -817,6 +819,61 @@
         return _r;
     }
 
+    /**
+     * 取某一天所在星期的开始结束日期,以及第几个星期
+     * @method  dayOfWeek
+     * @static
+     * @param   {iso date}   _date
+     * @param   {int}        _dayOffset
+     * @return  Object
+     */
+    function dayOfWeek( _date, _dayOffset ) {
+        var r = {},
+            weeks = JC.f.weekOfYear(_date.getFullYear(), _dayOffset),
+            i = 0,
+            l = weeks.length,
+            t = _date.getTime(),
+            start = JC.f.pureDate( new Date() ),
+            end = JC.f.pureDate( new Date() );
+
+        for (i; i <l; i++) {
+            if (t >= weeks[i].start && t <= weeks[i].end) {
+                start.setTime(weeks[i].start);
+                end.setTime(weeks[i].end);
+                r.start = start;
+                r.end = end;
+                r.w = i + 1
+                return r;
+            }
+        }
+    }
+
+    /**
+     * 取某一天所在季度的开始结束日期,以及第几个Q
+     * @method  dayOfSeason
+     * @static
+     * @param   {iso date}   _date
+     * @return  Object
+     */
+
+    function dayOfSeason(_date) {
+        var year = _date.getFullYear(),
+            q = JC.f.seasonOfYear(year),
+            i,
+            r = {},
+            tmp,
+            d = _date.getTime();
+
+        for (i = 0; i < 4; i++) {
+            if (d >= q[i].start.getTime() && d <= q[i].end.getTime()) {
+                r.start = q[i].start;
+                r.end = q[i].end;
+                r.q = i + 1;
+                return r;
+            }
+        }
+
+    }
 
     /**
      * 取得一个月份中最大的一天
@@ -920,7 +977,7 @@
      * @method  mousewheelEvent
      * @param   {function}  _cb
      * @param   {bool}      _detach
-     * @param   {selector}  _selector, default = document
+     * @param   {selector}  _selector  default = document
      * @static
      */
     function mousewheelEvent( _cb, _detach, _selector ){
@@ -1144,6 +1201,8 @@
          * 自动完成
          */
         Bizs.AutoSelectComplete && Bizs.AutoSelectComplete.init( _selector );
+
+        Bizs.InputSelect && Bizs.InputSelect.init( _selector );
 
         /**
          *排期日期展示
