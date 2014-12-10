@@ -192,6 +192,10 @@ package org.xas.jchart.common.data.test
 				}
 				, point: {
 				}
+				, animation: {
+					enabled: true
+					, duration: 1
+				}
 			});
 			
 			_data.push( {

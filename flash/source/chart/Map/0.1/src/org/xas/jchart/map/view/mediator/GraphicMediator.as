@@ -41,6 +41,14 @@ package org.xas.jchart.map.view.mediator
 			_view.addEventListener( JChartEvent.HIDE_LEGEND_ARROW, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.HIDE_LEGEND_ARROW, _evt.data );
 			});
+			
+			_view.addEventListener( JChartEvent.ITEM_CLICK, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.ITEM_CLICK, _evt.data );
+			} );
+			
+			_view.addEventListener( JChartEvent.ITEM_HOVER, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.ITEM_HOVER, _evt.data );
+			}  );
 		}
 		
 		override public function onRemove():void{
