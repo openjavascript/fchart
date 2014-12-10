@@ -21,6 +21,7 @@ package org.xas.jchart.curvegram.view.mediator
 		
 		override public function onRegister():void{
 			mainMediator.view.index7.addChild( _view = new GraphicView() );
+			
 			_view.addEventListener( JChartEvent.ITEM_CLICK, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.ITEM_CLICK, _evt.data );
 			} );

@@ -5,6 +5,8 @@ package org.xas.jchart.map
 	import org.puremvc.as3.multicore.interfaces.*;
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.jchart.common.BaseFacade;
+	import org.xas.jchart.common.controller.ItemClickCmd;
+	import org.xas.jchart.common.controller.ItemHoverCmd;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.map.controller.CalcCoordinateCmd;
 	import org.xas.jchart.map.controller.ClearCmd;
@@ -33,6 +35,9 @@ package org.xas.jchart.map
 			registerCommand( JChartEvent.CLEAR, ClearCmd );
 			registerCommand( JChartEvent.DRAW, DrawCmd );
 			registerCommand( JChartEvent.FILTER_DATA, FilterDataCmd );
+			
+			registerCommand( JChartEvent.ITEM_HOVER, ItemHoverCmd );
+			registerCommand( JChartEvent.ITEM_CLICK, ItemClickCmd );
 		}
 	}
 }
