@@ -43,9 +43,10 @@
      * <p><b>require</b>: <a href='window.jQuery.html'>jQuery</a></p>
      * <p><a href='https://github.com/openjavascript/jquerycomps' target='_blank'>JC Project Site</a>
      * | <a href='http://jc2.openjavascript.org/docs_api/classes/JC.common.html' target='_blank'>API docs</a>
-     * | <a href='../../modules/JC.common/0.2/_demo/' target='_blank'>demo link</a></p>
+     * | <a href='../../modules/JC.common/0.3/_demo/' target='_blank'>demo link</a></p>
      * @class JC.common
      * @static
+     * @version dev 0.3 2014-12-09
      * @version dev 0.2 2013-11-06 
      * @version dev 0.1 2013-07-04
      * @author  qiushaowei   <suches@btbtd.org> | 360 75 Team
@@ -77,8 +78,16 @@
         , "dayOfWeek": dayOfWeek
         , "dayOfSeason": dayOfSeason
         , "jcAutoInitComps": jcAutoInitComps
-        , "autoInit": jcAutoInitComps
-        , "addAutoInit": function(){}
+
+        , "autoInit": autoInit
+        , "addAutoInit": addAutoInit
+        /**
+         * 保存需要自动识别的组件
+         * @property    _AUTO_INIT_DATA
+         * @type Object
+         * @protected
+         */
+        , "_AUTO_INIT_DATA": {}
 
         , "maxDayOfMonth": maxDayOfMonth
         , "mousewheelEvent": mousewheelEvent
@@ -633,6 +642,7 @@
      * @method  pureDate
      * @param   {Date}  _d   可选参数, 如果为空 = new Date
      * @return  Date
+     * @static
      */
     function pureDate( _d ){
         var _r;
@@ -950,7 +960,7 @@
                     _done = true;
                     clearInterval( _interval );
                 }
-                _cb && _cb( _tmp + _startVal, _done );
+                _cb && _cb( _tmp + _startVal, _done, _timepass, _duration, _stepMs, _startVal, _maxVal );
             }, _stepMs );
 
         return _interval;
@@ -1123,25 +1133,44 @@
       return _r.trim();
     }
     /**
-     * 动态添加内容时, 初始化可识别的组件
-     * <dl>
-     *      <dt>目前会自动识别的组件</dt>
-     *      <dd>
-     *          Bizs.CommonModify, JC.Panel, JC.Dialog
-     *          <br /><b>自动识别的组件不用显式调用  jcAutoInitComps 去识别可识别的组件</b>
-     *      </dd>
-     * </d>
-     * <dl>
-     *      <dt>可识别的组件</dt>
-     *      <dd>
-     *          JC.AutoSelect, JC.AutoChecked, JC.AjaxUpload, JC.Calendar
-     *          , JC.Drag, JC.DCalendar, JC.Placeholder, JC.TableFreeze, JC.ImageCutter, JC.Tab
-     *          <br />Bizs.DisableLogic, Bizs.FormLogic, Bizs.MoneyTips, Bizs.AutoSelectComplete
-     *      </dd>
-     * </d>
-     * @method  jcAutoInitComps
+     * 执行自动识别的组件
+     * @method  autoInit
      * @param   {selector}  _selector
      * @static
+     */
+    function autoInit( _selector ){
+        _selector = $( _selector || document );
+        if( !( _selector && _selector.length && window.JC ) ) return;
+        if( !( JC.f && JC.f._AUTO_INIT_DATA ) ) return;
+
+        $.each( JC.f._AUTO_INIT_DATA, function( _k, _class ){
+            if( !_class ) return;
+            _class.init ? _class.init( _selector ) : _class( _selector );
+        });
+        return JC.f;
+    }
+    /**
+     * 添加需要自动识别的组件
+     * @method addAutoInit
+     * @param   {class} _class
+     * @static
+     * @example
+     *      JC.f.addAutoInit( JC.Calendar );
+     */
+    function addAutoInit( _class ){
+        _class 
+            && JC.f._AUTO_INIT_DATA 
+            && ( JC.f._AUTO_INIT_DATA[ 
+                    _class && _class.Model && _class.Model._instanceName 
+                    ? _class.Model._instanceName
+                    : funcName( _class )
+                ] = _class )
+                ;
+        return JC.f;
+    }
+    /**
+     * jcAutoInitComps 不久后将被清除
+     * 请使用 JC.f.autoInit 和 JC.f.addAutoInit
      */
     function jcAutoInitComps( _selector ){
         _selector = $( _selector || document );
@@ -1211,6 +1240,7 @@
         */
         Bizs.TaskViewer && Bizs.TaskViewer.init(_selector);
     }
+
     /**
      * URL 占位符识别功能
      * <br /><b>require:</b> addUrlParams, filterXSS
