@@ -1,6 +1,7 @@
 package org.xas.jchart.common
 {
 	import flash.display.DisplayObject;
+	import flash.display.LoaderInfo;
 	import flash.external.ExternalInterface;
 	import flash.geom.Point;
 	
@@ -11,6 +12,11 @@ package org.xas.jchart.common
 
 	public class BaseConfig
 	{
+		private static var _params:Object;
+		public static function setParams( _setter:Object = null ):void{
+			_setter && ( _params = _setter );
+		}
+		public static function get params():Object{ return _params; }
 		
 		/* trend */
 		protected var _hlabelNum:Number = 5;

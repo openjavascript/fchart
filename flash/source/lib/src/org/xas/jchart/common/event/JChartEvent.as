@@ -38,6 +38,9 @@ package org.xas.jchart.common.event
 		
 		public static const UPDATE_MOUSEWHEEL:String = 'update_mousewheel';
 		
+		public static const GROUP_CLICK:String = 'groupclick';
+		public static const ITEM_CLICK:String = 'itemclick';
+		
 		public function JChartEvent($type:String, $data:Object=null)
 		{
 			super($type, $data);
@@ -51,7 +54,7 @@ package org.xas.jchart.common.event
 			_ele.root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseOut );
 			_ele.root.stage.addEventListener( Event.MOUSE_LEAVE, stageLeave );
 			_ele.root.stage.addEventListener( Event.RESIZE, remove );
-			_ele.addEventListener( Event.REMOVED_FROM_STAGE, remove );	
+			_ele.addEventListener( Event.REMOVED_FROM_STAGE, remove );
 			
 			
 			function stageLeave( _evt:Event ):void{				

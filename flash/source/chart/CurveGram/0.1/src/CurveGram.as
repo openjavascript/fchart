@@ -159,11 +159,14 @@ package
 				if( !DefaultData.instance.data.length ) return;
 				_data = DefaultData.instance.data[0];
 			}else{
-				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};				
+				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};
+				
 				if( _loaderInfo.chart ){
 					_data = JSON.parse( _loaderInfo.chart );
-				}				
+				}
 				_data = _data || {};
+				
+				BaseConfig.setParams( _data );
 			}
 			
 			update( _data );
