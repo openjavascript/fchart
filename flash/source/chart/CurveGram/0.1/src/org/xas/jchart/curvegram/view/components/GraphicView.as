@@ -1,18 +1,12 @@
 package org.xas.jchart.curvegram.view.components
 {
-	import com.adobe.utils.StringUtil;
-	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
 	import flash.geom.Point;
-	import flash.text.TextField;
-	import flash.text.TextFieldAutoSize;
-	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
 	
 	import org.xas.core.utils.Log;
-	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
@@ -23,6 +17,7 @@ package org.xas.jchart.curvegram.view.components
 	{	
 		private var _boxs:Vector.<CurveGramUI>;
 		private var _preIndex:int = -1;
+		private var _nowIndex:int;
 		
 		private var _config:Config;
 		
@@ -79,16 +74,14 @@ package org.xas.jchart.curvegram.view.components
 			});
 			
 			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
-			
+				
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
 					, _path:Vector.<Number> = _item.path as Vector.<Number>
 					, _gitem:CurveGramUI
 					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
 					;
 					
-				//if( _k !== 1 ) return;
-				
-				addChild( 
+				addChild(
 					_gitem = new CurveGramUI(
 						_cmd
 						, _path
@@ -100,9 +93,12 @@ package org.xas.jchart.curvegram.view.components
 							, duration: BaseConfig.ins.animationDuration
 							, delay: _delay
 							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
+							, index: _k
 						}
 					)
 				);
+				
+				_gitem.addEventListener( MouseEvent.CLICK, onMouseClick );
 				_boxs.push( _gitem );
 			});
 		}
@@ -128,6 +124,7 @@ package org.xas.jchart.curvegram.view.components
 				, _ix:int = _evt.data.index as int
 				;
 			
+			_nowIndex = _ix;
 			
 			if( !_boxs || _boxs.length == 0 ) return;
 			if( _preIndex == _ix ) return;
@@ -148,6 +145,36 @@ package org.xas.jchart.curvegram.view.components
 			});
 			
 			_preIndex = _ix;
+		}
+		
+		private function onMouseClick( _evt:MouseEvent ):void {
+			
+			var _target:CurveGramUI = _evt.currentTarget as CurveGramUI;
+			var _ix:int = _target.data.index;
+			var _groupData:Vector.<Object> = new Vector.<Object>;
+			var _itemData:Object = new Object();
+			var _tpmObject:Object = new Object();
+			var _orgIndex:Number;
+			
+			Common.each( _config.displaySeries, function( _six:Number, _dataObj:Object ):void{
+				
+				_orgIndex = _config.displaySeriesIndexMap[ _six ];
+				_tpmObject = {
+					'name' : _dataObj.name
+					, 'data' : _dataObj.data[ _nowIndex ]
+					, 'categories' : _config.categories[ _nowIndex ]
+					, 'lineIndex' : _six
+					, 'orglineIndex' : _orgIndex
+					, 'pointIndex' : _nowIndex
+				};
+				
+				_groupData.push( _tpmObject );
+				
+				( _ix == _six ) && ( _itemData = _tpmObject );
+			} );
+			
+			dispatchEvent( new JChartEvent( JChartEvent.ITEM_CLICK, _itemData ) );
+			dispatchEvent( new JChartEvent( JChartEvent.GROUP_CLICK, _groupData ) );
 		}
 		
 	}
