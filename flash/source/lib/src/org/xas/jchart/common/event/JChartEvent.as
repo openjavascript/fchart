@@ -41,6 +41,7 @@ package org.xas.jchart.common.event
 		public static const GROUP_CLICK:String = 'groupclick';
 		public static const ITEM_CLICK:String = 'itemclick';
 		public static const ITEM_HOVER:String = 'itemhover';
+		public static const INITED:String = 'inited';
 		
 		public function JChartEvent($type:String, $data:Object=null)
 		{

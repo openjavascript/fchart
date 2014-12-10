@@ -1,6 +1,7 @@
 package org.xas.jchart.common.controller
 {
 	import flash.external.ExternalInterface;
+	
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
@@ -28,8 +29,12 @@ package org.xas.jchart.common.controller
 			
 			_callBackSet = _loader.callback;
 			
-			if( ExternalInterface.available && _callBackSet && _callBackSet.itemClickCallback ) {
-				ExternalInterface.call( _callBackSet.itemClickCallback, _data );
+			if( ExternalInterface.available && _callBackSet ) {
+				if( _callBackSet.itemClickCallback ) {
+					ExternalInterface.call( _callBackSet.itemClickCallback, _data );
+				} else if( _callBackSet.clickCallback ) {
+					ExternalInterface.call( _callBackSet.clickCallback, _data );
+				}
 			}
 		}
 	}

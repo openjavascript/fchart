@@ -49,6 +49,10 @@ package org.xas.jchart.map.view.mediator
 			_view.addEventListener( JChartEvent.ITEM_HOVER, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.ITEM_HOVER, _evt.data );
 			}  );
+			
+			_view.addEventListener( JChartEvent.INITED, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.INITED, _evt.data );
+			}  );
 		}
 		
 		override public function onRemove():void{

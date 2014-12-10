@@ -140,9 +140,11 @@ package org.xas.jchart.map.view.components
 			addChild( _mapStage );
 			addChild( _mask );
 			
-			if( ExternalInterface.available && _config.c.initedCallback ){
-				ExternalInterface.call( _config.c.initedCallback );
-			}
+//			if( ExternalInterface.available && _config.c.initedCallback ){
+//				ExternalInterface.call( _config.c.initedCallback );
+//			}
+			
+			dispatchEvent( new JChartEvent( JChartEvent.INITED, {} ) );
 		}
 		
 		protected function onMouseOver( _evt:MouseEvent ):void{
@@ -154,10 +156,6 @@ package org.xas.jchart.map.view.components
 			
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, { evt:_evt, index: _ix } ) );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_LEGEND_ARROW, { evt:_evt, data: _target.data.data } ) );
-			
-//			if( ExternalInterface.available && _config.c.hoverCallback ){
-//				ExternalInterface.call( _config.c.hoverCallback, _boxs[ _ix ].data );
-//			}
 			
 			dispatchEvent( new JChartEvent( JChartEvent.ITEM_HOVER, _boxs[ _ix ].data ) );
 		}
@@ -183,10 +181,6 @@ package org.xas.jchart.map.view.components
 		protected function onMouseClick( _evt:MouseEvent ):void{
 			var _target:JSprite = _evt.target as JSprite;
 			var _ix:int = _target.data.index;
-			
-//			if( ExternalInterface.available && _config.c.clickCallback ){
-//				ExternalInterface.call( _config.c.clickCallback, _boxs[ _ix ].data );
-//			}
 			
 			dispatchEvent( new JChartEvent( JChartEvent.ITEM_CLICK, _boxs[ _ix ].data ) );
 		}
