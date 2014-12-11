@@ -32,7 +32,8 @@ package org.xas.jchart.common.controller
 			if( ExternalInterface.available && _callBackSet ) {
 				if( _callBackSet.itemHoverCallback ){
 					ExternalInterface.call( _callBackSet.itemHoverCallback, _data );
-				} else if( _callBackSet.hoverCallback ) {
+				} 
+				if( _callBackSet.hoverCallback ) {
 					ExternalInterface.call( _callBackSet.hoverCallback, _data );
 				}
 			}
