@@ -16,8 +16,8 @@ package
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
-	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseConfig;
+	import org.xas.core.utils.Log; 
+	import org.xas.jchart.common.BaseConfig; 
 	import org.xas.jchart.common.data.test.MapData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.map.MainFacade; 
