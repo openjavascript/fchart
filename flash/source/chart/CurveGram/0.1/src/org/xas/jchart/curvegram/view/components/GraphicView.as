@@ -101,6 +101,8 @@ package org.xas.jchart.curvegram.view.components
 				_gitem.addEventListener( MouseEvent.CLICK, onMouseClick );
 				_boxs.push( _gitem );
 			});
+			
+			dispatchEvent( new JChartEvent( JChartEvent.INITED, {} ) );
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{

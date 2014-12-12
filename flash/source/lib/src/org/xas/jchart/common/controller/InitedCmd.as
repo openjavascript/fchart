@@ -1,9 +1,11 @@
 package org.xas.jchart.common.controller
 {
+	import flash.external.ExternalInterface;
+	
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
-	import flash.external.ExternalInterface;
+	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	
 	public class InitedCmd extends SimpleCommand implements ICommand {

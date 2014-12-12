@@ -6,6 +6,7 @@ package org.xas.jchart.curvegram
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.controller.GroupClickCmd;
+	import org.xas.jchart.common.controller.InitedCmd;
 	import org.xas.jchart.common.controller.ItemClickCmd;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.curvegram.controller.CalcCoordinateCmd;
@@ -42,6 +43,7 @@ package org.xas.jchart.curvegram
 			
 			registerCommand( JChartEvent.GROUP_CLICK, GroupClickCmd );
 			registerCommand( JChartEvent.ITEM_CLICK, ItemClickCmd );
+			registerCommand( JChartEvent.INITED, InitedCmd );
 		}			
 	}
 }

@@ -25,8 +25,13 @@ package org.xas.jchart.curvegram.view.mediator
 			_view.addEventListener( JChartEvent.ITEM_CLICK, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.ITEM_CLICK, _evt.data );
 			} );
+			
 			_view.addEventListener( JChartEvent.GROUP_CLICK, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.GROUP_CLICK, _evt.data );
+			}  );
+			
+			_view.addEventListener( JChartEvent.INITED, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.INITED, _evt.data );
 			}  );
 		}
 		
