@@ -20,6 +20,7 @@ package org.xas.jchart.common
 		
 		public function get customRate():Boolean {
 			var _r:Boolean = false;
+			return true;
 			this.cd
 				&& this.cd.yAxis
 				&& this.cd.yAxis.customRate
@@ -543,7 +544,9 @@ package org.xas.jchart.common
 				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
 					
 				if( _tmp.length && !Common.hasNegative( displaySeries ) && this.customRate ){
+					//Log.log( 'xxxxxxxxxx' + _r );
 					_r = Common.numberDown( _r );
+					//Log.log( 'xxxxxxxxxx' + _r );
 				} else {
 					_r > 0 && ( _r = 0 );
 					_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );

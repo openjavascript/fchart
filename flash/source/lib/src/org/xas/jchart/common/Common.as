@@ -65,8 +65,28 @@ package org.xas.jchart.common
 				, _ar:Array
 				, i:int, j:int, tmp:Number
 				, _midNum:int, _char:int
+				, _tmpAr:Array = _in.toString().split('')
+				, _find:Boolean
 				;
 			
+			//Log.log( _in.toString().split('').join('dddddddd' ) );
+			
+			
+			Common.each( _tmpAr, function( _k:int, _item:String ):void{
+				if( /[1-9]/.test( _item ) ){
+					if( _find ){
+						_tmpAr[ _k ] = 0;
+					}else{
+						_find = true;
+					}
+				}
+			});
+			//Log.log( 'asdfasdf: ' + _tmpAr.join('' ) )
+				
+			_out = Number( _tmpAr.join('' ) );
+			
+			
+			/*
 			if( /[1-9]/.test( _int.toString( ) ) ) {
 				tmp = Math.pow( 10, _int.toString().length - 1  );
 				_char = parseInt( _int.toString().charAt( 0 ) );
@@ -97,6 +117,7 @@ package org.xas.jchart.common
 			}
 			
 			_isNegative && ( _out = -_out );
+			*/
 			
 			return _out;
 		}
