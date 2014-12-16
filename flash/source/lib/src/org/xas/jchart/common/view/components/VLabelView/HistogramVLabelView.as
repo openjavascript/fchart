@@ -40,8 +40,12 @@ package org.xas.jchart.common.view.components.VLabelView
 				
 				var _floatLen:int = BaseConfig.ins.realRateFloatLen;
 				
-				if( BaseConfig.ins.floatLen === 0 && BaseConfig.ins.maxNum >= 8 ){
+				if( BaseConfig.ins.floatLen === 0 && BaseConfig.ins.maxNum > 10 ){
 					_floatLen = 0;
+				}
+					
+				if( BaseConfig.ins.cd && BaseConfig.ins.cd.yAxis && ( 'realRateFloatLen' in BaseConfig.ins.cd.yAxis ) ){
+					_floatLen = BaseConfig.ins.realRateFloatLen;
 				}
 				
 				_t = Common.moneyFormat( _item, 3, _floatLen || 0 );

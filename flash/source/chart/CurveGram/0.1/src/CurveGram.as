@@ -14,12 +14,13 @@ package
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
-	import org.xas.core.ui.error.BaseError; 
+	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.event.JChartEvent; 
-	import org.xas.jchart.curvegram.MainFacade;     
+	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.curvegram.MainFacade;
 
 	      
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -44,7 +45,7 @@ package
 			Security.allowDomain("*");
 			Security.allowInsecureDomain("*");
 			_ins = this; 
-			
+						
 			this.root.stage.scaleMode = StageScaleMode.NO_SCALE;
 			this.root.stage.align = StageAlign.TOP_LEFT;
 			 

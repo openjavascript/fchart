@@ -165,7 +165,8 @@ package org.xas.jchart.common
 			var _isNegative:Boolean = false, _r:String;
 			
 			
-			_number = parseFinance( _number, _floatLen );
+			//_number = parseFinance( _number, _floatLen );
+			
 			
 			if( typeof _number == 'string' ){
 				_number = _number.replace( /[,]/g, '' );

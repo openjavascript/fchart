@@ -688,6 +688,7 @@ package org.xas.jchart.common
 					_realItem += _minNum;
 					
 				}
+				//Log.log( 'xxxxxxxx: ' + _realItem );
 				
 				_realRate.push( _realItem );
 			});
@@ -736,7 +737,14 @@ package org.xas.jchart.common
 		public function get realRate():Array{ return _realRate; }
 		
 		private var _realRateFloatLen:int;
-		public function get realRateFloatLen():int{ return _realRateFloatLen; }
+		public function get realRateFloatLen():int{ 
+			var _r:Number = _realRateFloatLen;
+			
+			this.cd && this.cd.yAxis && ( 'realRateFloatLen' in this.cd.yAxis )
+				&& ( _r = Number( this.cd.yAxis.realRateFloatLen ) );
+			
+			return _r; 
+		}
 		
 		public function get titleStyle():Object{
 			var _r:Object = {};
