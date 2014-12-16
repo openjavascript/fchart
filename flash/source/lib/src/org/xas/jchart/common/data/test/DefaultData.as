@@ -22,6 +22,96 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			_data.push( {
+				"chart": {
+					"type": "line"
+				},
+				"title": {
+					"text": "月趋势"
+				},
+				"xAxis": {
+					"categories": [
+						"2013-12",
+						"2014-01",
+						"2014-02",
+						"2014-03",
+						"2014-04",
+						"2014-05",
+						"2014-06",
+						"2014-07",
+						"2014-08",
+						"2014-09",
+						"2014-10",
+						"2014-11"
+					]
+				},
+				"yAxis": {
+					"customRate" : true
+					, "title": {
+						"text": "搜索指数"
+					}
+				},
+				"series": [
+					{
+						"name": "宝马",
+						"data": [
+							205370,
+							184888,
+							205370,
+							184888,
+							205370,
+							184888,
+							205370,
+							184888,
+							205370,
+							184888,
+							205370,
+							184888
+						],
+						"style": {
+							"stroke": "#ff7100"
+						},
+						"pointStyle": {}
+					},
+					{
+						"name": "别克",
+						"data": [
+							155729,
+							142159,
+							155729,
+							142159,
+							155729,
+							142159,
+							155729,
+							142159,
+							155729,
+							142159,
+							155729,
+							142159
+						],
+						"style": {
+							"stroke": "#ff7100"
+						},
+						"pointStyle": {}
+					}
+				],
+				"displayAllLabel": true,
+				"legend": {
+					"enabled": false
+				},
+				"plotOptions": {
+					"area": {
+						"fillColor": {}
+					}
+				},
+				"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+				],
+				"callback": {
+					"initedCallback": "initedCallback"
+				}
+			});
 			
 			_data.push( {
 				chart: {
@@ -41,6 +131,7 @@ package org.xas.jchart.common.data.test
 					]
 				}, 
 				yAxis: {
+					customRate: true
 				},
 				series:[{
 					name: '公司1',
@@ -3283,6 +3374,9 @@ package org.xas.jchart.common.data.test
 					categories: [2111111111111, 2, 3, 4, 5, 6, 7, 8, 999999999999]
 					, tipTitlePostfix: '{0}月'
 				}, 
+				xAxis: {
+					customRate: true
+				},
 				series:[{
 					name: 'Temperature',
 					data: [-50, -1, -3, 10.01, -20, -27, -28, -32, -30]
@@ -3293,7 +3387,7 @@ package org.xas.jchart.common.data.test
 					name: 'Rainfall2',
 					data: [-30, -21, -20, -100, -10, -210, -20, -100, -20]
 				}, {
-					name: 'Rainfall3',
+					name: 'Rainfall999',
 					data: [-40, -21, -20, -100, -10, -210, -120, -100, -20]
 				}
 					

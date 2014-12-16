@@ -144,7 +144,6 @@ package org.xas.jchart.curvegram.controller
 					_config.c.maxY -= pHLabelMediator.maxHeight;
 				}
 				
-				//_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
 					_config.c.chartHeight = _config.graphicHeight - _yPad;		
@@ -165,7 +164,6 @@ package org.xas.jchart.curvegram.controller
 				_config.c.chartY = _config.c.minY;
 				
 				facade.registerMediator( new GraphicBgMediator() );	
-				//facade.registerMediator( new TipsMediator() );
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 
 				
@@ -195,29 +193,27 @@ package org.xas.jchart.curvegram.controller
 			_config.c.partWidth = _config.c.itemWidth / _config.displaySeries.length;
 
 			
-			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void {
 				
 				var _cmd:Vector.<int> = new Vector.<int>
 				, _path:Vector.<Number> = new Vector.<Number>
 				, _positions:Array = []
-				, _vectorPath:Vector.<Point> = new Vector.<Point>
-				;				
+				, _vectorPath:Vector.<Point> = new Vector.<Point>;				
 				
-				Common.each( _item.data, function( _sk:int, _num:Number ):void{
+				Common.each( _item.data, function( _sk:int, _num:Number ):void {
 					var _rectItem:Object = {}
 						, _pointItem:Object = _config.c.hpointReal[ _sk ]
 						, _sp:Point = _pointItem.start as Point
 						, _ep:Point = _pointItem.end as Point
-						, _h:Number
-						, _x:Number, _y:Number
+						, _h:Number, _x:Number, _y:Number
 						, _itemNum:Number
-						, _dataHeight:Number
+						, _dataHeight:Number = _config.c.vpart * _config.rateZeroIndex
 						, _dataY:Number
-						, _sNum:Number = _num;
-						;
-						//Log.log( _sk, _sp.x, _sp.y );
+						, _sNum:Number = _num
+						, _customRate:Boolean = _config.customRate
+						, _minYvalue:Number;
 						
-						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
+						if( _config.isItemPercent && _config.displaySeries.length > 1 ) {
 							_h = _config.c.vpart * _config.rateZeroIndex;
 							if( _num > 0 ){
 								_h = ( _num / _config.itemMax( _sk ) || 1 ) * _h;
@@ -225,39 +221,42 @@ package org.xas.jchart.curvegram.controller
 							if( _num == 0 ){
 								_h = 0;
 							}
-							_y = _sp.y 
-							+ _config.c.vpart * _config.rateZeroIndex - _h
-							;
-							if( _sk === 0 ){
+							_y = _sp.y + _dataHeight - _h;
+							
+							if( _sk === 0 ) {
 								//Log.log( _num / _config.itemMax( _sk ) * 100, _num, _config.itemMax( _sk ) );
 							}
-							
-							//Log.log( _config.itemMax( _sk ), _num, ( _num / _config.itemMax( _sk ) || 1 ) * 100 );
-						}else{
-							if( Common.isNegative( _num ) && _num != 0 ){
-								_num = Math.abs( _num );
-								_dataHeight = _config.c.vpart * _config.rateZeroIndex;
-								
-								_h = _config.c.chartHeight - _dataHeight;
-								_y = _sp.y + _dataHeight ;
-								
-								_h = 
-								( _num / 
-									Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
-								* _h;
-								_y += _h;
-								//Log.log( _h, _config.finalMaxNum );
-							}else{							
-								_h = _config.c.vpart * _config.rateZeroIndex;
-								if( _num > 0 ){
-									_h = ( _num / _config.chartMaxNum || 1 ) * _h;
+						} else {
+							if( Common.isNegative( _num ) && _num != 0 ) {
+								if( _customRate ) {
+									_minYvalue = _config.realRate[ 0 ];
+									
+									_num = Math.abs( _num ) - _minYvalue;
+									
+									_h = ( _num / Math.abs( _config.finalMaxNum * 
+										_config.rate[ _config.rate.length - 1 ] ) ) *
+										( _config.c.chartHeight - _dataHeight );
+										
+									_y = _sp.y + _dataHeight + _h;
+								} else {
+									_num = Math.abs( _num );
+									_h = ( _num / Math.abs( _config.finalMaxNum * 
+										_config.rate[ _config.rate.length - 1 ] ) ) *
+										( _config.c.chartHeight - _dataHeight );
+									
+									_y = _sp.y + _dataHeight + _h;
 								}
-								if( _num == 0 ){
-									_h = 0;
+							} else {
+								if( _customRate ) {
+									_minYvalue = _config.realRate[ _config.realRate.length - 1 ];
+									
+									_h = ( _num > _minYvalue ) ? ( ( ( _num -_minYvalue ) /
+										( _config.chartMaxNum - _minYvalue ) || 1 ) * _dataHeight ) : 0;
+									_y = _sp.y + _dataHeight - _h;
+								} else {
+									_h = ( _num == 0 ) ? 0 : ( ( _num / _config.chartMaxNum || 1 ) * _dataHeight );
+									_y = _sp.y + _dataHeight - _h;
 								}
-								_y = _sp.y 
-								+ _config.c.vpart * _config.rateZeroIndex - _h
-								;
 							}
 						}
 						_x = _sp.x;
@@ -266,12 +265,7 @@ package org.xas.jchart.curvegram.controller
 						_path.push( _x, _y );
 						_vectorPath.push( new Point( _x, _y ) );
 						_positions.push( { x: _x, y: _y, value: _sNum } );
-						
-
-					//Log.log( _y, _sp.y, _config.c.vpart, _config.rateZeroIndex, _h, _config.finalMaxNum );
-						
 				});
-				//Log.log( 'xxxxxxxxxxxxx' );
 				
 				_config.c.paths.push( { cmd: _cmd, path: _path, position: _positions, data: _item } );
 				_config.c.vectorPaths.push( _vectorPath );

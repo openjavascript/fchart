@@ -18,6 +18,15 @@ package org.xas.jchart.common
 		}
 		public static function get params():Object{ return _params; }
 		
+		public function get customRate():Boolean {
+			var _r:Boolean = false;
+			this.cd
+				&& this.cd.yAxis
+				&& this.cd.yAxis.customRate
+				&& ( _r = this.cd.yAxis.customRate );
+			return _r;
+		}
+		
 		/* trend */
 		protected var _hlabelNum:Number = 5;
 		public function get hlabelNum():Number{ return _hlabelNum; }
@@ -532,10 +541,15 @@ package org.xas.jchart.common
 					_tmp = _tmp.concat( displaySeries[ _k ].data );
 				});
 				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
-				
-				_r > 0 && ( _r = 0 );
-				_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
+					
+				if( _tmp.length && !Common.hasNegative( displaySeries ) && this.customRate ){
+					_r = Common.numberDown( _r );
+				} else {
+					_r > 0 && ( _r = 0 );
+					_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
+				}
 			}
+			
 			return _r;
 		}
 		
@@ -582,8 +596,9 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		public function calcRate():void{
-			var _data:Object = _chartData;
+		public function calcRate():void {
+			var _data:Object = _chartData
+				, _customRate:Boolean = this.customRate;
 			_rate = [];
 			if( !_data ) return;
 			
@@ -592,69 +607,85 @@ package org.xas.jchart.common
 			_absNum = Math.abs( _minNum );
 			_finalMaxNum = Math.max( _maxNum, _absNum );
 			
-			if( _data && Common.hasNegative( displaySeries ) ){				
-				if( _maxNum > _absNum ){
-					if( Math.abs( _finalMaxNum * 0.33 ) > _absNum ){
+			if( Common.hasNegative( displaySeries ) ) {
+				
+				/* 有负数数据将不会处理_customRate*/
+				_customRate = false;
+				
+				if( _maxNum > _absNum ) {
+					if( Math.abs( _finalMaxNum * 0.33 ) > _absNum ) {
 						_rate = [ 1, 0.66, 0.33, 0, -0.33];
 						_rateZeroIndex = 3;
 					}
-				}else{
+				} else {
 					if( _maxNum == 0 ){
 						_rate = [ 0, -0.25, -0.5, -0.75, -1 ];
 						_rateZeroIndex = 0;
-					}else if( Math.abs( _finalMaxNum * 0.33 ) > _maxNum ){
+					} else if ( Math.abs( _finalMaxNum * 0.33 ) > _maxNum ) {
 						_rate = [ 0.33, 0, -0.33, -0.66, -1 ];
 						_rateZeroIndex = 1;
 					}
 				}
-				if( !_rate.length ){
+				
+				if( !_rate.length ) {
 					_rate = [ 1, .5, 0, -.5, -1 ];
 					_rateZeroIndex = 2;
-				} 
-				
-			}else{
+				}
+			} else {
 				_rate = [1, .75, .5, .25, 0 ];
 				_rateZeroIndex = 4;
 			}
 			
 			_realRate = [];
 			_realRateFloatLen = 0;
-			var _tmpLen:int = 0, _rateValue:Number = _finalMaxNum;
+			var _tmpLen:int = 0
+				, _rateValue:Number = _finalMaxNum;
+			
 			if( this.isPercent ){
 				_rateValue = 100;
-			}				
+			}
+			
 			_rate = yAxisRate || _rate;
 			Common.each( _rate, function( _k:int, _item:Number ):void{
 				if( _item === 0 ){
 					_rateZeroIndex = _k;
 				}
-			});
+			} );
 			this.yAxisMaxValue && ( _rateValue = this.yAxisMaxValue );
+			
+			if( _customRate ) {
+				_rateValue = _maxNum - _minNum;
+			}
 			
 			Common.each( _rate, function( _k:int, _item:Number ):void{
 				var _realItem:Number = _rateValue * _item;
 					_realItem = Common.parseFinance( _realItem, 10 );
 					
-					if( Common.isFloat( _realItem ) ){
-						_tmpLen = _realItem.toString().split( '.' )[1].length;
-						_tmpLen > _realRateFloatLen && ( _realRateFloatLen = _tmpLen );
-					}
+				if( Common.isFloat( _realItem ) ) {
+					_tmpLen = _realItem.toString().split( '.' )[1].length;
+					_tmpLen > _realRateFloatLen && ( _realRateFloatLen = _tmpLen );
+				}
+				
+				if( _customRate ) {
+					_realItem += _minNum;
+				}
+				
 				_realRate.push( _realItem );
-				//Log.log( _realItem );
 			});
+			
 			_itemMax = [];
 			_realRateFloatLen === 1 && ( _realRateFloatLen = 2 );
 			
 			if( displaySeries && displaySeries.length &&  displaySeries[0].data && displaySeries[0].data.length ){
+				var _tmpMax:Number;
 				Common.each( displaySeries[0].data, function( _k:int, _item:Object ):void{
-					var _tmpMax:Number = 0;
+					_tmpMax = 0;
 					Common.each( displaySeries, function( _sk:int, _sitem:Object ):void{
 						_tmpMax += _sitem.data[ _k ];
 					});
 					_itemMax.push( _tmpMax );
 				});
 			}
-			//Log.log( _itemMax );
 		}
 		
 		public function get yAxisMaxValue():Number{

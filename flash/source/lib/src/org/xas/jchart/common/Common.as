@@ -22,11 +22,9 @@ package org.xas.jchart.common
 				, _midNum:int, _char:int
 				;
 			
-			//Log.log( 'xxxxxx', _int.toString() );
-			
 			if( /[1-9]/.test( _int.toString( ) ) ){
 				tmp = Math.pow( 10, _int.toString().length - 1  );
-				_char = parseInt( _int.toString().charAt(0 ));
+				_char = parseInt( _int.toString().charAt( 0 ));
 				_midNum = tmp * _char + ( tmp * ( _char + 1 ) - tmp * _char ) / 2;
 				
 				if( _in < _midNum ){
@@ -37,7 +35,6 @@ package org.xas.jchart.common
 						_out = tmp * 10;
 					}
 				}
-				
 			}else{						
 				for( _ar = _float.toFixed( _floatLen ).split(''), i = 0, j = _ar.length; i < j; i++ ){
 					if( _ar[i] != '0' && _ar[i] != '.' ){
@@ -58,6 +55,51 @@ package org.xas.jchart.common
 			return _out;
 		}
 		
+		public static function numberDown( _in:Number, _floatLen:int = 5 ):Number{
+			
+			var _out:Number = 0, _inStr:String = _in.toFixed( _floatLen )
+				, _part:Array = _inStr.split( '.' )
+				, _int:Number = Math.abs( _part[0] )
+				, _float:Number = parseFloat( '0.' + _part[ 1 ] )
+				, _isNegative:Boolean = _in < 0
+				, _ar:Array
+				, i:int, j:int, tmp:Number
+				, _midNum:int, _char:int
+				;
+			
+			if( /[1-9]/.test( _int.toString( ) ) ) {
+				tmp = Math.pow( 10, _int.toString().length - 1  );
+				_char = parseInt( _int.toString().charAt( 0 ) );
+				_midNum = tmp * _char - ( tmp * ( _char + 1 ) - tmp * _char ) / 2;
+				
+				if( _in > _midNum ){
+					_out = _midNum;
+				} else {					
+					_out = tmp * ( _char  -  1 );
+					if( _out > _in ){
+						_out = tmp / 10;
+					}
+				}
+			} else {
+				for( _ar = _float.toFixed( _floatLen ).split(''), i = 0, j = _ar.length; i < j; i++ ){
+					
+					if( _ar[i] != '0' && _ar[i] != '.' ){
+						tmp = parseFloat( _ar.slice( 0, i ).join('') + '1'  )
+							, _out = tmp + parseFloat( _ar.slice( 0, i ).join('') + parseInt( _ar[i] )  );
+						
+						if( _out > _float ){
+							_out = tmp;
+						}
+						
+						break;
+					}
+				}
+			}
+			
+			_isNegative && ( _out = -_out );
+			
+			return _out;
+		}
 		
 		public static function each( _items:*, _cb:Function ):*{
 			var i:int, j:int, k:String;
@@ -205,6 +247,21 @@ package org.xas.jchart.common
 					}
 				});
 			}			
+			return _r;
+		}
+		
+		public static function hasPositive( _data:Array ):Boolean{
+			var _r:Boolean = false;
+			
+			if( _data && _data.length ){
+				each( _data, function( _ix:int, _item:Object ):*{
+					var _tmp:Number = Math.min.apply( null, _item.data );
+					if( _tmp > 0 ){
+						_r = true;
+						return false;
+					}
+				});
+			}
 			return _r;
 		}
 		
