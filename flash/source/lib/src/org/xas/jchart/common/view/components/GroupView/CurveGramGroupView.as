@@ -26,7 +26,7 @@ package org.xas.jchart.common.view.components.GroupView
 		
 		
 		override protected function addToStage( _evt:Event ):void{
-			Log.log( '_startY:' + _startY );
+			//Log.log( '_startY:' + _startY );
 			
 			init();
 			
@@ -66,7 +66,7 @@ package org.xas.jchart.common.view.components.GroupView
 		}
 		
 		override protected function showChart( _evt: JChartEvent ):void{
-			Log.log( 'show chart' );
+			//Log.log( 'show chart' );
 			
 			Common.each( _labels, function( _k:int, _item:JTextField ):void{
 				var _data:Object = _item.data

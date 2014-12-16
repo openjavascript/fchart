@@ -25,7 +25,7 @@ package org.xas.jchart.common
 				&& this.cd.yAxis.customRate
 				&& ( _r = this.cd.yAxis.customRate );
 			return _r;
-		}
+		} 
 		
 		/* trend */
 		protected var _hlabelNum:Number = 5;
@@ -639,7 +639,9 @@ package org.xas.jchart.common
 			_realRate = [];
 			_realRateFloatLen = 0;
 			var _tmpLen:int = 0
-				, _rateValue:Number = _finalMaxNum;
+				, _rateValue:Number = _finalMaxNum
+				, _tmpRateValue:Number
+				;
 			
 			if( this.isPercent ){
 				_rateValue = 100;
@@ -653,8 +655,16 @@ package org.xas.jchart.common
 			} );
 			this.yAxisMaxValue && ( _rateValue = this.yAxisMaxValue );
 			
+			_tmpRateValue = _rateValue;
 			if( _customRate ) {
 				_rateValue = _maxNum - _minNum;
+				
+				var _partNum:Number = _rateValue / ( _rate.length - 1 );
+				if( (_minNum - _partNum ) < 0 ){
+					Log.log( 'test: ' + _partNum + ', ' + _minNum );
+					_customRate = false;
+					_rateValue = _tmpRateValue;
+				}
 			}
 			
 			Common.each( _rate, function( _k:int, _item:Number ):void{
@@ -668,6 +678,7 @@ package org.xas.jchart.common
 				
 				if( _customRate ) {
 					_realItem += _minNum;
+					
 				}
 				
 				_realRate.push( _realItem );
