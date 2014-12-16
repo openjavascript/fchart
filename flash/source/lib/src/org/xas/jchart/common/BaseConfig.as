@@ -20,7 +20,6 @@ package org.xas.jchart.common
 		
 		public function get customRate():Boolean {
 			var _r:Boolean = false;
-			return true;
 			this.cd
 				&& this.cd.yAxis
 				&& this.cd.yAxis.customRate
