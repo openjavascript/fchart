@@ -90,7 +90,7 @@ package
 		
 		private function legendUpdate( _data:Object ):void{
 			ExternalInterface.call( 'test' );
-			_facade.sendNotification( JChartEvent.FILTER_DATA );
+			_facade.sendNotification( JChartEvent.FILTER_DATA, _data );
 		}
 		
 		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{			
