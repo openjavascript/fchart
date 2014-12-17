@@ -32,9 +32,9 @@
         <dd>
             <div class="legend-update">
                 屏蔽 ： 
-                <input type="checkbox" value="Temperature" data-index="0" checked="checked" />Temperature
+                <label><input type="checkbox" value="Temperature" data-index="0" checked="checked" />Temperature</label>
                 <span style="padding: 0 10px;"></span>
-                <input type="checkbox" value="Rainfall" data-index="1" checked="checked" />Rainfall
+                <label><input type="checkbox" value="Rainfall" data-index="1" checked="checked" />Rainfall</label>
             </div>
             <div class="js_compFChart"
                 chartScriptData="|script"
@@ -427,7 +427,7 @@
 
             $.each( _checkboxs, function( _i, _item ){
                 _tmpItem = $( _item );
-                if( _tmpItem.is( ':checked' ) ) {
+                if( !_tmpItem.is( ':checked' ) ) {/* 传入的是需要隐藏的index */
                     _dataIndex = _tmpItem.attr( 'data-index' )
                     _legend[ _dataIndex ] = _dataIndex;
                 }
