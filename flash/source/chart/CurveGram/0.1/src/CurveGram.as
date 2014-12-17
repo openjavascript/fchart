@@ -89,7 +89,8 @@ package
 		}
 		
 		private function legendUpdate( _data:Object ):void{
-			_facade.sendNotification( JChartEvent.LEGEND_UPDATE );
+			ExternalInterface.call( 'test' );
+			_facade.sendNotification( JChartEvent.FILTER_DATA );
 		}
 		
 		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{			

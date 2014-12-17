@@ -45,7 +45,6 @@ package org.xas.jchart.curvegram
 			registerCommand( JChartEvent.GROUP_CLICK, GroupClickCmd );
 			registerCommand( JChartEvent.ITEM_CLICK, ItemClickCmd );
 			registerCommand( JChartEvent.INITED, InitedCmd );
-			registerCommand( JChartEvent.LEGEND_UPDATE, LegendUpdateCmd );
 		}			
 	}
 }
