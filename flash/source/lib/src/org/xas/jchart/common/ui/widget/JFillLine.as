@@ -124,7 +124,7 @@ package org.xas.jchart.common.ui.widget
 		
 		private function staticDraw():void{
 
-			this.graphics.lineStyle( 0, _lineColor );
+			this.graphics.lineStyle( 0, _lineColor, 0 );
 			
 			if( _isGradient ){
 				var _minY:Number = minY()
