@@ -1,5 +1,7 @@
 package org.xas.jchart.common.ui.widget
 {
+	import com.greensock.TweenLite;
+	
 	import flash.display.GradientType;
 	import flash.display.SpreadMethod;
 	import flash.geom.Matrix;
@@ -42,6 +44,7 @@ package org.xas.jchart.common.ui.widget
 		private var _lineColor:uint = 0x00ff00;
 		private var _isGradient:Boolean;
 		private var _opacity:Number = .35;
+		private var _delayShow:Number = 0;
 		
 		public function JFillLine( _path:Vector.<Point>, _data:Object=null, _isGradient:Boolean = false )
 		{
@@ -54,6 +57,7 @@ package org.xas.jchart.common.ui.widget
 			
 			_data.thickness && ( _thickness = _data.thickness );
 			_data.lineColor && ( _lineColor = _data.lineColor );
+			_data.delayShow && ( _delayShow = _data.delayShow );
 			'fillOpacity' in _data && ( _opacity = _data.fillOpacity );
 			
 			init();
@@ -61,6 +65,14 @@ package org.xas.jchart.common.ui.widget
 		
 		private function init():void{
 			if( !( _path && _path.length > 1 ) ) return;
+			var _ins:JFillLine = this;
+			if( BaseConfig.ins.animationEnabled ){
+				this.visible = false;
+				
+				TweenLite.delayedCall( _delayShow, function():void{
+					_ins.visible = true;
+				});
+			}
 			this.graphics.lineStyle( 0, _lineColor );
 						
 			if( _isGradient ){

@@ -10,6 +10,10 @@ package org.xas.jchart.common.config
 		{
 			super();
 		}
+		
+		override public function get isAutoRate():Boolean{
+			return false;
+		}
 
 	}
 }

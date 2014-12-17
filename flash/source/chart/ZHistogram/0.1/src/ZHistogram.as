@@ -19,8 +19,9 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.event.JChartEvent; 
-	import org.xas.jchart.zhistogram.MainFacade;     
+	import org.xas.jchart.common.data.test.ZHistogramData;
+	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.zhistogram.MainFacade;
 	      
 	     
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -30,7 +31,7 @@ package
 	//[SWF(frameRate="30", width="1400", height="460")]
 	[SWF(frameRate="30", width="1200", height="600")]
 	public class ZHistogram extends Sprite 
-	{ 
+	{  
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
 		private var _data:Object;  
@@ -155,7 +156,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){
-				_data = DefaultData.instance.data[0];
+				_data = ZHistogramData.instance.data[0];
 			}else{
 				Log.log(this.root.stage.loaderInfo);
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	

@@ -94,7 +94,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					_x < _config.c.chartX && ( 
 						_x = _config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
 					);
-					Log.log( _tf.width + ', ' + _config.c.labelWidth );
+					//Log.log( _tf.width + ', ' + _config.c.labelWidth );
 				}else if( _k === _config.c.hpointReal.length - 1 ){
 					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
 						//_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
