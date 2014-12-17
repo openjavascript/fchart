@@ -71,6 +71,8 @@ package
 			if( ExternalInterface.available ){
 				try{
 				ExternalInterface.addCallback( 'update', extenalUpdate );
+				
+				ExternalInterface.addCallback( 'legendUpdate', legendUpdate );
 				}catch( ex:Error ){}
 			}
 		}
@@ -80,6 +82,10 @@ package
 			BaseConfig.ins.updateDisplaySeries( null, _data );
 			BaseConfig.ins.setChartData( _data );
 			_facade.sendNotification( JChartEvent.DRAW );
+		}
+		
+		private function legendUpdate( _data:Object ):void{
+			_facade.sendNotification( JChartEvent.FILTER_DATA, _data );
 		}
 		
 		public function update( _data:Object, _x:int = 0, _y:int = 0 ):void{
