@@ -64,13 +64,21 @@ package org.xas.jchart.common.view.components.TipsView
 				
 				_orgData.label && ( _name = _name );
 				
-				BaseConfig.ins.categories 
-					&& BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] 
-					&& ( _name = BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] );
+				
+				if( BaseConfig.ins.displaySeriesIndexMap ){
+					BaseConfig.ins.categories 
+						&& BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] 
+						&& ( _name = BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] );
+				}else{					
+					BaseConfig.ins.categories 
+						&& BaseConfig.ins.categories[ _sk ] 
+						&& ( _name = BaseConfig.ins.categories[ _sk ] );
+				}
 				
 				_d.items.push( {
 					'name': _name.replace( /[\r\n]+/g, '' )
-					, 'value': StringUtils.printf( _fmt, _sitem,
+					, 'value': StringUtils.printf( _fmt, 
+						Common.moneyFormat( _sitem, 3, Common.floatLen( _sitem ) ),
 						Number( _sitem / _config.c.totalArray[ _ix ] * 100 ).toFixed( 2 ) )
 				});
 			});

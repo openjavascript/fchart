@@ -204,7 +204,13 @@ package org.xas.jchart.vhistogram.controller
 						, _itemNum:Number
 						, _h:Number
 						, _nx:Number = _ep.x - _config.c.vpart * _config.rateZeroIndex
+						, _maxNum:Number = _config.chartMaxNum
 						;
+						
+						if( _config.isAutoRate && !_config.hasNegative ){
+							_num -= _config.minNum;
+							_maxNum -= _config.minNum;
+						}
 						
 						( _sk !== 0 ) && ( _y += _partWidth );
 						
@@ -230,9 +236,12 @@ package org.xas.jchart.vhistogram.controller
 								_rectItem.isNegative = true;
 							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
-								_h = ( _num / _config.chartMaxNum || 1 ) * _h;
+								_h = ( _num / _maxNum || 1 ) * _h;
 							}
-						}						
+						}				
+						
+						_h = _h || 1;
+						_partWidth = _partWidth || 1;
 						
 						_rectItem.y = _y;
 						_rectItem.x = _nx - 1;

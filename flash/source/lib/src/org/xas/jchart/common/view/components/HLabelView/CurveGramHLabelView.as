@@ -48,7 +48,7 @@ package org.xas.jchart.common.view.components.HLabelView
 							//_align = 'left';
 						}else if( _k === _config.cd.xAxis.categories.length - 1 ){
 							//_align = 'right';
-						}
+						} 
 					}
 					
 					Common.implementStyle( _titem, [
@@ -59,11 +59,16 @@ package org.xas.jchart.common.view.components.HLabelView
 					] );
 					//Log.log( 'w:', _config.c.labelWidth, 'wrap:', _config.xAxisWordwrap );
 					
-					if( _config.c.labelWidth && _config.xAxisWordwrap ){
-						var _twidth:Number = _config.c.labelWidth;
-						if( _twidth < 14 ) _twidth = 14;
-						_titem.width = _twidth * 1.5;
-						_titem.wordWrap = true;
+					//Log.log( [ _config.c.labelWidth ].join() );
+					
+					
+					if( _config.c.labelWidth ){
+						if( _config.xAxisWordwrap ){
+							var _twidth:Number = _config.c.labelWidth;
+							if( _twidth < 14 ) _twidth = 14;
+							_titem.width = _twidth * 1.5;
+							_titem.wordWrap = true;
+						}
 					}
 					
 					if( !_config.displayAllLabel ){
@@ -138,7 +143,7 @@ package org.xas.jchart.common.view.components.HLabelView
 				_x < _config.c.chartX && ( 
 					_x = _config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
 				);
-				Log.log( _tf.width + ', ' + _config.c.labelWidth );
+				//Log.log( _tf.width + ', ' + _config.c.labelWidth );
 			}else if( _k === _config.c.hpointReal.length - 1 ){
 				if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
 					//_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;

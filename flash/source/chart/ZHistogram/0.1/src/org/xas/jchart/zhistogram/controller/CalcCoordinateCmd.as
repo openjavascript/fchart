@@ -11,10 +11,11 @@ package org.xas.jchart.zhistogram.controller
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.test.DefaultData;
+	import org.xas.jchart.common.data.test.ZHistogramData;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.zhistogram.view.mediator.*;
-	import org.xas.jchart.common.proxy.LegendProxy;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -148,7 +149,7 @@ package org.xas.jchart.zhistogram.controller
 				_config.c.totalArray = _config.totalArray;
 				
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
+					facade.registerMediator( new TestMediator( ZHistogramData.instance.data ) );	
 				}
 			}
 									

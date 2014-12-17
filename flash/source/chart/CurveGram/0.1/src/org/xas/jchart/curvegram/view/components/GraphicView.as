@@ -65,6 +65,7 @@ package org.xas.jchart.curvegram.view.components
 								thickness: 2
 								, lineColor: _config.itemColor( _k )
 								, fillOpacity: _config.lineFillOpacity( _item.data ) 
+								, delayShow: _delay + BaseConfig.ins.animationEnabled
 							}
 							, _config.isLineGradient( _item.data )
 						) 
