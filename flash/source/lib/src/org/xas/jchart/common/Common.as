@@ -12,8 +12,10 @@ package org.xas.jchart.common
 	public class Common
 	{		
 				
-		public static function numberUp( _in:Number, _floatLen:int = 5 ):Number{
+		public static function numberUp( _in:Number, _floatLen:int = 5, _upBound:Number = 5 ):Number{
+			_upBound = _upBound < 1 ? 1 : _upBound;
 			var _out:Number = 0, _inStr:String = _in.toFixed( _floatLen )
+				, _oldBound:Number = _upBound
 				, _part:Array = _inStr.split( '.' )
 				, _int:Number = Math.abs( _part[0] ), _float:Number = parseFloat( '0.' + _part[ 1 ] )
 				, _isNegative:Boolean = _in < 0
@@ -24,25 +26,31 @@ package org.xas.jchart.common
 			
 			if( /[1-9]/.test( _int.toString( ) ) ){
 				tmp = Math.pow( 10, _int.toString().length - 1  );
+				//Log.log( [tmp, _in, _oldBound, _upBound ].join() );
 				_char = parseInt( _int.toString().charAt( 0 ));
-				_midNum = tmp * _char + ( tmp * ( _char + 1 ) - tmp * _char ) / 2;
+				_out = tmp + tmp / 10 * _upBound;
+				//Log.log( [_out ].join() );
 				
-				if( _in < _midNum ){
-					_out = _midNum;
-				}else{					
-					_out = tmp * ( _char  +  1);
-					if( _out < _in ){
-						_out = tmp * 10;
-					}
+				if( _out < _in && tmp > 0 ){
+					do{
+						_upBound = _upBound + _oldBound;
+						_out = tmp + tmp / 10 * ( _upBound );					
+					}while( _out < _in );
 				}
+				
 			}else{						
 				for( _ar = _float.toFixed( _floatLen ).split(''), i = 0, j = _ar.length; i < j; i++ ){
 					if( _ar[i] != '0' && _ar[i] != '.' ){
-						tmp = parseFloat( _ar.slice( 0, i ).join('') + '1'  )
-							, _out = tmp + parseFloat( _ar.slice( 0, i ).join('') + parseInt( _ar[i] )  )
-							;
-						if( _out < _float ){
-							_out = tmp * 10;
+						
+						tmp = parseFloat( _ar.slice( 0, i ).join('') + '1'  );
+						_out = tmp + tmp / 10 * _upBound;
+						//Log.log( [_out ].join() );
+						
+						if( _out < _in && tmp > 0 ){
+							do{
+								_upBound = _upBound + _oldBound;
+								_out = tmp + tmp / 10 * ( _upBound );					
+							}while( _out < _in );
 						}
 						
 						break;

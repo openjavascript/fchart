@@ -54,6 +54,20 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get rateUp():int {
+			var _r:int = 5;
+			
+			this.cd
+				&& this.cd.yAxis
+				&& this.cd.yAxis.autoRate
+				&& ( 'rateUp' in this.cd.yAxis.autoRate )
+				&& ( _r = this.cd.yAxis.autoRate.rateUp );
+			
+			_r <= 0 && ( _r = 5 );
+			
+			return _r;
+		}
+		
 		/* trend */
 		protected var _hlabelNum:Number = 5;
 		public function get hlabelNum():Number{ return _hlabelNum; }
@@ -580,7 +594,7 @@ package org.xas.jchart.common
 					//Log.log( 'xxxxxxxxxx' + _r );
 				} else {
 					_r > 0 && ( _r = 0 );
-					_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ) ) );
+					_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ), 5, this.rateUp ) );
 				}
 			}
 			
@@ -612,7 +626,7 @@ package org.xas.jchart.common
 				
 				_r < 0 && ( _r = 0 );
 				
-				_r > 0 && _r && ( _r = Common.numberUp( _r ) );
+				_r > 0 && _r && ( _r = Common.numberUp( _r, 5, this.rateUp ) );
 			}
 			
 			this.yAxisMaxValue && ( _r = this.yAxisMaxValue );
