@@ -55,69 +55,28 @@ package org.xas.jchart.common
 			return _out;
 		}
 		
-		public static function numberDown( _in:Number, _floatLen:int = 5 ):Number{
+		public static function numberDown( _in:Number, _deep:int = 1 ):Number{
 			
-			var _out:Number = 0, _inStr:String = _in.toFixed( _floatLen )
-				, _part:Array = _inStr.split( '.' )
-				, _int:Number = Math.abs( _part[0] )
-				, _float:Number = parseFloat( '0.' + _part[ 1 ] )
-				, _isNegative:Boolean = _in < 0
-				, _ar:Array
-				, i:int, j:int, tmp:Number
-				, _midNum:int, _char:int
-				, _tmpAr:Array = _in.toString().split('')
+			var _out:Number = 0
 				, _find:Boolean
+				, _inStr:String = _in.toString()
+				, _tmpAr:Array = _inStr.split( '' )
+				, _findCount:int = 1
 				;
-			
-			//Log.log( _in.toString().split('').join('dddddddd' ) );
-			
-			
+						
 			Common.each( _tmpAr, function( _k:int, _item:String ):void{
 				if( /[1-9]/.test( _item ) ){
-					if( _find ){
+					_find = true;
+					if( _findCount > _deep ){
 						_tmpAr[ _k ] = 0;
-					}else{
-						_find = true;
 					}
+				}
+				if( _find && /[0-9]/.test( _item ) ){
+					_findCount++;
 				}
 			});
-			//Log.log( 'asdfasdf: ' + _tmpAr.join('' ) )
 				
 			_out = Number( _tmpAr.join('' ) );
-			
-			
-			/*
-			if( /[1-9]/.test( _int.toString( ) ) ) {
-				tmp = Math.pow( 10, _int.toString().length - 1  );
-				_char = parseInt( _int.toString().charAt( 0 ) );
-				_midNum = tmp * _char - ( tmp * ( _char + 1 ) - tmp * _char ) / 2;
-				
-				if( _in > _midNum ){
-					_out = _midNum;
-				} else {					
-					_out = tmp * ( _char  -  1 );
-					if( _out > _in ){
-						_out = tmp / 10;
-					}
-				}
-			} else {
-				for( _ar = _float.toFixed( _floatLen ).split(''), i = 0, j = _ar.length; i < j; i++ ){
-					
-					if( _ar[i] != '0' && _ar[i] != '.' ){
-						tmp = parseFloat( _ar.slice( 0, i ).join('') + '1'  )
-							, _out = tmp + parseFloat( _ar.slice( 0, i ).join('') + parseInt( _ar[i] )  );
-						
-						if( _out > _float ){
-							_out = tmp;
-						}
-						
-						break;
-					}
-				}
-			}
-			
-			_isNegative && ( _out = -_out );
-			*/
 			
 			return _out;
 		}

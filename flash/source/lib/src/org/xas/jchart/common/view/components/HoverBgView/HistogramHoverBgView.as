@@ -34,6 +34,8 @@ package org.xas.jchart.common.view.components.HoverBgView
 			//Log.log( _config.maxValue );
 			Common.each( _config.c.dataRect, function( _k:int, _item:Object ):void{
 				
+				//if( _item.width == 0 || _item.height == 0 ) return;
+				
 				var _box:Sprite = new Sprite()
 					, _bgColor:uint = 0xF0F0F0
 					, _borderColor:uint = 0xB4B4B4

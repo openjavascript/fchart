@@ -20,7 +20,7 @@ package
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.curvegram.MainFacade;
+	import org.xas.jchart.curvegram.MainFacade; 
 
 	      
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -43,7 +43,7 @@ package
 		public function CurveGram()
 		{			
 			Security.allowDomain("*");
-			Security.allowInsecureDomain("*");
+			Security.allowInsecureDomain("*"); 
 			_ins = this; 
 						
 			this.root.stage.scaleMode = StageScaleMode.NO_SCALE;

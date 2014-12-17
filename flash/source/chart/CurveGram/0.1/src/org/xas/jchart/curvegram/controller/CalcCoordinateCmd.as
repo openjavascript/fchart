@@ -210,7 +210,7 @@ package org.xas.jchart.curvegram.controller
 						, _dataHeight:Number = _config.c.vpart * _config.rateZeroIndex
 						, _dataY:Number
 						, _sNum:Number = _num
-						, _customRate:Boolean = _config.customRate
+						, _customRate:Boolean = _config.isAutoRate
 						, _minYvalue:Number;
 						
 						if( _config.isItemPercent && _config.displaySeries.length > 1 ) {

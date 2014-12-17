@@ -217,14 +217,22 @@ package org.xas.jchart.histogram.controller
 					, _tmpYAr:Array = []
 					, _tmpHAr:Array = []
 					;
-				
+									
 				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
 					var _rectItem:Object = {}
 						, _num:Number = _sitem.data[ _k ]
 						, _itemNum:Number
-						, _h:Number, _y:Number
+						, _h:Number = 0, _y:Number
 						, _dataHeight:Number
+						, _maxNum:Number = _config.chartMaxNum
 						;
+						
+						if( _config.isAutoRate && !_config.hasNegative ){
+							_num -= _config.minNum;
+							_maxNum -= _config.minNum;
+							Log.log( [_num, _config.minNum, _num - _config.minNum ] );
+						}
+						
 						
 						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
 							_h = _config.c.vpart * _config.rateZeroIndex;
@@ -236,6 +244,7 @@ package org.xas.jchart.histogram.controller
 								//Log.log( _num / _config.itemMax( _k ) * 100, _num, _config.itemMax( _k ) );
 							}
 						}else{
+							
 							if( Common.isNegative( _num ) || _num == 0 ){
 								_num = Math.abs( _num );
 								_dataHeight = _config.c.vpart * _config.rateZeroIndex;
@@ -250,7 +259,9 @@ package org.xas.jchart.histogram.controller
 								_rectItem.isNegative = true;
 							}else{
 								_h = _config.c.vpart * _config.rateZeroIndex;
-								_h = ( _num / _config.chartMaxNum || 1 ) * _h;
+								//Log.log( [ _config.c.vpart, _config.rateZeroIndex, _config.c.vpart * _config.rateZeroIndex ].join(', ' ) ); 
+								_h = ( _num / _maxNum || 1 ) * _h;
+								//Log.log( [ _num, _config.chartMaxNum, _num / _config.chartMaxNum ] );
 								_y = _sp.y 
 								+ _config.c.vpart * _config.rateZeroIndex - _h
 								;
@@ -259,6 +270,7 @@ package org.xas.jchart.histogram.controller
 						//Log.log( _h, _y );
 						
 						_rectItem.x = _x + _sk * _partWidth + _config.c.partSpace * _sk;
+						_h = _h || 1;
 						
 						_rectItem.y = _y;
 						_rectItem.width = _partWidth;

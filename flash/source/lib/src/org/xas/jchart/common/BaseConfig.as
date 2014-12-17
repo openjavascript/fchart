@@ -18,20 +18,41 @@ package org.xas.jchart.common
 		}
 		public static function get params():Object{ return _params; }
 		
-		public function get customRate():Boolean {
+		public function get isAutoRate():Boolean {
 			var _r:Boolean = false;
-			
 			this.cd
 				&& this.cd.yAxis
 				&& this.cd.yAxis.autoRate
-				&& ( _r = this.cd.yAxis.autoRate );
+				&& ( 'enabled' in this.cd.yAxis.autoRate )
+				&& ( _r = this.cd.yAxis.autoRate.enabled );
 			
 			this.cd
 				&& this.cd.yAxis
 				&& this.cd.yAxis.customRate
 				&& ( _r = this.cd.yAxis.customRate );
+			
+			if( _ignoreAutoRate ){
+				_r = false;
+			}
+			
 			return _r;
 		} 
+		protected var _ignoreAutoRate:Boolean;
+		
+		public function get autoRateDeep():int {
+			var _r:int = 1;
+			
+			if( this.isAutoRate ){
+				this.cd
+					&& this.cd.yAxis
+					&& this.cd.yAxis.autoRate
+					&& this.cd.yAxis.autoRate.enabled
+					&& ( 'deep' in this.cd.yAxis.autoRate )
+					&& ( _r = this.cd.yAxis.autoRate.deep );
+			}
+			
+			return _r;
+		}
 		
 		/* trend */
 		protected var _hlabelNum:Number = 5;
@@ -185,11 +206,16 @@ package org.xas.jchart.common
 		protected var _chartData:Object;
 		public function setChartData( _d:Object ):Object { 		
 			reset();
-			_chartData = _d;
+			_chartData = _d;			
+			this._hasNegative = Common.hasNegative( displaySeries );
 			calcRate();
 			calcLabelDisplayIndex();
 			_chartData && ( _chartData.legend = _chartData.legend || {} );
 			return _d;
+		}
+		protected var _hasNegative:Boolean;
+		public function get hasNegative():Boolean{
+			return this._hasNegative;
 		}
 		public function get chartData():Object { return _chartData; }	
 		public function get cd():Object {	return _chartData; }
@@ -548,9 +574,9 @@ package org.xas.jchart.common
 				});
 				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
 					
-				if( _tmp.length && !Common.hasNegative( displaySeries ) && this.customRate ){
+				if( _tmp.length && !_hasNegative && this.isAutoRate ){
 					//Log.log( 'xxxxxxxxxx' + _r );
-					_r = Common.numberDown( _r );
+					_r = Common.numberDown( _r, this.autoRateDeep );
 					//Log.log( 'xxxxxxxxxx' + _r );
 				} else {
 					_r > 0 && ( _r = 0 );
@@ -606,7 +632,7 @@ package org.xas.jchart.common
 		
 		public function calcRate():void {
 			var _data:Object = _chartData
-				, _customRate:Boolean = this.customRate;
+				, _customRate:Boolean = this.isAutoRate;
 			_rate = [];
 			if( !_data ) return;
 			
@@ -615,7 +641,7 @@ package org.xas.jchart.common
 			_absNum = Math.abs( _minNum );
 			_finalMaxNum = Math.max( _maxNum, _absNum );
 			
-			if( Common.hasNegative( displaySeries ) ) {
+			if( _hasNegative ) {
 				
 				/* 有负数数据将不会处理_customRate*/
 				_customRate = false;
@@ -671,8 +697,11 @@ package org.xas.jchart.common
 				if( (_minNum - _partNum ) < 0 ){
 					Log.log( 'test: ' + _partNum + ', ' + _minNum );
 					_customRate = false;
+					_ignoreAutoRate = true;
+					
 					_rateValue = _tmpRateValue;
 				}
+				
 			}
 			
 			Common.each( _rate, function( _k:int, _item:Number ):void{
@@ -1250,6 +1279,7 @@ package org.xas.jchart.common
 			_isMaxValueReady = false;
 			_maxValue = 0;			
 			selected = -1;
+			_ignoreAutoRate = false;
 		}
 		
 		public function get animation():Object {

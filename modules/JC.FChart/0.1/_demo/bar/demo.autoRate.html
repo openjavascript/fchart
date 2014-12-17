@@ -23,7 +23,7 @@
     </script>
 </head>    
 <body>
-    <h2>JC.FChart - line chart 示例</h2>
+    <h2>JC.FChart - bar chart 示例</h2>
 
     <div class="js_jchartTest"></div>
 
@@ -37,7 +37,7 @@
                 <script type="text/template">
                     {
                         "chart": {
-                            "type": "line"
+                            "type": "bar"
                         },
                         "title": {
                             "text": "日趋势"
@@ -190,7 +190,7 @@
                 <script type="text/template">
                     {
                         chart: {
-                            type: 'line' 
+                            type: 'bar' 
                             , bgColor: 0xffffff
                         }, 
                         subtitle: {
@@ -249,11 +249,11 @@
                             enabled: true
                             , duration: .75
                         },
-                        vline: {
+                        vbar: {
                             enabled: false
                         },         
                         plotOptions: {
-                            line: {
+                            bar: {
                                 dashStyle: 'ShortDash'
                             }
                         },
@@ -362,15 +362,15 @@
                             , "deep": 2
                         }
 					},
-					"hline":
+					"hbar":
 					{
 						"enabled": true
 					}, 
-					"vline":
+					"vbar":
 					{
 						"enabled": false
 					}, 
-					"vsideLine":
+					"vsidebar":
 					{
 						"enabled": true
 					}, 
@@ -378,7 +378,7 @@
 					{
 						"bgAlpha": 1, 
                         "bgColor": 16777215,
-                        "type": "line"
+                        "type": "bar"
 					}, 
 					"legend":
 					{
@@ -426,7 +426,7 @@
 						"enabled": false
 					},
 					plotOptions: {
-						line: {
+						bar: {
 							dashStyle: 'LongDash'
 						}
 					}
