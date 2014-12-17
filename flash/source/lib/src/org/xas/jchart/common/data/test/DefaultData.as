@@ -275,6 +275,9 @@ package org.xas.jchart.common.data.test
 				],
 				"callback": {
 					"initedCallback": "initedCallback"
+				},
+				"animation": {
+					"enabled": true
 				}
 			});
 			
