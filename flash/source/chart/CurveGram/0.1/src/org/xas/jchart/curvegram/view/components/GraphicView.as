@@ -66,6 +66,9 @@ package org.xas.jchart.curvegram.view.components
 								, lineColor: _config.itemColor( _k )
 								, fillOpacity: _config.lineFillOpacity( _item.data ) 
 								, delayShow: _delay + BaseConfig.ins.animationEnabled
+								, animationEnabled: BaseConfig.ins.animationEnabled
+								, duration: BaseConfig.ins.animationDuration
+								, delay: _delay
 							}
 							, _config.isLineGradient( _item.data )
 						) 

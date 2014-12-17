@@ -21,7 +21,7 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-			
+			//return;
 			_data.push(
 				{
 					"chart": {
@@ -70,6 +70,9 @@ package org.xas.jchart.common.data.test
 							, "deep": 1
 							, "rateUp": 2
 						}
+					},
+					"animation": {
+						"enabled": true
 					},
 					"series": [
 						{
@@ -179,6 +182,9 @@ package org.xas.jchart.common.data.test
 							enabled: true
 							, deep: 2
 						}
+					},
+					"animation": {
+						"enabled": true
 					},
 					"hoverBg":
 					{

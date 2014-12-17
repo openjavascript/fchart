@@ -3,7 +3,9 @@ package org.xas.jchart.common.ui.widget
 	import com.greensock.TweenLite;
 	
 	import flash.display.GradientType;
+	import flash.display.Graphics;
 	import flash.display.SpreadMethod;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	
@@ -11,6 +13,7 @@ package org.xas.jchart.common.ui.widget
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.proxy.data.line.BaseLineData;
 
 	public class JFillLine extends JSprite
 	{
@@ -60,21 +63,69 @@ package org.xas.jchart.common.ui.widget
 			_data.delayShow && ( _delayShow = _data.delayShow );
 			'fillOpacity' in _data && ( _opacity = _data.fillOpacity );
 			
+			_ins = this;
+			
 			init();
 		}
 		
 		private function init():void{
 			if( !( _path && _path.length > 1 ) ) return;
-			var _ins:JFillLine = this;
-			if( BaseConfig.ins.animationEnabled ){
-				this.visible = false;
+			
+			if( data.animationEnabled && _path && _path.length > 1 ){
+				animationDraw();
 				
-				TweenLite.delayedCall( _delayShow, function():void{
-					_ins.visible = true;
-				});
 			}
-			this.graphics.lineStyle( 0, _lineColor );
+			staticDraw();
+
+		}
+		
+		private function animationDraw():void{
+			var _maskLine:JLine = new JLine( null, null, {} )
+				, _rect:Sprite = new Sprite();
+				;
+
+			_ins.mask = _rect;
+			addChild( _rect );
+			
+			var _data:BaseLineData = new BaseLineData();
+			var _pathPoint :Vector.<Point> = new Vector.<Point>;
+			var _totalLength:Number = _data.totalLineLength( _path );
+			_maskLine.count = 0;
+			
+			TweenLite.delayedCall( data.delay, function():void{
+				TweenLite.to( _maskLine, data.duration, { count: _totalLength
+					, onUpdate: function():void{
 						
+						
+						_pathPoint = _data.calPosition( _path, _maskLine.count );	
+						var _tmpPoint:Point = _pathPoint[ _pathPoint.length -1 ];
+						
+						_rect.graphics.clear();
+						_rect.graphics.beginFill( 0xffffff );
+						
+						_rect.graphics.drawRect( 
+							BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY
+							, _tmpPoint.x - BaseConfig.ins.c.chartX
+							, BaseConfig.ins.c.chartHeight + 2
+						);
+
+
+						if( _maskLine.count == _totalLength ){							
+							_ins.mask = null;
+							_rect.visible = false;
+							_rect && _rect.parent && _rect.parent.removeChild( _rect );
+						}
+						
+					}
+				});
+			});
+			
+		}
+		
+		private function staticDraw():void{
+
+			this.graphics.lineStyle( 0, _lineColor );
+			
 			if( _isGradient ){
 				var _minY:Number = minY()
 					, _realY:Number = _minY - BaseConfig.ins.c.chartY
