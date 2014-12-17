@@ -8,6 +8,7 @@ package org.xas.jchart.curvegram
 	import org.xas.jchart.common.controller.GroupClickCmd;
 	import org.xas.jchart.common.controller.InitedCmd;
 	import org.xas.jchart.common.controller.ItemClickCmd;
+	import org.xas.jchart.common.controller.LegendUpdateCmd;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.curvegram.controller.CalcCoordinateCmd;
 	import org.xas.jchart.curvegram.controller.ClearCmd;
@@ -44,6 +45,7 @@ package org.xas.jchart.curvegram
 			registerCommand( JChartEvent.GROUP_CLICK, GroupClickCmd );
 			registerCommand( JChartEvent.ITEM_CLICK, ItemClickCmd );
 			registerCommand( JChartEvent.INITED, InitedCmd );
+			registerCommand( JChartEvent.LEGEND_UPDATE, LegendUpdateCmd );
 		}			
 	}
 }

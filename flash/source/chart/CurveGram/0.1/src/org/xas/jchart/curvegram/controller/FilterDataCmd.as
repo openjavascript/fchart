@@ -28,6 +28,9 @@ package org.xas.jchart.curvegram.controller
 		
 		private function update( _data:Object ):void{
 			BaseConfig.ins.updateDisplaySeries( _data );
+			
+			Log.printObject( _data );
+			
 			BaseConfig.ins.setChartData( BaseConfig.ins.chartData );
 			facade.sendNotification( JChartEvent.DRAW );
 		}
