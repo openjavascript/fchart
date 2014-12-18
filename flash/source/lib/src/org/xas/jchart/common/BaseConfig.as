@@ -1074,9 +1074,10 @@ package org.xas.jchart.common
 			var _r:Boolean = true;
 			
 			chartData 
-				&& ( 'xAxis' in chartData )
+				&& chartData.xAxis
 				&& chartData.xAxis.display 
-				&& ( _r = chartData.xAxis.display.all );
+				&& ( 'enabled' in chartData.xAxis.display ) 
+				&& ( _r = chartData.xAxis.display.enabled );
 			
 			chartData 
 				&& ( 'displayAllLabel' in chartData )
@@ -1085,15 +1086,30 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		public function get displayMod():String{
-			var _mod:String = 'auto';
+		public function get displayMod():int{
+			var _mod:int = 0;
 			
 			!displayAllLabel 
-				&& ( 'xAxis' in chartData )
+				&& chartData.xAxis
 				&& chartData.xAxis.display 
+				&& ( 'mod' in chartData.xAxis.display ) 
 				&& ( _mod = chartData.xAxis.display.mod );
 			
+			_mod = _mod < 0 ? 0 : _mod;
+			
 			return _mod;
+		}
+		
+		public function get startIndex():int{
+			var _idx:int = 0;
+			
+			!displayAllLabel 
+				&& chartData.xAxis
+				&& chartData.xAxis.display 
+				&& ( 'startIndex' in chartData.xAxis.display ) 
+				&& ( _idx = chartData.xAxis.display.startIndex );
+			
+			return _idx;
 		}
 		
 		/**
@@ -1104,9 +1120,8 @@ package org.xas.jchart.common
 			var _tmp:Number, _len:int = categories.length, _tmp1:Number;
 			_labelDisplayIndex = {};
 			if( !displayAllLabel ) {
-				var _displayMod:String = displayMod;
 				
-				if( _displayMod == 'auto' ) {
+				if( !displayMod ) {
 					_labelDisplayIndex[ 0 ] = true;
 					_labelDisplayIndex[ _len - 1 ] = true;
 					_tmp1 = _len % 3;
@@ -1137,14 +1152,14 @@ package org.xas.jchart.common
 						}
 					}
 				} else {
-					var _labelNum:Number = new Number( _displayMod )
-						, _item:Object;
+					var _item:Object;
+					var _idx:int = startIndex;
 					
-					for( var _i:Number = 0; _i < _len; _i++ ){
+					for( var _i:Number = _idx; _i < _len; _i++ ){
 						_item = _labelDisplayIndex[ _i ];
-						if( _i == 0 ){
+						if( _i == _idx ){
 							_labelDisplayIndex[ _i ] = true;
-						} else if( _i % _labelNum == 0 ) {
+						} else if( ( _i - _idx ) % displayMod == 0 ) {
 							_labelDisplayIndex[ _i ] = true;
 						}
 					}

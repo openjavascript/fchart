@@ -64,8 +64,9 @@ package org.xas.jchart.common.data.test
 							"2014-12-16"
 						]
 						, "display": {
-							"all": false
-							, "mod": 5
+							"enabled": false
+							, "startIndex": 1
+							, "mod": 7
 						}
 					},
 					"yAxis": {
