@@ -21,7 +21,7 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-			return;
+			//return;
 			_data.push(
 				{
 					"chart": {
@@ -63,6 +63,10 @@ package org.xas.jchart.common.data.test
 							"2014-12-15",
 							"2014-12-16"
 						]
+						, "display": {
+							"all": false
+							, "mod": 5
+						}
 					},
 					"yAxis": {
 						"autoRate": {
@@ -154,7 +158,6 @@ package org.xas.jchart.common.data.test
 							"pointStyle": {}
 						}
 					],
-					"displayAllLabel": false,
 					"legend": {
 						"enabled": false
 					},

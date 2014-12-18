@@ -709,7 +709,6 @@ package org.xas.jchart.common
 				
 				var _partNum:Number = _rateValue / ( _rate.length - 1 );
 				if( (_minNum - _partNum ) < 0 ){
-					Log.log( 'test: ' + _partNum + ', ' + _minNum );
 					_customRate = false;
 					_ignoreAutoRate = true;
 					
@@ -1073,10 +1072,28 @@ package org.xas.jchart.common
 		
 		public function get displayAllLabel():Boolean{
 			var _r:Boolean = true;
+			
+			chartData 
+				&& ( 'xAxis' in chartData )
+				&& chartData.xAxis.display 
+				&& ( _r = chartData.xAxis.display.all );
+			
 			chartData 
 				&& ( 'displayAllLabel' in chartData )
 				&& ( _r = chartData[ 'displayAllLabel' ] );
+			
 			return _r;
+		}
+		
+		public function get displayMod():String{
+			var _mod:String = 'auto';
+			
+			!displayAllLabel 
+				&& ( 'xAxis' in chartData )
+				&& chartData.xAxis.display 
+				&& ( _mod = chartData.xAxis.display.mod );
+			
+			return _mod;
 		}
 		
 		/**
@@ -1086,42 +1103,52 @@ package org.xas.jchart.common
 		protected function calcLabelDisplayIndex():void{
 			var _tmp:Number, _len:int = categories.length, _tmp1:Number;
 			_labelDisplayIndex = {};
-			if( !displayAllLabel ){
-				_labelDisplayIndex[ 0 ] = true;
-				_labelDisplayIndex[ _len - 1 ] = true;
+			if( !displayAllLabel ) {
+				var _displayMod:String = displayMod;
 				
-				_tmp1 = _len % 3;
-				_tmp = Math.floor( _len / 3 );
-				
-				//if( _len >= 7 ){	
-					switch( _tmp1 ){
-						case 0:{
-							_labelDisplayIndex[ Math.floor( _tmp * 1 ) - 1] = true;
-							_labelDisplayIndex[ Math.floor( _tmp * 2 ) - 0 ] = true;
-							break;
+				if( _displayMod == 'auto' ) {
+					_labelDisplayIndex[ 0 ] = true;
+					_labelDisplayIndex[ _len - 1 ] = true;
+					_tmp1 = _len % 3;
+					_tmp = Math.floor( _len / 3 );
+					
+					if( _len >= 7 ){	
+						switch( _tmp1 ){
+							case 0:{
+								_labelDisplayIndex[ Math.floor( _tmp * 1 ) - 1] = true;
+								_labelDisplayIndex[ Math.floor( _tmp * 2 ) - 0 ] = true;
+								break;
+							}
+							case 1: {
+								_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
+								_labelDisplayIndex[ Math.floor( _tmp * 2 )  ] = true;
+								break;
+							}
+							case 2: {
+								_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
+								_labelDisplayIndex[ Math.floor( _tmp * 2 ) + 1  ] = true;
+								break;
+							}
+							default: {
+								_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
+								_labelDisplayIndex[ Math.floor( _tmp * 2 )  ] = true;
+								break;
+							}
 						}
-						case 1: {
-							_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
-							_labelDisplayIndex[ Math.floor( _tmp * 2 )  ] = true;
-							break;
+					}
+				} else {
+					var _labelNum:Number = new Number( _displayMod )
+						, _item:Object;
+					
+					for( var _i:Number = 0; _i < _len; _i++ ){
+						_item = _labelDisplayIndex[ _i ];
+						if( _i == 0 ){
+							_labelDisplayIndex[ _i ] = true;
+						} else if( _i % _labelNum == 0 ) {
+							_labelDisplayIndex[ _i ] = true;
 						}
-						case 2: {
-							_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
-							_labelDisplayIndex[ Math.floor( _tmp * 2 ) + 1  ] = true;
-							break;
-						}
-						default: {
-							_labelDisplayIndex[ Math.floor( _tmp * 1 ) ] = true;
-							_labelDisplayIndex[ Math.floor( _tmp * 2 )  ] = true;
-							break;
-						}
-					}			
-			/*
-				}else{
-					_labelDisplayIndex[ 1 ] = true;
-					_labelDisplayIndex[ _len - 2 ] = true;
+					}
 				}
-					*/
 			}
 		}
 		protected var _labelDisplayIndex:Object = {};

@@ -28,6 +28,8 @@ package org.xas.jchart.common.view.components.HLabelView
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
 			
+			Log.printObject(_config.labelDisplayIndex  );
+			
 			if( _config.cd && _config.cd.xAxis && _config.cd.xAxis.categories ){
 				
 				//Log.log( 'ssssssssss', _config.c.labelWidth );
