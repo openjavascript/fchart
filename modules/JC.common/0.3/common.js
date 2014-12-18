@@ -77,7 +77,7 @@
         , "seasonOfYear": seasonOfYear
         , "dayOfWeek": dayOfWeek
         , "dayOfSeason": dayOfSeason
-        , "jcAutoInitComps": jcAutoInitComps
+        , "jcAutoInitComps": autoInit
 
         , "autoInit": autoInit
         , "addAutoInit": addAutoInit
@@ -960,6 +960,7 @@
                     _done = true;
                     clearInterval( _interval );
                 }
+
                 _cb && _cb( _tmp + _startVal, _done, _timepass, _duration, _stepMs, _startVal, _maxVal );
             }, _stepMs );
 
@@ -1163,7 +1164,7 @@
             && ( JC.f._AUTO_INIT_DATA[ 
                     _class && _class.Model && _class.Model._instanceName 
                     ? _class.Model._instanceName
-                    : funcName( _class )
+                    : _class.toString()
                 ] = _class )
                 ;
         return JC.f;
