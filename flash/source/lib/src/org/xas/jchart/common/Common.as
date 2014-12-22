@@ -95,6 +95,7 @@ package org.xas.jchart.common
 			return _out;
 		}
 		
+		
 		public static function numberDown( _in:Number, _deep:int = 1 ):Number{
 			
 			var _out:Number = 0

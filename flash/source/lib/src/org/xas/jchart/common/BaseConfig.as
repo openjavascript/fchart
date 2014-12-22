@@ -641,8 +641,10 @@ package org.xas.jchart.common
 				//Log.log( _r + ', ' + this.rateUp );
 				_r >= 0 && ( _r = Common.numberUp( _r, 5, this.rateUp ) );
 				if( this.rateUp === 0 ){
+					//Log.log( _r + ', ' + Common.percentDown( _r, 1 ) );
 					_r = Common.numberDown( _r, 2 );
 				}
+				
 				//Log.log( _r + ', ' + Common.numberDown( _r, 2 ) );
 			}
 			
@@ -652,8 +654,9 @@ package org.xas.jchart.common
 				_r = 10;
 			}else{
 				//Log.log( [ Common.numberDown( _r ), _r ] );
-				_r = _r + Common.percentDown( _r ) * maxOffset;
+				_r = _r + _r * maxOffset;
 			}
+			//Log.log( _r );
 			
 			!floatLen && ( _r = int( _r ) );
 			//return 11000;
