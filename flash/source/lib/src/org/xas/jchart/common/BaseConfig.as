@@ -63,7 +63,7 @@ package org.xas.jchart.common
 				&& ( 'rateUp' in this.cd.yAxis.autoRate )
 				&& ( _r = this.cd.yAxis.autoRate.rateUp );
 			
-			_r <= 0 && ( _r = 5 );
+			_r <= 0 && ( _r = 0 );
 			
 			return _r;
 		}
@@ -579,7 +579,7 @@ package org.xas.jchart.common
 		protected var _minNum:Number = 0;
 		public function get minNum():Number{ return _minNum; }
 		protected function calcMinNum():Number{
-			var _r:Number = 0, _tmp:Array;
+			var _r:Number = 0, _tmp:Array, _tmpR:Number;
 			if( this.isPercent ) return 0;
 			if( cd && cd.series ){
 				_tmp = [];
@@ -590,7 +590,19 @@ package org.xas.jchart.common
 					
 				if( _tmp.length && !_hasNegative && this.isAutoRate ){
 					//Log.log( 'xxxxxxxxxx' + _r );
-					_r = Common.numberDown( _r, this.autoRateDeep );
+					_tmpR = _r = Common.numberDown( _r, this.autoRateDeep );
+					
+					if( _r === 0 ){
+					}else{
+						//Log.log( [  Common.numberDown( _r ) * minOffset, _r ] );
+						_r = _r - Common.percentDown( _r ) * minOffset;
+					}
+					
+					!floatLen && ( _r = int( _r ) );
+					
+					if( _tmpR > 0 && _r < 0 ){
+						_r = _tmpR;
+					}
 					//Log.log( 'xxxxxxxxxx' + _r );
 				} else {
 					_r > 0 && ( _r = 0 );
@@ -626,12 +638,54 @@ package org.xas.jchart.common
 				
 				_r < 0 && ( _r = 0 );
 				
-				_r > 0 && _r && ( _r = Common.numberUp( _r, 5, this.rateUp ) );
+				//Log.log( _r + ', ' + this.rateUp );
+				_r >= 0 && ( _r = Common.numberUp( _r, 5, this.rateUp ) );
+				if( this.rateUp === 0 ){
+					_r = Common.numberDown( _r, 2 );
+				}
+				//Log.log( _r + ', ' + Common.numberDown( _r, 2 ) );
 			}
 			
 			this.yAxisMaxValue && ( _r = this.yAxisMaxValue );
 				
-			_r === 0 && ( _r = 10 );
+			if( _r === 0 ){
+				_r = 10;
+			}else{
+				//Log.log( [ Common.numberDown( _r ), _r ] );
+				_r = _r + Common.percentDown( _r ) * maxOffset;
+			}
+			
+			!floatLen && ( _r = int( _r ) );
+			//return 11000;
+		
+			return _r;
+		}
+		
+		protected function get maxOffset():Number {
+			var _r:Number = 0;
+			
+			this.cd
+				&& this.cd.yAxis
+				&& this.cd.yAxis.autoRate
+				&& ( 'maxOffset' in this.cd.yAxis.autoRate )
+				&& ( _r = parseFloat( this.cd.yAxis.autoRate.maxOffset ));
+			
+			_r < 0 && ( _r = 0 );
+			
+			return _r;
+		}
+		
+		protected function get minOffset():Number {
+			var _r:Number = 0;
+			
+			this.cd
+				&& this.cd.yAxis
+				&& this.cd.yAxis.autoRate
+				&& ( 'minOffset' in this.cd.yAxis.autoRate )
+				&& ( _r = parseFloat( this.cd.yAxis.autoRate.minOffset ));
+			
+			_r < 0 && ( _r = 0 );
+			
 			return _r;
 		}
 		
@@ -1074,10 +1128,16 @@ package org.xas.jchart.common
 			var _r:Boolean = true;
 			
 			chartData 
-				&& chartData.xAxis
+			&& chartData.xAxis
 				&& chartData.xAxis.display 
 				&& ( 'enabled' in chartData.xAxis.display ) 
-				&& ( _r = chartData.xAxis.display.enabled );
+				&& ( _r = chartData.xAxis.display.enabled );	
+			
+			chartData 
+				&& chartData.xAxis
+				&& chartData.xAxis.displayAll 
+				&& ( 'enabled' in chartData.xAxis.displayAll ) 
+				&& ( _r = chartData.xAxis.displayAll.enabled );
 			
 			chartData 
 				&& ( 'displayAllLabel' in chartData )
@@ -1095,6 +1155,12 @@ package org.xas.jchart.common
 				&& ( 'mod' in chartData.xAxis.display ) 
 				&& ( _mod = chartData.xAxis.display.mod );
 			
+			!displayAllLabel 
+				&& chartData.xAxis
+				&& chartData.xAxis.displayAll 
+				&& ( 'mod' in chartData.xAxis.displayAll ) 
+				&& ( _mod = chartData.xAxis.displayAll.mod );
+			
 			_mod = _mod < 0 ? 0 : _mod;
 			
 			return _mod;
@@ -1108,6 +1174,12 @@ package org.xas.jchart.common
 				&& chartData.xAxis.display 
 				&& ( 'startIndex' in chartData.xAxis.display ) 
 				&& ( _idx = chartData.xAxis.display.startIndex );
+			
+			!displayAllLabel 
+				&& chartData.xAxis
+				&& chartData.xAxis.displayAll 
+				&& ( 'startIndex' in chartData.xAxis.displayAll ) 
+				&& ( _idx = chartData.xAxis.displayAll.startIndex );
 			
 			return _idx;
 		}

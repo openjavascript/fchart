@@ -13,7 +13,7 @@ package org.xas.jchart.common
 	{		
 				
 		public static function numberUp( _in:Number, _floatLen:int = 5, _upBound:Number = 5 ):Number{
-			_upBound = _upBound < 1 ? 1 : _upBound;
+			_upBound = _upBound < 0 ? 0 : _upBound;
 			var _out:Number = 0, _inStr:String = _in.toFixed( _floatLen )
 				, _oldBound:Number = _upBound
 				, _part:Array = _inStr.split( '.' )
@@ -23,6 +23,10 @@ package org.xas.jchart.common
 				, i:int, j:int, tmp:Number
 				, _midNum:int, _char:int
 				;
+			
+			if( _upBound <=0 ){
+				return _in;
+			}
 			
 			if( /[1-9]/.test( _int.toString( ) ) ){
 				tmp = Math.pow( 10, _int.toString().length - 1  );
@@ -59,6 +63,34 @@ package org.xas.jchart.common
 			}
 			
 			_isNegative && ( _out = -_out );
+			
+			return _out;
+		}
+		
+		public static function percentDown( _in:Number, _deep:int = 1 ):Number{
+			
+			var _out:Number = 0
+				, _find:Boolean
+				, _inStr:String = _in.toString()
+				, _tmpAr:Array = _inStr.split( '' )
+				, _findCount:int = 1
+				;
+			
+			Common.each( _tmpAr, function( _k:int, _item:String ):void{
+				if( /[1-9]/.test( _item ) ){
+					_find = true;
+					if( _findCount > _deep ){
+						_tmpAr[ _k ] = 0;
+					}else{
+						_tmpAr[ _k ] = 1;
+					}
+				}
+				if( _find && /[0-9]/.test( _item ) ){
+					_findCount++;
+				}
+			});
+			
+			_out = Number( _tmpAr.join('' ) );
 			
 			return _out;
 		}

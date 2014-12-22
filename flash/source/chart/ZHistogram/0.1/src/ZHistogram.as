@@ -162,6 +162,8 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){
+				
+				if( !ZHistogramData.instance.data.length ) return;
 				_data = ZHistogramData.instance.data[0];
 			}else{
 				Log.log(this.root.stage.loaderInfo);
