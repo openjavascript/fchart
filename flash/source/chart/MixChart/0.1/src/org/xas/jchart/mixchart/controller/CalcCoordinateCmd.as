@@ -166,9 +166,12 @@ package org.xas.jchart.mixchart.controller
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				//Log.log( _config.tooltipEnabled );
-				
-				
+								
 				calcChartPoint();
+				//_config.mixModel.calcGraphic();
+				Common.each( _config.mixModel.graphicType, function( _k:String, _item:Object ):void{
+					sendNotification( JChartEvent.MIX_CHART_CALC_COORDINATE_PREFIX + _k, _item, _k );
+				});
 				
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( MixChartData.instance.data ) );	

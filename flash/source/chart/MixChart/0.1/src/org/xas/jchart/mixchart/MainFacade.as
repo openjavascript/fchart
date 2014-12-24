@@ -6,6 +6,8 @@ package org.xas.jchart.mixchart
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.curvegram.controller.CurveGram_CalcCoordinateCmd;
+	import org.xas.jchart.histogram.controller.Histogram_CalcCoordinateCmd;
 	import org.xas.jchart.mixchart.controller.CalcCoordinateCmd;
 	import org.xas.jchart.mixchart.controller.ClearCmd;
 	import org.xas.jchart.mixchart.controller.DrawCmd;
@@ -31,8 +33,10 @@ package org.xas.jchart.mixchart
 		override protected function initializeController():void
 		{
 			super.initializeController();
-						
+			
 			registerCommand( JChartEvent.CALC_COORDINATE, CalcCoordinateCmd );
+			registerCommand( JChartEvent.MIX_CHART_CALC_COORDINATE_BAR, Histogram_CalcCoordinateCmd );
+			registerCommand( JChartEvent.MIX_CHART_CALC_COORDINATE_LINE, CurveGram_CalcCoordinateCmd );
 			
 			registerCommand( JChartEvent.CLEAR, ClearCmd );
 			registerCommand( JChartEvent.DRAW, DrawCmd );

@@ -1,4 +1,4 @@
-package org.xas.jchart.histogram.controller
+package org.xas.jchart.curvegram.controller
 {
 	import flash.external.ExternalInterface;
 	import flash.geom.Point;
@@ -17,12 +17,11 @@ package org.xas.jchart.histogram.controller
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.histogram.view.mediator.*;
 	
-	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
+	public class CurveGram_CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
-		private var _c:Coordinate;
 		private var _config:Config;
 		
-		public function CalcCoordinateCmd()
+		public function CurveGram_CalcCoordinateCmd()
 		{
 			super();
 			
@@ -30,8 +29,7 @@ package org.xas.jchart.histogram.controller
 		}
 		
 		override public function execute(notification:INotification):void{
-			
-		
+			Log.log( notification.getType() + ', ' + new Date().getTime() );	
 		}
 		
 		

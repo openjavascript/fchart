@@ -101,8 +101,7 @@ package org.xas.jchart.common.view.mediator
 				}
 			
 			}
-		}
-		
+		}		
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

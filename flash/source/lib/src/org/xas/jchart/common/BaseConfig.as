@@ -651,7 +651,7 @@ package org.xas.jchart.common
 			this.yAxisMaxValue && ( _r = this.yAxisMaxValue );
 				
 			if( _r === 0 ){
-				_r = 10;
+				_r = 100;
 			}else{
 				//Log.log( [ Common.numberDown( _r ), _r ] );
 				_r = _r + _r * maxOffset;
