@@ -23,6 +23,69 @@ package org.xas.jchart.common.data.test
 			_data = new Vector.<Object>();
 			
 			//return;
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								100
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
 						
 			_data.push( {
 				"chart": {
@@ -1023,69 +1086,7 @@ package org.xas.jchart.common.data.test
 				}
 			);
 			
-			_data.push( 
-				{
-					"yAxis":
-					{
-						"enabled": true
-					}, 
-					"tooltip":
-					{
-						"pointFormat": "{0}", 
-						"headerFormat": "{0}", 
-						"enabled": true
-					}, 
-					"displayAllLabel": false, 
-					"vline":
-					{
-					}, 
-					"xAxis":
-					{
-						"categories":
-						[
-							"20140916"
-						], 
-						"wordwrap": false, 
-						"tipsHeader":
-						[
-							"20140916"
-						]
-					}, 
-					"series":
-					[
-						{
-							"name": "pv", 
-							"data":
-							[
-								1722
-							]
-						}, 
-						{
-							"name": "uv", 
-							"data":
-							[
-								5
-							]
-						}
-					], 
-					"hline":
-					{
-					}, 
-					"toggleBg":
-					{
-						"enabled": true
-					}, 
-					"legend":
-					{
-						"enabled": false
-					}, 
-					"chart":
-					{
-						"bgAlpha": 1, 
-						"bgColor": 16777215
-					} 
-				}
-			);
+
 			
 			_data.push( 
 				{
