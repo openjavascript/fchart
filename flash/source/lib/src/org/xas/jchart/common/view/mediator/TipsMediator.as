@@ -48,6 +48,7 @@ package org.xas.jchart.common.view.mediator
 					break;
 				}
 				case 'ZHistogramFacade':
+				case 'VZHistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new ZHistogramTipsView() );
 					break;

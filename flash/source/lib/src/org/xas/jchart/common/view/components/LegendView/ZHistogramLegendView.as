@@ -34,8 +34,7 @@ package org.xas.jchart.common.view.components.LegendView
 		
 		override protected function onUpdateStatus( _evt:JChartEvent ):void{
 			var _selected:Boolean = _evt.data as Boolean
-				, _filterObject:Object = {}
-				;
+				, _filterObject:Object = {};
 
 			Common.each( _items, function( _k:int, _item:LegendItemUI ):void{
 				_item.selected && ( _filterObject[ _k ] = _k );

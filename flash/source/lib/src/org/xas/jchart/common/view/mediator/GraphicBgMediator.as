@@ -10,6 +10,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.GraphicBgView.CurveGramGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.HistogramGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.VHistogramGraphicBgView;
+	import org.xas.jchart.common.view.components.GraphicBgView.VZHistogramGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.PieGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.TrendGraphicBgView;
 	import org.xas.jchart.common.view.components.GraphicBgView.ZHistogramGraphicBgView;
@@ -46,8 +47,14 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index2.addChild( _view = new HistogramGraphicBgView() );
 					break;
 				}
-				case 'VHistogramFacade':{
+				case 'VHistogramFacade':
+				{
 					mainMediator.view.index2.addChild( _view = new VHistogramGraphicBgView() );
+					break;
+				}
+				case 'VZHistogramFacade':
+				{
+					mainMediator.view.index2.addChild( _view = new VZHistogramGraphicBgView() );
 					break;
 				}
 				case 'PieGraphFacade':

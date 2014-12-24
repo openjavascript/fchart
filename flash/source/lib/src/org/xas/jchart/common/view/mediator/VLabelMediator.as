@@ -4,14 +4,15 @@ package org.xas.jchart.common.view.mediator
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.*;
 	import org.xas.jchart.common.view.components.VLabelView.BaseVLabelView;
 	import org.xas.jchart.common.view.components.VLabelView.HistogramVLabelView;
-	import org.xas.jchart.common.view.components.VLabelView.VHistogramVLabelView;
 	import org.xas.jchart.common.view.components.VLabelView.MapVLabelView;
+	import org.xas.jchart.common.view.components.VLabelView.VHistogramVLabelView;
+	import org.xas.jchart.common.view.components.VLabelView.ZVHistogramVLabelView;
 	
 	public class VLabelMediator extends Mediator implements IMediator
 	{
@@ -41,6 +42,11 @@ package org.xas.jchart.common.view.mediator
 				case 'VHistogramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new VHistogramVLabelView( ) );
+					break;
+				}
+				case 'VZHistogramFacade':
+				{
+					mainMediator.view.index5.addChild( _view = new ZVHistogramVLabelView( ) );
 					break;
 				}
 				case 'MapFacade':

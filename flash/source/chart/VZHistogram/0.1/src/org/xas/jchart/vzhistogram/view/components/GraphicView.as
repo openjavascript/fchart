@@ -1,7 +1,11 @@
-package org.xas.jchart.zhistogram.view.components
+package org.xas.jchart.vzhistogram.view.components
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Circ;
+	import com.greensock.easing.Linear;
 	
+	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -16,7 +20,11 @@ package org.xas.jchart.zhistogram.view.components
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.ui.HistogramUI;
+	import org.xas.jchart.common.ui.VHistogramUI;
 	import org.xas.jchart.common.ui.ZHistogramUI;
+	import org.xas.jchart.common.ui.widget.JLine;
+	import org.xas.jchart.common.ui.widget.JSprite;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
 	public class GraphicView extends Sprite
@@ -47,59 +55,81 @@ package org.xas.jchart.zhistogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
-			var _delay:Number;
+			var _delay:Number = 0
+				, animateEnable:Boolean = BaseConfig.ins.animationEnabled;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
 			
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
-				addChild( _box );
-				_boxs.push( _box );
-				
 				var _totalHeight:Number = 0;
-				for( var _i:Number = 0; _i < _item.length; _i++ ){
-					_totalHeight += _item[ _i ].height;
-				}
-				
-				var _duration:Number;
-				var _color:uint;
-				
-				_delay = 0;
+				var _totalWidth:Number = 0;
+				var _startX:Number = 0;
+				var _startY:Number = 0;
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
-					_color = BaseConfig.ins.itemColor( _sk );
-					_duration = _sitem.height / _totalHeight / 2;
+					if( _sk == 0 ){
+						_startX = _sitem.x;
+						_startY = _sitem.y;
+						_totalHeight = _sitem.height;
+					}
+					_totalWidth += _sitem.width;
 					
+					var _color:uint = BaseConfig.ins.itemColor( _sk );
 					if( _sitem.value == BaseConfig.ins.maxValue ){
-						
 						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
 							_color = BaseConfig.ins.maxItemParams.style.color;
 						}
 					}
 					
-					var _item:ZHistogramUI = new ZHistogramUI(
+					var _item:VHistogramUI = new VHistogramUI(
 						_sitem.x, _sitem.y
 						, _sitem.width, _sitem.height
-						, _color 
-						, _duration
-						, {
-							animationEnabled: BaseConfig.ins.animationEnabled
-							, isNegative: _sitem.isNegative
-							, duration: BaseConfig.ins.animationDuration
-							, delay: _delay
-						}
+						, _color
+						, { animationEnabled: false }
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );
-					
-					_delay += _duration;
 				});
+				addChild( _box );
+				_boxs.push( _box );
+				
+				if( animateEnable ){
+					_totalWidth += 1;
+					var _mask:HistogramUI = new HistogramUI(
+						_startX, _startY
+						, _totalWidth
+						, _totalHeight
+						, 0xffffff
+					);
+					_mask.count = _startX;
+					var _g:Graphics = _mask.graphics;
+					_g.beginFill(0xffffff,0);
+					
+					addChild( _mask );
+					
+					TweenLite.delayedCall( _delay, function():void{
+						TweenLite.to( _mask, BaseConfig.ins.animationDuration, { count: _startX + _totalWidth
+							, ease:Circ.easeInOut
+							, onUpdate: function():void{
+								
+								_mask.x = _mask.count;
+								_mask.width = _totalWidth - _mask.count + _startX;
+								
+								if( _mask.count == _startX + _totalWidth ){
+									_mask && removeChild( _mask );
+								}
+							}
+						} );
+					} );
+				}
 			});
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{
 		}
 		
-		private function hideTips( _evt: JChartEvent ):void{			
+		private function hideTips( _evt: JChartEvent ):void{
 			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
 				_boxs[ _preIndex ].alpha = 1;
 			}
@@ -108,11 +138,11 @@ package org.xas.jchart.zhistogram.view.components
 		
 		private function updateTips( _evt: JChartEvent ):void{
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
-				, _ix:int = _evt.data.index as int
-				;	
+				, _ix:int = _evt.data.index as int;
+			
 			if( !( _boxs && _boxs.length ) ) return;
 			if( _preIndex == _ix ) return;
-			if( _ix > _boxs.length - 1 ) return;
+			if( !_boxs[ _ix ] ) return;
 			
 			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
 				_boxs[ _preIndex ].alpha = 1;

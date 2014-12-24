@@ -1,51 +1,26 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.vzhistogram.view.mediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
-	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.BgLineView.*;
+	import org.xas.jchart.vzhistogram.view.components.GraphicView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class BgLineMediator extends Mediator implements IMediator
+	public class GraphicMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PBgLineMediator';
-		private var _view:BaseBgLineView;
-		public function get view():BaseBgLineView{ return _view; }
+		public static const name:String = 'PChartMediator';
+		private var _view:GraphicView;
+		public function get view():GraphicView{ return _view; }
 		
-		public function BgLineMediator()
+		public function GraphicMediator()
 		{
 			super( name );
+			
 		}
 		
 		override public function onRegister():void{
-			
-			switch( (facade as BaseFacade).name ){
-				case 'CurveGramFacade':{
-					mainMediator.view.index3.addChild( _view = new CurveGramBgLineView() );
-					break;
-				}
-				case 'TrendFacade':{
-					mainMediator.view.index5.addChild( _view = new TrendBgLineView() );
-					break;
-				}
-				case 'ZHistogramFacade':
-				case 'HistogramFacade':{
-					mainMediator.view.index5.addChild( _view = new HistogramBgLineView() );
-					break;
-				}
-				case 'VHistogramFacade':
-				case 'VZHistogramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new VHistogramBgLineView() );
-					break;
-				}
-				default:{
-					mainMediator.view.index5.addChild( _view = new BaseBgLineView() );
-					break;
-				}
-			}	
+			mainMediator.view.index7.addChild( _view = new GraphicView() );			
 		}
 		
 		override public function onRemove():void{
@@ -65,9 +40,9 @@ package org.xas.jchart.common.view.mediator
 			switch( notification.getName() ){
 				case JChartEvent.SHOW_CHART:
 				{					
-					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE, notification.getBody() ) );
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
 					break;
-				}			
+				}	
 				case JChartEvent.UPDATE_TIPS:
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, notification.getBody() ) );
@@ -82,7 +57,7 @@ package org.xas.jchart.common.view.mediator
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, notification.getBody() ) );
 					break;
-				}	
+				}
 			}
 		}
 		

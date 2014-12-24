@@ -14,11 +14,11 @@ package org.xas.jchart.common.view.components.HLabelView
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
 
-	public class ZHistogramHLabelView extends BaseHLabelView
+	public class VZHistogramHLabelView extends BaseHLabelView
 	{
 		private var _config:Config;
 		
-		public function ZHistogramHLabelView()
+		public function VZHistogramHLabelView()
 		{
 			super();
 			_config = BaseConfig.ins as Config;
@@ -51,15 +51,15 @@ package org.xas.jchart.common.view.components.HLabelView
 					}
 					
 					if( BaseConfig.ins.animationEnabled ){
-						_titem.visible = false;//false
+						_titem.visible = false;
 					}
 					
 					addChild( _titem );
 					
 					_labels.push( _titem );
 					
-					_titem.height > _maxHeight && ( _maxHeight = _titem.height );
-				});
+					_titem.width > _maxWidth && ( _maxWidth = _titem.width );
+				});			
 			}
 		}
 		
@@ -67,34 +67,35 @@ package org.xas.jchart.common.view.components.HLabelView
 			if( !( _config.c && _config.c.hpoint ) ) return;
 			
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
-				var _tf:TextField = _labels[ _k ];
 				
+				var _tf:TextField = _labels[ _k ];
+
 				/* 指定标签定位的坐标 */
-				var _x:Number = _item.end.x - _tf.width / 2;
+				var _y:Number = _item.end.y - _tf.height / 2;
 				
 				if( _k === 0 ){
-					_x < _config.c.chartX && ( _x = _config.c.chartX - 3 );
+					_y < _config.c.chartY && ( _y = _config.c.chartY - 3 );
 				}else if( _k === _config.c.hpointReal.length - 1 ){
-					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+					if( _y + _tf.height > _config.c.chartY + _config.c.chartHeight ){
+						_y = _config.c.chartY + _config.c.chartHeight - _tf.height + 3;
 					}
 				}
 				
 				if( BaseConfig.ins.animationEnabled ){
 					_tf.visible = true;
-					_tf.y = _item.end.y + 200;
-					_tf.x = _x;
+					_tf.x = _item.start.x - _tf.width - 200;
+					_tf.y = _y;
 					TweenLite.delayedCall( 0, 
 						function():void{
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
-									x: _x
-									, y: _item.end.y - 2
+									x: _item.start.x - _tf.width
+									, y: _y
 									, ease: Expo.easeOut } );
 						});
-				}else{
-					_tf.x = _x;
-					_tf.y = _item.end.y - 2;
+				}else{					
+					_tf.x = _item.start.x - _tf.width;
+					_tf.y = _y;
 				}
 			});
 		}

@@ -1,4 +1,4 @@
-package org.xas.jchart.zhistogram.controller
+package org.xas.jchart.vzhistogram.controller
 {
 	import flash.external.ExternalInterface;
 	import flash.geom.Point;
@@ -11,11 +11,9 @@ package org.xas.jchart.zhistogram.controller
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.data.test.ZHistogramData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
-	import org.xas.jchart.zhistogram.view.mediator.*;
+	import org.xas.jchart.vzhistogram.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -45,10 +43,12 @@ package org.xas.jchart.zhistogram.controller
 			
 			if( _config.cd ){
 				
+				_config.c.arrowLength = 8;
+				
 				if( _config.cd.title && _config.cd.title.text ){
-					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )	
+					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
-					_config.c.minY += pTitleMediator.view.height;			
+					_config.c.minY += pTitleMediator.view.height;
 				}
 				
 				if( _config.cd.subtitle && _config.cd.subtitle.text ){
@@ -58,19 +58,13 @@ package org.xas.jchart.zhistogram.controller
 					_config.c.minY += pSubtitleMediator.view.height + 5;
 				}
 				
-				if( _config.legendEnabled ){
-					
-					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
-					
-					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
-				}
-				
 				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
-					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
+					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace + 5;
+				} else {
+					_config.c.minX += 5;
 				}
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
@@ -78,13 +72,25 @@ package org.xas.jchart.zhistogram.controller
 					
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
-				}	
+				}
+				
+				if( _config.legendEnabled ){
+					facade.registerMediator( new LegendMediator() );
+					_config.c.maxY -= pLegendMediator.view.height;
+					_config.c.legend = { 
+						x: _config.width / 2 - pLegendMediator.view.width / 2
+						, y: _config.c.maxY
+					};
+					_config.c.maxY -= 2;
+				}
 				
 				_config.c.maxX -= 5;
 				
+				//初始化vlabel,并修改图标最大Y的范围
 				if( _config.yAxisEnabled ){
 					facade.registerMediator( new VLabelMediator() );
-					_config.c.minX += pVLabelMediator.maxWidth;
+					_config.c.maxY -= pVLabelMediator.maxHeight;
+					_config.c.maxY -= 2;
 				}
 
 				_config.c.hoverPadY = 10;
@@ -100,28 +106,25 @@ package org.xas.jchart.zhistogram.controller
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					//facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new SerialLabelMediator() );
 					_config.c.minY += _config.c.serialLabelPadY;
 					_yPad += _config.c.serialLabelPadY;
 				}
 				
-				_config.c.arrowLength = 8;
-				
-				if( _config.yAxisEnabled ){
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
-				}else{
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
+				if( _config.categories && _config.categories.length ){
+					_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
 				}
 				
-				if( _config.displaySeries && _config.displaySeries.length ){//_config.categories && _config.categories.length
-					_config.c.labelWidth = _config.c.chartWidth / ( _config.displaySeries.length ) / 2
+				if( _config.xAxisEnabled ){
+					facade.registerMediator( new HLabelMediator() );
+					_config.c.minX += pHLabelMediator.maxWidth;
 				}
-				facade.registerMediator( new HLabelMediator() );
-				_config.c.maxY -= pHLabelMediator.maxHeight;
+				
+				_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
 			
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
-					_config.c.chartHeight = _config.graphicHeight - _yPad;		
+					_config.c.chartHeight = _config.graphicHeight - _yPad;
 					_config.c.maxY -= _hpad;
 					
 					if( _config.c.legend ){
@@ -131,10 +134,9 @@ package org.xas.jchart.zhistogram.controller
 					if( _config.c.credits ){
 						_config.c.credits.y -= _hpad;
 					}
-				}else{
+				}else{	
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
-							
 				
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
@@ -149,11 +151,11 @@ package org.xas.jchart.zhistogram.controller
 				_config.c.totalArray = _config.totalArray;
 				
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( ZHistogramData.instance.data ) );	
+					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
 				}
 			}
 									
-			sendNotification( JChartEvent.SHOW_CHART );			
+			sendNotification( JChartEvent.SHOW_CHART );
 		}
 		
 		private function calcGraphic():void{			
@@ -165,91 +167,107 @@ package org.xas.jchart.zhistogram.controller
 			if( !( _config.series && _config.series.length ) ) return;
 			
 			_config.c.partSpace = 0; 
-			_config.c.partWidth =  _config.c.itemWidth;
+			_config.c.partWidth = 
+				_config.c.itemWidth / _config.displaySeries.length;
 			
 			if( _config.displaySeries.length > 1 ){				
 				_config.c.partSpace = 4; 
-				/*
-				_config.c.partWidth = ( _config.c.itemWidth - 
-					( _config.displaySeries.length - 1 ) * _config.c.partSpace )
-					/ _config.displaySeries.length;
-				*/
+				_config.c.partWidth = ( _config.c.itemWidth - ( _config.displaySeries.length - 1 ) * _config.c.partSpace
+					) / _config.displaySeries.length;
 			}
 			
-			var _partWidth:Number = _config.c.partWidth;
+			var _partWidth:Number = ( _config.c.hpart * 3 / 4 );
 			_partWidth > 50 && ( _partWidth = 50 );
 			
+//			Log.printObject( _config.c.itemMax( 1 ) );
+			
+			/* 处理柱状体 */
 			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
 				
 				var _items:Array = []
 					, _pointItem:Object = _config.c.hlinePoint[ _k ]
 					, _sp:Point = _pointItem.start as Point
 					, _ep:Point = _pointItem.end as Point
-					, _x:Number = _sp.x + _config.c.itemWidth - _partWidth / 2
-					, _tmp:Number = 0
+					, _y:Number = _sp.y + ( _config.c.hpart - _partWidth ) / 2  //_config.c.hpart * 1 / 8
 					, _tmpDataRect:Object = {
-						x: _sp.x, y: _sp.y
-						, width: _config.c.itemWidth * 2
-						, height: _ep.y - _sp.y 
+						x: _sp.y, y: _sp.y
+						, width: _ep.x - _sp.x
+						, height:  _config.c.itemHeight * 2
 					}
 					, _tmpYAr:Array = []
 					, _tmpHAr:Array = []
-					, _baseY:Number = _sp.y;
+					, _tmpChartHeightAr:Array = [];
 					
 				Common.each( _item.data, function( _sk:int, _sitem:Number ):void{
 					var _rectItem:Object = {}
 						, _num:Number = _sitem
 						, _itemNum:Number
-						, _h:Number, _y:Number
-						, _dataHeight:Number;
+						, _h:Number
+						, _nx:Number = _ep.x - _config.c.vpart * _config.rateZeroIndex
+						, _maxNum:Number = _config.chartMaxNum;
+						
+						if( _sk == 0 ){
+							_tmpChartHeightAr[ _k ] = _nx;
+						}
+						
+						if( _config.isAutoRate && !_config.hasNegative ){
+							_num -= _config.minNum;
+							_maxNum -= _config.minNum;
+						}
+						
+//						( _sk !== 0 ) && ( _y += _partWidth );
 						
 						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
 							_h = _config.c.vpart * _config.rateZeroIndex;
 							_h = ( _num / _config.itemMax( _k ) || 0 ) * _h;
-							_y = _baseY + _config.c.vpart * _config.rateZeroIndex - _h;
-						}else{
-							if( Common.isNegative( _num ) || _num == 0 ){
+						} else {
+							if( Common.isNegative( _num ) || _num == 0 ){/* 负数或0 */
 								_num = Math.abs( _num );
-								_dataHeight = _config.c.vpart * _config.rateZeroIndex;
-								
-								_h = _config.c.chartHeight - _dataHeight;
-								_y = _baseY + _dataHeight ;
-								_h = ( _num / Math.abs( _config.finalMaxNum * 
-									_config.rate[ _config.rate.length - 1 ] ) ) * _h;
-								isNaN( _h ) && ( _h = 0 );
-							}else{
-								_h = _config.c.vpart * _config.rateZeroIndex;
-								_h = ( _num / _config.chartMaxNum || 1 ) * _h;
-								_y = _baseY + _config.c.vpart * _config.rateZeroIndex - _h;
+								if( _num == 0 ){
+									_h = 0;
+								} else {
+									_h = ( ( _config.rate.length - 1 ) - _config.rateZeroIndex )
+									* _config.c.vpart;
+									_h = ( _num / Math.abs( _config.finalMaxNum * 
+										_config.rate[ _config.rate.length - 1 ] ) ) * _h;
+								}
+								_nx -= _h;
+								_rectItem.isNegative = true;
+							} else {
+								_h = ( _num / _config.chartMaxNum || 1 ) * 
+									_config.c.vpart * _config.rateZeroIndex;
 							}
 						}
 						
-						_rectItem.x = _x;
+						_h = _h || 1;
+						_partWidth = _partWidth || 1;
+						
 						_rectItem.y = _y;
-						_rectItem.width = _partWidth;
-						_rectItem.height = _h;
+						_rectItem.x = _tmpChartHeightAr[ _k ];//_nx - 1;
+						_tmpChartHeightAr[ _k ] += _h;
+						_rectItem.width = _h;
+						_rectItem.height = _partWidth;
 						_rectItem.value = _sitem;
-						_rectItem.isNegative = Common.isNegative( _num );
 						
-						_baseY -= _h;
-						
-						_tmpYAr.push( _y );
+						_tmpYAr.push( _nx );
 						_tmpHAr.push( _h );
 						
 						_items.push( _rectItem );
 				});
 				
 				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
-				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
+				_tmpDataRect.width = Math.max.apply( null, _tmpHAr );
+				_tmpDataRect.initType = 'VHistogram';
 				
 				if( _config.hoverBgEnabled ){
 					_tmpDataRect.y -= _config.c.hoverPadY;
-					_tmpDataRect.height += _config.c.hoverPadY
+					_tmpDataRect.width += _config.c.hoverPadY;
+					_tmpDataRect.height = _config.c.hpart;
 				}
 				
 				if( _config.serialLabelEnabled ){
 					_tmpDataRect.y -= _config.c.serialLabelPadY;
-					_tmpDataRect.height += _config.c.serialLabelPadY
+					//_tmpDataRect.height += _config.c.serialLabelPadX
 				}
 				
 				_config.c.rects.push( _items );
@@ -264,73 +282,78 @@ package org.xas.jchart.zhistogram.controller
 			calcChartHPoint();
 		}
 		
+		/* 处理柱状图粒度 */
 		private function calcChartVPoint():void{
-			var _partN:Number = _config.c.chartHeight / ( _config.rate.length -1 )
+			var _partN:Number = _config.c.chartWidth / ( _config.rate.length -1 )
 				, _sideLen:Number = _config.c.arrowLength
 				;
+			
 			_config.c.vpart = _partN;
-			_config.c.itemHeight = _partN / 2;
+			_config.c.itemWidth = _partN / 2;
 			_config.c.vpoint = [];
 			_config.c.vpointReal = [];
 			
 			
-			var _padX:Number = 0;
+			var _padY:Number = 0;
+			var _startX:Number;
 			if( !_config.yAxisEnabled ){
 			}
 			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
-				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
+				_startX = _config.c.maxX - 5 - _partN * _k;
+					
 				_config.c.vpoint.push( {
-					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX, _n )
+					start: new Point( _startX, _config.c.minY + _padY )
+					, end: new Point( _startX, _config.c.maxY + _padY )
 				});
 				
 				_config.c.vpointReal.push( {
-					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen, _n )
+					start: new Point( _startX, _config.c.minY )
+					, end: new Point( _startX, _config.c.maxY + _sideLen )
 				});
 			});
 		}
 		
+		/* 处理柱状图分组 */
 		private function calcChartHPoint():void{
 			if( !_config.yAxisEnabled ){
 				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
 			
-			var _partN:Number = _config.c.chartWidth / ( _config.displaySeries.length )
-				, _sideLen:Number = _config.c.arrowLength
-				;
+			var _partN:Number = _config.c.chartHeight / ( _config.displaySeries.length )
+				, _sideLen:Number = _config.c.arrowLength;
 			
 			_config.c.hpart = _partN;
 			_config.c.hpoint = [];
 			_config.c.hlinePoint = [];
 			_config.c.hpointReal = [];
-			_config.c.itemWidthRate = 2;
-			_config.c.itemWidth = _partN / _config.c.itemWidthRate;
-						
-			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
-				var _n:Number = _config.c.minX + _partN * _k + 5, _sideLen:int = _config.c.arrowLength;
-				
-				if( _k === 0 ){					
+			_config.c.itemHeightRate = 2;
+			_config.c.itemHeight = _partN / _config.c.itemHeightRate;
+			
+			Common.each( _config.displaySeries, function( _k:int, _item:* ):void{
+				var _topY:Number = _config.c.minY + _partN * _k
+					, _bottomY:Number = _topY + _partN;
+					
+				if( _k === 0 ){
 					_config.c.hlinePoint.push( {
-						start: new Point( _n, _config.c.minY )
-						, end: new Point( _n, _config.c.maxY + 1 )
-					});
+						start: new Point( _config.c.minX, _topY )
+						, end: new Point( _config.c.maxX - 4, _topY )
+					});					
 				}
 								
 				_config.c.hlinePoint.push( {
-					start: new Point( _n + _partN, _config.c.minY )
-					, end: new Point( _n + _partN, _config.c.maxY + 1 )
+					start: new Point( _config.c.minX, _bottomY )
+					, end: new Point( _config.c.maxX - 4, _bottomY )
 				});
 				
 				_config.c.hpoint.push( {
-					start: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.maxY )
-					, end: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.maxY + _sideLen )
+					start: new Point( _config.c.minX - _sideLen, _bottomY - _partN / 2 )
+					, end: new Point( _config.c.minX, _bottomY - _partN / 2 )
 				});
 				
 				_config.c.hpointReal.push( {
-					start: new Point( _n, _config.c.minY )
-					, end: new Point( _n, _config.c.maxY )
+					start: new Point( _config.c.minX, _topY )
+					, end: new Point( _config.c.maxX, _topY )
 				});
 			});
 		}
@@ -367,12 +390,9 @@ package org.xas.jchart.zhistogram.controller
 			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
 		}
 		
+		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
-		}
-
-		private function get pLegendProxy():LegendProxy{
-			return facade.retrieveProxy( LegendProxy.name ) as LegendProxy;
 		}
 		
 		private function corner():uint{

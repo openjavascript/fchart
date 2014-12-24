@@ -33,6 +33,7 @@ package org.xas.jchart.common.view.mediator
 					break;
 				}
 				case 'ZHistogramFacade':
+				case 'VZHistogramFacade':
 				{
 					mainMediator.view.index7.addChild( _view = new ZHistogramLegendView() );
 					break;

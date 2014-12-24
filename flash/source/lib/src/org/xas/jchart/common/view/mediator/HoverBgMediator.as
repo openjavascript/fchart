@@ -34,6 +34,7 @@ package org.xas.jchart.common.view.mediator
 					break;
 				}
 				case 'VHistogramFacade':
+				case 'VZHistogramFacade':
 				{
 					mainMediator.view.index6.addChild( _view = new VHistogramHoverBgView() );
 					break;
