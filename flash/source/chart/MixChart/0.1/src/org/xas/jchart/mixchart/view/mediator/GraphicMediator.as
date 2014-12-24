@@ -3,19 +3,24 @@ package org.xas.jchart.mixchart.view.mediator
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.mixchart.view.components.GraphicView;
 	import org.xas.jchart.common.view.mediator.MainMediator;
+	import org.xas.jchart.mixchart.view.components.GraphicView;
 	
 	public class GraphicMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PChartMediator';
 		private var _view:GraphicView;
+		private var _config:Config;
+		
 		public function get view():GraphicView{ return _view; }
 		
 		public function GraphicMediator()
 		{
 			super( name );
+			
+			_config = BaseConfig.ins as Config;
 			
 		}
 		

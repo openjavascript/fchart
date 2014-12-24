@@ -23,10 +23,13 @@ package org.xas.jchart.histogram.view.components
 	{	
 		private var _boxs:Vector.<Sprite>;
 		private var _preIndex:int = -1;
+		private var _config:Config;
 		
 		public function GraphicView()
 		{
 			super(); 
+			
+			_config = BaseConfig.ins as Config;
 		
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
@@ -44,23 +47,23 @@ package org.xas.jchart.histogram.view.components
 			
 			graphics.clear();
 			
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
+			if( !( _config.c && _config.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
 			var _delay:Number = 0;
-			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 			
-			//Log.log( BaseConfig.ins.maxValue );
-			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
+			//Log.log( _config.maxValue );
+			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 							
-					var _color:uint = BaseConfig.ins.itemColor( _sk );
-					if( _sitem.value == BaseConfig.ins.maxValue ){
-						//Log.log( BaseConfig.ins.maxValue, _sitem.value );
-						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
-							_color = BaseConfig.ins.maxItemParams.style.color;
+					var _color:uint = _config.itemColor( _sk );
+					if( _sitem.value == _config.maxValue ){
+						//Log.log( _config.maxValue, _sitem.value );
+						if( 'style' in _config.maxItemParams && 'color' in _config.maxItemParams.style ){
+							_color = _config.maxItemParams.style.color;
 						}
 					}
 					
@@ -69,9 +72,9 @@ package org.xas.jchart.histogram.view.components
 						, _sitem.width, _sitem.height
 						, _color 
 						, {
-							animationEnabled: BaseConfig.ins.animationEnabled
+							animationEnabled: _config.animationEnabled
 							, isNegative: _sitem.isNegative
-							, duration: BaseConfig.ins.animationDuration
+							, duration: _config.animationDuration
 							, delay: _delay
 						}
 					);

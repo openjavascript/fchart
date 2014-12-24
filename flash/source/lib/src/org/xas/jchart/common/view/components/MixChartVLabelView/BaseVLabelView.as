@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.components.VLabelView
+package org.xas.jchart.common.view.components.MixChartVLabelView
 {
 	import com.adobe.utils.StringUtil;
 	
@@ -14,6 +14,7 @@ package org.xas.jchart.common.view.components.VLabelView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	
 	public class BaseVLabelView extends Sprite
@@ -30,9 +31,20 @@ package org.xas.jchart.common.view.components.VLabelView
 		protected var _maxHeight:Number = 0;
 		public function get maxHeight():Number{ return _maxHeight; }
 		
-		public function BaseVLabelView()
+		protected var _index:Number;
+		public function get index():Number{ return _index; }
+		
+		
+		protected var _model:MixChartModelItem;
+		public function get model():MixChartModelItem{ return _model; }
+				
+		
+		public function BaseVLabelView( _index:int, _model:MixChartModelItem )
 		{
 			super();
+			
+			this._index = _index;
+			this._model = _model;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			addEventListener( JChartEvent.UPDATE, update );			

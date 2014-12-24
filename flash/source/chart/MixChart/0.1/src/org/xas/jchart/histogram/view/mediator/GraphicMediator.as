@@ -3,9 +3,10 @@ package org.xas.jchart.histogram.view.mediator
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.histogram.view.components.GraphicView;
 	import org.xas.jchart.common.view.mediator.MainMediator;
+	import org.xas.jchart.histogram.view.components.GraphicView;
 	
 	public class GraphicMediator extends Mediator implements IMediator
 	{
@@ -13,9 +14,13 @@ package org.xas.jchart.histogram.view.mediator
 		private var _view:GraphicView;
 		public function get view():GraphicView{ return _view; }
 		
+		private var _config:Config;
+		
 		public function GraphicMediator()
 		{
 			super( name );
+			
+			_config = BaseConfig.ins as Config;
 			
 		}
 		

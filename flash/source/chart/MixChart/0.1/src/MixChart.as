@@ -24,7 +24,7 @@ package
 	import org.xas.jchart.mixchart.MainFacade;
 	        
 
-	//[SWF(frameRate="30", width="790", height="230")]
+	//[SWF(frameRate="30", width="790", height="230")] 
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
@@ -183,6 +183,6 @@ package
 		}
 		
 		public static var author:String = 'suches@btbtd.org';
-		public static var version:String = '0.1, 2014-07-30';
+		public static var version:String = '0.1, 2014-12-24';
 	}
 }

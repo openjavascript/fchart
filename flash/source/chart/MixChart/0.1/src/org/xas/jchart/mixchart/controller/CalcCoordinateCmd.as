@@ -10,6 +10,7 @@ package org.xas.jchart.mixchart.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.MixChartData;
 	import org.xas.jchart.common.event.JChartEvent;
@@ -66,12 +67,14 @@ package org.xas.jchart.mixchart.controller
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
 				
+				/*
 				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
 				}
+				*/
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
 					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
@@ -83,8 +86,22 @@ package org.xas.jchart.mixchart.controller
 				_config.c.maxX -= 5;
 				
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
-					_config.c.minX += pVLabelMediator.maxWidth;
+					facade.registerMediator( new MixChartVLabelMediator() );
+					
+					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+						if( !_item.enabeld ) return;
+						if( _item.isOpposite ){
+							_config.c.maxX -= pMixChartVLabelMediator.getMaxWidth( _k );
+							_item.left = _config.c.maxX;
+							_config.c.maxX -= _config.vlabelSpace;
+
+						}else{
+							_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
+							_item.left = _config.c.minX;
+							_config.c.minX += _config.vlabelSpace;
+
+						}
+					});
 				}
 
 				_config.c.hoverPadY = 10;
@@ -391,8 +408,8 @@ package org.xas.jchart.mixchart.controller
 			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
 		}
 		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
+			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{
