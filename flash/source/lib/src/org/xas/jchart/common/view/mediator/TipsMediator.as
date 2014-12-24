@@ -8,12 +8,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.TipsView.BaseTipsView;
-	import org.xas.jchart.common.view.components.TipsView.NormalTipsView;
-	import org.xas.jchart.common.view.components.TipsView.PieTipsView;
-	import org.xas.jchart.common.view.components.TipsView.MapTipsView;
-	import org.xas.jchart.common.view.components.TipsView.TrendTipsView;
-	import org.xas.jchart.common.view.components.TipsView.ZHistogramTipsView;
+	import org.xas.jchart.common.view.components.TipsView.*;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class TipsMediator extends Mediator implements IMediator
@@ -60,6 +55,11 @@ package org.xas.jchart.common.view.mediator
 				}
 				case 'TrendFacade':{
 					mainMediator.view.index8.addChild( _view = new TrendTipsView() );
+					break;
+				}
+				case 'MixChartFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new MixChartTipsView() );
 					break;
 				}
 				default:{

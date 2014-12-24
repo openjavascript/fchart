@@ -84,22 +84,23 @@ package org.xas.jchart.mixchart.view.components
 				_boxs.push( _box );
 			});
 			*/
+			
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{
 		}
 		
 		private function hideTips( _evt: JChartEvent ):void{	
-			/*
+			
 			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
 				_boxs[ _preIndex ].alpha = 1;
 			}
 			_preIndex = -1;
-			*/
+			
 		}		
 		
 		private function updateTips( _evt: JChartEvent ):void{
-			/*
+			
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
 				, _ix:int = _evt.data.index as int
 				;	
@@ -113,7 +114,7 @@ package org.xas.jchart.mixchart.view.components
 			
 			_boxs[ _ix ].alpha = .65;
 			_preIndex = _ix;
-			*/
+			
 		}
 
 	}

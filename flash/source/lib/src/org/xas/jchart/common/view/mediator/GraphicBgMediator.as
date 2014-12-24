@@ -6,14 +6,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.GraphicBgView.BaseGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.CurveGramGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.HistogramGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.VHistogramGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.VZHistogramGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.PieGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.TrendGraphicBgView;
-	import org.xas.jchart.common.view.components.GraphicBgView.ZHistogramGraphicBgView;
+	import org.xas.jchart.common.view.components.GraphicBgView.*;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class GraphicBgMediator extends Mediator implements IMediator
@@ -45,6 +38,10 @@ package org.xas.jchart.common.view.mediator
 				}
 				case 'HistogramFacade':{
 					mainMediator.view.index2.addChild( _view = new HistogramGraphicBgView() );
+					break;
+				}
+				case 'MixChartFacade':{
+					mainMediator.view.index2.addChild( _view = new MixChartGraphicBgView() );
 					break;
 				}
 				case 'VHistogramFacade':
