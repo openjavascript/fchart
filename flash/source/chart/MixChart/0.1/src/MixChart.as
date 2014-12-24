@@ -21,7 +21,7 @@ package
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.MixChartData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.histogram.MainFacade;
+	import org.xas.jchart.mixchart.MainFacade;
 	        
 
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -77,9 +77,8 @@ package
 
 			if( ExternalInterface.available ){
 				try{
-				ExternalInterface.addCallback( 'update', extenalUpdate );
-				
-				ExternalInterface.addCallback( 'legendUpdate', legendUpdate );
+					ExternalInterface.addCallback( 'update', extenalUpdate );				
+					ExternalInterface.addCallback( 'legendUpdate', legendUpdate );
 				}catch( ex:Error ){}
 			}
 			//BaseConfig.ins.setChartData( {}); 
@@ -161,7 +160,7 @@ package
 			removeEventListener( Event.ADDED_TO_STAGE, onAddedToStage);
 			removeEventListener( Event.REMOVED_FROM_STAGE, onRemovedFromStage );
 			removeEventListener( Event.ENTER_FRAME, onEnterFrame );
-			_timer &&_timer.stop();
+			_timer &&_timer.stop(); 
 		}		
 		 
 		private function runData():void{
