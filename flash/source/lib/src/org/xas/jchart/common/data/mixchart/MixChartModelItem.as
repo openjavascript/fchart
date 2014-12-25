@@ -130,6 +130,7 @@ package org.xas.jchart.common.data.mixchart
 			return _floatLen;
 		}
 		
+		public function get rateZeroIndex():int{ return _rateZeroIndex; }
 		protected var _rateZeroIndex:int = 0; 
 		
 		protected var _absNum:Number;

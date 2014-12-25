@@ -3,6 +3,8 @@ package org.xas.core.utils
 	import com.adobe.serialization.json.JSON;
 	
 	import flash.utils.*;
+	
+	import org.xas.core.utils.formatter.Formatter;
 
 	/**
 	 * 用于打印调试 内容的类
@@ -34,6 +36,11 @@ package org.xas.core.utils
 		public static function  printJSON( _d:Object, $pad:int = 0, $before:Boolean = true, $symbol:String = '-' ):void{
 			if(!debug) return;
 			processLog( com.adobe.serialization.json.JSON.encode( _d ), $pad, $before, $symbol);
+		}
+		
+		public static function  printFormatJSON( _d:Object, $pad:int = 0, $before:Boolean = true, $symbol:String = '-' ):void{
+			if(!debug) return;
+			log( Formatter.json( _d ) );
 		}
 		
 		public static function  printClass( _d:*, $pad:int = 0, $before:Boolean = true, $symbol:String = '-' ):void{

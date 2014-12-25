@@ -169,7 +169,12 @@ package org.xas.jchart.mixchart.controller
 								
 				calcChartPoint();
 				//_config.mixModel.calcGraphic();
-				Common.each( _config.mixModel.graphicType, function( _k:String, _item:Object ):void{
+				
+				_config.c.mix = {};
+				Common.each( _config.mixModel.graphicType, function( _k:String, _item:* ):void{
+					//Log.printClass( _item.model as MixChartModelItem );
+					//Log.printJSON( _item );
+					_config.c.mix[ _k ] = {};
 					sendNotification( JChartEvent.MIX_CHART_CALC_COORDINATE_PREFIX + _k, _item, _k );
 				});
 				

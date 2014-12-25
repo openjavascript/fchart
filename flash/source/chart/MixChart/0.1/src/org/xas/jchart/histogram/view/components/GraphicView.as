@@ -25,11 +25,16 @@ package org.xas.jchart.histogram.view.components
 		private var _preIndex:int = -1;
 		private var _config:Config;
 		
-		public function GraphicView()
+		private var _seriesAr:Array;
+		private var _coordinate:Object;
+		
+		public function GraphicView( _seriesAr:Array, _coordinate:Object )
 		{
 			super(); 
 			
 			_config = BaseConfig.ins as Config;
+			this._seriesAr = _seriesAr;
+			this._coordinate = _coordinate;
 		
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
@@ -45,16 +50,17 @@ package org.xas.jchart.histogram.view.components
 
 		private function update( _evt:JChartEvent ):void{
 			
+			//Log.log( [ 'PChartHistogramMediator GraphicView', new Date().getTime() ] );
 			graphics.clear();
 			
-			if( !( _config.c && _config.c.rects ) ) return;
+			if( !( _config.c && _coordinate.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
 			var _delay:Number = 0;
 			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 			
 			//Log.log( _config.maxValue );
-			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
+			Common.each( _coordinate.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{

@@ -45,13 +45,15 @@ package org.xas.jchart.common.data.mixchart
 			Common.each( _items, function( _k:int, _item:MixChartModelItem ):void{
 				Common.each( _item.displaySeries, function( _sk:int, _sitem:Object ):void{
 					//Log.printJSON( _sitem );
-					var _type:String = _sitem.type || ChartType.BAR;
+					var _type:String = _sitem.type || ChartType.BAR, _tmp:Object;
 					switch( _type ){
 						case 'column': _type = ChartType.BAR; break;
 						case 'spline': _type = ChartType.LINE; break;
 					}
 					!( _type in _graphicType ) && ( _graphicType[ _type ] = [] );
-					_graphicType[ _type ].push( { data: _sitem, model: _item } );
+					_tmp = { data: _sitem, type: _type, modelIndex: _k, dataIndex: _sk };
+					_graphicType[ _type ].push( _tmp );
+					//Log.printClass( _tmp.model as  );
 				});
 			});
 			//Log.printJSON( _graphicType );
