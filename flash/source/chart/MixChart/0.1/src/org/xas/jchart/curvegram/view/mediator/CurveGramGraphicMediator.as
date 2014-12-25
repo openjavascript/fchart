@@ -31,7 +31,7 @@ package org.xas.jchart.curvegram.view.mediator
 		
 		override public function onRegister():void{
 			//Log.log( [ 'PChartCurveGramMediator', new Date().getTime() ] );
-			mainMediator.view.index7.addChild( _view = new GraphicView( _seriesAr, _coordinate ) );		
+			mainMediator.view.index8.addChild( _view = new GraphicView( _seriesAr, _coordinate ) );		
 			
 			_view.addEventListener( JChartEvent.ITEM_CLICK, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.ITEM_CLICK, _evt.data );

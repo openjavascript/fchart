@@ -59,7 +59,7 @@ package org.xas.jchart.common.view.mediator
 				}
 				case 'MixChartFacade':
 				{
-					mainMediator.view.index8.addChild( _view = new MixChartTipsView() );
+					mainMediator.view.index11.addChild( _view = new MixChartTipsView() );
 					break;
 				}
 				default:{

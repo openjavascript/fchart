@@ -87,13 +87,15 @@ package org.xas.jchart.common.data.mixchart
 		
 		protected function get minOffset():Number {
 			var _r:Number = 0;
+			Log.printFormatJSON( this._params );
 			
 			this._params
 				&& this._params.autoRate
-				&& ( 'maxOffset' in this._params.autoRate )
+				&& ( 'minOffset' in this._params.autoRate )
 				&& ( _r = parseFloat( this._params.autoRate.minOffset ));
 			
 			_r < 0 && ( _r = 0 );
+			Log.log( _r );
 			
 			return _r;
 		}
@@ -218,15 +220,7 @@ package org.xas.jchart.common.data.mixchart
 				;
 			return _r;
 		}
-		
-		public function MixChartModelItem( _index:int, _params:Object, _config:Config )
-		{
-			this._index = _index;
-			this._params = _params || {};
-			this._config = _config;
-			
-			init();
-		}
+
 		
 		protected function init():void{
 			_displaySeries = [];
@@ -413,13 +407,13 @@ package org.xas.jchart.common.data.mixchart
 				});
 				_tmp.length && ( _r = Math.min.apply( null, _tmp ) );
 				
-				if( _tmp.length && !_hasNegative && this.isAutoRate ){
+				if( _tmp.length && !_hasNegative && isAutoRate ){
 					//Log.log( 'xxxxxxxxxx' + _r );
-					_tmpR = _r = Common.numberDown( _r, this.autoRateDeep );
+					_tmpR = _r = Common.numberDown( _r, autoRateDeep );
 					
 					if( _r === 0 ){
 					}else{
-						//Log.log( [  Common.numberDown( _r ) * minOffset, _r ] );
+						//Log.log( [  Common.numberDown( _r ) * minOffset, minOffset, _r ] );
 						_r = _r - Common.percentDown( _r ) * minOffset;
 					}
 					
@@ -436,6 +430,15 @@ package org.xas.jchart.common.data.mixchart
 			}
 			
 			return _r;
+		}
+		
+		public function MixChartModelItem( _index:int, _params:Object, _config:Config )
+		{
+			this._index = _index;
+			this._params = _params || {};
+			this._config = _config;
+			
+			init();
 		}
 	}
 }
