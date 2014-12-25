@@ -60,11 +60,19 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 				}
 				_titem.text = StringUtils.printf( _config.yAxisFormat, _t );
 				
+				var _color:uint = 0x838383;
+				
+				if( _config.mixModel.items.length > 1 && _model.displaySeries.length === 1 ){
+					_color = _config.itemColor( _model.displaySeries[0].displayIndex );
+				}else if( _config.mixModel.items.length > 1 && _model.displaySeries.length === 0 ){
+					_color = 0xcccccc;
+				}
+				
 				Common.implementStyle( _titem, [
 					DefaultOptions.title.style
 					, DefaultOptions.yAxis.labels.style
-					, { color: 0x838383 }
-					, _config.vlabelsStyle
+					, { color: _color }
+					, _model.vlabelsStyle
 				] );
 											
 				if( _config.animationEnabled ){

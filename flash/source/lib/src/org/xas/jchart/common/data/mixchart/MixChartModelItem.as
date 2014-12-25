@@ -209,6 +209,16 @@ package org.xas.jchart.common.data.mixchart
 		public function get left():Number{ return _left; }
 		public function set left( _setter:Number ):void{ _left = _setter; }
 		
+		public function get vlabelsStyle():Object{
+			var _r:Object = {};
+			this._params 
+				&& this._params.labels
+				&& this._params.labels.style
+				&& ( _r = this._params.labels.style )
+				;
+			return _r;
+		}
+		
 		public function MixChartModelItem( _index:int, _params:Object, _config:Config )
 		{
 			this._index = _index;
