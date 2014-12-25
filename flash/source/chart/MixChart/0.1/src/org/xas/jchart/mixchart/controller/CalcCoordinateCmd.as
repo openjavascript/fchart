@@ -40,6 +40,8 @@ package org.xas.jchart.mixchart.controller
 			_c.minY = _c.y + 5;
 			_c.maxX = _c.x + _config.stageWidth - 5;
 			_c.maxY = _c.y + _config.stageHeight - 5;
+			
+			_c.arrowLength = 8;
 						
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
@@ -85,7 +87,9 @@ package org.xas.jchart.mixchart.controller
 				
 				_config.c.maxX -= 5;
 				
+				
 				if( _config.yAxisEnabled ){
+					
 					facade.registerMediator( new MixChartVLabelMediator() );
 					
 					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
@@ -94,14 +98,24 @@ package org.xas.jchart.mixchart.controller
 							_config.c.maxX -= pMixChartVLabelMediator.getMaxWidth( _k );
 							_item.left = _config.c.maxX;
 							_config.c.maxX -= _config.vlabelSpace;
+							_config.c.hasOppositeYAxis = true;
 
 						}else{
+							_config.c.hasYAxis = true;
 							_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
 							_item.left = _config.c.minX;
 							_config.c.minX += _config.vlabelSpace;
 
 						}
 					});
+					
+					if( _config.c.hasYAxis ){
+						_config.c.maxX -= _config.c.arrowLength;
+					}
+					
+					if( _config.c.hasOppositeYAxis ){
+						
+					}
 				}
 
 				_config.c.hoverPadY = 10;
@@ -121,8 +135,6 @@ package org.xas.jchart.mixchart.controller
 					_config.c.minY += _config.c.serialLabelPadY;
 					_yPad += _config.c.serialLabelPadY;
 				}
-				
-				_config.c.arrowLength = 8;
 				
 				if( _config.yAxisEnabled ){
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;

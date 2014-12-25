@@ -22,6 +22,7 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			//return;
+			
 			_data.push(
 				{
 					"chart": {
@@ -70,6 +71,22 @@ package org.xas.jchart.common.data.test
 							"pointStyle": {}
 						}
 						, {
+							"type": "bar",
+							"name": "MG名爵1",
+							"yAxis": 1,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+						}
+						, {
 							"type": "line",
 							"name": "北汽",
 							"data": [
@@ -89,19 +106,28 @@ package org.xas.jchart.common.data.test
 						"enabled": true
 					},
 					"plotOptions": {
+						/*
 						"area": {
-							"fillColor": {}
+						"fillColor": {}
 						}
+						*/
 					},
+					/*
 					"colors": [
-						"0xbb9b3e",
-						"0x4673c0"
+					"0xbb9b3e",
+					"0x4673c0"
 					],
+					*/
 					"callback": {
 						"initedCallback": "initedCallback"
 					}
 				}
 			);
+			
+			_data.push(
+				 
+			);
+
 			
 			_data.push(
 				{
@@ -170,14 +196,18 @@ package org.xas.jchart.common.data.test
 						"enabled": true
 					},
 					"plotOptions": {
+						/*
 						"area": {
 							"fillColor": {}
 						}
+						*/
 					},
+					/*
 					"colors": [
 						"0xbb9b3e",
 						"0x4673c0"
 					],
+					*/
 					"callback": {
 						"initedCallback": "initedCallback"
 					}

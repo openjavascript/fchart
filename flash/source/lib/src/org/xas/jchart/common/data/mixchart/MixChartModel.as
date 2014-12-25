@@ -32,11 +32,13 @@ package org.xas.jchart.common.data.mixchart
 				&& _config.cd.yAxis 
 				&& _config.cd.yAxis.length
 				)){
-				return;
-			};
-			Common.each( _config.cd.yAxis, function( _k:int, _item:Object ):void {
-				_items.push( new MixChartModelItem( _k, _item, _config ) );
-			});
+				_items.push( new MixChartModelItem( 0, _config.cd.yAxis || {}, _config ) );
+				
+			}else if( _config.cd.yAxis && _config.cd.yAxis.length ){
+				Common.each( _config.cd.yAxis, function( _k:int, _item:Object ):void {
+					_items.push( new MixChartModelItem( _k, _item, _config ) );
+				});
+			}
 			
 			initGraphicType();
 		}

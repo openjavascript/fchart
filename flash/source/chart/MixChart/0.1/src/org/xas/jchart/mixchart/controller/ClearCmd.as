@@ -7,6 +7,7 @@ package org.xas.jchart.mixchart.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.curvegram.view.mediator.CurveGramGraphicMediator;
 	import org.xas.jchart.histogram.view.mediator.HistogramGraphicMediator;
 	import org.xas.jchart.mixchart.view.mediator.*;
 	
@@ -40,6 +41,7 @@ package org.xas.jchart.mixchart.controller
 			facade.hasMediator( ItemBgMediator.name ) && facade.removeMediator( ItemBgMediator.name );	
 			facade.hasMediator( MixChartVLabelMediator.name ) && facade.removeMediator( MixChartVLabelMediator.name );	
 			facade.hasMediator( HistogramGraphicMediator.name ) && facade.removeMediator( HistogramGraphicMediator.name );	
+			facade.hasMediator( CurveGramGraphicMediator.name ) && facade.removeMediator( CurveGramGraphicMediator.name );	
 		}
 	}
 }

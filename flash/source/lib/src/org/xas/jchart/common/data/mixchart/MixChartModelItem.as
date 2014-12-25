@@ -224,6 +224,7 @@ package org.xas.jchart.common.data.mixchart
 			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
 				if( _config.getYAxisIndex( _item ) === _index ){
 					//Log.log( [ _k, _config.getYAxisIndex( _item ) ] );
+					_item.displayIndex = _k;
 					_displaySeries.push( _item );
 				}
 			});
