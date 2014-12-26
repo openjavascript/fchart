@@ -268,7 +268,7 @@ package org.xas.jchart.common
 			_chartData = _d;			
 			this._hasNegative = Common.hasNegative( displaySeries );
 			calcRate();
-			calcLabelDisplayIndex();
+			calcLabelDisplayIndex( displayAllLabel );
 			_chartData && ( _chartData.legend = _chartData.legend || {} );
 			return _d;
 		}
@@ -1236,10 +1236,14 @@ package org.xas.jchart.common
 		 * 获取要显示的水平标签索引位置
 		 * 如果返回 undefined, 将显示全部
 		 */
-		protected function calcLabelDisplayIndex():void{
+		public function calcLabelDisplayIndex( _displayAllLabel:Boolean ):void{
+			
 			var _tmp:Number, _len:int = categories.length, _tmp1:Number;
+			
+			_displayAllLabel = ( typeof _displayAllLabel != 'undefined' ) ? _displayAllLabel : displayAllLabel;
+			
 			_labelDisplayIndex = {};
-			if( !displayAllLabel ) {
+			if( !_displayAllLabel ) {
 				
 				if( !displayMod ) {
 					_labelDisplayIndex[ 0 ] = true;

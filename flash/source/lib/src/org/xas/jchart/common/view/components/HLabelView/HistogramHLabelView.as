@@ -27,6 +27,8 @@ package org.xas.jchart.common.view.components.HLabelView
 		
 		private var _labelData:BaseLabelData;
 		
+		private var _displayAllLabel:Boolean;
+		
 		public function HistogramHLabelView()
 		{
 			super();
@@ -38,9 +40,17 @@ package org.xas.jchart.common.view.components.HLabelView
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
 			var _twidth:Number = _config.c.labelWidth || 14;
-			_twidth = _twidth < 14 ? 14 : _twidth;
-			
 			var _labelRotate:Boolean = _config.labelRotationEnable;
+			
+			_displayAllLabel = _config.displayAllLabel;
+			
+			if( _twidth < 14 ) {
+				_twidth = 14;
+				if( !_labelRotate ) {
+					_displayAllLabel && ( _displayAllLabel = false );
+					_config.calcLabelDisplayIndex( _displayAllLabel );
+				}
+			}
 			
 			_lRotateFlag = false;
 			_labelDir = _config.labelRotationDir; // 0 - 向右 | 1 - 向左
@@ -72,7 +82,7 @@ package org.xas.jchart.common.view.components.HLabelView
 						}
 					}
 					
-					if( !_config.displayAllLabel ) {
+					if( !_displayAllLabel ) {
 						if( !( _k in _config.labelDisplayIndex ) ) {
 							_titem.visible = false;
 						}
@@ -104,7 +114,7 @@ package org.xas.jchart.common.view.components.HLabelView
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
-				if( !_config.displayAllLabel ) {
+				if( !_displayAllLabel ) {
 					if( !( _k in _config.labelDisplayIndex ) ) {
 						return;
 					}
