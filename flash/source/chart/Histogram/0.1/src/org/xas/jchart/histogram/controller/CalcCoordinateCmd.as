@@ -57,8 +57,16 @@ package org.xas.jchart.histogram.controller
 					_config.c.minY += pSubtitleMediator.view.height + 5;
 				}
 				
-				if( _config.legendEnabled ){
+				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
+					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
 					
+					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
+					_config.c.maxY -= pCreditMediator.view.height;
+				}	
+				
+				_config.c.maxX -= 5;
+				
+				if( _config.legendEnabled ){
 					facade.registerProxy( new LegendProxy() );
 					facade.registerMediator( new LegendMediator() );
 					
@@ -71,15 +79,6 @@ package org.xas.jchart.histogram.controller
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
 				}
-				
-				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
-					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
-					
-					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
-					_config.c.maxY -= pCreditMediator.view.height;
-				}	
-				
-				_config.c.maxX -= 5;
 				
 				if( _config.yAxisEnabled ){
 					facade.registerMediator( new VLabelMediator() );
@@ -109,21 +108,37 @@ package org.xas.jchart.histogram.controller
 				if( _config.yAxisEnabled ){
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
 				}else{
-					//_config.c.chartWidth = _config.c.maxX - 5;
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 				}
 				
-				if( _config.categories && _config.categories.length ){
+				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;
+				
+				if( _config.categories && _config.categories.length ) {
 					if( _config.displayAllLabel ){
-						_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
-					}else{
-						_config.c.labelWidth = _config.c.chartWidth / 7;
+						_config.c.labelWidth = _config.c.chartWidth / _config.categories.length / 2;
+					} else {
+						if( _config.displayMod ){
+							_config.c.labelWidth = _config.c.chartWidth * _config.displayMod 
+								/ _config.categories.length;
+						} else {
+							_config.c.labelWidth = _config.c.chartWidth / 7;
+						}
 					}
 				}
 				
 				if( _config.xAxisEnabled ){
 					facade.registerMediator( new HLabelMediator() );
+					
 					_config.c.maxY -= pHLabelMediator.maxHeight;
+					
+					var _tmpMaxWidth:Number = pHLabelMediator.maxWidth;
+					
+					if( _tmpMaxWidth < 0 ){
+						_config.c.minX += Math.abs( _tmpMaxWidth );
+					} else {
+						_config.c.maxX -= _tmpMaxWidth;
+					}
+					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 				}
 			
 				if( _config.graphicHeight ){
@@ -138,10 +153,9 @@ package org.xas.jchart.histogram.controller
 					if( _config.c.credits ){
 						_config.c.credits.y -= _hpad;
 					}
-				}else{	
+				} else {
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
-							
 				
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
@@ -150,15 +164,13 @@ package org.xas.jchart.histogram.controller
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				//Log.log( _config.tooltipEnabled );
 				
-				
 				calcChartPoint();
 				
-				calcGraphic();	
+				calcGraphic();
 				
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
 				}
-				
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
 									
@@ -230,7 +242,6 @@ package org.xas.jchart.histogram.controller
 						if( _config.isAutoRate && !_config.hasNegative ){
 							_num -= _config.minNum;
 							_maxNum -= _config.minNum;
-							Log.log( [_num, _config.minNum, _num - _config.minNum ] );
 						}
 						
 						
@@ -326,12 +337,12 @@ package org.xas.jchart.histogram.controller
 				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
 				_config.c.vpoint.push( {
 					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX, _n )
+					, end: new Point( _config.c.maxX + _padX + 5, _n )
 				});
 				
 				_config.c.vpointReal.push( {
 					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen, _n )
+					, end: new Point( _config.c.maxX + _sideLen + 5, _n )
 				});
 			});
 		}

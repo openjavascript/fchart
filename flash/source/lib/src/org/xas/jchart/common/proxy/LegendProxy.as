@@ -20,7 +20,6 @@ package org.xas.jchart.common.proxy
 		}
 		
 		override public function onRegister():void {
-			
 			switch( (facade as BaseFacade).name ) {
 				default: {
 					_data = new BaseLegendData();

@@ -18,6 +18,51 @@ package org.xas.jchart.common
 		}
 		public static function get params():Object{ return _params; }
 		
+		/* xlabel rotation start */
+		private var _labelRotationEnable:Boolean;
+		public function get labelRotationEnable():Boolean{
+			var _b:Boolean = false;
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.rotation
+				&& this.cd.xAxis.rotation.enabled
+				&& ( _b = this.cd.xAxis.rotation.enabled )
+			return _b;
+		}
+		
+		private var _labelRotationAngle:Boolean;
+		public function get labelRotationAngle():Number{
+			var _angle:Number = 0;
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.rotation
+				&& this.cd.xAxis.rotation.angle
+				&& ( _angle = this.cd.xAxis.rotation.angle )
+			return _angle;
+		}
+		
+		private var _labelRotationDir:int;
+		public function get labelRotationDir():int{
+			var _tmpDir:String,
+				_dir:int = 1;// 0 - 向右 | 1 - 向左
+			
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.rotation
+				&& this.cd.xAxis.rotation.dir
+				&& ( _tmpDir = this.cd.xAxis.rotation.dir );
+			
+			_dir = _tmpDir == "right" ? 0 : 1;
+			
+			if( labelRotationAngle && labelRotationAngle > 0 ) {
+				_dir = 0;
+			}
+			
+			return _dir;
+		}
+		
+		/* xlabel rotation end */
+		
 		public function get isAutoRate():Boolean {
 			var _r:Boolean = false;
 			this.cd
@@ -489,7 +534,7 @@ package org.xas.jchart.common
 		}
 		
 		public function get xAxisWordwrap():Boolean{
-			var _r:Boolean = true;
+			var _r:Boolean = false;
 			//return false;
 			cd 
 			&& cd.xAxis

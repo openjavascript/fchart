@@ -486,7 +486,6 @@ package org.xas.jchart.common
 		 * @return  number
 		 */
 		public static function parseFinance( _i:Number, _dot:int = 2 ):Number{
-			
 			_i = parseFloat( _i.toString() ) || 0;
 			_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
 			
