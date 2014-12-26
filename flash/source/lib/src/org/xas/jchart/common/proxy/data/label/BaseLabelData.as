@@ -16,6 +16,22 @@ package org.xas.jchart.common.proxy.data.label
 			_config = BaseConfig.ins as Config;
 		}
 		
+		public function resetHLabel( _labelWidth:Number ):Number {
+			var _defaultMinWidth:uint = 14;
+			
+			if( !_labelWidth ){
+				return _defaultMinWidth;
+			}
+			
+			if( _labelWidth > _defaultMinWidth ) {
+				return _labelWidth;
+			} else {
+				_config.setDisplayAllLabel( false );
+				_config.calcLabelDisplayIndex();
+				return _defaultMinWidth;
+			}
+		}
+		
 		public function calcLabelRotation( _labels:Vector.<TextField>, _labelWidth:Number ):Object{
 			
 			var _labelAngle:Number = _config.labelRotationAngle

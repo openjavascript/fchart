@@ -6,7 +6,6 @@ package org.xas.jchart.common
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.Log;
-	import org.xas.core.utils.ObjectUtils;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
@@ -269,7 +268,7 @@ package org.xas.jchart.common
 			_chartData = _d;			
 			this._hasNegative = Common.hasNegative( displaySeries );
 			calcRate();
-			calcLabelDisplayIndex( displayAllLabel );
+			calcLabelDisplayIndex();
 			_chartData && ( _chartData.legend = _chartData.legend || {} );
 			return _d;
 		}
@@ -1003,16 +1002,6 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		public function get legendMargin():Object{
-			var _r:Object = { x: 0, y: 0, top: 0, bottom: 0 };
-			chartData 
-				&& chartData.legend
-				&& chartData.legend.margin
-				&& ( _r = Common.extendObject( _r, chartData.legend.margin ) )
-				;
-			return _r;
-		}
-		
 		public function itemColor( _ix:uint, _fixColorIndex:Boolean = true ):uint{
 			var _r:uint = 0, _colors:Array = colors;
 			
@@ -1183,26 +1172,32 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		private var _displayAllLabel:Boolean;
 		public function get displayAllLabel():Boolean{
-			var _r:Boolean = true;
+			var _dal:Boolean = _displayAllLabel;
 			
-			chartData 
-			&& chartData.xAxis
-				&& chartData.xAxis.display 
-				&& ( 'enabled' in chartData.xAxis.display ) 
-				&& ( _r = chartData.xAxis.display.enabled );	
-			
-			chartData 
+			if( typeof _dal == 'undefined' || typeof _dal == 'null' ){
+				chartData 
 				&& chartData.xAxis
-				&& chartData.xAxis.displayAll 
-				&& ( 'enabled' in chartData.xAxis.displayAll ) 
-				&& ( _r = chartData.xAxis.displayAll.enabled );
-			
-			chartData 
+					&& chartData.xAxis.display 
+					&& ( 'enabled' in chartData.xAxis.display ) 
+					&& ( _dal = chartData.xAxis.display.enabled );	
+				
+				chartData 
+				&& chartData.xAxis
+					&& chartData.xAxis.displayAll 
+					&& ( 'enabled' in chartData.xAxis.displayAll ) 
+					&& ( _dal = chartData.xAxis.displayAll.enabled );
+				
+				chartData 
 				&& ( 'displayAllLabel' in chartData )
-				&& ( _r = chartData[ 'displayAllLabel' ] );
-			
-			return _r;
+					&& ( _dal = chartData[ 'displayAllLabel' ] );
+			}
+			return _dal;
+		}
+		
+		public function setDisplayAllLabel( _dal:Boolean ):void {
+			_displayAllLabel = _dal;
 		}
 		
 		public function get displayMod():int{
@@ -1247,14 +1242,10 @@ package org.xas.jchart.common
 		 * 获取要显示的水平标签索引位置
 		 * 如果返回 undefined, 将显示全部
 		 */
-		public function calcLabelDisplayIndex( _displayAllLabel:Boolean ):void{
-			
+		public function calcLabelDisplayIndex():void{
 			var _tmp:Number, _len:int = categories.length, _tmp1:Number;
-			
-			_displayAllLabel = ( typeof _displayAllLabel != 'undefined' ) ? _displayAllLabel : displayAllLabel;
-			
 			_labelDisplayIndex = {};
-			if( !_displayAllLabel ) {
+			if( !displayAllLabel ) {
 				
 				if( !displayMod ) {
 					_labelDisplayIndex[ 0 ] = true;

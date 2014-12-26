@@ -173,11 +173,11 @@ package org.xas.jchart.histogram.controller
 				}
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
-									
+			
 			sendNotification( JChartEvent.SHOW_CHART );			
 		}
 		
-		private function calcGraphic():void{			
+		private function calcGraphic():void{
 			facade.registerMediator( new GraphicMediator() );
 			
 			_config.c.rects = [];

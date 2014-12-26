@@ -39,18 +39,20 @@ package org.xas.jchart.common.view.components.HLabelView
 		override protected function addToStage( _evt:Event ):void{
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
-			var _twidth:Number = _config.c.labelWidth || 14;
+			var _twidth:Number = _labelData.resetHLabel( _config.c.labelWidth );
 			var _labelRotate:Boolean = _config.labelRotationEnable;
 			
 			_displayAllLabel = _config.displayAllLabel;
 			
-			if( _twidth < 14 ) {
-				_twidth = 14;
-				if( !_labelRotate ) {
-					_displayAllLabel && ( _displayAllLabel = false );
-					_config.calcLabelDisplayIndex( _displayAllLabel );
-				}
-			}
+//			_twidth < 14 && ( _twidth = _labelData );
+//			
+//			if( _twidth < 14 ) {
+//				_twidth = 14;
+//				if( !_labelRotate ) {
+//					_displayAllLabel && ( _displayAllLabel = false );
+////					_config.calcLabelDisplayIndex( _displayAllLabel );
+//				}
+//			}
 			
 			_lRotateFlag = false;
 			_labelDir = _config.labelRotationDir; // 0 - 向右 | 1 - 向左
