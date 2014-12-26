@@ -491,29 +491,5 @@ package org.xas.jchart.common
 			
 			return _i;
 		}
-		
-		private static var HAFT_CIRCULAR:uint = 180;
-		
-		/**
-		 * 角度值转弧度值
-		 * @method  angleToRadian
-		 * @static
-		 * @param   {number}    _angle
-		 * @return  number
-		 */
-		public static function angleToRadian( _angle:Number ):Number{
-			return _angle * Math.PI / HAFT_CIRCULAR;
-		}
-		
-		/**
-		 * 弧度值转角度值
-		 * @method  radianToAngle
-		 * @static
-		 * @param   {number}    _radian
-		 * @return  number
-		 */
-		public static function radianToAngle( _radian:Number ):Number{
-			return _radian / Math.PI * HAFT_CIRCULAR;
-		}
 	}
 }

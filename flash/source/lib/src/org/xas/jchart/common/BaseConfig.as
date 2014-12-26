@@ -21,7 +21,7 @@ package org.xas.jchart.common
 		/* xlabel rotation start */
 		private var _labelRotationEnable:Boolean;
 		public function get labelRotationEnable():Boolean{
-			var _b:Boolean = true;
+			var _b:Boolean = false;
 			this.cd
 				&& this.cd.xAxis
 				&& this.cd.xAxis.rotation

@@ -2,6 +2,7 @@ package org.xas.jchart.common.proxy.data.label
 {
 	import flash.text.TextField;
 	
+	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
@@ -19,7 +20,7 @@ package org.xas.jchart.common.proxy.data.label
 			
 			var _labelAngle:Number = _config.labelRotationAngle
 				, _defualtLabelHeight:Number = parseInt( DefaultOptions.xAxis.labels.style.size ) * 1.2
-				, _defaultAngle:Number = Common.radianToAngle( Math.atan( _defualtLabelHeight / _labelWidth ) )
+				, _defaultAngle:Number = GeoUtils.degree( Math.atan( _defualtLabelHeight / _labelWidth ) )
 				, _labelDir:Number = _config.labelRotationDir
 				, _maxAngle:Number = 0
 				, _realAngle:Number
@@ -54,7 +55,7 @@ package org.xas.jchart.common.proxy.data.label
 				
 				_item.rotationZ = _realAngle;
 				
-				_tmpWidth = _item.width * Math.cos( Common.angleToRadian( Math.abs( _realAngle ) ) );
+				_tmpWidth = _item.width * Math.cos(  GeoUtils.radians( Math.abs( _realAngle ) ) );
 				
 				if( _labelDir && _displayLabelIndex < 2  ){
 					_tmpWidth = _tmpWidth - _k * _labelWidth - _config.c.vlabelMaxWidth * 1.5;

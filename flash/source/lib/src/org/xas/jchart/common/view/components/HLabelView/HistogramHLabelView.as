@@ -8,6 +8,7 @@ package org.xas.jchart.common.view.components.HLabelView
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	
+	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
@@ -115,7 +116,7 @@ package org.xas.jchart.common.view.components.HLabelView
 				
 				if( _lRotateFlag ) {
 					if( _labelDir ){
-						var _absRadian:Number = Common.angleToRadian( Math.abs( _tf.rotationZ ) )
+						var _absRadian:Number = GeoUtils.radians( Math.abs( _tf.rotationZ ) )
 							, _cosWidth:Number = _tf.width * Math.cos( _absRadian );
 							
 						_x = _item.end.x - _cosWidth + 2;
