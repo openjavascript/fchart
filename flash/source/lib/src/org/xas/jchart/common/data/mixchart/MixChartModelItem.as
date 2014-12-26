@@ -87,7 +87,7 @@ package org.xas.jchart.common.data.mixchart
 		
 		protected function get minOffset():Number {
 			var _r:Number = 0;
-			Log.printFormatJSON( this._params );
+			//Log.printFormatJSON( this._params );
 			
 			this._params
 				&& this._params.autoRate
@@ -95,7 +95,7 @@ package org.xas.jchart.common.data.mixchart
 				&& ( _r = parseFloat( this._params.autoRate.minOffset ));
 			
 			_r < 0 && ( _r = 0 );
-			Log.log( _r );
+			//Log.log( _r );
 			
 			return _r;
 		}
@@ -204,6 +204,39 @@ package org.xas.jchart.common.data.mixchart
 			if( this._params && ( 'enabled' in this._params ) ){
 				_r = StringUtils.parseBool( this._params.enabled );
 			}
+			return _r;
+		}
+		
+		public function get hasVTitle():Boolean{
+			var _r:Boolean;
+			
+			if( 
+				this.enabeld 
+				&& this.params
+				&& this.params.title
+				&& this.params.title.text 
+			){
+				var _isEnabled:Boolean = true;
+				if( 'enabled' in this.params.title ){
+					_isEnabled = StringUtils.parseBool( this.params.title.enabled );
+				}
+				_r = _isEnabled;
+			}
+			
+			return _r;
+		}
+		
+		public function get vtitleText():String{
+			var _r:String = '';		
+			
+			if( 
+				this.params
+				&& this.params.title
+				&& this.params.title.text 
+			){
+				_r = this.params.title.text;
+			}
+			
 			return _r;
 		}
 		

@@ -54,6 +54,36 @@ package
 			}
 			
 			return _r;
+		}	
+		
+		public function get hasVTitle():Boolean{
+			var _r:Boolean;
+			
+			/*
+			if( cd && cd.yAxis && ( 'enabled' in cd.yAxis ) ){
+			_r = StringUtils.parseBool( cd.yAxis.enabled );
+			}
+			*/
+			Common.each( _mixModel.items, function( _k:int, _item:MixChartModelItem ):Boolean{
+				if( 
+					_item.enabeld 
+					&& _item.params
+					&& _item.params.title
+					&& _item.params.title.text 
+				){
+					var _isEnabled:Boolean = true;
+					if( 'enabled' in _item.params.title ){
+						_isEnabled = StringUtils.parseBool( _item.params.title.enabled );
+					}
+					if( _isEnabled ){
+						_r = true;
+						return false;
+					}
+				}
+				return true;
+			});
+			
+			return _r;
 		}
 		
 		

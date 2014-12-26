@@ -41,7 +41,9 @@ package org.xas.jchart.common.ui
 		public var tint:Number = 0;
 		
 		private var _config:Config;
+		private var _turnColor:Boolean;
 		
+		private var _iconRadius:int = 5;
 		
 		public function CurveGramUI( 
 			_cmd:Vector.<int>
@@ -53,6 +55,13 @@ package org.xas.jchart.common.ui
 		)
 		{
 			_data = _data || {};
+			
+			( 'duration' in _data ) &&  ( _duration =  _data.duration );　 
+			( 'delay' in _data ) &&  ( _delay =  _data.delay );
+			
+			( 'turnColor' in _data ) &&  ( _turnColor =  _data.turnColor );　
+			( 'iconRadius' in _data ) &&  ( _iconRadius =  _data.iconRadius );　
+
 			super(_data);
 			
 			this._cmd = _cmd;
@@ -62,13 +71,8 @@ package org.xas.jchart.common.ui
 			this._lineType = _lineType;
 			this._thickness = 2;
 			
-			this._config = BaseConfig.ins as Config;
-			
-			_data = _data || {};
-			
-			( 'duration' in _data ) &&  ( _duration =  _data.duration );　 
-			( 'delay' in _data ) &&  ( _delay =  _data.delay );
-			
+			this._config = BaseConfig.ins as Config;			
+
 			addEventListener( Event.ADDED_TO_STAGE, onAddedToStage );
 		}
 		
@@ -221,7 +225,7 @@ package org.xas.jchart.common.ui
 			while( _path.length ){
 				var _x:Number = _path.shift(), _y:Number = _path.shift()
 					, _tmp:Point = new Point( _x, _y )
-					, _tmpItem:CircleIcon = new CircleIcon( _tmp, _color )
+					, _tmpItem:CircleIcon = new CircleIcon( _tmp, _color, _iconRadius, _turnColor )
 					;
 				_point.push( _tmp );
 				_items.push( _tmpItem );

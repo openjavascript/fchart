@@ -131,7 +131,7 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 					}else{						
 						_tf.x = _model.left - _tf.width;
 					}
-					Log.log( _model.left );
+					//Log.log( _model.left );
 					_tf.y = _item.start.y - _tf.height / 2;
 				}
 				

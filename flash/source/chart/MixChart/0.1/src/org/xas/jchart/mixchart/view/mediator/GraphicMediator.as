@@ -1,9 +1,14 @@
 package org.xas.jchart.mixchart.view.mediator
 {
+	import flash.text.TextField;
+	
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.xas.core.ui.text.RotationText;
 	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.MainMediator;
 	import org.xas.jchart.mixchart.view.components.GraphicView;
@@ -25,7 +30,8 @@ package org.xas.jchart.mixchart.view.mediator
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index7.addChild( _view = new GraphicView() );			
+			mainMediator.view.index7.addChild( _view = new GraphicView() );		
+
 		}
 		
 		override public function onRemove():void{
