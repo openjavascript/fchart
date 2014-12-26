@@ -121,22 +121,6 @@ package org.xas.jchart.common
 			
 			return _out;
 		}
-		
-		public static function each( _items:*, _cb:Function ):*{
-			var i:int, j:int, k:String;
-			
-			if( 'length' in _items ){				
-				for( i = 0, j = _items.length; i < j; i++ ){
-					if( _cb( i, _items[ i ] ) === false ) break;
-				}				
-			}else{
-				for( k in _items ){
-					if( _cb( k, _items[ k ] ) === false ) break;
-				}
-			}
-			
-			return _items;
-		}
 			
 		public static function isNegative( _num:Number ):Boolean{
 			return _num < 0;
@@ -490,6 +474,28 @@ package org.xas.jchart.common
 			_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
 			
 			return _i;
+		}
+		
+		public static function each( _items:*, _cb:Function, _isReverse:Boolean = false ):*{
+			var i:int, j:int, k:String;
+			
+			if( 'length' in _items ){				
+				if( _isReverse ){
+					for( i = _items.length - 1; i >= 0; i-- ){
+						if( _cb( i, _items[ i ] ) === false ) break;
+					}		
+				}else{
+					for( i = 0, j = _items.length; i < j; i++ ){
+						if( _cb( i, _items[ i ] ) === false ) break;
+					}		
+				}		
+			}else{
+				for( k in _items ){
+					if( _cb( k, _items[ k ] ) === false ) break;
+				}
+			}
+			
+			return _items;
 		}
 	}
 }

@@ -47,19 +47,16 @@ package org.xas.jchart.common.data.test
 					},
 					"yAxis": [
 						{
-							"autoRate": {
-								"enabled": true
-								, "rateUp": 0
-								, "maxOffset": .1
-								, "minOffset": .1
-							}
-							, "title": {
+							"title": {
 								"text": "test vtitle"
 								, "enabled": 1
 							}
 						}
 						, {
-							"title": {
+							"autoRate": {
+								"enabled": true
+							}
+							, "title": {
 								"text": "test vtitle 1"
 								, "enabled": 1
 							}
@@ -73,6 +70,12 @@ package org.xas.jchart.common.data.test
 						}
 						, {
 							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
 							, "title": {
 								"text": "test vtitle 3"
 								, "enabled": 1

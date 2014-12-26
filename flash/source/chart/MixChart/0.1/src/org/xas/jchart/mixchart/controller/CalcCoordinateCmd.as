@@ -106,43 +106,43 @@ package org.xas.jchart.mixchart.controller
 					
 					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
 						if( !_item.enabeld ) return;
-						
-						if( _item.isOpposite ){
+						if( _item.isOpposite ) return;
+
+						if( _item.hasVTitle ){
 							
-							if( _item.hasVTitle ){
-								_config.c.maxX -= pMixChartVTitleMediator.getWidth( _k );
-								
-								_config.c.vtitle[ _k ] = {
-									x: _config.c.maxX + pMixChartVTitleMediator.getWidth( _k ) / 2
-									, y: _config.c.height / 2
-								}
-								
+							_config.c.vtitle[ _k ] = {
+								x: _config.c.minX + pMixChartVTitleMediator.getWidth( _k ) / 2
+								, y: _config.c.height / 2
 							}
 							
-							_config.c.maxX -= pMixChartVLabelMediator.getMaxWidth( _k );
-							_item.left = _config.c.maxX;
-							_config.c.maxX -= _config.vlabelSpace;
-							_config.c.hasOppositeYAxis = true;
-
-						}else{							
-							
-							if( _item.hasVTitle ){
-								
-								_config.c.vtitle[ _k ] = {
-									x: _config.c.minX + pMixChartVTitleMediator.getWidth( _k ) / 2
-									, y: _config.c.height / 2
-								}
-								
-								_config.c.minX += pMixChartVTitleMediator.getWidth( _k );
-							}
-							
-							_config.c.hasYAxis = true;
-							_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
-							_item.left = _config.c.minX;
-							_config.c.minX += _config.vlabelSpace;
-
+							_config.c.minX += pMixChartVTitleMediator.getWidth( _k );
 						}
+						
+						_config.c.hasYAxis = true;
+						_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
+						_item.left = _config.c.minX;
+						_config.c.minX += _config.vlabelSpace;
 					});
+					
+					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+						if( !_item.enabeld ) return;
+						if( !_item.isOpposite ) return;
+
+						if( _item.hasVTitle ){
+							_config.c.maxX -= pMixChartVTitleMediator.getWidth( _k );
+							
+							_config.c.vtitle[ _k ] = {
+								x: _config.c.maxX + pMixChartVTitleMediator.getWidth( _k ) / 2
+								, y: _config.c.height / 2
+							}
+							
+						}
+						
+						_config.c.maxX -= pMixChartVLabelMediator.getMaxWidth( _k );
+						_item.left = _config.c.maxX;
+						_config.c.maxX -= _config.vlabelSpace;
+						_config.c.hasOppositeYAxis = true;
+					}, true );
 					
 					if( _config.c.hasYAxis ){
 						_config.c.maxX -= _config.c.arrowLength;
