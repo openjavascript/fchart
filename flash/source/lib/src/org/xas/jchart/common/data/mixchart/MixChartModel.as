@@ -54,7 +54,7 @@ package org.xas.jchart.common.data.mixchart
 				return;
 			}
 			_yList.sort();
-			Log.log( _yList );
+			//Log.log( _yList );
 			
 			Common.each( _yList, function( _k:int, _v:int ):void {
 				var _param:Object = _params[ _v ];

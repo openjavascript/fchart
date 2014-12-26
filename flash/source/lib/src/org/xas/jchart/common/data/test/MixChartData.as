@@ -149,6 +149,8 @@ package org.xas.jchart.common.data.test
 					],
 					"legend": {
 						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
 					},
 					"plotOptions": {
 						/*

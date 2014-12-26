@@ -253,6 +253,16 @@ package org.xas.jchart.common.data.mixchart
 				;
 			return _r;
 		}
+		
+		public function get vtitleStyle():Object{
+			var _r:Object = {};
+			this._params 
+				&& this._params.title
+				&& this._params.title.style
+				&& ( _r = this._params.title.style )
+				;
+			return _r;
+		}
 
 		
 		protected function init():void{

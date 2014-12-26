@@ -16,6 +16,8 @@ package org.xas.jchart.common.proxy.data.legend
 			var _dir:Number = _config.legendDir;
 			var _align:Number = _dir % 3;
 			
+			_config.c.minY += _config.legendMargin.top;
+			
 			switch( Math.floor( _dir / 3 ) ) {
 				case 0 : {/* legend在顶部 */
 					legend_y = _config.c.minY - 2;
@@ -70,10 +72,11 @@ package org.xas.jchart.common.proxy.data.legend
 					}
 				}
 			}
+			_config.c.minY += _config.legendMargin.bottom;
 			
 			_config.c.legend = {
-				x: legend_x
-				, y: legend_y
+				x: legend_x + _config.legendMargin.x
+				, y: legend_y + _config.legendMargin.y
 			};
 		}
 	}

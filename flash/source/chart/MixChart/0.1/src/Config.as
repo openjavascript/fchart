@@ -4,6 +4,7 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.ChartType;
+	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.data.mixchart.MixChartModel;
 	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 
@@ -156,6 +157,29 @@ package
 		override public function get animationDuration():Number {
 			var _r:Number = 1;
 			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
+			return _r;
+		}
+		
+		override public function get colors():Array{
+			var _r:Array = [ 
+				0x7cb5ec
+				, 0x09c100
+				, 0xf7a35c
+				, 0x8085e9
+				, 0x434348
+				, 0x90ed7d
+				, 0xf15c80
+				, 0xe4d354
+				, 0x8085e8
+				, 0x8d4653
+				, 0x91e8e1 
+			];
+	
+			chartData 
+				&& chartData.colors
+				&& chartData.colors.length
+				&& ( _r = chartData.colors );
+			
 			return _r;
 		}
 

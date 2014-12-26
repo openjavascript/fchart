@@ -220,7 +220,7 @@ package org.xas.jchart.mixchart.controller
 						}
 					});
 				}
-				Log.log( _config.c.chartY, _config.c.chartHeight );
+//				Log.log( _config.c.chartY, _config.c.chartHeight );
 				
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
