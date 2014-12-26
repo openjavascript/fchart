@@ -44,6 +44,12 @@ package org.xas.jchart.common.event
 		public static const INITED:String = 'inited';
 		public static const LEGEND_UPDATE:String = 'legendupdate';
 		
+				
+		public static const MIX_CHART_CALC_COORDINATE_PREFIX:String = 'mix_chart_calc_coordinate_';
+		public static const MIX_CHART_CALC_COORDINATE_BAR:String = MIX_CHART_CALC_COORDINATE_PREFIX +　'bar';
+		public static const MIX_CHART_CALC_COORDINATE_LINE:String = MIX_CHART_CALC_COORDINATE_PREFIX +　'line';
+		public static const MIX_CHART_CALC_COORDINATE_PIE:String = MIX_CHART_CALC_COORDINATE_PREFIX +　'pie';
+		
 		public function JChartEvent($type:String, $data:Object=null)
 		{
 			super($type, $data);

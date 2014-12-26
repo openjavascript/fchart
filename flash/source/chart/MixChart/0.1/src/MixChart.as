@@ -9,7 +9,7 @@ package
 	import flash.external.ExternalInterface;
 	import flash.system.Security;
 	import flash.utils.Timer;
-	import flash.utils.setInterval;
+	import flash.utils.setInterval; 
 	import flash.utils.setTimeout;
 	
 	import org.puremvc.as3.multicore.patterns.facade.*;
@@ -18,13 +18,13 @@ package
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
-	import org.xas.jchart.common.data.test.DefaultData;
+	import org.xas.jchart.common.data.test.DefaultData; 
 	import org.xas.jchart.common.data.test.MixChartData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.mixchart.MainFacade;
+	import org.xas.jchart.mixchart.MainFacade; 
 	        
 
-	//[SWF(frameRate="30", width="790", height="230")]
+	//[SWF(frameRate="30", width="790", height="230")] 
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
@@ -183,6 +183,6 @@ package
 		}
 		
 		public static var author:String = 'suches@btbtd.org';
-		public static var version:String = '0.1, 2014-07-30';
+		public static var version:String = '0.1, 2014-12-24';
 	}
 }

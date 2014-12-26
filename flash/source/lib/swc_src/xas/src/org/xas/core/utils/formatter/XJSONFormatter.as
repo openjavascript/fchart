@@ -78,7 +78,7 @@ package org.xas.core.utils.formatter
 					{	
 						if( typeof item == 'string' )
 						{
-							item = JSONEncoder(item);
+							item = item;
 						}
 						
 						if( count < objLen ) itemSeparate = ', ';
@@ -100,7 +100,7 @@ package org.xas.core.utils.formatter
 					
 					if( TypeUtils.isArray( item ) || TypeUtils.isObject( item ) )
 					{								
-						result.push( itemPad + JSONEncoder(k) + ':' );
+						result.push( itemPad + '"' + k + '"'  + ':' );
 						analysisData( item, result , deep + 1);
 						if( count < objLen ) 
 						{
@@ -112,13 +112,14 @@ package org.xas.core.utils.formatter
 					{	
 						if( typeof item == 'string' )
 						{
-							item = JSONEncoder(item);
+							item = item
 						}
 						
 						if( count < objLen ) itemSeparate = ', ';
 						else itemSeparate = '';
 						
-						result.push( itemPad + JSONEncoder(k) + ': ' + item + itemSeparate );
+						//result.push( itemPad + JSONEncoder(k) + ': ' + item + itemSeparate );
+						result.push( itemPad + '"' + k + '"' + ': ' + item + itemSeparate );
 					}
 				}
 			}

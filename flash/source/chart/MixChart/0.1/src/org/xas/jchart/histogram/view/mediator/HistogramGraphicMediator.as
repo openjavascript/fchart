@@ -1,31 +1,37 @@
-package org.xas.jchart.mixchart.view.mediator
+package org.xas.jchart.histogram.view.mediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.MainMediator;
-	import org.xas.jchart.mixchart.view.components.GraphicView;
+	import org.xas.jchart.histogram.view.components.GraphicView;
 	
-	public class GraphicMediator extends Mediator implements IMediator
+	public class HistogramGraphicMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PChartMediator';
+		public static const name:String = 'PChartHistogramMediator';
 		private var _view:GraphicView;
-		private var _config:Config;
-		
 		public function get view():GraphicView{ return _view; }
 		
-		public function GraphicMediator()
+		private var _config:Config;
+		private var _seriesAr:Array;
+		private var _coordinate:Object;
+		
+		public function HistogramGraphicMediator( _seriesAr:Array, _coordinate:Object )
 		{
 			super( name );
 			
 			_config = BaseConfig.ins as Config;
+			this._seriesAr = _seriesAr;
+			this._coordinate = _coordinate;
 			
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index7.addChild( _view = new GraphicView() );			
+			//Log.log( [ 'PChartHistogramMediator', new Date().getTime() ] );
+			mainMediator.view.index7.addChild( _view = new GraphicView( _seriesAr, _coordinate ) );			
 		}
 		
 		override public function onRemove():void{

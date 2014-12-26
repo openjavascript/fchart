@@ -1,30 +1,54 @@
-package org.xas.jchart.histogram.view.mediator
+package org.xas.jchart.curvegram.view.mediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
+	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.histogram.view.components.GraphicView;
 	import org.xas.jchart.common.view.mediator.MainMediator;
+	import org.xas.jchart.curvegram.view.components.GraphicView;
 	
-	public class GraphicMediator extends Mediator implements IMediator
+	public class CurveGramGraphicMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PChartMediator';
+		public static const name:String = 'PChartCurveGramMediator';
 		private var _view:GraphicView;
 		public function get view():GraphicView{ return _view; }
 		
-		public function GraphicMediator()
+		private var _config:Config;
+		private var _seriesAr:Array;
+		private var _coordinate:Object;
+		
+		public function CurveGramGraphicMediator( _seriesAr:Array, _coordinate:Object )
 		{
 			super( name );
+			
+			_config = BaseConfig.ins as Config;
+			this._seriesAr = _seriesAr;
+			this._coordinate = _coordinate;
 			
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index7.addChild( _view = new GraphicView() );			
+			//Log.log( [ 'PChartCurveGramMediator', new Date().getTime() ] );
+			mainMediator.view.index8.addChild( _view = new GraphicView( _seriesAr, _coordinate ) );		
+			
+			_view.addEventListener( JChartEvent.ITEM_CLICK, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.ITEM_CLICK, _evt.data );
+			} );
+			
+			_view.addEventListener( JChartEvent.GROUP_CLICK, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.GROUP_CLICK, _evt.data );
+			}  );
+			
+			_view.addEventListener( JChartEvent.INITED, function( _evt:JChartEvent ):void{
+				sendNotification( JChartEvent.INITED, _evt.data );
+			}  );
+
 		}
 		
 		override public function onRemove():void{
-			_view.parent.removeChild( _view );
+			_view.parent && _view.parent.removeChild( _view );
 		}
 		
 		override public function listNotificationInterests():Array{

@@ -10,6 +10,7 @@ package org.xas.jchart.mixchart.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.MixChartData;
 	import org.xas.jchart.common.event.JChartEvent;
@@ -39,6 +40,8 @@ package org.xas.jchart.mixchart.controller
 			_c.minY = _c.y + 5;
 			_c.maxX = _c.x + _config.stageWidth - 5;
 			_c.maxY = _c.y + _config.stageHeight - 5;
+			
+			_c.arrowLength = 8;
 						
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
@@ -66,12 +69,14 @@ package org.xas.jchart.mixchart.controller
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
 				
+				/*
 				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
 				}
+				*/
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
 					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
@@ -82,9 +87,35 @@ package org.xas.jchart.mixchart.controller
 				
 				_config.c.maxX -= 5;
 				
+				
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
-					_config.c.minX += pVLabelMediator.maxWidth;
+					
+					facade.registerMediator( new MixChartVLabelMediator() );
+					
+					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+						if( !_item.enabeld ) return;
+						if( _item.isOpposite ){
+							_config.c.maxX -= pMixChartVLabelMediator.getMaxWidth( _k );
+							_item.left = _config.c.maxX;
+							_config.c.maxX -= _config.vlabelSpace;
+							_config.c.hasOppositeYAxis = true;
+
+						}else{
+							_config.c.hasYAxis = true;
+							_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
+							_item.left = _config.c.minX;
+							_config.c.minX += _config.vlabelSpace;
+
+						}
+					});
+					
+					if( _config.c.hasYAxis ){
+						_config.c.maxX -= _config.c.arrowLength;
+					}
+					
+					if( _config.c.hasOppositeYAxis ){
+						
+					}
 				}
 
 				_config.c.hoverPadY = 10;
@@ -104,8 +135,6 @@ package org.xas.jchart.mixchart.controller
 					_config.c.minY += _config.c.serialLabelPadY;
 					_yPad += _config.c.serialLabelPadY;
 				}
-				
-				_config.c.arrowLength = 8;
 				
 				if( _config.yAxisEnabled ){
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
@@ -141,8 +170,7 @@ package org.xas.jchart.mixchart.controller
 					}
 				}else{	
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
-				}
-							
+				}	
 				
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
@@ -150,11 +178,17 @@ package org.xas.jchart.mixchart.controller
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				//Log.log( _config.tooltipEnabled );
-				
-				
+								
 				calcChartPoint();
+				//_config.mixModel.calcGraphic();
 				
-				calcGraphic();	
+				_config.c.mix = {};
+				Common.each( _config.mixModel.graphicType, function( _k:String, _item:* ):void{
+					//Log.printClass( _item.model as MixChartModelItem );
+					//Log.printJSON( _item );
+					_config.c.mix[ _k ] = {};
+					sendNotification( JChartEvent.MIX_CHART_CALC_COORDINATE_PREFIX + _k, _item, _k );
+				});
 				
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( MixChartData.instance.data ) );	
@@ -165,143 +199,7 @@ package org.xas.jchart.mixchart.controller
 									
 			sendNotification( JChartEvent.SHOW_CHART );			
 		}
-		
-		private function calcGraphic():void{			
-			facade.registerMediator( new GraphicMediator() );
-			
-			_config.c.rects = [];
-			_config.c.dataRect = [];
-			
-			if( !( _config.series && _config.series.length ) ) return;
-			
-			_config.c.partSpace = 0; 
-			_config.c.partWidth = 
-				_config.c.itemWidth / _config.displaySeries.length
-				;
-			
-			if( _config.displaySeries.length > 1 ){				
-				_config.c.partSpace = 4; 
-				_config.c.partWidth = 
-					(
-						_config.c.itemWidth - (_config.displaySeries.length - 1) * _config.c.partSpace
-					) / _config.displaySeries.length
-					;
-			}
-			
-			//_config.c.partWidth > 50 && ( _config.c.partWidth = 50 );
-			var _partWidth:Number = _config.c.partWidth
-				;
-			//_partWidth > 50 && ( _partWidth = 50 );
-			if( _partWidth > 50 ){
-				_partWidth = 50;
-			}
-			
-			
-			Common.each( _config.cd.xAxis.categories, function( _k:int, _item:Object ):void{
 				
-				var _items:Array = []
-					, _pointItem:Object = _config.c.hlinePoint[ _k ]
-					, _sp:Point = _pointItem.start as Point
-					, _ep:Point = _pointItem.end as Point
-					//, _x:Number = _sp.x + ( _config.c.itemWidth - _config.c.itemWidth / 2 )
-					, _x:Number = _sp.x 
-						+ ( _config.c.itemWidth 
-							- _partWidth * _config.displaySeries.length / 2
-							- _config.c.partSpace * ( ( _config.displaySeries.length || 1 ) - 1 ) / 2 
-						)
-					, _tmp:Number = 0
-					, _tmpDataRect:Object = {
-						x: _sp.x, y: _sp.y
-						, width: _config.c.itemWidth * 2
-						, height: _ep.y - _sp.y 
-					}
-					, _tmpYAr:Array = []
-					, _tmpHAr:Array = []
-					;
-									
-				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
-					var _rectItem:Object = {}
-						, _num:Number = _sitem.data[ _k ]
-						, _itemNum:Number
-						, _h:Number = 0, _y:Number
-						, _dataHeight:Number
-						, _maxNum:Number = _config.chartMaxNum
-						;
-						
-						if( _config.isAutoRate && !_config.hasNegative ){
-							_num -= _config.minNum;
-							_maxNum -= _config.minNum;
-							Log.log( [_num, _config.minNum, _num - _config.minNum ] );
-						}
-						
-						
-						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
-							_h = _config.c.vpart * _config.rateZeroIndex;
-							_h = ( _num / _config.itemMax( _k ) || 0 ) * _h;
-							_y = _sp.y 
-							+ _config.c.vpart * _config.rateZeroIndex - _h
-							;
-							if( _k === 0 ){
-								//Log.log( _num / _config.itemMax( _k ) * 100, _num, _config.itemMax( _k ) );
-							}
-						}else{
-							
-							if( Common.isNegative( _num ) || _num == 0 ){
-								_num = Math.abs( _num );
-								_dataHeight = _config.c.vpart * _config.rateZeroIndex;
-								
-								_h = _config.c.chartHeight - _dataHeight;
-								_y = _sp.y + _dataHeight ;
-								_h = 
-								( _num / 
-									Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
-								* _h;
-								//Log.log( _h, _config.finalMaxNum );
-								_rectItem.isNegative = true;
-							}else{
-								_h = _config.c.vpart * _config.rateZeroIndex;
-								//Log.log( [ _config.c.vpart, _config.rateZeroIndex, _config.c.vpart * _config.rateZeroIndex ].join(', ' ) ); 
-								_h = ( _num / _maxNum || 1 ) * _h;
-								//Log.log( [ _num, _config.chartMaxNum, _num / _config.chartMaxNum ] );
-								_y = _sp.y 
-								+ _config.c.vpart * _config.rateZeroIndex - _h
-								;
-							}
-						}						
-						//Log.log( _h, _y );
-						
-						_rectItem.x = _x + _sk * _partWidth + _config.c.partSpace * _sk;
-						_h = _h || 1;
-						
-						_rectItem.y = _y;
-						_rectItem.width = _partWidth;
-						_rectItem.height = _h;
-						_rectItem.value = _sitem.data[ _k ];
-						
-						_tmpYAr.push( _y );
-						_tmpHAr.push( _h );
-						
-						_items.push( _rectItem );
-				});
-				
-				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
-				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
-				
-				if( _config.hoverBgEnabled ){
-					_tmpDataRect.y -= _config.c.hoverPadY;
-					_tmpDataRect.height += _config.c.hoverPadY
-				}
-				
-				if( _config.serialLabelEnabled ){
-					_tmpDataRect.y -= _config.c.serialLabelPadY;
-					_tmpDataRect.height += _config.c.serialLabelPadY
-				}
-				
-				_config.c.rects.push( _items );
-				_config.c.dataRect.push( _tmpDataRect );
-			});
-		}
-		
 		private function calcChartPoint():void{
 			facade.registerMediator( new BgLineMediator() );
 			
@@ -391,8 +289,8 @@ package org.xas.jchart.mixchart.controller
 			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
 		}
 		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
+			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

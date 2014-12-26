@@ -12,7 +12,7 @@ package org.xas.jchart.common
 
 	public class BaseConfig
 	{
-		private static var _params:Object;
+		protected static var _params:Object;
 		public static function setParams( _setter:Object = null ):void{
 			_setter && ( _params = _setter );
 		}
@@ -136,7 +136,7 @@ package org.xas.jchart.common
 			return BaseConfig._ins = _ins;
 		}
 		
-		private static function apiReady():Boolean{
+		protected static function apiReady():Boolean{
 			return true;
 		}
 		
@@ -153,7 +153,7 @@ package org.xas.jchart.common
 			return _debug;
 		}
 		
-		private var _rateNum:Number = 2;
+		protected var _rateNum:Number = 2;
 		public function get rateNum():Number{ return _rateNum; }
 		public function setRateNum( _r:Number ):void{ this._rateNum = _r; }
 		
@@ -696,7 +696,7 @@ package org.xas.jchart.common
 			this.yAxisMaxValue && ( _r = this.yAxisMaxValue );
 				
 			if( _r === 0 ){
-				_r = 10;
+				_r = 100;
 			}else{
 				//Log.log( [ Common.numberDown( _r ), _r ] );
 				_r = _r + _r * maxOffset;
@@ -737,7 +737,7 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		private var _itemMax:Array;
+		protected var _itemMax:Array;
 		public function itemMax( _ix:int ):Number {
 			var _r:Number = 0;
 			if( _itemMax && _ix >= 0 && ( _ix < _itemMax.length ) ){
@@ -877,10 +877,10 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		private var _realRate:Array;
+		protected var _realRate:Array;
 		public function get realRate():Array{ return _realRate; }
 		
-		private var _realRateFloatLen:int;
+		protected var _realRateFloatLen:int;
 		public function get realRateFloatLen():int{ 
 			var _r:Number = _realRateFloatLen;
 			

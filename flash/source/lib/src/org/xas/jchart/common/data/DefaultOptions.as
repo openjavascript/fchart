@@ -780,11 +780,13 @@ package org.xas.jchart.common.data
 		public static var colors:Array =
 			[
 				0x09c100, 
-				0x0c76c4, 				
+				0x0c76c4, 	
 				0xff0619,
 				
 				0xFFBF00, 			
-				0xff7100,	
+				0xff7100,
+				
+				0x434348,	
 				0xff06b3, 
 				
 				0x41e2e6,			

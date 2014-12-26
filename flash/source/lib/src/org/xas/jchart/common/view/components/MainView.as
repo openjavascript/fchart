@@ -40,8 +40,16 @@ package org.xas.jchart.common.view.components
 		
 		private var _index9:Sprite;
 		public function get index9():Sprite{ return _index9; }
+				
+		private var _index10:Sprite;
+		public function get index10():Sprite{ return _index10; }
+				
+		private var _index11:Sprite;
+		public function get index11():Sprite{ return _index11; }
 		
-		
+		private var _index12:Sprite;
+		public function get index12():Sprite{ return _index12; }
+				
 		public function MainView()
 		{
 			super();
@@ -56,6 +64,9 @@ package org.xas.jchart.common.view.components
 			addChild( _index7 = new Sprite() );
 			addChild( _index8 = new Sprite() );
 			addChild( _index9 = new Sprite() );
+			addChild( _index10 = new Sprite() );
+			addChild( _index11 = new Sprite() );
+			addChild( _index12 = new Sprite() );
 
 			/*
 			_index9.addChild(
