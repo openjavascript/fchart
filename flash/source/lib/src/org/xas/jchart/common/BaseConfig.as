@@ -6,6 +6,7 @@ package org.xas.jchart.common
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.Log;
+	import org.xas.core.utils.ObjectUtils;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
@@ -998,6 +999,16 @@ package org.xas.jchart.common
 			&& chartData.legend
 				&& chartData.legend.itemStyle
 				&& ( _r = chartData.legend.itemStyle )
+				;
+			return _r;
+		}
+		
+		public function get legendMargin():Object{
+			var _r:Object = { x: 0, y: 0, top: 0, bottom: 0 };
+			chartData 
+				&& chartData.legend
+				&& chartData.legend.margin
+				&& ( _r = Common.extendObject( _r, chartData.legend.margin ) )
 				;
 			return _r;
 		}

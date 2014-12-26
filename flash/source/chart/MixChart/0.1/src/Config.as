@@ -4,6 +4,7 @@ package
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.ChartType;
+	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.data.mixchart.MixChartModel;
 	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 
@@ -52,6 +53,36 @@ package
 			if( cd && cd.rateLabel && ( 'enabled' in cd.rateLabel ) ){
 				_r = StringUtils.parseBool( cd.rateLabel.enabled );
 			}
+			
+			return _r;
+		}	
+		
+		public function get hasVTitle():Boolean{
+			var _r:Boolean;
+			
+			/*
+			if( cd && cd.yAxis && ( 'enabled' in cd.yAxis ) ){
+			_r = StringUtils.parseBool( cd.yAxis.enabled );
+			}
+			*/
+			Common.each( _mixModel.items, function( _k:int, _item:MixChartModelItem ):Boolean{
+				if( 
+					_item.enabeld 
+					&& _item.params
+					&& _item.params.title
+					&& _item.params.title.text 
+				){
+					var _isEnabled:Boolean = true;
+					if( 'enabled' in _item.params.title ){
+						_isEnabled = StringUtils.parseBool( _item.params.title.enabled );
+					}
+					if( _isEnabled ){
+						_r = true;
+						return false;
+					}
+				}
+				return true;
+			});
 			
 			return _r;
 		}
@@ -126,6 +157,29 @@ package
 		override public function get animationDuration():Number {
 			var _r:Number = 1;
 			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
+			return _r;
+		}
+		
+		override public function get colors():Array{
+			var _r:Array = [ 
+				0x7cb5ec
+				, 0x09c100
+				, 0xf7a35c
+				, 0x8085e9
+				, 0x434348
+				, 0x90ed7d
+				, 0xf15c80
+				, 0xe4d354
+				, 0x8085e8
+				, 0x8d4653
+				, 0x91e8e1 
+			];
+	
+			chartData 
+				&& chartData.colors
+				&& chartData.colors.length
+				&& ( _r = chartData.colors );
+			
 			return _r;
 		}
 

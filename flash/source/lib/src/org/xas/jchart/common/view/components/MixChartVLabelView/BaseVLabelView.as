@@ -25,9 +25,6 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 		protected var _maxWidth:Number = 0;
 		public function get maxWidth():Number{ return _maxWidth; }
 		
-		protected var _maxWidthRight:Number = 0;
-		public function get maxWidthRight():Number{ return _maxWidth; }
-		
 		protected var _maxHeight:Number = 0;
 		public function get maxHeight():Number{ return _maxHeight; }
 		

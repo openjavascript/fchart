@@ -39,9 +39,11 @@ package org.xas.jchart.mixchart.controller
 			facade.hasMediator( SerialLabelMediator.name ) && facade.removeMediator( SerialLabelMediator.name );
 			facade.hasMediator( HoverBgMediator.name ) && facade.removeMediator( HoverBgMediator.name );	
 			facade.hasMediator( ItemBgMediator.name ) && facade.removeMediator( ItemBgMediator.name );	
-			facade.hasMediator( MixChartVLabelMediator.name ) && facade.removeMediator( MixChartVLabelMediator.name );	
 			facade.hasMediator( HistogramGraphicMediator.name ) && facade.removeMediator( HistogramGraphicMediator.name );	
 			facade.hasMediator( CurveGramGraphicMediator.name ) && facade.removeMediator( CurveGramGraphicMediator.name );	
+			
+			facade.hasMediator( MixChartVTitleMediator.name ) && facade.removeMediator( MixChartVTitleMediator.name );	
+			facade.hasMediator( MixChartVLabelMediator.name ) && facade.removeMediator( MixChartVLabelMediator.name );	
 		}
 	}
 }

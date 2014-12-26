@@ -112,6 +112,8 @@ package org.xas.jchart.curvegram.view.components
 							, delay: _delay
 							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
 							, index: _item.data.displayIndex
+							, turnColor: true
+							, iconRadius: 4
 						}
 					)
 				);

@@ -87,7 +87,7 @@ package org.xas.jchart.common.data.mixchart
 		
 		protected function get minOffset():Number {
 			var _r:Number = 0;
-			Log.printFormatJSON( this._params );
+			//Log.printFormatJSON( this._params );
 			
 			this._params
 				&& this._params.autoRate
@@ -95,7 +95,7 @@ package org.xas.jchart.common.data.mixchart
 				&& ( _r = parseFloat( this._params.autoRate.minOffset ));
 			
 			_r < 0 && ( _r = 0 );
-			Log.log( _r );
+			//Log.log( _r );
 			
 			return _r;
 		}
@@ -207,6 +207,39 @@ package org.xas.jchart.common.data.mixchart
 			return _r;
 		}
 		
+		public function get hasVTitle():Boolean{
+			var _r:Boolean;
+			
+			if( 
+				this.enabeld 
+				&& this.params
+				&& this.params.title
+				&& this.params.title.text 
+			){
+				var _isEnabled:Boolean = true;
+				if( 'enabled' in this.params.title ){
+					_isEnabled = StringUtils.parseBool( this.params.title.enabled );
+				}
+				_r = _isEnabled;
+			}
+			
+			return _r;
+		}
+		
+		public function get vtitleText():String{
+			var _r:String = '';		
+			
+			if( 
+				this.params
+				&& this.params.title
+				&& this.params.title.text 
+			){
+				_r = this.params.title.text;
+			}
+			
+			return _r;
+		}
+		
 		protected var _left:Number = 0;
 		public function get left():Number{ return _left; }
 		public function set left( _setter:Number ):void{ _left = _setter; }
@@ -217,6 +250,16 @@ package org.xas.jchart.common.data.mixchart
 				&& this._params.labels
 				&& this._params.labels.style
 				&& ( _r = this._params.labels.style )
+				;
+			return _r;
+		}
+		
+		public function get vtitleStyle():Object{
+			var _r:Object = {};
+			this._params 
+				&& this._params.title
+				&& this._params.title.style
+				&& ( _r = this._params.title.style )
 				;
 			return _r;
 		}
