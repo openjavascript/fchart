@@ -58,7 +58,7 @@ package org.xas.jchart.common.proxy.data.legend
 				}
 			} else {
 				switch( _align ){
-					case 0 : {/* legend上对齐 */
+					case 0 : {/* legend上对齐 */ 
 						legend_y = _config.c.minY;
 						break;
 					}
