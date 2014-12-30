@@ -127,7 +127,7 @@ package org.xas.jchart.common.view.components.HLabelView
 				var _chartPoint:Point;
 				
 				if( _lRotateFlag ) {
-					if( _labelDir ){
+					if( _labelDir ) {
 						var _absRadian:Number = GeoUtils.radians( Math.abs( _tf.rotationZ ) )
 							, _cosWidth:Number = _tf.width * Math.cos( _absRadian );
 							

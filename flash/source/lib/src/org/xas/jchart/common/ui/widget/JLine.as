@@ -248,7 +248,7 @@ package org.xas.jchart.common.ui.widget
 					}
 				}
 				_prePoint = _item.clone();
-			});
+			} );
 		}
 				
 		private function shortDashLine():void {
@@ -271,7 +271,7 @@ package org.xas.jchart.common.ui.widget
 					, _tmpPoint:Point = _prePoint.clone();
 				
 				_ins.graphics.moveTo( _prePoint.x, _prePoint.y );
-					
+				
 				if( !( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) ) {
 					while( _count < ( _diameter - SHORT_DASH_LEN ) ){
 						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DASH_LEN );
@@ -283,7 +283,7 @@ package org.xas.jchart.common.ui.widget
 					}
 				}
 				_prePoint = _item.clone();
-			});
+			} );
 		}
 	}
 }
