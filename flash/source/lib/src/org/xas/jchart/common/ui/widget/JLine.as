@@ -2,8 +2,11 @@ package org.xas.jchart.common.ui.widget
 {
 	import flash.geom.Point;
 	
+	import flashx.textLayout.formats.LineBreak;
+	
 	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 
 	public class JLine extends JSprite
@@ -33,11 +36,15 @@ package org.xas.jchart.common.ui.widget
 		public static const DOT_RADIUS:Number = .5;
 		public static const DOT_SPACE:Number = 10;
 		
+		private var _config:Config;
 		private var _ins:JLine;
 		private var _thickness:int = 2;
 		private var _lineColor:uint = 0x00ff00;
 		
 		public var count:Number;
+		
+		private var lineBreak:Boolean;
+		private var _minY:Number;
 		
 		public function JLine( _path:Vector.<Point>, _type:String = 'Solid', _data:Object=null)
 		{
@@ -51,12 +58,17 @@ package org.xas.jchart.common.ui.widget
 			_data.thickness && ( _thickness = _data.thickness );
 			_data.lineColor && ( _lineColor = _data.lineColor );
 			
+			this._config = BaseConfig.ins as Config;
+			
 			init();
 		}
 		
 		private function init():void{
 			if( !( _path && _path.length > 1 ) ) return;
 			this.graphics.lineStyle( _thickness, _lineColor );
+			
+			lineBreak = _config.lineBreakEnable;
+			_minY = _config.c.maxY;
 			
 			switch( _type ){
 				case DOT: dotLine(); break;
@@ -87,18 +99,19 @@ package org.xas.jchart.common.ui.widget
 				var _angle:Number = GeoUtils.pointAngle( _prePoint, _item )
 				, _diameter:Number = GeoUtils.pointLength( _prePoint.x, _prePoint.y, _item.x, _item.y )
 				, _count:Number = 0
-				, _tmpPoint:Point = _prePoint.clone()
-				;	
+				, _tmpPoint:Point = _prePoint.clone();	
 				
 				_ins.graphics.moveTo( _prePoint.x, _prePoint.y );
-				//Log.log( _angle, _diameter );
-				while( _count < ( _diameter - DOT_RADIUS ) ){
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DOT_RADIUS );
-					_ins.graphics.drawCircle( _tmpPoint.x, _tmpPoint.y, DOT_RADIUS );
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DOT_RADIUS + DOT_SPACE );
-					_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
-					
-					_count += DOT_RADIUS + DOT_SPACE;
+				
+				if( !( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) ) {
+					while( _count < ( _diameter - DOT_RADIUS ) ){
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DOT_RADIUS );
+						_ins.graphics.drawCircle( _tmpPoint.x, _tmpPoint.y, DOT_RADIUS );
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DOT_RADIUS + DOT_SPACE );
+						_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
+						
+						_count += DOT_RADIUS + DOT_SPACE;
+					}
 				}
 				_prePoint = _item.clone();
 			});
@@ -125,14 +138,16 @@ package org.xas.jchart.common.ui.widget
 				;	
 				
 				_ins.graphics.moveTo( _prePoint.x, _prePoint.y );
-				//Log.log( _angle, _diameter );
-				while( _count < ( _diameter - SHORT_DOT_RADIUS ) ){
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DOT_RADIUS );
-					_ins.graphics.drawCircle( _tmpPoint.x, _tmpPoint.y, SHORT_DOT_RADIUS );
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DOT_RADIUS + SHORT_DOT_SPACE );
-					_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
-					
-					_count += SHORT_DOT_RADIUS + SHORT_DOT_SPACE;
+				
+				if( !( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) ) {
+					while( _count < ( _diameter - SHORT_DOT_RADIUS ) ){
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DOT_RADIUS );
+						_ins.graphics.drawCircle( _tmpPoint.x, _tmpPoint.y, SHORT_DOT_RADIUS );
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DOT_RADIUS + SHORT_DOT_SPACE );
+						_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
+						
+						_count += SHORT_DOT_RADIUS + SHORT_DOT_SPACE;
+					}
 				}
 				_prePoint = _item.clone();
 			});
@@ -140,14 +155,21 @@ package org.xas.jchart.common.ui.widget
 		
 		private function solidLine():void{
 			
+			var _prePoint:Point;
+			
 			Common.each( _path, function( _k:int, _item:Point ):void{
 				if( _k === 0 ){
 					_ins.graphics.moveTo( _item.x, _item.y );
 					return;
 				}
 				
-				var _prePoint:Point = _path[ _k - 1 ];
-				_ins.graphics.lineTo( _item.x, _item.y );
+				_prePoint = _path[ _k - 1 ];
+				
+				if( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ){
+					_ins.graphics.moveTo( _item.x, _item.y );
+				} else {
+					_ins.graphics.lineTo( _item.x, _item.y );
+				}
 			});
 		}
 		
@@ -173,26 +195,28 @@ package org.xas.jchart.common.ui.widget
 				;	
 				
 				_ins.graphics.moveTo( _prePoint.x, _prePoint.y );
-				//Log.log( _angle, _diameter );
-				while( _count <= _maxDiameter ){
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, LONG_DASH_LEN );
-					_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, LONG_DASH_SPACE );
-					_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
-					
-					_count += LONG_DASH_LEN + LONG_DASH_SPACE;
-					
-					if( _count > _maxDiameter && _count < _diameter ){
-						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, _diameter - _count);
+				
+				if( !( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) ) {
+					while( _count <= _maxDiameter ){
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, LONG_DASH_LEN );
 						_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
-						_ins.graphics.moveTo( _item.x, _item.y );
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, LONG_DASH_SPACE );
+						_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
+						
+						_count += LONG_DASH_LEN + LONG_DASH_SPACE;
+						
+						if( _count > _maxDiameter && _count < _diameter ){
+							_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, _diameter - _count);
+							_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
+							_ins.graphics.moveTo( _item.x, _item.y );
+						}
 					}
 				}
 				_prePoint = _item.clone();
 			});
 		}
 				
-		private function dashLine():void{			
+		private function dashLine():void {			
 			
 			var _prePoint:Point;
 			
@@ -209,24 +233,25 @@ package org.xas.jchart.common.ui.widget
 				var _angle:Number = GeoUtils.pointAngle( _prePoint, _item )
 				, _diameter:Number = GeoUtils.pointLength( _prePoint.x, _prePoint.y, _item.x, _item.y )
 				, _count:Number = 0
-				, _tmpPoint:Point = _prePoint.clone()
-				;	
+				, _tmpPoint:Point = _prePoint.clone();
 				
 				_ins.graphics.moveTo( _prePoint.x, _prePoint.y );
-				//Log.log( _angle, _diameter );
-				while( _count < ( _diameter - DASH_LEN ) ){
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DASH_LEN );
-					_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DASH_SPACE );
-					_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
-					
-					_count += DASH_LEN + DASH_SPACE;
+				
+				if( !( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) ) {
+					while( _count < ( _diameter - SHORT_DASH_LEN ) ){
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DASH_LEN );
+						_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, DASH_SPACE );
+						_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
+						
+						_count += DASH_LEN + DASH_SPACE;
+					}
 				}
 				_prePoint = _item.clone();
 			});
 		}
 				
-		private function shortDashLine():void{	
+		private function shortDashLine():void {
 			
 			var _prePoint:Point;
 			
@@ -234,31 +259,31 @@ package org.xas.jchart.common.ui.widget
 				if( _k === 0 ){
 					_ins.graphics.moveTo( _item.x, _item.y );
 					return;
-				}	
+				}
 				
 				if( !_prePoint ){
 					_prePoint = _path[ _k - 1 ];
 				}
 				
 				var _angle:Number = GeoUtils.pointAngle( _prePoint, _item )
-				, _diameter:Number = GeoUtils.pointLength( _prePoint.x, _prePoint.y, _item.x, _item.y )
-				, _count:Number = 0
-				, _tmpPoint:Point = _prePoint.clone()
-				;	
+					, _diameter:Number = GeoUtils.pointLength( _prePoint.x, _prePoint.y, _item.x, _item.y )
+					, _count:Number = 0
+					, _tmpPoint:Point = _prePoint.clone();
 				
 				_ins.graphics.moveTo( _prePoint.x, _prePoint.y );
-				//Log.log( _angle, _diameter );
-				while( _count < ( _diameter - SHORT_DASH_LEN ) ){
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DASH_LEN );
-					_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
-					_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DASH_SPACE );
-					_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
 					
-					_count += SHORT_DASH_LEN + SHORT_DASH_SPACE;
+				if( !( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) ) {
+					while( _count < ( _diameter - SHORT_DASH_LEN ) ){
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DASH_LEN );
+						_ins.graphics.lineTo( _tmpPoint.x, _tmpPoint.y );
+						_tmpPoint = GeoUtils.moveByAngle( _angle, _tmpPoint, SHORT_DASH_SPACE );
+						_ins.graphics.moveTo( _tmpPoint.x, _tmpPoint.y );
+						
+						_count += SHORT_DASH_LEN + SHORT_DASH_SPACE;
+					}
 				}
 				_prePoint = _item.clone();
 			});
-			
 		}
 	}
 }

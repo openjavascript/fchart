@@ -48,6 +48,7 @@ package org.xas.jchart.common.ui.widget
 		private var _isGradient:Boolean;
 		private var _opacity:Number = .35;
 		private var _delayShow:Number = 0;
+		private var _config:Config;
 		
 		public function JFillLine( _path:Vector.<Point>, _data:Object=null, _isGradient:Boolean = false )
 		{
@@ -65,6 +66,8 @@ package org.xas.jchart.common.ui.widget
 			
 			_ins = this;
 			
+			this._config = BaseConfig.ins as Config;
+			
 			init();
 		}
 		
@@ -73,10 +76,8 @@ package org.xas.jchart.common.ui.widget
 			
 			if( data.animationEnabled && _path && _path.length > 1 ){
 				animationDraw();
-				
 			}
 			staticDraw();
-
 		}
 		
 		private function animationDraw():void{
@@ -166,19 +167,33 @@ package org.xas.jchart.common.ui.widget
 		
 		private function solidLine():void{
 			
-			Common.each( _path, function( _k:int, _item:Point ):void{
+			var lineBreak:Boolean = _config.lineBreakEnable
+				, _minY:Number = _config.c.maxY
+				, _prePoint:Point;
+			
+			Common.each( _path, function( _k:int, _item:Point ):void {
 				if( _k === 0 ){
 					_ins.graphics.moveTo( _item.x, _item.y );
 					return;
 				}
 				
-				var _prePoint:Point = _path[ _k - 1 ];
-				_ins.graphics.lineTo( _item.x, _item.y );
+				_prePoint = _path[ _k - 1 ];
+				
+				if( lineBreak && ( _item.y == _minY || _prePoint.y == _minY ) ) {
+					
+					_ins.graphics.lineTo( _prePoint.x, _minY );
+					
+					if( _item.y != _minY ) {
+						_ins.graphics.lineTo( _item.x, _minY );
+						_ins.graphics.lineTo( _item.x, _item.y );
+					}
+				} else {
+					_ins.graphics.lineTo( _item.x, _item.y );
+				}
 			});
 			
 			var _first:Point = _path[0]
-				, _last:Point = _path[ _path.length - 1 ]
-				;
+				, _last:Point = _path[ _path.length - 1 ];
 						
 			_ins.graphics.lineTo( _last.x, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
 			_ins.graphics.lineTo( _first.x, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );

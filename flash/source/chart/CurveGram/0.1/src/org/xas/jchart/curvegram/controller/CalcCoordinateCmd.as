@@ -16,7 +16,7 @@ package org.xas.jchart.curvegram.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.*;
 	import org.xas.jchart.common.view.mediator.*;
-	import org.xas.jchart.curvegram.view.mediator.*;
+	import org.xas.jchart.curvegram.view.mediator.*; 
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{

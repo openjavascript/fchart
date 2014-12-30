@@ -53,7 +53,6 @@ package org.xas.jchart.curvegram.view.components
 				
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
 				, _path:Vector.<Number> = _item.path as Vector.<Number>
-				, _gitem:CurveGramUI
 				, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
 				;
 				
@@ -74,7 +73,6 @@ package org.xas.jchart.curvegram.view.components
 						) 
 					);
 				}
-
 			});
 			
 			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
@@ -82,8 +80,7 @@ package org.xas.jchart.curvegram.view.components
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
 					, _path:Vector.<Number> = _item.path as Vector.<Number>
 					, _gitem:CurveGramUI
-					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>
-					;
+					, _vectorPath:Vector.<Point> = _config.c.vectorPaths[ _k ] as Vector.<Point>;
 					
 				addChild(
 					_gitem = new CurveGramUI(

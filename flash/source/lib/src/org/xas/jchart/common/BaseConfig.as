@@ -1494,6 +1494,17 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get lineBreakEnable():Boolean {
+			var _b:Boolean = false;
+			
+			this.cd 
+				&& ( 'lineBreak' in this.cd ) 
+				&& ( 'enabled' in this.cd.lineBreak ) 
+				&& ( _b =  this.cd.lineBreak.enabled );
+			
+			return _b;
+		}
+		
 		/* legend start */
 		
 		public function get legendInterval():Number {
