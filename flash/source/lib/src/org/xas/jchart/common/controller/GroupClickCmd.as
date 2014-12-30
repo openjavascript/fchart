@@ -1,9 +1,11 @@
 package org.xas.jchart.common.controller
 {
+	import flash.external.ExternalInterface;
+	
 	import org.puremvc.as3.multicore.interfaces.ICommand;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.command.SimpleCommand;
-	import flash.external.ExternalInterface;
+	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	
 	public class GroupClickCmd extends SimpleCommand implements ICommand {
@@ -18,7 +20,7 @@ package org.xas.jchart.common.controller
 		override public function execute( notification:INotification ):void{
 			
 			var _data:Object = notification.getBody();
-			var _loader:Object = BaseConfig.params;
+			var _loader:Object = _config.chartData;
 			var _callBackSet:Object;
 
 			if( !_data || !_loader ){
@@ -27,9 +29,11 @@ package org.xas.jchart.common.controller
 			
 			_callBackSet = _loader.callback;
 			
-			if( ExternalInterface.available && _callBackSet && _callBackSet.groupClickCallback ) {
-				ExternalInterface.call( _callBackSet.groupClickCallback, _data );
-			}
+			try{
+				if( ExternalInterface.available && _callBackSet && _callBackSet.groupClickCallback ) {
+					ExternalInterface.call( _callBackSet.groupClickCallback, _data );
+				}
+			}catch(ex:Error){}
 		}
 	}
 }

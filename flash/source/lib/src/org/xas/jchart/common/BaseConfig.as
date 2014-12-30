@@ -11,13 +11,11 @@ package org.xas.jchart.common
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
 
-	public class BaseConfig
+	public class BaseConfig 
 	{
-		protected static var _params:Object;
-		public static function setParams( _setter:Object = null ):void{
-			_setter && ( _params = _setter );
-		}
-		public static function get params():Object{ return _params; }
+		public function get facade():BaseFacade{ return _facade; }
+		public var _facade:BaseFacade;
+		public function setFacade( _setter:BaseFacade ):void{ _facade = _setter; }
 		
 		/* xlabel rotation start */
 		private var _labelRotationEnable:Boolean;
@@ -188,7 +186,7 @@ package org.xas.jchart.common
 			return this;
 		}
 		protected var _displaySeriesIndexMap:Object;
-		public function get displaySeriesIndexMap():Object{ return _displaySeriesIndexMap; }
+		public function get displaySeriesIndexMap():Object{ return _displaySeriesIndexMap || {}; }
 		
 		public function serialDataLabelValue( _serialIx:int, _itemIx:int ):String{
 			var _r:String = '', _item:Object = displaySeries[ _serialIx ];		
@@ -265,7 +263,7 @@ package org.xas.jchart.common
 		
 		protected var _chartData:Object;
 		public function setChartData( _d:Object ):Object { 		
-			reset();
+			reset();			
 			_chartData = _d;			
 			this._hasNegative = Common.hasNegative( displaySeries );
 			calcRate();

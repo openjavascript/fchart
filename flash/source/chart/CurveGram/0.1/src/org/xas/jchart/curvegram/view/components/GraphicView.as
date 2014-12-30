@@ -98,15 +98,13 @@ package org.xas.jchart.curvegram.view.components
 							, delay: _delay
 							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
 							, index: _k
+							, seriesIndex: _k
 						}
 					)
 				);
 				
-				_gitem.addEventListener( MouseEvent.CLICK, onMouseClick );
 				_boxs.push( _gitem );
 			});
-			
-			dispatchEvent( new JChartEvent( JChartEvent.INITED, {} ) );
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{
@@ -152,36 +150,7 @@ package org.xas.jchart.curvegram.view.components
 			
 			_preIndex = _ix;
 		}
-		
-		private function onMouseClick( _evt:MouseEvent ):void {
-			
-			var _target:CurveGramUI = _evt.currentTarget as CurveGramUI;
-			var _ix:int = _target.data.index;
-			var _groupData:Vector.<Object> = new Vector.<Object>;
-			var _itemData:Object = new Object();
-			var _tpmObject:Object = new Object();
-			var _orgIndex:Number;
-			
-			Common.each( _config.displaySeries, function( _six:Number, _dataObj:Object ):void{
-				
-				_orgIndex = _config.displaySeriesIndexMap[ _six ];
-				_tpmObject = {
-					'name' : _dataObj.name
-					, 'data' : _dataObj.data[ _nowIndex ]
-					, 'categories' : _config.categories[ _nowIndex ]
-					, 'lineIndex' : _six
-					, 'orglineIndex' : _orgIndex
-					, 'pointIndex' : _nowIndex
-				};
-				
-				_groupData.push( _tpmObject );
-				
-				( _ix == _six ) && ( _itemData = _tpmObject );
-			} );
-			
-			dispatchEvent( new JChartEvent( JChartEvent.ITEM_CLICK, _itemData ) );
-			dispatchEvent( new JChartEvent( JChartEvent.GROUP_CLICK, _groupData ) );
-		}
+
 		
 	}
 }

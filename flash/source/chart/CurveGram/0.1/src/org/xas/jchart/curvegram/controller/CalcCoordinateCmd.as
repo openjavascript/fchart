@@ -178,7 +178,6 @@ package org.xas.jchart.curvegram.controller
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
 				}
-				
 			}
 									
 			sendNotification( JChartEvent.SHOW_CHART );			

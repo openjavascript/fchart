@@ -29,14 +29,17 @@ package org.xas.jchart.common.controller
 			
 			_callBackSet = _loader.callback;
 			
-			if( ExternalInterface.available && _callBackSet ) {
-				if( _callBackSet.itemHoverCallback ){
-					ExternalInterface.call( _callBackSet.itemHoverCallback, _data );
-				} 
-				if( _callBackSet.hoverCallback ) {
-					ExternalInterface.call( _callBackSet.hoverCallback, _data );
+			
+			try{				
+				if( ExternalInterface.available && _callBackSet ) {
+					if( _callBackSet.itemHoverCallback ){
+						ExternalInterface.call( _callBackSet.itemHoverCallback, _data );
+					} 
+					if( _callBackSet.hoverCallback ) {
+						ExternalInterface.call( _callBackSet.hoverCallback, _data );
+					}
 				}
-			}
+			}catch(ex:Error){}
 		}
 	}
 }
