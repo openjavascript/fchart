@@ -192,6 +192,7 @@ package org.xas.jchart.common.ui
 			
 			_point = new Vector.<Point>;
 			_items = new Vector.<CircleIcon>();
+			/*
 <<<<<<< HEAD
 			var _count:int = 0;
 			while( _path.length ){
@@ -205,21 +206,25 @@ package org.xas.jchart.common.ui
 				addChild( _tmpItem  );
 				_count++;
 =======
-			
+			*/
+	
+			var _count:int = 0;
 			while( _path.length ) {
 				
 				_x = _path.shift();
 				_y = _path.shift();
 				_tmp = new Point( _x, _y );
-				_tmpItem = new CircleIcon( _tmp, _color, _iconRadius, _turnColor );
+				_tmpItem = new CircleIcon( _tmp, _color, _iconRadius, _turnColor, { dataIndex: _count } );
 				
 				_point.push( _tmp );
 				_items.push( _tmpItem );
+				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
 				
 				if( _config.c.maxY != _y || !_lineBreakEnable ) {
 					addChild( _tmpItem  );
 				}
->>>>>>> d71994fa7ff87551efbeb744169f852d55f15749
+				_count++;
+//>>>>>>> d71994fa7ff87551efbeb744169f852d55f15749
 			}
 		}
 		
