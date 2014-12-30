@@ -21,7 +21,7 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-			//return;
+//			return;
 			_data.push(
 				{
 					"chart": {
@@ -82,6 +82,7 @@ package org.xas.jchart.common.data.test
 					"series": [
 						{
 							"name": "奥迪",
+							"dashStyle": 'Dot',
 							"data": [
 								6394,
 								6284,
@@ -93,10 +94,10 @@ package org.xas.jchart.common.data.test
 								9080,
 								9000,
 								5447,
-								5077,
-								8291,
-								7025,
-								8832,
+								0,
+								0,
+								0,
+								0,
 								6277,
 								6045,
 								8713,
@@ -137,6 +138,9 @@ package org.xas.jchart.common.data.test
 						"0xbb9b3e",
 						"0x4673c0"
 					],
+					"lineBreak":{
+						"enabled": true
+					},
 					"callback": {
 						"initedCallback": "initedCallback"
 					}
@@ -206,12 +210,13 @@ package org.xas.jchart.common.data.test
 					"series": [
 						{
 							"name": "奥迪",
+							"dashStyle": 'Dash',
 							"data": [
-								6394,
-								6284,
-								8345,
-								8053,
-								8524,
+								0,
+								0,
+								0,
+								0,
+								0,
 								7976,
 								7833,
 								9080,
@@ -261,11 +266,182 @@ package org.xas.jchart.common.data.test
 						"0xbb9b3e",
 						"0x4673c0"
 					],
+					"lineBreak":{
+						"enabled": true
+					},
 					"callback": {
 						"initedCallback": "initedCallback"
 					}
 				}
 			);
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+						, "autoRate": {
+							enabled: true
+							, deep: 2
+						}
+					},
+					"animation": {
+						"enabled": true
+					},
+					"hoverBg":
+					{
+						"style":
+						{
+							"borderColor": 11842740, 
+							"bgColor": 15790320, 
+							"borderWidth": 2
+						}, 
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"headerYSpace": 6, 
+						"headerStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 14, 
+							"color": 7829367
+						}, 
+						"itemYSpace": 6, 
+						"enabled": true, 
+						"valueStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 6144104
+						}, 
+						"pointFormat": "{0} ", 
+						"labelStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 11184810
+						}, 
+						'serialFormat': '{0}%',
+						'afterSerialFormat': '{0}%',
+						"serial":
+						[
+							{
+								"name": "区分度", 
+								"data":
+								[
+									"3.87", 
+									"3.25", 
+									"3.03", 
+									"2.87", 
+									"2.65", 
+									"0", 
+									"0", 
+									"2.23", 
+									"2.01", 
+									"1.56"
+								]
+							}
+						], 
+						"headerFormat": "{0}", 
+						"headerIcon":
+						{
+							"style":
+							{
+								"color": 6144104
+							}, 
+							"enabled": true
+						}, 
+						"valueLabelXSpace": 0
+					}, 
+					"xAxis":
+					{
+						"enabled": false,
+						"categories":
+						[
+							"口腔护理", 
+							"身体护理", 
+							"洗护清洁", 
+							"游戏点卡", 
+							"彩妆", 
+							"生鲜食品", 
+							"童装", 
+							"粮油米面", 
+							"饮料", 
+							"配饰"
+						]
+					},
+					"lineBreak":{
+						"enabled": true
+					},
+					"hline":
+					{
+						"enabled": false
+					}, 
+					"vline":
+					{
+						"enabled": false
+					}, 
+					"vsideLine":
+					{
+						"enabled": true
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "样本覆盖率", 
+							"data":
+							[
+								"3.87", 
+								"3.25", 
+								"3.03", 
+								"2.87", 
+								"2.65", 
+								"0", 
+								"0", 
+								"2.23", 
+								"2.01", 
+								"1.56"
+							]
+						}
+					], 
+					
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241, 
+						16760576, 
+						16740608, 
+						16713395, 
+						4317926, 
+						12837540, 
+						16757436, 
+						14399741
+					], 
+					"displayAllLabel": true, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": false
+					},
+					plotOptions: {
+						area: {
+							fillColor: { linearGradient: true }
+						}
+					}
+				});
 			
 			_data.push(
 				{
@@ -334,10 +510,10 @@ package org.xas.jchart.common.data.test
 						{
 							"name": "北汽",
 							"data": [
-								81018,
-								80207,
-								84018,
-								85313,
+								0,
+								0,
+								0,
+								0,
 								84018,
 								81892,
 								82004,
@@ -389,10 +565,10 @@ package org.xas.jchart.common.data.test
 								61599,
 								70562,
 								75320,
-								79559,
-								78800,
-								84268,
-								72327,
+								0,
+								0,
+								0,
+								0,
 								73675,
 								83763,
 								81138,
@@ -422,6 +598,9 @@ package org.xas.jchart.common.data.test
 						"0xbb9b3e",
 						"0x4673c0"
 					],
+					"lineBreak":{
+						"enabled": true
+					},
 					"callback": {
 						"initedCallback": "initedCallback"
 					}
@@ -993,7 +1172,10 @@ package org.xas.jchart.common.data.test
 							"饮料", 
 							"配饰"
 						]
-					}, 
+					},
+					"lineBreak":{
+						"enabled": true
+					},
 					"hline":
 					{
 						"enabled": false

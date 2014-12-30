@@ -54,15 +54,13 @@ package org.xas.jchart.common.ui
 			, _vecotrPath:Vector.<Point> = null
 			, _lineType:String = 'Solid'
 			, _data:Object = null
-		)
-		{
+		) {
 			_data = _data || {};
 			
-			( 'duration' in _data ) &&  ( _duration =  _data.duration );　 
+			( 'duration' in _data ) &&  ( _duration =  _data.duration );
 			( 'delay' in _data ) &&  ( _delay =  _data.delay );
-			
-			( 'turnColor' in _data ) &&  ( _turnColor =  _data.turnColor );　
-			( 'iconRadius' in _data ) &&  ( _iconRadius =  _data.iconRadius );　
+			( 'turnColor' in _data ) &&  ( _turnColor =  _data.turnColor );
+			( 'iconRadius' in _data ) &&  ( _iconRadius =  _data.iconRadius );
 
 			super(_data);
 			
@@ -82,11 +80,10 @@ package org.xas.jchart.common.ui
 			init();
 		}
 		
-		private function init():void{		
-			//if( data.animationEnabled && _vectorPath && _vectorPath.length > 1 && false ){
-			if( data.animationEnabled && _vectorPath && _vectorPath.length > 1 ){
+		private function init():void{
+			if( data.animationEnabled && _vectorPath && _vectorPath.length > 1 ) {
 				animationDraw();
-			}else{
+			} else {
 				staticDraw();
 			}
 		}
@@ -101,8 +98,6 @@ package org.xas.jchart.common.ui
 			var _prePoint:Point = _vectorPath[0];
 			_g.lineStyle( 1, 0xff0000, 1 );
 			_g.beginFill( 0xff0000, 1);
-			//_maskLine.alpha = 1;
-			//_jline.mask = _maskLine;
 			addChild( _maskLine );
 				
 			var _data:BaseLineData = new BaseLineData();
@@ -115,9 +110,6 @@ package org.xas.jchart.common.ui
 			_jline.mask = _maskLine;
 			addChild( _jline );
 			
-			//_jline.y += 1;
-			//_maskLine.y += 1;
-			
 		 	TweenLite.delayedCall( data.delay, function():void{
 				TweenLite.to( _maskLine, data.duration, { count: _totalLength
 					, onUpdate: function():void{
@@ -125,7 +117,6 @@ package org.xas.jchart.common.ui
 						_pathPoint = _data.calPosition( _vectorPath, _maskLine.count );
 						for( var _i:Number = _drawPointLen - 1; _i < _pathPoint.length; _i++ ){
 							tmpPoint = _pathPoint[ _i ];
-							//_g.lineTo( tmpPoint.x, tmpPoint.y );
 							
 							_g.moveTo( _prePoint.x, _prePoint.y - 5 );
 							_g.lineTo( tmpPoint.x, tmpPoint.y - 5 );
@@ -137,14 +128,7 @@ package org.xas.jchart.common.ui
 							_prePoint = tmpPoint;
 						}
 						_drawPointLen = _pathPoint.length;
-						//_jline.mask = _maskLine;
 						if( _maskLine.count == _totalLength ){
-							//_jline.mask = _maskLine;
-							//addChild( _jline );
-							//_jline.parent.removeChild( _jline );
-							//_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
-							//staticDraw();
-							//_jline.mask = _maskLine as Sprite;				
 							_jline.mask = null;
 							_maskLine.visible = false;
 							drawIcon();
@@ -152,66 +136,44 @@ package org.xas.jchart.common.ui
 					}
 				});
 			});
-			
 		}
-		
-		private function drawLine( _maskLine:JLine, _pos:Number, _g:Graphics ,_durTime:Number, _t:Number ):void{
-			if( _pos + 1 >= _vectorPath.length ){
-				staticDraw();
-				_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
-				return;
-			}
-			
-			_maskLine.count = 0;
-			var _basePoint:Point = _vectorPath[ _pos ];
-			var _endPoint:Point = _vectorPath[ ++_pos ];
-			_g.moveTo( _basePoint.x, _basePoint.y );
-			var _total:Number = GeoUtils.pointLength( _basePoint.x, _basePoint.y, _endPoint.x, _endPoint.y );
-			var _targetPoint:Point;
-			
-			TweenLite.to( _maskLine, _total / _t, { count: _total, ease:Linear.easeNone
-				, onUpdate: function():void{
-					
-					_targetPoint = GeoUtils.moveByAngle( 
-						GeoUtils.pointAngle( _basePoint, _endPoint ), _basePoint, _maskLine.count );
-					
-					_g.lineTo( _targetPoint.x, _targetPoint.y );
-
-					if( _maskLine.count >= _total ){
-						drawLine( _maskLine, _pos, _g, _durTime, _t );
-					}
-				}
-			});
-		}
+//		
+//		private function drawLine( _maskLine:JLine, _pos:Number, _g:Graphics ,_durTime:Number, _t:Number ):void{
+//			if( _pos + 1 >= _vectorPath.length ){
+//				staticDraw();
+//				_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
+//				return;
+//			}
+//			
+//			_maskLine.count = 0;
+//			var _basePoint:Point = _vectorPath[ _pos ];
+//			var _endPoint:Point = _vectorPath[ ++_pos ];
+//			_g.moveTo( _basePoint.x, _basePoint.y );
+//			var _total:Number = GeoUtils.pointLength( _basePoint.x, _basePoint.y, _endPoint.x, _endPoint.y );
+//			var _targetPoint:Point;
+//			
+//			TweenLite.to( _maskLine, _total / _t, { count: _total, ease:Linear.easeNone
+//				, onUpdate: function():void{
+//					
+//					_targetPoint = GeoUtils.moveByAngle( 
+//						GeoUtils.pointAngle( _basePoint, _endPoint ), _basePoint, _maskLine.count );
+//					
+//					_g.lineTo( _targetPoint.x, _targetPoint.y );
+//
+//					if( _maskLine.count >= _total ){
+//						drawLine( _maskLine, _pos, _g, _durTime, _t );
+//					}
+//				}
+//			});
+//		}
 		
 		private function staticDraw():void{
-			
-			if( _jline && _jline.parent ){
-			}
 			
 			graphics.lineStyle( 2, _color );
 			if( _vectorPath ){
 				_jline = new JLine( _vectorPath, _lineType, { thickness: 2, lineColor: _color } );
-				
-				/*
-				var _mask:Sprite = new Sprite();
-				_mask.graphics.lineStyle( 4, 0, 1 );
-				//_mask.graphics.beginFill( 0 );
-				Common.each( _vectorPath, function( _k:int, _item:Point ):void{
-					if( _k === 0 ){
-						_mask.graphics.moveTo( _item.x, _item.y );
-						return;
-					}
-					
-					var _prePoint:Point = _vectorPath[ _k - 1 ];
-					_mask.graphics.lineTo( _item.x, _item.y );
-				});
-									
-				_jline.mask = _mask;
-				*/
-				
 				addChild( _jline );
-			}else{
+			} else {
 				graphics.drawPath( _cmd, _path );
 			}
 
@@ -222,8 +184,15 @@ package org.xas.jchart.common.ui
 			
 			if( !this.data.pointEnabled ) return;
 			
+			var _lineBreakEnable:Boolean = _config.lineBreakEnable
+				, _x:Number
+				, _y:Number
+				, _tmp:Point
+				, _tmpItem:CircleIcon;
+			
 			_point = new Vector.<Point>;
 			_items = new Vector.<CircleIcon>();
+<<<<<<< HEAD
 			var _count:int = 0;
 			while( _path.length ){
 				var _x:Number = _path.shift(), _y:Number = _path.shift()
@@ -235,6 +204,22 @@ package org.xas.jchart.common.ui
 				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
 				addChild( _tmpItem  );
 				_count++;
+=======
+			
+			while( _path.length ) {
+				
+				_x = _path.shift();
+				_y = _path.shift();
+				_tmp = new Point( _x, _y );
+				_tmpItem = new CircleIcon( _tmp, _color, _iconRadius, _turnColor );
+				
+				_point.push( _tmp );
+				_items.push( _tmpItem );
+				
+				if( _config.c.maxY != _y || !_lineBreakEnable ) {
+					addChild( _tmpItem  );
+				}
+>>>>>>> d71994fa7ff87551efbeb744169f852d55f15749
 			}
 		}
 		
