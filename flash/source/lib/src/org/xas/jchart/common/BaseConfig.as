@@ -1158,6 +1158,7 @@ package org.xas.jchart.common
 			return _labelRotationAngle;
 		}
 		
+<<<<<<< HEAD
 		private var _labelRotationDir:int = 1; // 0 - 向右 | 1 - 向左
 		public function get labelRotationDir():int{
 			var _tmpDir:String;
@@ -1179,14 +1180,20 @@ package org.xas.jchart.common
 		
 		private var _displayOverride:Boolean;
 		private var _displayOverrideValue:Boolean;
+=======
+>>>>>>> 177c62a4c17a6041f74352e26f2161cd79fcbc94
 		private var _displayAllLabel:Boolean = true;
 		public function get displayAllLabel():Boolean{
 			
+<<<<<<< HEAD
 			if( _displayOverride ){
 				return _displayOverrideValue;
 			}
 			
 			chartData 
+=======
+				chartData 
+>>>>>>> 177c62a4c17a6041f74352e26f2161cd79fcbc94
 				&& chartData.xAxis
 				&& chartData.xAxis.display 
 				&& ( 'enabled' in chartData.xAxis.display ) 
@@ -1200,12 +1207,21 @@ package org.xas.jchart.common
 			
 			chartData 
 				&& ( 'displayAllLabel' in chartData )
+<<<<<<< HEAD
 				&& ( _displayAllLabel = chartData[ 'displayAllLabel' ] );
 				
 			return _displayAllLabel;
+=======
+					&& ( _dal = chartData[ 'displayAllLabel' ] );
+				
+//				Log.log( '_dal : '+_dal );
+				
+			return _dal;
+>>>>>>> 177c62a4c17a6041f74352e26f2161cd79fcbc94
 		}
 		
 		public function setDisplayAllLabel( _dal:Boolean ):void {
+			Log.log( 'in' );
 			_displayAllLabel = _dal;
 			_displayOverride = true;
 			_displayOverrideValue = _dal;

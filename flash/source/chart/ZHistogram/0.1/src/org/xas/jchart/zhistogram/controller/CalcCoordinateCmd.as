@@ -190,7 +190,7 @@ package org.xas.jchart.zhistogram.controller
 					, _tmpDataRect:Object = {
 						x: _sp.x, y: _sp.y
 						, width: _config.c.itemWidth * 2
-						, height: _ep.y - _sp.y 
+						, height: 0
 					}
 					, _tmpYAr:Array = []
 					, _tmpHAr:Array = []
@@ -237,10 +237,12 @@ package org.xas.jchart.zhistogram.controller
 						_tmpHAr.push( _h );
 						
 						_items.push( _rectItem );
+						
+						_tmpDataRect.height += _h;
 				});
 				
 				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
-				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
+//				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
 				
 				if( _config.hoverBgEnabled ){
 					_tmpDataRect.y -= _config.c.hoverPadY;

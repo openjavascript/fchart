@@ -1,6 +1,8 @@
 package org.xas.jchart.zhistogram.view.components
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Circ;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -17,6 +19,7 @@ package org.xas.jchart.zhistogram.view.components
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.ZHistogramUI;
+	import org.xas.jchart.common.ui.widget.DSprite;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
 	public class GraphicView extends Sprite
@@ -26,7 +29,7 @@ package org.xas.jchart.zhistogram.view.components
 		
 		public function GraphicView()
 		{
-			super(); 
+			super();
 		
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
@@ -47,30 +50,32 @@ package org.xas.jchart.zhistogram.view.components
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
-			var _delay:Number;
+			var _delay:Number = 0
+				, animateEnable:Boolean = BaseConfig.ins.animationEnabled;
+			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			var _duration:Number = BaseConfig.ins.animationDuration;
+			var _color:uint;
 			
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
-				addChild( _box );
-				_boxs.push( _box );
-				
 				var _totalHeight:Number = 0;
-				for( var _i:Number = 0; _i < _item.length; _i++ ){
-					_totalHeight += _item[ _i ].height;
-				}
+				var _totalWidth:Number = 0;
+				var _startX:Number = 0;
+				var _startY:Number = 0;
 				
-				var _duration:Number;
-				var _color:uint;
-				
-				_delay = 0;
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
 					_color = BaseConfig.ins.itemColor( _sk );
-					_duration = _sitem.height / _totalHeight / 2;
+					
+					if( _sk == 0 ) {
+						_startX = _sitem.x;
+						_startY = _sitem.y + _sitem.height;
+						_totalWidth = _sitem.width;
+					}
+					_totalHeight += _sitem.height;
 					
 					if( _sitem.value == BaseConfig.ins.maxValue ){
-						
 						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){
 							_color = BaseConfig.ins.maxItemParams.style.color;
 						}
@@ -81,30 +86,52 @@ package org.xas.jchart.zhistogram.view.components
 						, _sitem.width, _sitem.height
 						, _color 
 						, _duration
-						, {
-							animationEnabled: BaseConfig.ins.animationEnabled
-							, isNegative: _sitem.isNegative
-							, duration: BaseConfig.ins.animationDuration
-							, delay: _delay
-						}
+						, { animationEnabled: false }
 					);
 					_item.mouseEnabled = false;
 					_box.addChild( _item );
-					
-					_delay += _duration;
 				});
+				
+				addChild( _box );
+				_boxs.push( _box );
+				
+				if( animateEnable ){
+					var _mask:DSprite = new DSprite( { count: 0 } );
+					
+					_mask.x = _startX;
+					_mask.y = _startY;
+					
+					_box.mask = _mask;
+					addChild( _mask );
+					_mask.count = 0;
+					
+					TweenLite.delayedCall( _delay, function():void {
+						TweenLite.to( _mask, _duration, { count: _totalHeight
+							, ease:Circ.easeInOut
+							, onUpdate: function():void {
+								_mask.graphics.beginFill( 0xff0000 );
+								_mask.graphics.drawRect(
+									0, 0
+									, _totalWidth
+									, _mask.count
+								);
+								_mask.y = _startY - _mask.count;
+							}
+						} );
+					} );
+				}
 			});
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{
 		}
 		
-		private function hideTips( _evt: JChartEvent ):void{			
+		private function hideTips( _evt: JChartEvent ):void{
 			if( _preIndex >= 0 && _boxs[ _preIndex ] ){
 				_boxs[ _preIndex ].alpha = 1;
 			}
 			_preIndex = -1;
-		}		
+		}
 		
 		private function updateTips( _evt: JChartEvent ):void{
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
@@ -121,6 +148,5 @@ package org.xas.jchart.zhistogram.view.components
 			_boxs[ _ix ].alpha = .65;
 			_preIndex = _ix;
 		}
-
 	}
 }

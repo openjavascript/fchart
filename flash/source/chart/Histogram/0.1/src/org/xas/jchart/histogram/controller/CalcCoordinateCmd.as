@@ -166,6 +166,9 @@ package org.xas.jchart.histogram.controller
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				//Log.log( _config.tooltipEnabled );
 				
+				
+				/* 添加HLabel重计算 */
+				
 				calcChartPoint();
 				
 				calcGraphic();

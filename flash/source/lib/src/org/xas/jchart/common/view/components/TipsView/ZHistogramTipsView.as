@@ -75,8 +75,6 @@ package org.xas.jchart.common.view.components.TipsView
 						&& ( _name = BaseConfig.ins.categories[ _sk ] );
 				}
 				
-				Log.printObject( _config.c.totalArray );
-				
 				_d.items.push( {
 					'name': _name.replace( /[\r\n]+/g, '' )
 					, 'value': StringUtils.printf( _fmt, 

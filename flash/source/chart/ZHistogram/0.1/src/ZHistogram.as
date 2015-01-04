@@ -164,9 +164,8 @@ package
 			if( !ExternalInterface.available ){
 				
 				if( !ZHistogramData.instance.data.length ) return;
-				_data = ZHistogramData.instance.data[0];
+				_data = ZHistogramData.instance.data[ 9 ];
 			}else{
-				Log.log(this.root.stage.loaderInfo);
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
 				if( _loaderInfo.chart ){

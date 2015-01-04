@@ -10,11 +10,11 @@ package org.xas.jchart.common.view.components.HoverBgView
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.HistogramUI;
 
-	public class HistogramHoverBgView extends BaseHoverBgView
+	public class ZHistogramHoverBgView extends BaseHoverBgView
 	{
 		private var _config:Config;
 		
-		public function HistogramHoverBgView()
+		public function ZHistogramHoverBgView()
 		{			
 			super();
 			
@@ -67,8 +67,8 @@ package org.xas.jchart.common.view.components.HoverBgView
 		override protected function updateTips( _evt: JChartEvent ):void{
 			
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
-				, _ix:int = _evt.data.index as int
-				;	
+				, _ix:int = _evt.data.index as int;
+			
 			if( !( _boxs && _boxs.length ) ) return;
 			if( _preIndex == _ix ) return;
 			if( !_boxs[ _ix ] ) return;
@@ -80,6 +80,5 @@ package org.xas.jchart.common.view.components.HoverBgView
 			_boxs[ _ix ].visible = true;
 			_preIndex = _ix;
 		}
-		
 	}
 }

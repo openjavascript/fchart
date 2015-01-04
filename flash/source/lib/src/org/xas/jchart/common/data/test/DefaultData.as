@@ -575,6 +575,7 @@ package org.xas.jchart.common.data.test
 							"2014-12-19",
 							"2014-12-20",
 							"2014-12-21"
+<<<<<<< HEAD
 						],
 						"display": {
 							"enabled": true,
@@ -585,6 +586,14 @@ package org.xas.jchart.common.data.test
 							"enabled": true
 							, "angle": 90
 						}
+=======
+						]
+//						, "display": {
+//							"enabled": true,
+//							"startIndex": 0,
+//							"mod": 7
+//						}
+>>>>>>> 177c62a4c17a6041f74352e26f2161cd79fcbc94
 					},
 					"animation": {
 						"enabled": false,

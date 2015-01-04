@@ -10,6 +10,7 @@ package org.xas.jchart.vzhistogram.view.components
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
@@ -23,6 +24,7 @@ package org.xas.jchart.vzhistogram.view.components
 	import org.xas.jchart.common.ui.HistogramUI;
 	import org.xas.jchart.common.ui.VHistogramUI;
 	import org.xas.jchart.common.ui.ZHistogramUI;
+	import org.xas.jchart.common.ui.widget.DSprite;
 	import org.xas.jchart.common.ui.widget.JLine;
 	import org.xas.jchart.common.ui.widget.JSprite;
 	import org.xas.jchart.common.ui.widget.JTextField;
@@ -68,7 +70,7 @@ package org.xas.jchart.vzhistogram.view.components
 				var _startY:Number = 0;
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
-					if( _sk == 0 ){
+					if( _sk == 0 ) {
 						_startX = _sitem.x;
 						_startY = _sitem.y;
 						_totalHeight = _sitem.height;
@@ -91,38 +93,43 @@ package org.xas.jchart.vzhistogram.view.components
 					_item.mouseEnabled = false;
 					_box.addChild( _item );
 				});
-				addChild( _box );
+				
 				_boxs.push( _box );
 				
 				if( animateEnable ){
 					_totalWidth += 1;
-					var _mask:HistogramUI = new HistogramUI(
-						_startX, _startY
-						, _totalWidth
-						, _totalHeight
-						, 0xffffff
-					);
-					_mask.count = _startX;
-					var _g:Graphics = _mask.graphics;
-					_g.beginFill(0xffffff,0);
+					var _mask:DSprite = new DSprite( { count: 0 } );
+
+					_mask.x = _startX;
+					_mask.y = _startY;
 					
+					_box.mask = _mask;
 					addChild( _mask );
+					_mask.count = 0;
+					
 					
 					TweenLite.delayedCall( _delay, function():void{
-						TweenLite.to( _mask, BaseConfig.ins.animationDuration, { count: _startX + _totalWidth
+						TweenLite.to( _mask, BaseConfig.ins.animationDuration, { count: _totalWidth
 							, ease:Circ.easeInOut
 							, onUpdate: function():void{
+									
+								_mask.graphic
+								_mask.graphics.beginFill( 0xff0000 );
+								_mask.graphics.drawRect( 
+									0, 0
+									, _mask.count
+									, _totalHeight
+								);
 								
-								_mask.x = _mask.count;
-								_mask.width = _totalWidth - _mask.count + _startX;
-								
-								if( _mask.count == _startX + _totalWidth ){
-									_mask && removeChild( _mask );
+								if( _mask.count == _totalWidth ){
+									_mask.parent && _mask.parent.removeChild( _mask );
 								}
 							}
 						} );
 					} );
 				}
+				
+				addChild( _box );
 			});
 		}
 		
