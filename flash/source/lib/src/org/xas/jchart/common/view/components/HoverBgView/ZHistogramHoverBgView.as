@@ -31,8 +31,6 @@ package org.xas.jchart.common.view.components.HoverBgView
 			if( !( _config.c && _config.c.dataRect ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
-			Log.printObject( _config.c.dataRect );
-			
 			Common.each( _config.c.dataRect, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite()
