@@ -21,8 +21,8 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-//			return;
-			
+//			return;  
+			 
 			_data.push(
 				{
 					"chart": {
@@ -1100,10 +1100,10 @@ package org.xas.jchart.common.data.test
 					},
 					"xAxis": {
 						"categories": [
-							"2014-11-1700000000000000000000",
+							"2014-11-17",
 							"2014-11-18",
 							"2014-11-19",
-							"2014-11-20111111111111111111111111",
+							"2014-11-2011111111111111111111111111111111111111111111111111", 
 							"2014-11-21",
 							"2014-11-22",
 							"2014-11-2322222222222222222222222222222222222",

@@ -15,7 +15,6 @@ package org.xas.jchart.common.view.components.HLabelView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.proxy.data.label.BaseLabelData;
 
 	public class HistogramHLabelView extends BaseHLabelView
 	{		
@@ -23,14 +22,11 @@ package org.xas.jchart.common.view.components.HLabelView
 		
 		private var _labelDir:Number;
 		
-		private var _labelData:BaseLabelData;
-		
 		private var _displayAllLabel:Boolean;
 		
 		public function HistogramHLabelView()
 		{
 			super();
-			_labelData = new BaseLabelData();
 		}
 		
 		override protected function addToStage( _evt:Event ):void{
