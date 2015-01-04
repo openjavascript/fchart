@@ -48,10 +48,6 @@ package org.xas.jchart.common.view.components.HoverBgView
 				_box.graphics.beginFill( _bgColor );
 				_box.graphics.lineStyle( _borderWidth, _borderColor );
 				
-				Log.log( '_item.x : '+_item.x );
-				Log.log( '_item.y : '+_item.y );
-				Log.log( '_item.height : '+_item.height );
-				
 				_box.graphics.drawRect( _item.x, _item.y, _item.width, _item.height );
 				_box.visible = false;
 
