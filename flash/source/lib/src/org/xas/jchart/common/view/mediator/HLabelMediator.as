@@ -60,7 +60,7 @@ package org.xas.jchart.common.view.mediator
 				{
 					mainMediator.view.index5.addChild( _view = new TrendHLabelView() );
 					break;
-				}
+				} 
 				case 'MixChartFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new MixChartHLabelView() );
