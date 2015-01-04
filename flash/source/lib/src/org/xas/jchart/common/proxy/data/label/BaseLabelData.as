@@ -26,8 +26,8 @@ package org.xas.jchart.common.proxy.data.label
 			if( _labelWidth > _defaultMinWidth ) {
 				return _labelWidth;
 			} else {
-				_config.setDisplayAllLabel( false );
-				_config.calcLabelDisplayIndex();
+//				_config.setDisplayAllLabel( false );
+//				_config.calcLabelDisplayIndex();
 				return _defaultMinWidth;
 			}
 		}

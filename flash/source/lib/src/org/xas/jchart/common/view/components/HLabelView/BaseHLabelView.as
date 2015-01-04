@@ -25,16 +25,23 @@ package org.xas.jchart.common.view.components.HLabelView
 		
 		protected var _maxHeight:Number = 0;
 		public function get maxHeight():Number{ return _maxHeight; }
+		public function set maxHeight( _setter:Number ):void{ _maxHeight = _setter; }
 		
 		protected var _maxWidth:Number = 0;
 		public function get maxWidth():Number{ return _maxWidth; }
+		public function set maxWidth( _setter:Number ):void{ _maxWidth = _setter; }
+		
+		protected var __config:Config;
+		public function get config():Config{ return __config; }
 		
 		public function BaseHLabelView()
 		{
 			super();
+			__config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			addEventListener( JChartEvent.UPDATE, update );			
+			addEventListener( JChartEvent.RESET_HLABELS, reset );			
 		}
 		
 		protected function addToStage( _evt:Event ):void{
@@ -42,7 +49,20 @@ package org.xas.jchart.common.view.components.HLabelView
 		}
 		
 		protected function update( _evt:JChartEvent ):void{
-
+			
+		}
+		
+		protected function reset( _evt:JChartEvent ):void{
+			//Log.log( 'reset' );
+			config.setDisplayAllLabel( false );
+			config.calcLabelDisplayIndex();
+			//Log.printFormatJSON( config.labelDisplayIndex );
+			if( !( labels && labels.length && config.labelDisplayIndex ) ) return;
+			
+			Common.each( labels, function( _k:int, _item:TextField ):void{
+				_item.visible = config.labelDisplayIndex[ _k ] || false;
+				//Log.log( _item.visible );
+			});
 		}
 	}
 }

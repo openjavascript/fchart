@@ -222,6 +222,8 @@ package org.xas.jchart.mixchart.controller
 				}
 //				Log.log( _config.c.chartY, _config.c.chartHeight );
 				
+				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
+				
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				//Log.log( _config.tooltipEnabled );

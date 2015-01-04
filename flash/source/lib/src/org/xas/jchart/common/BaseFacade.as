@@ -24,12 +24,15 @@ package org.xas.jchart.common
 			
 			registerCommand( JChartEvent.INITED, InitedCmd );
 			
-			registerCommand( JChartEvent.SHOW_CHART		, GlobalShowChartCmd );
-			registerCommand( JChartEvent.DRAW			, GlobalDrawCmd );
+			registerCommand( JChartEvent.SHOW_CHART			, GlobalShowChartCmd );
+			registerCommand( JChartEvent.DRAW				, GlobalDrawCmd );
 			
-			registerCommand( JChartEvent.UI_ITEM_CLICK	, UIItemClickCmd );
-			registerCommand( JChartEvent.ITEM_CLICK		, ItemClickCmd );
-			registerCommand( JChartEvent.GROUP_CLICK	, GroupClickCmd );
+			registerCommand( JChartEvent.UI_ITEM_CLICK		, UIItemClickCmd );
+			registerCommand( JChartEvent.ITEM_CLICK			, ItemClickCmd );
+			registerCommand( JChartEvent.GROUP_CLICK		, GroupClickCmd );
+			
+			registerCommand( JChartEvent.DISPLAY_ALL_CHECK	, DisplayAllCheckCmd );
+			registerCommand( JChartEvent.ROTATION_LABELS	, GlobalRotationLabelsCmd );
 		}
 	}
 }

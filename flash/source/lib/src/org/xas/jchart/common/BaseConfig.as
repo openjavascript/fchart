@@ -17,55 +17,10 @@ package org.xas.jchart.common
 		public var _facade:BaseFacade;
 		public function setFacade( _setter:BaseFacade ):void{ _facade = _setter; }
 		
-		/* xlabel rotation start */
-		private var _labelRotationEnable:Boolean;
-		public function get labelRotationEnable():Boolean{
-			var _b:Boolean = false;
-			this.cd
-				&& this.cd.xAxis
-				&& this.cd.xAxis.rotation
-				&& this.cd.xAxis.rotation.enabled
-				&& ( _b = this.cd.xAxis.rotation.enabled )
-			return _b;
-		}
-		
-		private var _labelRotationAngle:Boolean;
-		public function get labelRotationAngle():Number{
-			var _angle:Number = 0;
-			this.cd
-				&& this.cd.xAxis
-				&& this.cd.xAxis.rotation
-				&& this.cd.xAxis.rotation.angle
-				&& ( _angle = this.cd.xAxis.rotation.angle )
-			return _angle;
-		}
-		
-		private var _labelRotationDir:int;
-		public function get labelRotationDir():int{
-			var _tmpDir:String,
-				_dir:int = 1;// 0 - 向右 | 1 - 向左
-			
-			this.cd
-				&& this.cd.xAxis
-				&& this.cd.xAxis.rotation
-				&& this.cd.xAxis.rotation.dir
-				&& ( _tmpDir = this.cd.xAxis.rotation.dir );
-			
-			_dir = _tmpDir == "right" ? 0 : 1;
-			
-			if( labelRotationAngle && labelRotationAngle > 0 ) {
-				_dir = 0;
-			}
-			
-			return _dir;
-		}
-		
-		/* xlabel rotation end */
-		
 		public function get isAutoRate():Boolean {
 			var _r:Boolean = false;
 			this.cd
-				&& this.cd.yAxis
+				&& this.cd.yAxis 
 				&& this.cd.yAxis.autoRate
 				&& ( 'enabled' in this.cd.yAxis.autoRate )
 				&& ( _r = this.cd.yAxis.autoRate.enabled );
@@ -263,6 +218,7 @@ package org.xas.jchart.common
 		
 		protected var _chartData:Object;
 		public function setChartData( _d:Object ):Object { 		
+			_displayAllLabel = true;
 			reset();			
 			_chartData = _d;			
 			this._hasNegative = Common.hasNegative( displaySeries );
@@ -1180,33 +1136,79 @@ package org.xas.jchart.common
 			
 			return _r;
 		}
+
+		/* xlabel rotation start */
+		private var _labelRotationEnable:Boolean = false;
+		public function get labelRotationEnable():Boolean{
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.rotation
+				&& this.cd.xAxis.rotation.enabled
+				&& ( _labelRotationEnable = StringUtils.parseBool( this.cd.xAxis.rotation.enabled ) )
+			return _labelRotationEnable;
+		}
 		
-		private var _displayAllLabel:Boolean;
-		public function get displayAllLabel():Boolean{
-			var _dal:Boolean = _displayAllLabel;
+		private var _labelRotationAngle:Number = -45;
+		public function get labelRotationAngle():Number{
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.rotation
+				&& ( 'angle' in this.cd.xAxis.rotation )
+				&& ( _labelRotationAngle = this.cd.xAxis.rotation.angle )
+			return _labelRotationAngle;
+		}
+		
+		private var _labelRotationDir:int = 1; // 0 - 向右 | 1 - 向左
+		public function get labelRotationDir():int{
+			var _tmpDir:String;
 			
-			if( typeof _dal == 'undefined' || typeof _dal == 'null' ){
-				chartData 
-				&& chartData.xAxis
-					&& chartData.xAxis.display 
-					&& ( 'enabled' in chartData.xAxis.display ) 
-					&& ( _dal = chartData.xAxis.display.enabled );	
-				
-				chartData 
-				&& chartData.xAxis
-					&& chartData.xAxis.displayAll 
-					&& ( 'enabled' in chartData.xAxis.displayAll ) 
-					&& ( _dal = chartData.xAxis.displayAll.enabled );
-				
-				chartData 
-				&& ( 'displayAllLabel' in chartData )
-					&& ( _dal = chartData[ 'displayAllLabel' ] );
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.rotation
+				&& this.cd.xAxis.rotation.dir
+				&& ( _tmpDir = this.cd.xAxis.rotation.dir );
+			
+			_labelRotationDir = _tmpDir == "right" ? 0 : 1;
+			
+			if( labelRotationAngle && labelRotationAngle > 0 ) {
+				_labelRotationDir = 0;
 			}
-			return _dal;
+			
+			return _labelRotationDir;
+		}
+		
+		private var _displayOverride:Boolean;
+		private var _displayOverrideValue:Boolean;
+		private var _displayAllLabel:Boolean = true;
+		public function get displayAllLabel():Boolean{
+			
+			if( _displayOverride ){
+				return _displayOverrideValue;
+			}
+			
+			chartData 
+				&& chartData.xAxis
+				&& chartData.xAxis.display 
+				&& ( 'enabled' in chartData.xAxis.display ) 
+				&& ( _displayAllLabel = chartData.xAxis.display.enabled );	
+			
+			chartData 
+				&& chartData.xAxis
+				&& chartData.xAxis.displayAll 
+				&& ( 'enabled' in chartData.xAxis.displayAll ) 
+				&& ( _displayAllLabel = chartData.xAxis.displayAll.enabled );
+			
+			chartData 
+				&& ( 'displayAllLabel' in chartData )
+				&& ( _displayAllLabel = chartData[ 'displayAllLabel' ] );
+				
+			return _displayAllLabel;
 		}
 		
 		public function setDisplayAllLabel( _dal:Boolean ):void {
 			_displayAllLabel = _dal;
+			_displayOverride = true;
+			_displayOverrideValue = _dal;
 		}
 		
 		public function get displayMod():int{
@@ -1471,6 +1473,13 @@ package org.xas.jchart.common
 			_maxValue = 0;			
 			selected = -1;
 			_ignoreAutoRate = false;
+			
+			_labelRotationEnable = false;
+			_labelRotationAngle = -45;
+			_labelRotationDir = 1;
+			
+			_displayOverride = false;
+			_displayOverrideValue = false;
 		}
 		
 		public function get animation():Object {

@@ -18,9 +18,7 @@ package org.xas.jchart.common.view.components.HLabelView
 	import org.xas.jchart.common.proxy.data.label.BaseLabelData;
 
 	public class HistogramHLabelView extends BaseHLabelView
-	{
-		private var _config:Config;
-		
+	{		
 		private var _lRotateFlag:Boolean;
 		
 		private var _labelDir:Number;
@@ -32,39 +30,27 @@ package org.xas.jchart.common.view.components.HLabelView
 		public function HistogramHLabelView()
 		{
 			super();
-			_config = BaseConfig.ins as Config;
 			_labelData = new BaseLabelData();
 		}
 		
 		override protected function addToStage( _evt:Event ):void{
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
-			var _twidth:Number = _labelData.resetHLabel( _config.c.labelWidth );
-			var _labelRotate:Boolean = _config.labelRotationEnable;
+			var _labelRotate:Boolean = config.labelRotationEnable;
+			var _twidth:Number = config.c.labelWidth;
 			
-			_displayAllLabel = _config.displayAllLabel;
+			_twidth < 16 && ( _twidth = 16 );
 			
-//			_twidth < 14 && ( _twidth = _labelData );
-//			
-//			if( _twidth < 14 ) {
-//				_twidth = 14;
-//				if( !_labelRotate ) {
-//					_displayAllLabel && ( _displayAllLabel = false );
-////					_config.calcLabelDisplayIndex( _displayAllLabel );
-//				}
-//			}
+			_displayAllLabel = config.displayAllLabel;
 			
-			_lRotateFlag = false;
-			_labelDir = _config.labelRotationDir; // 0 - 向右 | 1 - 向左
-			
-			if( _config.cd && _config.cd.xAxis && _config.cd.xAxis.categories ){
+			if( config.cd && config.cd.xAxis && config.cd.xAxis.categories ){
 				
-				Common.each( _config.cd.xAxis.categories, function( _k:int, _item:* ):*{
+				Common.each( config.cd.xAxis.categories, function( _k:int, _item:* ):*{
 					_t = _item + '';
 					
 					_titem = new TextField();
 					_titem.text = _t
-					_titem.text = StringUtils.printf( _config.xAxisFormat, _t );
+					_titem.text = StringUtils.printf( config.xAxisFormat, _t );
 					
 					_titem.autoSize = TextFieldAutoSize.LEFT;
 					
@@ -72,52 +58,54 @@ package org.xas.jchart.common.view.components.HLabelView
 						DefaultOptions.title.style
 						, DefaultOptions.xAxis.labels.style
 						, { 'size': 12, color: 0x838383, 'align': 'center' }
-						, _config.labelsStyle
+						, config.labelsStyle
 					] );
 					
-					if( _config.xAxisWordwrap ) {
+					if( config.xAxisWordwrap ) {
 						_titem.width = _twidth * 1.5;
 						_titem.wordWrap = true;
-					} else if( _labelRotate ) {
-						if( _twidth < _titem.width && !_lRotateFlag ) {
-							_lRotateFlag = !_lRotateFlag;
-						}
-					}
+					} 
 					
 					if( !_displayAllLabel ) {
-						if( !( _k in _config.labelDisplayIndex ) ) {
+						if( !( _k in config.labelDisplayIndex ) ) {
 							_titem.visible = false;
 						}
 					}
 					
-					if( BaseConfig.ins.animationEnabled ) {
-						_titem.visible = false;
-					}
-					
+					_titem.height > _maxHeight && ( _maxHeight = _titem.height );
+					_titem.x = -1000;
 					addChild( _titem );
 					
 					_labels.push( _titem );
 					
-					_titem.height > _maxHeight && ( _maxHeight = _titem.height );
-				} );
-				
-				if( _lRotateFlag ) {
-					var result:Object = _labelData.calcLabelRotation( _labels, _twidth );
-					_labels = result.labels;
-					_maxWidth = result.maxWidth;
-					_maxHeight = result.maxHeight;
-				}
+				} );								
 			}
+			
+			config.facade.sendNotification( JChartEvent.ROTATION_LABELS, {}, 'bar' );
+			
+//			Common.each( _labels, function( _k:int, _titem:TextField ):*{
+//				_titem.height > _maxHeight && ( _maxHeight = _titem.height );
+//				_titem.width > _maxWidth && ( _maxWidth = _titem.width );
+//			} );
 		}
 		
 		override protected function update( _evt:JChartEvent ):void{
-			if( !( _config.c && _config.c.hpoint ) ) return;
+			if( !( config.c && config.c.hpoint ) ) return;
 			
-			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
+			if( config.labelRotationEnable ){
+				rotationUpdate();
+			}else{
+				normalUpdate();
+			}
+		}
+		
+		private function normalUpdate():void{
+			
+			Common.each( config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
 				if( !_displayAllLabel ) {
-					if( !( _k in _config.labelDisplayIndex ) ) {
+					if( !( _k in config.labelDisplayIndex ) ) {
 						return;
 					}
 				}
@@ -126,34 +114,21 @@ package org.xas.jchart.common.view.components.HLabelView
 				var _x:Number, _y:Number;
 				var _chartPoint:Point;
 				
-				if( _lRotateFlag ) {
-					if( _labelDir ) {
-						var _absRadian:Number = GeoUtils.radians( Math.abs( _tf.rotationZ ) )
-							, _cosWidth:Number = _tf.width * Math.cos( _absRadian );
-							
-						_x = _item.end.x - _cosWidth + 2;
-						_y = _item.end.y + _tf.width * Math.sin( _absRadian );
-					} else {
-						_x = _item.end.x;
-						_y = _item.end.y;
-					}
-				} else {
-					_x = _item.end.x - _tf.width / 2;
-					_y = _item.end.y - 2;
-					
-					if( _k === 0 ) {
-						_x < _config.c.chartX && ( 
-							_x = _config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
-						);
-					} else if ( _k === _config.c.hpointReal.length - 1 ) {
-						if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-							_x = _config.c.chartX + _config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
-						}
+				_x = _item.end.x - _tf.width / 2;
+				_y = _item.end.y - 2;
+				
+				if( _k === 0 ) {
+					_x < config.c.chartX && ( 
+						_x = config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
+					);
+				} else if ( _k === config.c.hpointReal.length - 1 ) {
+					if( _x + _tf.width > config.c.chartX + config.c.chartWidth ){
+						_x = config.c.chartX + config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
 					}
 				}
 				
 				if( BaseConfig.ins.animationEnabled ) {
-					_tf.visible = true;
+					//_tf.visible = true;
 					_tf.y = _item.end.y + 200;
 					_tf.x = _x;
 					TweenLite.delayedCall( 0, function():void{
@@ -165,7 +140,54 @@ package org.xas.jchart.common.view.components.HLabelView
 					} );
 				} else {
 					_tf.x = _x;
-					_tf.y = _y
+					_tf.y = _y;
+				}
+			});
+		}
+		
+		private function rotationUpdate():void{
+			
+			if( !( config.c.rotationCoor && config.c.rotationCoor.length ) ) return;
+			
+			Common.each( config.c.hpoint, function( _k:int, _item:Object ):void{
+				var _tf:TextField = _labels[ _k ]
+					, _location:Point
+					, _newLocation:Point
+					, _offsetPoint:Point
+					;
+				
+				if( !_displayAllLabel ) {
+					if( !( _k in config.labelDisplayIndex ) ) {
+						return;
+					}
+				}
+				_offsetPoint = config.c.rotationCoor[ _k ].offset as Point;
+				if( !_offsetPoint ) return;
+				
+				/* 指定标签定位的坐标 */
+				var _x:Number, _y:Number;
+				var _chartPoint:Point;
+				
+				_x = _item.end.x ;
+				_y = _item.end.y;
+				
+				_location = new Point( _x, _y );
+				_newLocation = _location.subtract( _offsetPoint );
+				
+				if( BaseConfig.ins.animationEnabled ) {
+					//_tf.visible = true;
+					_tf.y = _newLocation.y + 200;
+					_tf.x = _newLocation.x;
+					TweenLite.delayedCall( 0, function():void{
+						TweenLite.to( _tf, BaseConfig.ins.animationDuration, { 
+							x: _newLocation.x
+							, y: _newLocation.y
+							, ease: Expo.easeOut 
+						} );
+					} );
+				} else {
+					_tf.x = _newLocation.x;
+					_tf.y = _newLocation.y;
 				}
 			});
 		}

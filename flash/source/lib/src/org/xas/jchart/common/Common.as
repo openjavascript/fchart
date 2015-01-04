@@ -1,11 +1,17 @@
 package org.xas.jchart.common
 {
 	import flash.display.DisplayObject;
+	import flash.geom.Matrix;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	import flash.geom.Transform;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
+	import mx.controls.Text;
+	
+	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.Common;
 	
@@ -93,6 +99,191 @@ package org.xas.jchart.common
 			_out = Number( _tmpAr.join('' ) );
 			
 			return _out;
+		}
+		
+		public static function calcRotationLabelPoint( _item:TextField, _angle:Number ):Rectangle{
+			
+			var _r:Rectangle = new Rectangle()
+				, _rpoint:Point, _tmpPoint:Point
+				, _cpoint:Point = new Point( _item.x, _item.y )
+				, _rect:Rectangle = _item.getRect( _item )
+				, _bound:Rectangle = _item.getBounds( _item )
+				, _rwidth:Number, _rheight:Number
+				, _oangle:Number = _angle
+				, _absAngle:Number = Math.abs( _angle )
+				;
+			
+			if( _absAngle > 0 ){
+				_item.rotationZ = _angle;
+				
+				_angle %= 180;
+				if( _angle === 0 ){
+					_angle = _oangle;
+				}
+			}
+
+			
+			_rwidth = _item.width;
+			_rheight = _item.height;
+			
+			
+//			if( _angle > 0 ){
+//				_tf.x = _newPoint.x + _rect.height / 2;
+//			}else{
+//				_tf.x = _newPoint.x - _rect.height / 2;
+//			}
+			_tmpPoint = new Point( _item.x, _item.y );
+			if( _angle === 0 ){
+				var _tf:TextFormat = _item.defaultTextFormat;
+				_item.text = _item.text.replace( /[\r\n\-]+/g, '' ).split('').join('\r');
+				_tf.leading = -6;
+				_item.setTextFormat( _tf );
+				_tmpPoint.y -= 1;
+				_tmpPoint.x -= 5;	
+			}else if( _angle < 0 ){
+				_rpoint = GeoUtils.moveByAngle( _angle, new Point( 0, 0 ), _rect.width );
+				_tmpPoint = _cpoint.subtract( _rpoint );
+				
+//				Log.log( _angle, _absAngle );
+				
+				if( _absAngle >= 180 ){	
+					_tmpPoint.y += 18;
+					_tmpPoint.x -= 4;				
+				}else if( _absAngle >= 170  ){
+					_tmpPoint.y += 16;
+					_tmpPoint.x -= 7;
+				}else if( _absAngle >= 160 ){
+					_tmpPoint.y += 14;
+					_tmpPoint.x -= 9;
+				}else if( _absAngle >= 150 ){
+					_tmpPoint.y += 12;
+					_tmpPoint.x -= 9;
+				}else if( _absAngle >= 140 ){
+					_tmpPoint.y += 10;
+					_tmpPoint.x -= 11;
+				}else if( _absAngle >= 130 ){
+					_tmpPoint.y += 8;
+					_tmpPoint.x -= 11;
+				}else if( _absAngle >= 120 ){
+					_tmpPoint.y += 5;
+					_tmpPoint.x -= 12;
+				}else if( _absAngle >= 110 ){
+					_tmpPoint.y += 4;
+					_tmpPoint.x -= 11;
+				}else if( _absAngle >= 100 ){
+					_tmpPoint.y += 2;
+					_tmpPoint.x -= 10;
+				}else if( _absAngle >= 90 ){
+					_tmpPoint.x -= 9;
+				}else if( _absAngle >= 80 ){
+					_tmpPoint.y -= 1;
+					_tmpPoint.x -= 9;
+				}else if( _absAngle >= 70 ){
+					_tmpPoint.y -= 2;
+					_tmpPoint.x -= 7;
+				}else if( _absAngle >= 60 ){
+					_tmpPoint.y -= 3;
+					_tmpPoint.x -= 5;
+				}else if( _absAngle >= 50 ){
+					_tmpPoint.y -= 3;
+					_tmpPoint.x -= 3;
+				}else if( _absAngle >= 40 ){
+					_tmpPoint.y -= 3;
+					_tmpPoint.x -= 4;
+				}else if( _absAngle >= 30 ){
+					_tmpPoint.y -= 3;
+				}else if( _absAngle >= 20 ){
+					_tmpPoint.x += 4;
+					_tmpPoint.y -= 3;
+				}else if( _absAngle >= 10 ){
+					_tmpPoint.x += 3;
+					_tmpPoint.y -= 3;
+				}else{
+					_tmpPoint.x += 4;
+					_tmpPoint.y -= 3;
+				}
+			}else{
+				_tmpPoint = new Point( _item.x, _item.y );
+				if( _absAngle >= 180 ){
+					_tmpPoint.x += 6;
+					_tmpPoint.y += 17;			
+				}else if( _absAngle >= 170  ){
+					_tmpPoint.x += 7;
+					_tmpPoint.y += 16;
+				}else if( _absAngle >= 160 ){
+					_tmpPoint.x += 8;
+					_tmpPoint.y += 15;
+				}else if( _absAngle >= 150 ){
+					_tmpPoint.x += 9;
+					_tmpPoint.y += 13;
+				}else if( _absAngle >= 140 ){
+					_tmpPoint.x += 10;
+					_tmpPoint.y += 11;
+				}else if( _absAngle >= 130 ){
+					_tmpPoint.x += 10;
+					_tmpPoint.y += 8;
+				}else if( _absAngle >= 120 ){
+					_tmpPoint.x += 11;
+					_tmpPoint.y += 6;
+				}else if( _absAngle >= 110 ){
+					_tmpPoint.x += 11;
+					_tmpPoint.y += 4;
+				}else if( _absAngle >= 100 ){
+					_tmpPoint.x += 11;
+					_tmpPoint.y += 2;
+				}else if( _absAngle >= 90 ){
+					_tmpPoint.x += 10;
+					_tmpPoint.y -= 0;
+				}else if( _absAngle >= 80 ){
+					_tmpPoint.x += 9;
+					_tmpPoint.y -= 1;
+				}else if( _absAngle >= 70 ){
+					_tmpPoint.x += 8;
+					_tmpPoint.y -= 2;
+				}else if( _absAngle >= 60 ){
+					_tmpPoint.x += 6;
+					_tmpPoint.y -= 3;
+				}else if( _absAngle >= 50 ){
+					_tmpPoint.x += 4;
+					_tmpPoint.y -= 3;
+				}else if( _absAngle >= 40 ){
+					_tmpPoint.x += 2;
+					_tmpPoint.y -= 4;
+				}else if( _absAngle >= 30 ){
+					_tmpPoint.x -= 0;
+					_tmpPoint.y -= 4;
+				}else if( _absAngle >= 20 ){
+					_tmpPoint.x -= 2;
+					_tmpPoint.y -= 3;
+				}else if( _absAngle >= 10 ){
+					_tmpPoint.x -= 3;
+					_tmpPoint.y -= 3;
+				}else{
+					_tmpPoint.x -= 4;
+					_tmpPoint.y -= 2;
+				}
+			}
+			_r.x = _tmpPoint.x;
+			_r.y = _tmpPoint.y;
+			_r.width = _item.width;
+			_r.height = _item.height;
+			
+			//Log.log( _absAngle, _r.height );
+			if( _absAngle == 90 ){
+				_r.height += 8; 
+			}
+			//Log.log( _absAngle, _r.height );
+
+			return _r;
+		}
+		
+		public static function trans( d:DisplayObject ):void {
+			var tr:Transform = d.transform;
+			var m:Matrix = tr.matrix;
+			m.scale( .5, 2 );
+			m.translate( 50, 100 );
+			tr.matrix = m;
+			d.transform = tr;
 		}
 		
 		
@@ -245,7 +436,7 @@ package org.xas.jchart.common
 			var _r:Boolean = false;
 			
 			if( _data && _data.length ){
-				each( _data, function( _ix:int, _item:Object ):*{
+				Common.each( _data, function( _ix:int, _item:Object ):*{
 					var _tmp:Number = Math.min.apply( null, _item.data );
 					if( _tmp < 0 ){
 						_r = true;
@@ -253,6 +444,7 @@ package org.xas.jchart.common
 					}
 				});
 			}			
+
 			return _r;
 		}
 		

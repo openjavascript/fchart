@@ -160,6 +160,8 @@ package org.xas.jchart.histogram.controller
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
 				
+				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
+				
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
 				//Log.log( _config.tooltipEnabled );

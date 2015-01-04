@@ -22,6 +22,136 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 //			return;
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "line"
+					},
+					"xAxis": {
+						"categories": [
+							"2014-11-22",
+							"2014-11-23",
+							"2014-11-24",
+							"2014-11-25",
+							"2014-11-26",
+							"2014-11-27",
+							"2014-11-28",
+							"2014-11-29",
+							"2014-11-30",
+							"2014-12-01",
+							"2014-12-02",
+							"2014-12-03",
+							"2014-12-04",
+							"2014-12-05",
+							"2014-12-06",
+							"2014-12-07",
+							"2014-12-08",
+							"2014-12-09", 
+							"2014-12-10",
+							"2014-12-11",
+							"2014-12-12",
+							"2014-12-13",
+							"2014-12-14",
+							"2014-12-15",
+							"2014-12-16",
+							"2014-12-17",
+							"2014-12-18--11111111111111111111111111111111123", 
+							"2014-12-19",
+							"2014-12-20",
+							"2014-12-21"
+						],
+						"display": {
+							"enabled": true,
+							"startIndex": 0,
+							"mod": 7
+						}
+						, "rotation": {
+							"enabled": true
+							, "angle": 45
+						}
+					},
+					"animation": {
+						"enabled": true,
+						"duration": 1
+					},
+					"yAxis": {
+						"autoRate": {
+							"rateUp": -1,
+							"enabled": true,
+							"deep": 1,
+							"maxOffset": 0.1,
+							"minOffset": 0.1
+						}
+					},
+					"series": [
+						{
+							"name": "奥迪",
+							"dashStyle": 'Dash',
+							"data": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								7976,
+								7833,
+								9080,
+								9000,
+								5447,
+								5077,
+								8291,
+								7025,
+								8832,
+								6277,
+								6045,
+								8713,
+								8217,
+								7738,
+								7607,
+								6978,
+								6148,
+								6434,
+								8899,
+								7972,
+								8456,
+								7750,
+								7109,
+								5923,
+								5790
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+						}
+					],
+					"legend": {
+						"enabled": true
+					},
+					"plotOptions": {
+						"area": {
+							"fillColor": {}
+						}
+					},
+					"tooltip": {
+						"valueStyle": {
+							"font": "Calibri"
+						}
+					},
+					"colors": [
+						"0xbb9b3e",
+						"0x4673c0"
+					],
+					"lineBreak":{
+						"enabled": true
+					},
+					"callback": {
+						"initedCallback": "initedCallback"
+					}
+				}
+			);
+			
 			_data.push(
 				{
 					"chart": {
@@ -58,12 +188,16 @@ package org.xas.jchart.common.data.test
 							"2014-12-18",
 							"2014-12-19",
 							"2014-12-20",
-							"2014-12-21"
+							"2014-12-21" 
 						],
 						"display": {
 							"enabled": true,
 							"startIndex": 0,
 							"mod": 7
+						}
+						, "rotation": {
+							"enabled": true
+							, "angle": 0
 						}
 					},
 					"animation": {
@@ -82,22 +216,22 @@ package org.xas.jchart.common.data.test
 					"series": [
 						{
 							"name": "奥迪",
-							"dashStyle": 'Dot',
+							"dashStyle": 'Dash',
 							"data": [
-								6394,
-								6284,
-								8345,
-								8053,
-								8524,
+								0,
+								0,
+								0,
+								0,
+								0,
 								7976,
 								7833,
 								9080,
 								9000,
 								5447,
-								0,
-								0,
-								0,
-								0,
+								5077,
+								8291,
+								7025,
+								8832,
 								6277,
 								6045,
 								8713,
@@ -122,7 +256,7 @@ package org.xas.jchart.common.data.test
 						}
 					],
 					"legend": {
-						"enabled": false
+						"enabled": true
 					},
 					"plotOptions": {
 						"area": {
@@ -226,6 +360,519 @@ package org.xas.jchart.common.data.test
 								8291,
 								7025,
 								8832,
+								6277,
+								6045,
+								8713,
+								8217,
+								7738,
+								7607,
+								6978,
+								6148,
+								6434,
+								8899,
+								7972,
+								8456,
+								7750,
+								7109,
+								5923,
+								5790
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+						}
+					],
+					"legend": {
+						"enabled": true
+					},
+					"plotOptions": {
+						"area": {
+							"fillColor": {}
+						}
+					},
+					"tooltip": {
+						"valueStyle": {
+							"font": "Calibri"
+						}
+					},
+					"colors": [
+						"0xbb9b3e",
+						"0x4673c0"
+					],
+					"lineBreak":{
+						"enabled": true
+					},
+					"callback": {
+						"initedCallback": "initedCallback"
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "line"
+					},
+					"xAxis": {
+						"categories": [
+							"2014-11-22",
+							"2014-11-23",
+							"2014-11-24",
+							"2014-11-25",
+							"2014-11-26",
+							"2014-11-27",
+							"2014-11-28",
+							"2014-11-29",
+							"2014-11-30",
+							"2014-12-01",
+							"2014-12-02",
+							"2014-12-03",
+							"2014-12-04",
+							"2014-12-05",
+							"2014-12-06",
+							"2014-12-07",
+							"2014-12-08",
+							"2014-12-09",
+							"2014-12-10",
+							"2014-12-11",
+							"2014-12-12",
+							"2014-12-13",
+							"2014-12-14",
+							"2014-12-15",
+							"2014-12-16",
+							"2014-12-17",
+							"2014-12-18",
+							"2014-12-19",
+							"2014-12-20",
+							"2014-12-21"
+						],
+						"display": {
+							"enabled": true,
+							"startIndex": 0,
+							"mod": 7
+						}
+						, "rotation": {
+							"enabled": true
+							, "angle": -90
+						}
+					},
+					"animation": {
+						"enabled": true,
+						"duration": 1
+					},
+					"yAxis": {
+						"autoRate": {
+							"rateUp": -1,
+							"enabled": true,
+							"deep": 1,
+							"maxOffset": 0.1,
+							"minOffset": 0.1
+						}
+					},
+					"series": [
+						{
+							"name": "奥迪",
+							"dashStyle": 'Dash',
+							"data": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								7976,
+								7833,
+								9080,
+								9000,
+								5447,
+								5077,
+								8291,
+								7025,
+								8832,
+								6277,
+								6045,
+								8713,
+								8217,
+								7738,
+								7607,
+								6978,
+								6148,
+								6434,
+								8899,
+								7972,
+								8456,
+								7750,
+								7109,
+								5923,
+								5790
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+						}
+					],
+					"legend": {
+						"enabled": true
+					},
+					"plotOptions": {
+						"area": {
+							"fillColor": {}
+						}
+					},
+					"tooltip": {
+						"valueStyle": {
+							"font": "Calibri"
+						}
+					},
+					"colors": [
+						"0xbb9b3e",
+						"0x4673c0"
+					],
+					"lineBreak":{
+						"enabled": true
+					},
+					"callback": {
+						"initedCallback": "initedCallback"
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "line"
+					},
+					"xAxis": {
+						"categories": [
+							"2014-11-22",
+							"2014-11-23",
+							"2014-11-24",
+							"2014-11-25",
+							"2014-11-26",
+							"2014-11-27",
+							"2014-11-28",
+							"2014-11-29",
+							"2014-11-30",
+							"2014-12-01",
+							"2014-12-02",
+							"2014-12-03",
+							"2014-12-04",
+							"2014-12-05",
+							"2014-12-06",
+							"2014-12-07",
+							"2014-12-08",
+							"2014-12-09",
+							"2014-12-10",
+							"2014-12-11",
+							"2014-12-12",
+							"2014-12-13",
+							"2014-12-14",
+							"2014-12-15",
+							"2014-12-16",
+							"2014-12-17",
+							"2014-12-18",
+							"2014-12-19",
+							"2014-12-20",
+							"2014-12-21"
+						],
+						"display": {
+							"enabled": true,
+							"startIndex": 0,
+							"mod": 7
+						}
+						, "rotation": { 
+							"enabled": true
+							, "angle": 90
+						}
+					},
+					"animation": {
+						"enabled": false,
+						"duration": 1
+					},
+					"yAxis": {
+						"autoRate": {
+							"rateUp": -1,
+							"enabled": true,
+							"deep": 1,
+							"maxOffset": 0.1,
+							"minOffset": 0.1
+						}
+					},
+					"series": [
+						{
+							"name": "奥迪",
+							"dashStyle": 'Dash',
+							"data": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								7976,
+								7833,
+								9080,
+								9000,
+								5447,
+								5077,
+								8291,
+								7025,
+								8832,
+								6277,
+								6045,
+								8713,
+								8217,
+								7738,
+								7607,
+								6978,
+								6148,
+								6434,
+								8899,
+								7972,
+								8456,
+								7750,
+								7109,
+								5923,
+								5790
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+						}
+					],
+					"legend": {
+						"enabled": true
+					},
+					"plotOptions": {
+						"area": {
+							"fillColor": {}
+						}
+					},
+					"tooltip": {
+						"valueStyle": {
+							"font": "Calibri"
+						}
+					},
+					"colors": [
+						"0xbb9b3e",
+						"0x4673c0"
+					],
+					"lineBreak":{
+						"enabled": true
+					},
+					"callback": {
+						"initedCallback": "initedCallback"
+					}
+				}
+			);				
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "line"
+					},
+					"xAxis": {
+						"categories": [
+							"2014-11-22",
+							"2014-11-23",
+							"2014-11-24",
+							"2014-11-25",
+							"2014-11-26",
+							"2014-11-27",
+							"2014-11-28",
+							"2014-11-29",
+							"2014-11-30",
+							"2014-12-01",
+							"2014-12-02",
+							"2014-12-03",
+							"2014-12-04",
+							"2014-12-05",
+							"2014-12-06",
+							"2014-12-07",
+							"2014-12-08",
+							"2014-12-09",
+							"2014-12-10",
+							"2014-12-11",
+							"2014-12-12",
+							"2014-12-13",
+							"2014-12-14",
+							"2014-12-15",
+							"2014-12-16",
+							"2014-12-17",
+							"2014-12-18",
+							"2014-12-19",
+							"2014-12-20",
+							"2014-12-21"
+						],
+						"display": {
+							"enabled": true,
+							"startIndex": 0,
+							"mod": 7
+						}
+						, "rotation": {
+							"enabled": true
+							, "angle": 45
+						}
+					},
+					"animation": {
+						"enabled": false,
+						"duration": 1
+					},
+					"yAxis": {
+						"autoRate": {
+							"rateUp": -1,
+							"enabled": true,
+							"deep": 1,
+							"maxOffset": 0.1,
+							"minOffset": 0.1
+						}
+					},
+					"series": [
+						{
+							"name": "奥迪",
+							"dashStyle": 'Dash',
+							"data": [
+								0,
+								0,
+								0,
+								0,
+								0,
+								7976,
+								7833,
+								9080,
+								9000,
+								5447,
+								5077,
+								8291,
+								7025,
+								8832,
+								6277,
+								6045,
+								8713,
+								8217,
+								7738,
+								7607,
+								6978,
+								6148,
+								6434,
+								8899,
+								7972,
+								8456,
+								7750,
+								7109,
+								5923,
+								5790
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+						}
+					],
+					"legend": {
+						"enabled": true
+					},
+					"plotOptions": {
+						"area": {
+							"fillColor": {}
+						}
+					},
+					"tooltip": {
+						"valueStyle": {
+							"font": "Calibri"
+						}
+					},
+					"colors": [
+						"0xbb9b3e",
+						"0x4673c0"
+					],
+					"lineBreak":{
+						"enabled": true
+					},
+					"callback": {
+						"initedCallback": "initedCallback"
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "line"
+					},
+					"xAxis": {
+						"categories": [
+							"2014-11-22",
+							"2014-11-23",
+							"2014-11-24",
+							"2014-11-25",
+							"2014-11-26",
+							"2014-11-27",
+							"2014-11-28",
+							"2014-11-29",
+							"2014-11-30",
+							"2014-12-01",
+							"2014-12-02",
+							"2014-12-03",
+							"2014-12-04",
+							"2014-12-05",
+							"2014-12-06",
+							"2014-12-07",
+							"2014-12-08",
+							"2014-12-09",
+							"2014-12-10",
+							"2014-12-11",
+							"2014-12-12",
+							"2014-12-13",
+							"2014-12-14",
+							"2014-12-15",
+							"2014-12-16",
+							"2014-12-17",
+							"2014-12-18",
+							"2014-12-19",
+							"2014-12-20",
+							"2014-12-21"
+						],
+						"displayAll": {
+							"enabled": true
+						}
+						, "rotation": {
+							//"enabled": true
+						}
+					},
+					"animation": {
+						"enabled": true,
+						"duration": 1
+					},
+					"yAxis": {
+						"autoRate": {
+							"rateUp": -1,
+							"enabled": true,
+							"deep": 1,
+							"maxOffset": 0.1,
+							"minOffset": 0.1
+						}
+					},
+					"series": [
+						{
+							"name": "奥迪",
+							"dashStyle": 'Dot',
+							"data": [
+								6394,
+								6284,
+								8345,
+								8053,
+								8524,
+								7976,
+								7833,
+								9080,
+								9000,
+								5447,
+								0,
+								0,
+								0,
+								0,
 								6277,
 								6045,
 								8713,
@@ -632,7 +1279,7 @@ package org.xas.jchart.common.data.test
 							"2014-11-29",
 							"2014-11-30",
 							"2014-12-01",
-							"2014-12-02",
+							"2014-12-02", 
 							"2014-12-03",
 							"2014-12-04",
 							"2014-12-05",
@@ -655,6 +1302,7 @@ package org.xas.jchart.common.data.test
 						, "wordwrap": false
 						, "rotation": {
 							"enabled": true
+							, "angle": 45
 						}
 					},
 					"yAxis": {

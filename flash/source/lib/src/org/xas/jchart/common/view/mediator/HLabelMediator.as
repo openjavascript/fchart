@@ -1,5 +1,7 @@
 package org.xas.jchart.common.view.mediator
 {
+	import flash.text.TextField;
+	
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
@@ -78,17 +80,22 @@ package org.xas.jchart.common.view.mediator
 		override public function listNotificationInterests():Array{
 			return [
 				JChartEvent.SHOW_CHART
+				, JChartEvent.RESET_HLABELS
 			];
 		}
 		
 		override public function handleNotification(notification:INotification):void{
 			switch( notification.getName() ){
-			case JChartEvent.SHOW_CHART:
+				case JChartEvent.SHOW_CHART:
+					{
+						_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
+						break;
+					}		
+				case JChartEvent.RESET_HLABELS:
 				{
-					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
+					_view.dispatchEvent( new JChartEvent( JChartEvent.RESET_HLABELS ) );
 					break;
-				}
-			
+				}	
 			}
 		}
 		
@@ -100,8 +107,20 @@ package org.xas.jchart.common.view.mediator
 			return _view.maxWidth;
 		}
 		
-		private function get mainMediator():MainMediator{
+		public function set maxHeight( _setter:Number ):void{
+			_view.maxHeight = _setter;
+		}		
+		
+		public function set maxWidth( _setter:Number ):void{
+			_view.maxWidth = _setter;
+		}	
+				
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
+		}
+		
+		public function get labels():Vector.<TextField>{
+			return _view.labels;
 		}
 		
 	}

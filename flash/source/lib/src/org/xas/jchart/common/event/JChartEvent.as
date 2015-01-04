@@ -43,8 +43,12 @@ package org.xas.jchart.common.event
 		public static const ITEM_CLICK:String = 'itemclick';
 		public static const ITEM_HOVER:String = 'itemhover';
 		public static const INITED:String = 'inited';
-		public static const LEGEND_UPDATE:String = 'legendupdate';
+		public static const LEGEND_UPDATE:String = 'legendupdate';;
 		
+		public static const DISPLAY_ALL_CHECK:String = 'display_all_check';
+		
+		public static const RESET_HLABELS:String = "reset_hlabels";
+		public static const ROTATION_LABELS:String = 'rotation_labels';
 				
 		public static const MIX_CHART_CALC_COORDINATE_PREFIX:String = 'mix_chart_calc_coordinate_';
 		public static const MIX_CHART_CALC_COORDINATE_BAR:String = MIX_CHART_CALC_COORDINATE_PREFIX +　'bar';
