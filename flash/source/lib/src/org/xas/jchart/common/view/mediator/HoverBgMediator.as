@@ -10,6 +10,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.HoverBgView.BaseHoverBgView;
 	import org.xas.jchart.common.view.components.HoverBgView.HistogramHoverBgView;
 	import org.xas.jchart.common.view.components.HoverBgView.VHistogramHoverBgView;
+	import org.xas.jchart.common.view.components.HoverBgView.ZHistogramHoverBgView;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class HoverBgMediator extends Mediator implements IMediator
@@ -27,10 +28,14 @@ package org.xas.jchart.common.view.mediator
 		override public function onRegister():void{
 			//Log.log( 'HoverBgMediator register' );				
 			switch( (facade as BaseFacade).name ){
-				case 'ZHistogramFacade':
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index6.addChild( _view = new HistogramHoverBgView() );
+					break;
+				}
+				case 'ZHistogramFacade':
+				{
+					mainMediator.view.index6.addChild( _view = new ZHistogramHoverBgView() );
 					break;
 				}
 				case 'VHistogramFacade':

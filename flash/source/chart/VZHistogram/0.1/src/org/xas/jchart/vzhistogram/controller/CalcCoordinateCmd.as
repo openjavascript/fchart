@@ -191,7 +191,7 @@ package org.xas.jchart.vzhistogram.controller
 					, _y:Number = _sp.y + ( _config.c.hpart - _partWidth ) / 2  //_config.c.hpart * 1 / 8
 					, _tmpDataRect:Object = {
 						x: _sp.y, y: _sp.y
-						, width: _ep.x - _sp.x
+						, width: 0
 						, height:  _config.c.itemHeight * 2
 					}
 					, _tmpYAr:Array = []
@@ -214,8 +214,6 @@ package org.xas.jchart.vzhistogram.controller
 							_num -= _config.minNum;
 							_maxNum -= _config.minNum;
 						}
-						
-//						( _sk !== 0 ) && ( _y += _partWidth );
 						
 						if( _config.isItemPercent && _config.displaySeries.length > 1 ){
 							_h = _config.c.vpart * _config.rateZeroIndex;
@@ -253,10 +251,12 @@ package org.xas.jchart.vzhistogram.controller
 						_tmpHAr.push( _h );
 						
 						_items.push( _rectItem );
+						
+						_tmpDataRect.width += _h;
 				});
 				
 				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
-				_tmpDataRect.width = Math.max.apply( null, _tmpHAr );
+//				_tmpDataRect.width = Math.max.apply( null, _tmpHAr );
 				_tmpDataRect.initType = 'VHistogram';
 				
 				if( _config.hoverBgEnabled ){

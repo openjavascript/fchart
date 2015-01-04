@@ -55,7 +55,7 @@ package org.xas.jchart.common.ui
 			}
 		}
 		
-		private function staticDraw():void{
+		protected function staticDraw():void{
 			this.x = _x;
 			this.y = _y;
 			graphics.drawRect( 0, 0, _w, _h );

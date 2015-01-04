@@ -897,7 +897,7 @@ package org.xas.jchart.common.data.test
 					, data: [26, 36, 46, 56, 77, 76, 86, 72, 62, 52]
 				}, {
 					name: '样式覆盖率',
-					data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
+					data: [80, 71, 61, 51, 41, 31, 21, 11, 29, 39]
 				}]
 				, tooltip: {
 					"headerFormat": "{0}"			
@@ -906,7 +906,7 @@ package org.xas.jchart.common.data.test
 					, afterSerial: [
 						{
 							name: '区分度',
-							data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
+							data: [80, 71, 61, 51, 41, 31, 21, 11, 29, 39]
 						}
 					]
 					, "header": [ 

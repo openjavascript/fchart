@@ -101,7 +101,7 @@ package org.xas.jchart.common.view.components.HLabelView
 				
 				if( _config.vlineEnabled ){
 					normalPosition( _k, _item );
-				}else{
+				} else {
 					vlineDisabledPosition( _k, _item );
 				}
 				var _y:Number = _item.end.y;

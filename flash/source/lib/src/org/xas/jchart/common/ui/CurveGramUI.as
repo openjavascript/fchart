@@ -94,7 +94,7 @@ package org.xas.jchart.common.ui
 			var _g:Graphics = _maskLine.graphics;
 			_g.moveTo( _vectorPath[0].x, _vectorPath[0].y );
 			var _prePoint:Point = _vectorPath[0];
-			_g.lineStyle( 1, 0xff0000, 1 );
+//			_g.lineStyle( 1, 0xff0000, 1 );
 			_g.beginFill( 0xff0000, 1);
 			addChild( _maskLine );
 				
@@ -135,35 +135,6 @@ package org.xas.jchart.common.ui
 				});
 			});
 		}
-//		
-//		private function drawLine( _maskLine:JLine, _pos:Number, _g:Graphics ,_durTime:Number, _t:Number ):void{
-//			if( _pos + 1 >= _vectorPath.length ){
-//				staticDraw();
-//				_maskLine.parent && _maskLine.parent.removeChild( _maskLine );
-//				return;
-//			}
-//			
-//			_maskLine.count = 0;
-//			var _basePoint:Point = _vectorPath[ _pos ];
-//			var _endPoint:Point = _vectorPath[ ++_pos ];
-//			_g.moveTo( _basePoint.x, _basePoint.y );
-//			var _total:Number = GeoUtils.pointLength( _basePoint.x, _basePoint.y, _endPoint.x, _endPoint.y );
-//			var _targetPoint:Point;
-//			
-//			TweenLite.to( _maskLine, _total / _t, { count: _total, ease:Linear.easeNone
-//				, onUpdate: function():void{
-//					
-//					_targetPoint = GeoUtils.moveByAngle( 
-//						GeoUtils.pointAngle( _basePoint, _endPoint ), _basePoint, _maskLine.count );
-//					
-//					_g.lineTo( _targetPoint.x, _targetPoint.y );
-//
-//					if( _maskLine.count >= _total ){
-//						drawLine( _maskLine, _pos, _g, _durTime, _t );
-//					}
-//				}
-//			});
-//		}
 		
 		private function staticDraw():void{
 			

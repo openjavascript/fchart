@@ -59,12 +59,12 @@ package org.xas.jchart.common.data.test
 							"2014-12-19",
 							"2014-12-20",
 							"2014-12-21"
-						],
-						"display": {
-							"enabled": true,
-							"startIndex": 0,
-							"mod": 7
-						}
+						]
+//						, "display": {
+//							"enabled": true,
+//							"startIndex": 0,
+//							"mod": 7
+//						}
 					},
 					"animation": {
 						"enabled": true,

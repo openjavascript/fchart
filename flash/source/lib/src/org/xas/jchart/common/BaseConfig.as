@@ -1183,11 +1183,10 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		private var _displayAllLabel:Boolean;
+		private var _displayAllLabel:Boolean = true;
 		public function get displayAllLabel():Boolean{
 			var _dal:Boolean = _displayAllLabel;
 			
-			if( typeof _dal == 'undefined' || typeof _dal == 'null' ){
 				chartData 
 				&& chartData.xAxis
 					&& chartData.xAxis.display 
@@ -1203,11 +1202,14 @@ package org.xas.jchart.common
 				chartData 
 				&& ( 'displayAllLabel' in chartData )
 					&& ( _dal = chartData[ 'displayAllLabel' ] );
-			}
+				
+//				Log.log( '_dal : '+_dal );
+				
 			return _dal;
 		}
 		
 		public function setDisplayAllLabel( _dal:Boolean ):void {
+			Log.log( 'in' );
 			_displayAllLabel = _dal;
 		}
 		
