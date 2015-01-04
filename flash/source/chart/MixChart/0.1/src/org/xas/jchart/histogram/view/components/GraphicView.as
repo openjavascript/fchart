@@ -60,6 +60,7 @@ package org.xas.jchart.histogram.view.components
 			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 			
 			//Log.log( _config.maxValue );
+			//Log.printFormatJSON( _coordinate.rects );
 			Common.each( _coordinate.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
@@ -82,9 +83,12 @@ package org.xas.jchart.histogram.view.components
 							, isNegative: _sitem.isNegative
 							, duration: _config.animationDuration
 							, delay: _delay
+							, index: _sk
+							, seriesIndex: _k
+							, dataIndex: _k
 						}
 					);
-					_item.mouseEnabled = false;
+					//_item.mouseEnabled = false;
 					_box.addChild( _item );
 				});
 				addChild( _box );

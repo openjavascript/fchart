@@ -20,8 +20,10 @@ package org.xas.jchart.common.controller
 		override public function execute( notification:INotification ):void{
 			
 			var _data:Object = notification.getBody() || {};
-			var _loader:Object = BaseConfig.params;
+			var _loader:Object = _config.chartData;
 			var _callBackSet:Object;
+			
+			//Log.log( 'InitedCmd' );
 
 			if( !_loader ){
 				return;
@@ -29,9 +31,11 @@ package org.xas.jchart.common.controller
 			
 			_callBackSet = _loader.callback;
 			
-			if( ExternalInterface.available && _callBackSet && _callBackSet.initedCallback ) {
-				ExternalInterface.call( _callBackSet.initedCallback, _data );
-			}
+			try{
+				if( ExternalInterface.available && _callBackSet && _callBackSet.initedCallback ) {
+						ExternalInterface.call( _callBackSet.initedCallback, _data );
+				}
+			}catch(ex:Error){}
 		}
 	}
 }

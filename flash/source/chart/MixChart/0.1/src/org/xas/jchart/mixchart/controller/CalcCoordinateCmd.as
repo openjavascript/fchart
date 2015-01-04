@@ -243,7 +243,7 @@ package org.xas.jchart.mixchart.controller
 				
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
-									
+			
 			sendNotification( JChartEvent.SHOW_CHART );		
 			
 //			var _textf:DisplayRotation = new DisplayRotation( '123456789', 90, function( _stf:TextField ):void{

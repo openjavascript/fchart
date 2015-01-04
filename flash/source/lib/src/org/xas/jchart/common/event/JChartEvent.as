@@ -38,6 +38,7 @@ package org.xas.jchart.common.event
 		
 		public static const UPDATE_MOUSEWHEEL:String = 'update_mousewheel';
 		
+		public static const UI_ITEM_CLICK:String = 'uiItemClick';
 		public static const GROUP_CLICK:String = 'groupclick';
 		public static const ITEM_CLICK:String = 'itemclick';
 		public static const ITEM_HOVER:String = 'itemhover';

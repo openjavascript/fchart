@@ -4,8 +4,12 @@ package org.xas.jchart.common.ui
 	import com.greensock.easing.Circ;
 	
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.widget.JSprite;
 	
 	public class HistogramUI extends JSprite
@@ -53,6 +57,8 @@ package org.xas.jchart.common.ui
 					staticDraw();
 				}
 			}
+			
+			addEventListener( MouseEvent.CLICK, itemClick );
 		}
 		
 		protected function staticDraw():void{
@@ -94,6 +100,20 @@ package org.xas.jchart.common.ui
 				}		
 			});
 
+		}
+		
+		private function itemClick( _evt:MouseEvent ):void{
+			if( !this.data ) return;
+			var _data:Object;
+			
+			if( !( ( 'seriesIndex' in this.data )||( 'dataIndex' in this.data )  ) ) return;
+			
+			_data = Common.extendObject( { 
+				seriesIndex: this.data.seriesIndex
+				, dataIndex: this.data.dataIndex
+			}, {} );
+			//Log.printFormatJSON( _ui.data );
+			BaseConfig.ins.facade.sendNotification( JChartEvent.UI_ITEM_CLICK, _data, 'bar' );
 		}
 	}
 }

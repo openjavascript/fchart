@@ -7,6 +7,7 @@ package org.xas.jchart.common.ui
 	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.net.registerClassAlias;
 	
@@ -17,6 +18,7 @@ package org.xas.jchart.common.ui
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LineProxy;
 	import org.xas.jchart.common.proxy.data.line.BaseLineData;
 	import org.xas.jchart.common.ui.icon.*;
@@ -161,21 +163,52 @@ package org.xas.jchart.common.ui
 			
 			_point = new Vector.<Point>;
 			_items = new Vector.<CircleIcon>();
-			
+			/*
+<<<<<<< HEAD
+			var _count:int = 0;
+			while( _path.length ){
+				var _x:Number = _path.shift(), _y:Number = _path.shift()
+					, _tmp:Point = new Point( _x, _y )
+					, _tmpItem:CircleIcon = new CircleIcon( _tmp, _color, _iconRadius, _turnColor, { dataIndex: _count } )
+					;
+				_point.push( _tmp );
+				_items.push( _tmpItem );
+				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
+				addChild( _tmpItem  );
+				_count++;
+=======
+			*/
+	
+			var _count:int = 0;
 			while( _path.length ) {
 				
 				_x = _path.shift();
 				_y = _path.shift();
 				_tmp = new Point( _x, _y );
-				_tmpItem = new CircleIcon( _tmp, _color, _iconRadius, _turnColor );
+				_tmpItem = new CircleIcon( _tmp, _color, _iconRadius, _turnColor, { dataIndex: _count } );
 				
 				_point.push( _tmp );
 				_items.push( _tmpItem );
+				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
 				
 				if( _config.c.maxY != _y || !_lineBreakEnable ) {
 					addChild( _tmpItem  );
 				}
+				_count++;
+//>>>>>>> d71994fa7ff87551efbeb744169f852d55f15749
 			}
+		}
+		
+		private function pointClick( _evt:MouseEvent ):void{
+			var _ui:CircleIcon = _evt.currentTarget as CircleIcon, _data:Object;
+			if( !_ui.data ) return;
+			_data = Common.extendObject( { seriesIndex: this.seriesIndex }, _ui.data );
+			//Log.printFormatJSON( _ui.data );
+			BaseConfig.ins.facade.sendNotification( JChartEvent.UI_ITEM_CLICK, _data, 'line' );
+		}
+		
+		public function get seriesIndex():int{
+			return this.data.seriesIndex || this.data.index;
 		}
 	}
 }

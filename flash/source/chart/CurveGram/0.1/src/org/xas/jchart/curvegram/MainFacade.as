@@ -4,6 +4,7 @@ package org.xas.jchart.curvegram
 	
 	import org.puremvc.as3.multicore.interfaces.*;
 	import org.puremvc.as3.multicore.patterns.facade.*;
+	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.controller.GroupClickCmd;
 	import org.xas.jchart.common.controller.InitedCmd;
@@ -34,17 +35,15 @@ package org.xas.jchart.curvegram
 		
 		override protected function initializeController():void
 		{
+			
 			super.initializeController();
+			//Log.log( 'MainFacade.initializeController' );
 						
 			registerCommand( JChartEvent.CALC_COORDINATE, CalcCoordinateCmd );
 			
 			registerCommand( JChartEvent.CLEAR, ClearCmd );
 			registerCommand( JChartEvent.DRAW, DrawCmd );
 			registerCommand( JChartEvent.FILTER_DATA, FilterDataCmd );
-			
-			registerCommand( JChartEvent.GROUP_CLICK, GroupClickCmd );
-			registerCommand( JChartEvent.ITEM_CLICK, ItemClickCmd );
-			registerCommand( JChartEvent.INITED, InitedCmd );
 		}			
 	}
 }

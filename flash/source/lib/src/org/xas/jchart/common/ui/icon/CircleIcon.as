@@ -5,8 +5,9 @@ package org.xas.jchart.common.ui.icon
 	import flash.geom.Point;
 	
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.ui.widget.JSprite;
 	
-	public class CircleIcon extends Sprite
+	public class CircleIcon extends JSprite
 	{
 		private var _point:Point;
 		private var _color:uint;
@@ -17,9 +18,10 @@ package org.xas.jchart.common.ui.icon
 									, _color:uint = 0x000000
 									, _radius:Number = 5
 									, _turnColor:Boolean = false
+									, _data:Object = null
 									)
 		{
-			super();
+			super( _data );
 			
 			this._point = _point;
 			this._color = _color;

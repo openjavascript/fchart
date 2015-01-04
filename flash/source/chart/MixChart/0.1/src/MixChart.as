@@ -16,11 +16,10 @@ package
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.BaseConfig;  
 	import org.xas.jchart.common.Common;
-	import org.xas.jchart.common.data.test.DefaultData; 
 	import org.xas.jchart.common.data.test.MixChartData;
-	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.mixchart.MainFacade; 
 	        
 
@@ -34,7 +33,7 @@ package
 	{ 
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
-		private var _data:Object;  
+		private var _data:Object;   
 		private var _facade:Facade;
 		private var _resizeTimer:Timer;  
 		private var _ins:MixChart;
@@ -168,8 +167,8 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){		
-				if( !DefaultData.instance.data.length ) return;
-				_data = MixChartData.instance.data[0];
+				if( !MixChartData.instance.data.length ) return;
+				_data = MixChartData.instance.data[1];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				
