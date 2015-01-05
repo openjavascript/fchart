@@ -78,24 +78,9 @@ package org.xas.jchart.common.view.components.HLabelView
 			}
 			
 			config.facade.sendNotification( JChartEvent.ROTATION_LABELS, {}, 'bar' );
-			
-//			Common.each( _labels, function( _k:int, _titem:TextField ):*{
-//				_titem.height > _maxHeight && ( _maxHeight = _titem.height );
-//				_titem.width > _maxWidth && ( _maxWidth = _titem.width );
-//			} );
 		}
 		
-		override protected function update( _evt:JChartEvent ):void{
-			if( !( config.c && config.c.hpoint ) ) return;
-			
-			if( config.labelRotationEnable ){
-				rotationUpdate();
-			}else{
-				normalUpdate();
-			}
-		}
-		
-		private function normalUpdate():void{
+		override protected function normalUpdate():void{
 			
 			Common.each( config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
@@ -141,7 +126,7 @@ package org.xas.jchart.common.view.components.HLabelView
 			});
 		}
 		
-		private function rotationUpdate():void{
+		override protected function rotationUpdate():void{
 			
 			if( !( config.c.rotationCoor && config.c.rotationCoor.length ) ) return;
 			

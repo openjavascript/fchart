@@ -1143,18 +1143,34 @@ package org.xas.jchart.common
 			this.cd
 				&& this.cd.xAxis
 				&& this.cd.xAxis.rotation
-				&& this.cd.xAxis.rotation.enabled
+				&& ( 'enabled' in this.cd.xAxis.rotation )
 				&& ( _labelRotationEnable = StringUtils.parseBool( this.cd.xAxis.rotation.enabled ) )
+				
+			this.cd 
+				&& this.cd.xAxis
+				&& this.cd.xAxis.labels
+				&& ( 'rotation' in this.cd.xAxis.labels )
+				&& ( _labelRotationEnable = true );
+				
 			return _labelRotationEnable;
 		}
 		
 		private var _labelRotationAngle:Number = -45;
 		public function get labelRotationAngle():Number{
+			
 			this.cd
 				&& this.cd.xAxis
 				&& this.cd.xAxis.rotation
 				&& ( 'angle' in this.cd.xAxis.rotation )
 				&& ( _labelRotationAngle = this.cd.xAxis.rotation.angle )
+				
+			
+			this.cd
+				&& this.cd.xAxis
+				&& this.cd.xAxis.labels
+				&& ( 'rotation' in this.cd.xAxis.labels )
+				&& ( _labelRotationAngle = this.cd.xAxis.labels.rotation )
+				
 			return _labelRotationAngle;
 		}
 		

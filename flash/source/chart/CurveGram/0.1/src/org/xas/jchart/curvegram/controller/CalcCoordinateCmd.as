@@ -21,7 +21,7 @@ package org.xas.jchart.curvegram.controller
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
 		private var _c:Coordinate;
-		private var _config:Config;
+		private var _config:Config; 
 		
 		public function CalcCoordinateCmd()
 		{
@@ -142,6 +142,16 @@ package org.xas.jchart.curvegram.controller
 				if( _config.xAxisEnabled ){
 					facade.registerMediator( new HLabelMediator() );
 					_config.c.maxY -= pHLabelMediator.maxHeight;
+					
+					var _tmpMaxWidth:Number = pHLabelMediator.maxWidth;
+					
+					if( _tmpMaxWidth < 0 ){
+						_config.c.minX += Math.abs( _tmpMaxWidth );
+					} else {
+						_config.c.maxX -= _tmpMaxWidth;
+					}
+					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
+
 				}
 				
 				if( _config.graphicHeight ){

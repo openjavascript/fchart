@@ -66,9 +66,8 @@ package org.xas.jchart.common.data.test
 							"startIndex": 0,
 							"mod": 7
 						}
-						, "rotation": {
-							"enabled": true
-							, "angle": 45
+						, "labels": {
+							"rotation": 45
 						}
 					},
 					"animation": {

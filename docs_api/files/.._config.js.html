@@ -125,9 +125,9 @@ JC.PATH = JC.PATH || scriptPath();
 window.requirejs &amp;&amp; 
 requirejs.config( {
     baseUrl: JC.PATH
-    , urlArgs: &#x27;v=20141017&#x27;
+    , urlArgs: &#x27;v=&#x27; + new Date().getTime() 
     , paths: {
-        &#x27;JC.common&#x27;: &#x27;modules/JC.common/0.2/common&#x27;
+        &#x27;JC.common&#x27;: &#x27;modules/JC.common/0.3/common&#x27;
         , &#x27;JC.BaseMVC&#x27;: &#x27;modules/JC.BaseMVC/0.1/BaseMVC&#x27;
 
         , &#x27;JC.FChart&#x27;: &#x27;modules/JC.FChart/0.1/FChart&#x27;
