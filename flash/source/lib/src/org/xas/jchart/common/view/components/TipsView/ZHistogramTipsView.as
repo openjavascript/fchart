@@ -60,20 +60,22 @@ package org.xas.jchart.common.view.components.TipsView
 			Common.each( _orgData.data, function( _sk:int, _sitem:Number ):void{
 				
 				var _name:String = ""
-				, _fmt:String = _orgData.format ? _orgData.format : _config.tooltipPointFormat;
+				, _fmt:String = _orgData.format ? _orgData.format : _config.tooltipPointFormat
+				;
 				
 				_orgData.label && ( _name = _name );
 				
 				
-				if( BaseConfig.ins.displaySeriesIndexMap ){
-					BaseConfig.ins.categories 
-						&& BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] 
-						&& ( _name = BaseConfig.ins.categories[ BaseConfig.ins.displaySeriesIndexMap[ _sk ] ] );
-				}else{					
-					BaseConfig.ins.categories 
-						&& BaseConfig.ins.categories[ _sk ] 
-						&& ( _name = BaseConfig.ins.categories[ _sk ] );
+				if( _config.displaySeriesIndexMap && ( _sk in _config.displaySeriesIndexMap )  ){
+					_config.categories 
+						&& _config.categories[ _config.displaySeriesIndexMap[ _sk ] ] 
+						&& ( _name = _config.categories[ _config.displaySeriesIndexMap[ _sk ] ] );
+				}else{				
+					_config.categories 
+						&& _config.categories[ _sk ] 
+						&& ( _name = _config.categories[ _sk ] );
 				}
+				//_name = _name || 'empty';
 				
 				_d.items.push( {
 					'name': _name.replace( /[\r\n]+/g, '' )
@@ -94,7 +96,7 @@ package org.xas.jchart.common.view.components.TipsView
 						, 'value': _value
 					});
 				}
-			});
+			}); 
 
 			return _d;
 		}

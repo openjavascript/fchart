@@ -18,8 +18,9 @@ package
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
-	import org.xas.jchart.common.event.JChartEvent; 
-	import org.xas.jchart.vzhistogram.MainFacade;  
+	import org.xas.jchart.common.data.test.ZHistogramData;
+	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.vzhistogram.MainFacade; 
 	   
 
 	//[SWF(frameRate="30", width="790", height="230")] 
@@ -159,7 +160,8 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){		
-				_data = DefaultData.instance.data[15];
+				if( !ZHistogramData.instance.data.length ) return;
+				_data = ZHistogramData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

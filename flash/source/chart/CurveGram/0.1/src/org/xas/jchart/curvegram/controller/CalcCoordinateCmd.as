@@ -310,12 +310,12 @@ package org.xas.jchart.curvegram.controller
 				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
 				_config.c.vpoint.push( {
 					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX, _n )
+					, end: new Point( _config.c.maxX + _padX + 5, _n )
 				});
 				
 				_config.c.vpointReal.push( {
 					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen, _n )
+					, end: new Point( _config.c.maxX + _sideLen + 5, _n )
 				});
 			});
 		}

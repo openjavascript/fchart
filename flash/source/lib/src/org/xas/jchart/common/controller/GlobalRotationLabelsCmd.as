@@ -21,7 +21,7 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.view.mediator.HLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator;
-	
+	 
 	public class GlobalRotationLabelsCmd extends SimpleCommand implements ICommand
 	{
 		private var _type:String = '', _body:Object;
@@ -45,17 +45,16 @@ package org.xas.jchart.common.controller
 			if( !_config.labelRotationEnable ) return;
 			
 			_labels = hlabelMediator.labels;
+			if( !_labels.length ) return;
 			
-			_itemWidth = _config.c.chartWidth / ( _config.categories.length );
+			_itemWidth = Math.floor( _config.c.chartWidth / ( _labels.length ) );
 							
 			switch( _type ){
 				case 'line': {
-					if( !( _config.categories && _config.categories.length ) ) return;
 					lineAction();
 					break;
 				}
 				default: {
-					if( !( _config.categories && _config.categories.length ) ) return;
 					normalAction();
 					break;
 				}
@@ -66,49 +65,6 @@ package org.xas.jchart.common.controller
 		
 		protected function lineAction():void{
 			//Log.log( 'GlobalRotationLablesCmd normalAction', _itemWidth );
-			if( !( _labels && _labels.length) ) return;
-			
-			//			testPoint();
-			//			test( -1 );
-			//			test( -10 );
-			//			test( -20 );
-			//			test( -30 );
-			//			test( -40 );
-			//			test( -50 );
-			//			test( -60 );
-			//			test( -70 );
-			//			test( -80 );
-			//			test( -90 );
-			//			test( -100 );
-			//			test( -110 );
-			//			test( -120 );
-			//			test( -130 );
-			//			test( -140 );
-			//			test( -150 );
-			//			test( -160 );
-			//			test( -170 );
-			//			test( -180 );
-			//			
-			//			test( 0 );
-			//			test( 1 );
-			//			test( 10 );
-			//			test( 20 );
-			//			test( 30 );
-			//			test( 40 );
-			//			test( 50 );
-			//			test( 60 );
-			//			test( 70 );
-			//			test( 80 );
-			//			test( 90 );
-			//			test( 100 );
-			//			test( 110 );
-			//			test( 120 );
-			//			test( 130 );
-			//			test( 140 );
-			//			test( 150 );
-			//			test( 160 );
-			//			test( 170 );
-			//			test( 180 );
 			
 			_config.c.rotationCoor = [];
 			var _maxWidth:Number = 0, _maxHeight:Number = 0, _labelMaxWidth:Number = 0, _offsetY:int = 1;
@@ -136,23 +92,31 @@ package org.xas.jchart.common.controller
 				}else if( _config.labelRotationAngle > 0 ){
 					_plus = ( _labels.length - _k - 1 ) * _itemWidth - _itemWidth / 2;		
 				}
-				( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );
+				
+				if( _config.labelRotationAngle < 0 ){
+					_plus = _k * _itemWidth;	
+					( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );	
+				}else if( _config.labelRotationAngle > 0 ){
+					_plus = ( _labels.length - _k - 1 ) * _itemWidth;	
+					( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );
+				}
+				
 			});
 			//Log.printJSON( _config.c.rotationCoor );
 			_maxHeight += _offsetY;
 			hlabelMediator.maxHeight = _maxHeight;
 			
 			if( _config.labelRotationAngle > 0 ){
-				_labelMaxWidth -= _itemWidth / 2;
-				_labelMaxWidth -= 10;
-				
 				if( _labelMaxWidth > 0 ){
-					hlabelMediator.maxWidth = _labelMaxWidth;
-				}				
+					_labelMaxWidth -= 5;
+					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _config.c.chartWidth, _labels.length );
+					hlabelMediator.maxWidth = ( _labelMaxWidth )- _itemWidth / 2	
+					hlabelMediator.maxWidth < 0 && (　hlabelMediator.maxWidth = 0 );
+				}	
 			}else if( _config.labelRotationAngle < 0 ){
 				
 				_labelMaxWidth -= _itemWidth / 2
-				_labelMaxWidth -= 10;
+				_labelMaxWidth -= 0;
 				if( _config.yAxisEnabled ){
 					_labelMaxWidth -= _config.c.minX;
 				}
@@ -163,9 +127,7 @@ package org.xas.jchart.common.controller
 		}
 		
 		protected function normalAction():void{
-			//Log.log( 'GlobalRotationLablesCmd normalAction', _itemWidth );
-			if( !( _labels && _labels.length) ) return;
-			
+			//Log.log( 'GlobalRotationLablesCmd normalAction', _itemWidth );			
 //			testPoint();
 //			test( -1 );
 //			test( -10 );
@@ -231,22 +193,37 @@ package org.xas.jchart.common.controller
 				_rect.height > _maxHeight && ( _maxHeight = _rect.height );
 				
 				if( _config.labelRotationAngle < 0 ){
-					_plus = _k * _itemWidth;				
+					_plus = _k * _itemWidth;	
+					( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );			
 				}else if( _config.labelRotationAngle > 0 ){
-					_plus = ( _labels.length - _k - 1 ) * _itemWidth;		
+					_plus = ( _labels.length - _k - 1 ) * _itemWidth;	
+					//Log.log( _plus, _k, _itemWidth, _config.c.chartWidth, _labels.length );
+					//Log.log( _item.width, _item.getBounds( _item ).width, _item.getRect( _item ).width  );
+					if( ( _item.width - _plus ) > _labelMaxWidth ){
+						_labelMaxWidth = _item.width - _plus;
+					}
 				}
-				( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );
 			});
 			//Log.printJSON( _config.c.rotationCoor );
 			hlabelMediator.maxHeight = _maxHeight;
 			
 			if( _config.labelRotationAngle > 0 ){
-				_labelMaxWidth -= _itemWidth / 2;
-				_labelMaxWidth -= 10;
 				
 				if( _labelMaxWidth > 0 ){
-					hlabelMediator.maxWidth = _labelMaxWidth;
-				}				
+					_labelMaxWidth -= 5;
+					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _config.c.chartWidth, _labels.length );
+					hlabelMediator.maxWidth = ( _labelMaxWidth )- _itemWidth / 2	
+					hlabelMediator.maxWidth < 0 && (　hlabelMediator.maxWidth = 0 );
+				}
+				
+				//Log.log( _labelMaxWidth, _itemWidth );
+				
+//				_labelMaxWidth -= _itemWidth / 2;
+//				_labelMaxWidth -= 10;
+//				
+//				if( _labelMaxWidth > 0 ){
+//					hlabelMediator.maxWidth = _labelMaxWidth;
+//				}				
 			}else if( _config.labelRotationAngle < 0 ){
 				
 				_labelMaxWidth -= _itemWidth / 2
@@ -255,7 +232,7 @@ package org.xas.jchart.common.controller
 					_labelMaxWidth -= _config.c.minX;
 				}
 				if( _labelMaxWidth > 0 ){
-					_config.c.minX += _labelMaxWidth;	
+					_config.c.minX += _labelMaxWidth + 2;	
 				}
 			}			
 		}

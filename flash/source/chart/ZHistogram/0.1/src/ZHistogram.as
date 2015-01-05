@@ -17,11 +17,11 @@ package
 	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
-	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.Common; 
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.ZHistogramData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.zhistogram.MainFacade;
+	import org.xas.jchart.zhistogram.MainFacade;  
 	      
 	     
 	//[SWF(frameRate="30", width="790", height="230")]
@@ -29,7 +29,7 @@ package
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
 	//[SWF(frameRate="30", width="1400", height="460")]
-	[SWF(frameRate="30", width="1200", height="600")]
+	[SWF(frameRate="30", width="800", height="600")]
 	public class ZHistogram extends Sprite 
 	{  
 		private var _inited: Boolean = false;
@@ -119,7 +119,7 @@ package
 			if( _inited ){
 				_timer && _timer.stop();
 				update( _ins._data );
-			}
+			} 
 		}
 		
 		private function onAddedToStage($evt:Event):void
@@ -164,7 +164,7 @@ package
 			if( !ExternalInterface.available ){
 				
 				if( !ZHistogramData.instance.data.length ) return;
-				_data = ZHistogramData.instance.data[ 9 ];
+				_data = ZHistogramData.instance.data[ 5 ];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

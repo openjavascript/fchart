@@ -11,7 +11,7 @@ package org.xas.jchart.common.controller
 	
 	public class LegendUpdateCmd extends SimpleCommand implements ICommand {
 		
-		private var _config:Config;
+		protected var _config:Config;
 		
 		public function LegendUpdateCmd() {
 			_config = BaseConfig.ins as Config;
@@ -23,9 +23,9 @@ package org.xas.jchart.common.controller
 			var _data:Object = notification.getBody();
 			
 			if( !_data ) { return; }
-			
-			BaseConfig.ins.updateDisplaySeries( _data );
-			BaseConfig.ins.setChartData( BaseConfig.ins.chartData );
+			 
+			_config.updateDisplaySeries( _data );
+			_config.setChartData( BaseConfig.ins.chartData );
 			facade.sendNotification( JChartEvent.DRAW );
 		}
 	}

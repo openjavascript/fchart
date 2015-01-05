@@ -50,9 +50,10 @@ package org.xas.jchart.common.view.components.HLabelView
 						_titem.wordWrap = true;
 					}
 					
-					if( BaseConfig.ins.animationEnabled ){
-						_titem.visible = false;
-					}
+//					if( BaseConfig.ins.animationEnabled ){
+//						_titem.visible = false;
+//					}
+					_titem.x = -1000;
 					
 					addChild( _titem );
 					
@@ -82,7 +83,6 @@ package org.xas.jchart.common.view.components.HLabelView
 				}
 				
 				if( BaseConfig.ins.animationEnabled ){
-					_tf.visible = true;
 					_tf.x = _item.start.x - _tf.width - 200;
 					_tf.y = _y;
 					TweenLite.delayedCall( 0, 

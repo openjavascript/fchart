@@ -22,71 +22,855 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-			//return;
+//			return;
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": {
+						"enabled": true
+						, "angle": 0
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": {
+						"enabled": true
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部一一一一一一一一一一一一一一一一一一一一一一一一一一一一一一'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": {
+						"enabled": true
+						, "angle": -90
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": { 
+						"enabled": true
+						, "angle": 90
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": {
+						"enabled": true
+						, "angle": 45
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部四四四四四四四四四四四四四四四四四四四四四12345678910'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": {
+						"enabled": true
+						, "angle": 45
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部四四四四四四四四四四四四四四四四四四四四四12345678910'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			_data.push( {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "升级", "降级", "不变" ]
+					, "autoRate": {
+						enabled: true
+					}
+					, "rotation": {
+						"enabled": true
+					}
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 9, 20, 30 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 10, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 5, 30 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 8, 12, 32 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 7, 9, 12]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+					, interval: 20
+					, direction: 'TOP_RIGHT'
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				},
+				vline: {
+					enabled: true
+				},         
+				plotOptions: {
+					line: {
+						dashStyle: 'ShortDash'
+					}
+				},
+				dataLabels: {
+					enabled: true
+				}
+			});
+			
+			
+			_data.push(             {
+				chart: {
+					type: 'zbar' 
+					, bgColor: 0xffffff
+				}, 
+				subtitle: {
+				}, 
+				xAxis: {
+					categories: [ "A级客户", "B级客户", "C级客户", "D级客户" ]
+				}, 
+				yAxis: {
+					format: '{0}'
+				},
+				tooltip: {                  
+					"pointFormat": "{0}",
+					"headerFormat": "{0}"
+				},
+				series:[{
+					name: '销售一部'
+					, data: [ 20, 30, 40, 50 ]
+					, format: '{0}'
+				}
+					, {
+						name: '销售二部'
+						, data: [ 10, 20, 35, 50 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售三部'
+						, data: [ 5, 30, 20, 10 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售四部'
+						, data: [ 12, 32, 13, 23 ]
+						, format: '{0}'
+					}
+					, {
+						name: '销售五部'
+						, data: [ 9, 12, 31, 23]
+						, format: '{0}'
+					}
+				],
+				credits: {
+					enabled: false
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				displayAllLabel: true,
+				legend: {
+					enabled: true
+				},
+				animation: {
+					enabled: true
+					, duration: .75
+				}
+			});
+			
+			
 			_data.push( 
 				{
-					"yAxis":
-					{
-						"enabled": true
-					}, 
-					"tooltip":
-					{
-						"pointFormat": "{0}", 
-						"headerFormat": "{0}", 
-						"enabled": true
-					}, 
-					"displayAllLabel": false, 
-					"vline":
-					{
-					}, 
 					"xAxis":
 					{
 						"categories":
 						[
-							"20140916"
-						], 
-						"wordwrap": false, 
-						"tipsHeader":
-						[
-							"20140916"
+							"111111", 
+							"2", 
+							"3", 
+							"4", 
+							"5", 
+							"6", 
+							"7", 
+							"8", 
+							"9", 
+							"10", 
+							"11", 
+							"122222"
 						]
 					}, 
+					"displayAllLabel": true, 
 					"series":
 					[
 						{
-							"name": "pv", 
+							"name": "Temperature", 
 							"data":
 							[
-								1722
+								10, 
+								0, 
+								3, 
+								10, 
+								20, 
+								27, 
+								28, 
+								32, 
+								30, 
+								25, 
+								15, 
+								5
 							]
+							, dashStyle: 'Dash'
+							, fillColor: {}
 						}, 
 						{
-							"name": "uv", 
+							"name": "Rainfall", 
 							"data":
 							[
-								100
+								20, 
+								21, 
+								20, 
+								100, 
+								200, 
+								210, 
+								220, 
+								100, 
+								20, 
+								10, 
+								20, 
+								10
 							]
+							, dashStyle: 'Dot'
+							, fillColor: {}
 						}
 					], 
-					"hline":
+					"title":
 					{
 					}, 
-					"toggleBg":
+					"credits":
+					{
+						"enabled": false, 
+						"href": "http://fchart.openjavascript.org/", 
+						"text": "fchart.openjavascript.org"
+					}, 
+					"subtitle":
+					{
+					}, 
+					"yAxis":
+					{
+						"title":
+						{
+						}
+					}
+				}
+			);
+			
+			_data.push( 
+				{
+					"hoverBg":
+					{
+						"style":
+						{
+							"borderColor": 11842740, 
+							"bgColor": 15790320, 
+							"borderWidth": 2
+						}, 
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"headerYSpace": 6, 
+						"headerStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 14, 
+							"color": 7829367
+						}, 
+						"itemYSpace": 6, 
+						"enabled": true, 
+						"valueStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 6144104
+						}, 
+						"pointFormat": "{0} ", 
+						"labelStyle":
+						{
+							"font": "Microsoft YaHei", 
+							"size": 12, 
+							"color": 11184810
+						}, 
+						"serial":
+						[
+							{
+								"name": "区分度", 
+								"data":
+								[
+									"3.87", 
+									"3.85", 
+									"3.83", 
+									"3.82", 
+									"3.80", 
+									"3.79", 
+									"3.78", 
+									"3.78", 
+									"3.76", 
+									"3.76"
+								]
+							}
+						], 
+						"headerFormat": "{0}", 
+						"headerIcon":
+						{
+							"style":
+							{
+								"color": 6144104
+							}, 
+							"enabled": true
+						}, 
+						"valueLabelXSpace": 0
+					}, 
+					"xAxis":
+					{
+						"enabled": false,
+						"categories":
+						[
+							"口腔护理", 
+							"身体护理", 
+							"洗护清洁", 
+							"游戏点卡", 
+							"彩妆", 
+							"生鲜食品", 
+							"童装", 
+							"粮油米面", 
+							"饮料", 
+							"配饰"
+						]
+					}, 
+					"yAxis":
+					{
+						"enabled": true
+					},
+					"hline":
 					{
 						"enabled": true
 					}, 
-					"legend":
+					"vline":
 					{
-						"enabled": false
+						"enabled": true
+					}, 
+					"vsideLine":
+					{
+						"enabled": true
 					}, 
 					"chart":
 					{
 						"bgAlpha": 1, 
 						"bgColor": 16777215
-					} 
-				}
-			);
-						
+					}, 
+					"legend":
+					{
+						"enabled": false
+					}, 
+					"series":
+					[
+						{
+							"name": "样本覆盖率", 
+							"data":
+							[
+								"3.87", 
+								"3.85", 
+								"3.83", 
+								"3.82", 
+								"3.80", 
+								"3.79", 
+								"3.78", 
+								"3.78", 
+								"3.76", 
+								"3.76"
+							]
+						}
+					], 
+					
+					"colors":
+					[
+						44015, 
+						10333619, 
+						639232, 
+						816836, 
+						16713241, 
+						16760576, 
+						16740608, 
+						16713395, 
+						4317926, 
+						12837540, 
+						16757436, 
+						14399741
+					], 
+					"displayAllLabel": true, 
+					"dataLabels":
+					{
+						"format": "{0}", 
+						"enabled": false
+					},
+					plotOptions: {
+						line: {
+							dashStyle: 'LongDash'
+						}
+					}
+				});	
+			
+					
 			_data.push( {
 				"chart": {
 					"type": "line"
@@ -177,6 +961,71 @@ package org.xas.jchart.common.data.test
 					"initedCallback": "initedCallback"
 				}
 			});
+			
+			_data.push( 
+				{
+					"yAxis":
+					{
+						"enabled": true
+					}, 
+					"tooltip":
+					{
+						"pointFormat": "{0}", 
+						"headerFormat": "{0}", 
+						"enabled": true
+					}, 
+					"displayAllLabel": false, 
+					"vline":
+					{
+					}, 
+					"xAxis":
+					{
+						"categories":
+						[
+							"20140916"
+						], 
+						"wordwrap": false, 
+						"tipsHeader":
+						[
+							"20140916"
+						]
+					}, 
+					"series":
+					[
+						{
+							"name": "pv", 
+							"data":
+							[
+								1722
+							]
+						}, 
+						{
+							"name": "uv", 
+							"data":
+							[
+								100
+							]
+						}
+					], 
+					"hline":
+					{
+					}, 
+					"toggleBg":
+					{
+						"enabled": true
+					}, 
+					"legend":
+					{
+						"enabled": true
+					}, 
+					"chart":
+					{
+						"bgAlpha": 1, 
+						"bgColor": 16777215
+					} 
+				}
+			);
+
 			
 			_data.push( {
 				chart: {
@@ -360,381 +1209,6 @@ package org.xas.jchart.common.data.test
 				}
 			});
 
-			_data.push( {
-				chart: {
-					type: 'zbar' 
-					, bgColor: 0xffffff
-				}, 
-				subtitle: {
-				}, 
-				xAxis: {
-					categories: [ "升级", "降级", "不变" ]
-					, "autoRate": {
-						enabled: true
-					}
-				}, 
-				yAxis: {
-					format: '{0}'
-				},
-				tooltip: {                  
-					"pointFormat": "{0}",
-					"headerFormat": "{0}"
-				},
-				series:[{
-					name: '销售一部'
-					, data: [ 9, 20, 30 ]
-					, format: '{0}'
-				}
-					, {
-						name: '销售二部'
-						, data: [ 10, 10, 10 ]
-						, format: '{0}'
-					}
-					, {
-						name: '销售三部'
-						, data: [ 5, 5, 30 ]
-						, format: '{0}'
-					}
-					, {
-						name: '销售四部'
-						, data: [ 8, 12, 32 ]
-						, format: '{0}'
-					}
-					, {
-						name: '销售五部'
-						, data: [ 7, 9, 12]
-						, format: '{0}'
-					}
-				],
-				credits: {
-					enabled: false
-					, text: 'fchart.openjavascript.org'
-					, href: 'http://fchart.openjavascript.org/'
-				},
-				displayAllLabel: true,
-				legend: {
-					enabled: true
-					, interval: 20
-					, direction: 'TOP_RIGHT'
-				},
-				animation: {
-					enabled: true
-					, duration: .75
-				},
-				vline: {
-					enabled: false
-				},         
-				plotOptions: {
-					line: {
-						dashStyle: 'ShortDash'
-					}
-				},
-				dataLabels: {
-					enabled: true
-				}
-			});
-
-		
-			_data.push(             {
-				chart: {
-					type: 'zbar' 
-					, bgColor: 0xffffff
-				}, 
-				subtitle: {
-				}, 
-				xAxis: {
-					categories: [ "A级客户", "B级客户", "C级客户", "D级客户" ]
-				}, 
-				yAxis: {
-					format: '{0}'
-				},
-				tooltip: {                  
-					"pointFormat": "{0}",
-					"headerFormat": "{0}"
-				},
-				series:[{
-					name: '销售一部'
-					, data: [ 20, 30, 40, 50 ]
-					, format: '{0}'
-				}
-					, {
-						name: '销售二部'
-						, data: [ 10, 20, 35, 50 ]
-						, format: '{0}'
-					}
-					, {
-						name: '销售三部'
-						, data: [ 5, 30, 20, 10 ]
-						, format: '{0}'
-					}
-					, {
-						name: '销售四部'
-						, data: [ 12, 32, 13, 23 ]
-						, format: '{0}'
-					}
-					, {
-						name: '销售五部'
-						, data: [ 9, 12, 31, 23]
-						, format: '{0}'
-					}
-				],
-				credits: {
-					enabled: false
-					, text: 'fchart.openjavascript.org'
-					, href: 'http://fchart.openjavascript.org/'
-				},
-				displayAllLabel: true,
-				legend: {
-					enabled: true
-				},
-				animation: {
-					enabled: true
-					, duration: .75
-				}
-			});
-		
-					
-			_data.push( 
-				{
-					"xAxis":
-					{
-						"categories":
-						[
-							"111111", 
-							"2", 
-							"3", 
-							"4", 
-							"5", 
-							"6", 
-							"7", 
-							"8", 
-							"9", 
-							"10", 
-							"11", 
-							"122222"
-						]
-					}, 
-					"displayAllLabel": true, 
-					"series":
-					[
-						{
-							"name": "Temperature", 
-							"data":
-							[
-								10, 
-								0, 
-								3, 
-								10, 
-								20, 
-								27, 
-								28, 
-								32, 
-								30, 
-								25, 
-								15, 
-								5
-							]
-							, dashStyle: 'Dash'
-							, fillColor: {}
-						}, 
-						{
-							"name": "Rainfall", 
-							"data":
-							[
-								20, 
-								21, 
-								20, 
-								100, 
-								200, 
-								210, 
-								220, 
-								100, 
-								20, 
-								10, 
-								20, 
-								10
-							]
-							, dashStyle: 'Dot'
-							, fillColor: {}
-						}
-					], 
-					"title":
-					{
-					}, 
-					"credits":
-					{
-						"enabled": false, 
-						"href": "http://fchart.openjavascript.org/", 
-						"text": "fchart.openjavascript.org"
-					}, 
-					"subtitle":
-					{
-					}, 
-					"yAxis":
-					{
-						"title":
-						{
-						}
-					}
-				}
-			);
-			
-			_data.push( 
-				{
-					"hoverBg":
-					{
-						"style":
-						{
-							"borderColor": 11842740, 
-							"bgColor": 15790320, 
-							"borderWidth": 2
-						}, 
-						"enabled": true
-					}, 
-					"tooltip":
-					{
-						"headerYSpace": 6, 
-						"headerStyle":
-						{
-							"font": "Microsoft YaHei", 
-							"size": 14, 
-							"color": 7829367
-						}, 
-						"itemYSpace": 6, 
-						"enabled": true, 
-						"valueStyle":
-						{
-							"font": "Microsoft YaHei", 
-							"size": 12, 
-							"color": 6144104
-						}, 
-						"pointFormat": "{0} ", 
-						"labelStyle":
-						{
-							"font": "Microsoft YaHei", 
-							"size": 12, 
-							"color": 11184810
-						}, 
-						"serial":
-						[
-							{
-								"name": "区分度", 
-								"data":
-								[
-									"3.87", 
-									"3.85", 
-									"3.83", 
-									"3.82", 
-									"3.80", 
-									"3.79", 
-									"3.78", 
-									"3.78", 
-									"3.76", 
-									"3.76"
-								]
-							}
-						], 
-						"headerFormat": "{0}", 
-						"headerIcon":
-						{
-							"style":
-							{
-								"color": 6144104
-							}, 
-							"enabled": true
-						}, 
-						"valueLabelXSpace": 0
-					}, 
-					"xAxis":
-					{
-						"enabled": false,
-						"categories":
-						[
-							"口腔护理", 
-							"身体护理", 
-							"洗护清洁", 
-							"游戏点卡", 
-							"彩妆", 
-							"生鲜食品", 
-							"童装", 
-							"粮油米面", 
-							"饮料", 
-							"配饰"
-						]
-					}, 
-					"yAxis":
-					{
-						"enabled": true
-					},
-					"hline":
-					{
-						"enabled": true
-					}, 
-					"vline":
-					{
-						"enabled": false
-					}, 
-					"vsideLine":
-					{
-						"enabled": true
-					}, 
-					"chart":
-					{
-						"bgAlpha": 1, 
-						"bgColor": 16777215
-					}, 
-					"legend":
-					{
-						"enabled": false
-					}, 
-					"series":
-					[
-						{
-							"name": "样本覆盖率", 
-							"data":
-							[
-								"3.87", 
-								"3.85", 
-								"3.83", 
-								"3.82", 
-								"3.80", 
-								"3.79", 
-								"3.78", 
-								"3.78", 
-								"3.76", 
-								"3.76"
-							]
-						}
-					], 
-					
-					"colors":
-					[
-						44015, 
-						10333619, 
-						639232, 
-						816836, 
-						16713241, 
-						16760576, 
-						16740608, 
-						16713395, 
-						4317926, 
-						12837540, 
-						16757436, 
-						14399741
-					], 
-					"displayAllLabel": true, 
-					"dataLabels":
-					{
-						"format": "{0}", 
-						"enabled": false
-					},
-					plotOptions: {
-						line: {
-							dashStyle: 'LongDash'
-						}
-					}
-				});	
-			
 			
 			
 			_data.push( 

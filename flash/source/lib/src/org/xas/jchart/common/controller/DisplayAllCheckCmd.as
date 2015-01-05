@@ -30,28 +30,26 @@ package org.xas.jchart.common.controller
 			_body = notification.getBody();
 			_type = notification.getType();
 			
-			//Log.log( _config.labelRotationEnable, _config.displayAllLabel );
+//			Log.log( _config.labelRotationEnable, _config.displayAllLabel );
 			if( !_config.xAxisEnabled ) return;
 			if( !_config.displayAllLabel ) return;
 			
 			_labels = hlabelMediator.labels;
+			if( !( _labels && _labels.length) ) return;
 			
-			_itemWidth = _config.c.chartWidth / ( _config.categories.length );
+			_itemWidth = _config.c.chartWidth / ( _labels.length );
 							
 			switch( _type ){
 				default: {
-					if( !( _config.categories && _config.categories.length ) ) return;
 					normalAction();
 					break;
 				}
 			}
-			//Log.log( '_isReset' );
 			_isReset && sendNotification( JChartEvent.RESET_HLABELS );
 		}
 		
 		protected function normalAction():void{
 			//Log.log( 'DisplayAllCheckCmd normalAction', _itemWidth );
-			if( !( _labels && _labels.length) ) return;
 			
 			Common.each( _labels, function( _k:int, _item:TextField ):Boolean{
 				
@@ -60,7 +58,7 @@ package org.xas.jchart.common.controller
 						_isReset = true;
 						return false;
 					}					
-				}else if( _item.width > _itemWidth ){					
+				}else if( _item.width > _itemWidth ){	
 					_isReset = true;
 					return false;
 				} 				

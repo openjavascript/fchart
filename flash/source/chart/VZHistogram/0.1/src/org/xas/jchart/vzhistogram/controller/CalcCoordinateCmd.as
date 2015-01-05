@@ -11,6 +11,7 @@ package org.xas.jchart.vzhistogram.controller
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.test.DefaultData;
+	import org.xas.jchart.common.data.test.ZHistogramData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.vzhistogram.view.mediator.*;
@@ -151,7 +152,7 @@ package org.xas.jchart.vzhistogram.controller
 				_config.c.totalArray = _config.totalArray;
 				
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( DefaultData.instance.data ) );	
+					facade.registerMediator( new TestMediator( ZHistogramData.instance.data ) );	
 				}
 			}
 									

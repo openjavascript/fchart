@@ -14,11 +14,13 @@ package org.xas.jchart.common.view.mediator
 		private var _view:TestView;
 		public function get view():TestView{ return _view; }
 		private var _data:Vector.<Object>;
+		private var _config:Config;
 		
 		public function TestMediator( _data:Vector.<Object> )
 		{		
 			super( name );
 			this._data = _data;
+			_config = BaseConfig.ins as Config;
 		}
 		
 		override public function onRegister():void{
@@ -32,9 +34,9 @@ package org.xas.jchart.common.view.mediator
 				;
 			//Log.log( _index );
 			//Log.printJSON( _data );
-			BaseConfig.ins.clearData();
-			BaseConfig.ins.updateDisplaySeries( null, _data );
-			BaseConfig.ins.setChartData( _data );
+			_config.clearData();
+			_config.updateDisplaySeries( null, _data );
+			_config.setChartData( _data );
 			sendNotification( JChartEvent.DRAW );
 		}
 		

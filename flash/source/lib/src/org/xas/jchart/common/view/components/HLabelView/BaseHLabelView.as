@@ -59,10 +59,10 @@ package org.xas.jchart.common.view.components.HLabelView
 		}
 		
 		protected function reset( _evt:JChartEvent ):void{
-			//Log.log( 'reset' );
+//			Log.log( 'BaseHLabelView.reset' );
 			config.setDisplayAllLabel( false );
 			config.calcLabelDisplayIndex();
-			//Log.printFormatJSON( config.labelDisplayIndex );
+//			Log.printFormatJSON( config.labelDisplayIndex );
 			if( !( labels && labels.length && config.labelDisplayIndex ) ) return;
 			
 			Common.each( labels, function( _k:int, _item:TextField ):void{

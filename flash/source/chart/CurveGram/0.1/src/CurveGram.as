@@ -16,7 +16,7 @@ package
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
 	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseConfig;
+	import org.xas.jchart.common.BaseConfig; 
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.test.DefaultData; 
@@ -165,7 +165,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !DefaultData.instance.data.length ) return;
-				_data = DefaultData.instance.data[0];
+				_data = DefaultData.instance.data[11];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};
 				

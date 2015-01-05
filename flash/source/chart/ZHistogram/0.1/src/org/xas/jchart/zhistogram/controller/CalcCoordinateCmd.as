@@ -113,11 +113,26 @@ package org.xas.jchart.zhistogram.controller
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 				}
 				
+				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;
+				
 				if( _config.displaySeries && _config.displaySeries.length ){//_config.categories && _config.categories.length
 					_config.c.labelWidth = _config.c.chartWidth / ( _config.displaySeries.length ) / 2
 				}
-				facade.registerMediator( new HLabelMediator() );
-				_config.c.maxY -= pHLabelMediator.maxHeight;
+				
+				if( _config.xAxisEnabled ){
+					facade.registerMediator( new HLabelMediator() );
+					
+					_config.c.maxY -= pHLabelMediator.maxHeight;
+					
+					var _tmpMaxWidth:Number = pHLabelMediator.maxWidth;
+//					Log.log( 'CalcCoor:', _tmpMaxWidth );
+					if( _tmpMaxWidth < 0 ){
+						_config.c.minX += Math.abs( _tmpMaxWidth );
+					} else {
+						_config.c.maxX -= _tmpMaxWidth;
+					}
+					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
+				}
 			
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
@@ -138,6 +153,8 @@ package org.xas.jchart.zhistogram.controller
 				
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
+				
+				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
 				
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
@@ -284,12 +301,12 @@ package org.xas.jchart.zhistogram.controller
 				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
 				_config.c.vpoint.push( {
 					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX, _n )
+					, end: new Point( _config.c.maxX + _padX + 5, _n )
 				});
 				
 				_config.c.vpointReal.push( {
 					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen, _n )
+					, end: new Point( _config.c.maxX + _sideLen + 5, _n )
 				});
 			});
 		}
