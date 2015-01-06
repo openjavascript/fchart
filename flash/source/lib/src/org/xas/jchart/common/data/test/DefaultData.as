@@ -15,14 +15,14 @@ package org.xas.jchart.common.data.test
 		}
 		
 		public function DefaultData()
-		{
+		{ 
 			init();
 		}
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-//			return;   
-			
+//			return;  
+			   
 			_data.push({
 				"chart":
 				{

@@ -10,8 +10,6 @@ package
 
 	public class Config extends BaseConfig
 	{
-		protected var _mixModel:MixChartModel;
-		public function get mixModel():MixChartModel{ return _mixModel; }
 		
 		public function Config()
 		{
@@ -23,13 +21,7 @@ package
 			super.setChartData( _d );
 			_mixModel = new MixChartModel( this );
 			return _d;
-		}
-		
-		public function getYAxisIndex( _seriesItem:Object ):int{
-			var _r:int = 0;
-			_r = _seriesItem.yAxis || _r;
-			return _r;
-		}		
+		}	
 		
 		override public function get yAxisEnabled():Boolean{
 			var _r:Boolean = true, _allFalse:Boolean = true;
@@ -57,7 +49,13 @@ package
 			return _r;
 		}	
 		
-		public function get hasVTitle():Boolean{
+		override public function getYAxisIndex( _seriesItem:Object ):int{
+			var _r:int = 0;
+			_r = _seriesItem.yAxis || _r;
+			return _r;
+		}	
+		
+		override public function get hasVTitle():Boolean{
 			var _r:Boolean;
 			
 			/*

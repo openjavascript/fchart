@@ -17,9 +17,12 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.HLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVLabelMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVTitleMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator;
 	 
 	public class GlobalRotationLabelsCmd extends SimpleCommand implements ICommand
@@ -29,6 +32,7 @@ package org.xas.jchart.common.controller
 		private var _itemWidth:Number;
 		private var _labels:Vector.<TextField>;
 		private var _isReset:Boolean;
+		private var _chartWidth:Number;
 		
 		public function GlobalRotationLabelsCmd()
 		{
@@ -47,9 +51,19 @@ package org.xas.jchart.common.controller
 			_labels = hlabelMediator.labels;
 			if( !_labels.length ) return;
 			
-			_itemWidth = Math.floor( _config.c.chartWidth / ( _labels.length ) );
+			if( _config.yAxisEnabled ){
+				_chartWidth = _config.c.maxX - _config.c.minX - 5;
+			}else{
+				_chartWidth = _config.c.maxX - _config.c.minX;
+			}
+			
+			_itemWidth = Math.floor( _chartWidth / ( _labels.length ) );
 							
 			switch( _type ){
+				case 'mix': {
+					mixAction();
+					break;
+				}
 				case 'line': {
 					lineAction();
 					break;
@@ -106,15 +120,20 @@ package org.xas.jchart.common.controller
 			_maxHeight += _offsetY;
 			hlabelMediator.maxHeight = _maxHeight;
 			
-			if( _config.labelRotationAngle > 0 ){
+			if( 
+				( _config.labelRotationAngle > 0 && _config.absLabelRotationAngle <= 90 )
+				|| ( _config.labelRotationAngle < 0 && _config.absLabelRotationAngle > 90 )
+			){
 				if( _labelMaxWidth > 0 ){
 					_labelMaxWidth -= 5;
-					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _config.c.chartWidth, _labels.length );
+					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _chartWidth, _labels.length );
 					hlabelMediator.maxWidth = ( _labelMaxWidth )- _itemWidth / 2	
 					hlabelMediator.maxWidth < 0 && (　hlabelMediator.maxWidth = 0 );
 				}	
-			}else if( _config.labelRotationAngle < 0 ){
-				
+			}else if( 
+				(_config.labelRotationAngle < 0 && _config.absLabelRotationAngle <= 90)
+				|| (_config.labelRotationAngle < 0 && _config.absLabelRotationAngle > 90)  
+			){				
 				_labelMaxWidth -= _itemWidth / 2
 				_labelMaxWidth -= 0;
 				if( _config.yAxisEnabled ){
@@ -197,7 +216,7 @@ package org.xas.jchart.common.controller
 					( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );			
 				}else if( _config.labelRotationAngle > 0 ){
 					_plus = ( _labels.length - _k - 1 ) * _itemWidth;	
-					//Log.log( _plus, _k, _itemWidth, _config.c.chartWidth, _labels.length );
+					//Log.log( _plus, _k, _itemWidth, _chartWidth, _labels.length );
 					//Log.log( _item.width, _item.getBounds( _item ).width, _item.getRect( _item ).width  );
 					if( ( _item.width - _plus ) > _labelMaxWidth ){
 						_labelMaxWidth = _item.width - _plus;
@@ -207,11 +226,14 @@ package org.xas.jchart.common.controller
 			//Log.printJSON( _config.c.rotationCoor );
 			hlabelMediator.maxHeight = _maxHeight;
 			
-			if( _config.labelRotationAngle > 0 ){
+			if( 
+				( _config.labelRotationAngle > 0 && _config.absLabelRotationAngle <= 90 )
+				|| ( _config.labelRotationAngle < 0 && _config.absLabelRotationAngle > 90 )
+			){
 				
 				if( _labelMaxWidth > 0 ){
 					_labelMaxWidth -= 5;
-					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _config.c.chartWidth, _labels.length );
+					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _chartWidth, _labels.length );
 					hlabelMediator.maxWidth = ( _labelMaxWidth )- _itemWidth / 2	
 					hlabelMediator.maxWidth < 0 && (　hlabelMediator.maxWidth = 0 );
 				}
@@ -224,7 +246,98 @@ package org.xas.jchart.common.controller
 //				if( _labelMaxWidth > 0 ){
 //					hlabelMediator.maxWidth = _labelMaxWidth;
 //				}				
-			}else if( _config.labelRotationAngle < 0 ){
+			}else if( 
+				(_config.labelRotationAngle < 0 && _config.absLabelRotationAngle <= 90)
+				|| (_config.labelRotationAngle < 0 && _config.absLabelRotationAngle > 90)  
+			){
+				
+				_labelMaxWidth -= _itemWidth / 2
+				_labelMaxWidth -= 10;
+				if( _config.yAxisEnabled ){
+					_labelMaxWidth -= _config.c.minX;
+				}
+				if( _labelMaxWidth > 0 ){
+					_config.c.minX += _labelMaxWidth + 2;	
+				}
+			}			
+		}
+		
+		protected function mixAction():void{
+			//Log.log( 'GlobalRotationLablesCmd normalAction', _itemWidth );			
+			
+			_config.c.rotationCoor = [];
+			var _maxWidth:Number = 0
+				, _maxHeight:Number = 0
+				, _labelMaxWidth:Number = 0
+				, _tmp:Number = 0
+				;
+			
+			Common.each( _labels, function( _k:int, _item:TextField ):void{
+				//Log.log( _item.x, _item.y, _config.labelRotationAngle );
+				var _default:Point = new Point( _item.x, _item.y )
+				, _rect:Rectangle = Common.calcRotationLabelPoint( _item, _config.labelRotationAngle )
+				, _new:Point = _default.subtract( new Point( _rect.x, _rect.y ) )
+				, _plus:Number = 0;
+				;
+				
+				
+				_config.c.rotationCoor.push( 
+					{
+						old: _default
+						, rect: _rect
+						, offset: _new
+					}
+				);
+				_item.width > _maxWidth && ( _maxWidth = _item.width );
+				_rect.height > _maxHeight && ( _maxHeight = _rect.height );
+				
+				if( _config.labelRotationAngle < 0 ){
+					_plus = _k * _itemWidth;	
+					( _item.width - _plus ) > _labelMaxWidth && ( _labelMaxWidth = _item.width - _plus );			
+				}else if( _config.labelRotationAngle > 0 ){
+					_plus = ( _labels.length - _k - 1 ) * _itemWidth;	
+					//Log.log( _plus, _k, _itemWidth, _chartWidth, _labels.length );
+					//Log.log( _item.width, _item.getBounds( _item ).width, _item.getRect( _item ).width  );
+					if( ( _item.width - _plus ) > _labelMaxWidth ){
+						_labelMaxWidth = _item.width - _plus;
+					}
+				}
+			});
+			//Log.printJSON( _config.c.rotationCoor );
+			hlabelMediator.maxHeight = _maxHeight;
+			 
+			if( 
+				( _config.labelRotationAngle > 0 && _config.absLabelRotationAngle <= 90 )
+				|| ( _config.labelRotationAngle < 0 && _config.absLabelRotationAngle > 90 )
+			){
+				
+				if( _labelMaxWidth > 0 ){
+					_labelMaxWidth -= 5;
+					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _chartWidth, _labels.length );
+					
+					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+						if( !_item.enabeld ) return;
+						if( !_item.isOpposite ) return;
+						
+						_tmp += 1;
+						_tmp += pMixChartVLabelMediator.getMaxWidth( _k );
+						
+						if( _item.hasVTitle ){
+							_tmp += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+							_tmp += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+							_tmp += _config.vlabelSpace;
+						}
+					} );
+					_labelMaxWidth -= _tmp;
+					
+					hlabelMediator.maxWidth = ( _labelMaxWidth )- _itemWidth / 2	
+					hlabelMediator.maxWidth < 0 && (　hlabelMediator.maxWidth = 0 );
+				}
+				
+			}else if( 
+				(_config.labelRotationAngle < 0 && _config.absLabelRotationAngle <= 90)
+				|| (_config.labelRotationAngle < 0 && _config.absLabelRotationAngle > 90)  
+			){
 				
 				_labelMaxWidth -= _itemWidth / 2
 				_labelMaxWidth -= 10;
@@ -276,6 +389,14 @@ package org.xas.jchart.common.controller
 		}
 		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
+		}
+		
+		private function get pMixChartVTitleMediator():MixChartVTitleMediator{
+			return facade.retrieveMediator( MixChartVTitleMediator.name ) as MixChartVTitleMediator;
+		}
+		
+		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
+			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
 		}
 	}
 }

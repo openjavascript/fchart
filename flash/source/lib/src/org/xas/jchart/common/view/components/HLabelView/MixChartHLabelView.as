@@ -4,6 +4,7 @@ package org.xas.jchart.common.view.components.HLabelView
 	import com.greensock.easing.Expo;
 	
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	
@@ -61,9 +62,10 @@ package org.xas.jchart.common.view.components.HLabelView
 						}
 					}
 					if( BaseConfig.ins.animationEnabled ){
-						_titem.visible = false;
+//						_titem.visible = false;
 					}
 					
+					_titem.x = -1000;
 					addChild( _titem );
 					
 					_labels.push( _titem );
@@ -72,9 +74,11 @@ package org.xas.jchart.common.view.components.HLabelView
 				});			
 			}
 			//Log.log( '_maxHeight', _maxHeight );
+			
+			config.facade.sendNotification( JChartEvent.ROTATION_LABELS, {}, 'mix' );
 		}
 		
-		override protected function update( _evt:JChartEvent ):void{
+		override protected function normalUpdate():void{
 			if( !( _config.c && _config.c.hpoint ) ) return;
 			
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
@@ -104,7 +108,6 @@ package org.xas.jchart.common.view.components.HLabelView
 				
 				
 				if( BaseConfig.ins.animationEnabled ){
-					_tf.visible = true;
 					_tf.y = _item.end.y + 200;
 					_tf.x = _x;
 					TweenLite.delayedCall( 0, 
@@ -118,6 +121,53 @@ package org.xas.jchart.common.view.components.HLabelView
 				}else{					
 					_tf.x = _x;
 					_tf.y = _item.end.y - 2;
+				}
+			});
+		}
+		
+		override protected function rotationUpdate():void{
+			
+			if( !( config.c.rotationCoor && config.c.rotationCoor.length ) ) return;
+			
+			Common.each( config.c.hpoint, function( _k:int, _item:Object ):void{
+				var _tf:TextField = _labels[ _k ]
+				, _location:Point
+				, _newLocation:Point
+				, _offsetPoint:Point
+				;
+				
+				if( !config.displayAllLabel ) {
+					if( !( _k in config.labelDisplayIndex ) ) {
+						return;
+					}
+				}
+				_offsetPoint = config.c.rotationCoor[ _k ].offset as Point;
+				if( !_offsetPoint ) return;
+				
+				/* 指定标签定位的坐标 */
+				var _x:Number, _y:Number;
+				var _chartPoint:Point;
+				
+				_x = _item.end.x ;
+				_y = _item.end.y;
+				
+				_location = new Point( _x, _y );
+				_newLocation = _location.subtract( _offsetPoint );
+				
+				if( BaseConfig.ins.animationEnabled ) {
+					//_tf.visible = true;
+					_tf.y = _newLocation.y + 200;
+					_tf.x = _newLocation.x;
+					TweenLite.delayedCall( 0, function():void{
+						TweenLite.to( _tf, BaseConfig.ins.animationDuration, { 
+							x: _newLocation.x
+							, y: _newLocation.y
+							, ease: Expo.easeOut 
+						} );
+					} );
+				} else {
+					_tf.x = _newLocation.x;
+					_tf.y = _newLocation.y;
 				}
 			});
 		}

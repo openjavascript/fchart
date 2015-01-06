@@ -105,11 +105,7 @@ package org.xas.jchart.histogram.controller
 				
 				_config.c.arrowLength = 8;
 				
-				if( _config.yAxisEnabled ){
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
-				}else{
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
-				}
+
 				
 				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;
 				
@@ -138,6 +134,11 @@ package org.xas.jchart.histogram.controller
 					} else {
 						_config.c.maxX -= _tmpMaxWidth;
 					}
+				}
+				
+				if( _config.yAxisEnabled ){
+					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
+				}else{
 					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 				}
 			
@@ -342,12 +343,12 @@ package org.xas.jchart.histogram.controller
 				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
 				_config.c.vpoint.push( {
 					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX + 5, _n )
+					, end: new Point( _config.c.maxX + _padX, _n )
 				});
 				
 				_config.c.vpointReal.push( {
 					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen + 5, _n )
+					, end: new Point( _config.c.maxX + _sideLen, _n )
 				});
 			});
 		}

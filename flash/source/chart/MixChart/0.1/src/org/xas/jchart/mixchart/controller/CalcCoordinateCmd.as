@@ -52,6 +52,8 @@ package org.xas.jchart.mixchart.controller
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
+//			Log.log( 'labelRotation:', _config.labelRotationEnable );
+			
 			if( _config.cd ){			
 				
 				if( _config.cd.title && _config.cd.title.text ){
@@ -120,7 +122,7 @@ package org.xas.jchart.mixchart.controller
 						
 						_config.c.hasYAxis = true;
 						_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
-						_item.left = _config.c.minX;
+						_item.left = _config.c.minX ;
 						_config.c.minX += _config.vlabelSpace;
 					});
 					
@@ -188,7 +190,23 @@ package org.xas.jchart.mixchart.controller
 				
 				if( _config.xAxisEnabled ){
 					facade.registerMediator( new HLabelMediator() );
+					
 					_config.c.maxY -= pHLabelMediator.maxHeight;
+					
+					var _tmpMaxWidth:Number = pHLabelMediator.maxWidth;
+					
+					if( _tmpMaxWidth < 0 ){
+						_config.c.minX += Math.abs( _tmpMaxWidth );
+					} else {
+						_config.c.maxX -= _tmpMaxWidth;
+					}
+					
+					if( _config.yAxisEnabled ){
+						_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
+					}else{
+						//_config.c.chartWidth = _config.c.maxX - 5;
+						_config.c.chartWidth = _config.c.maxX - _config.c.minX;
+					}
 				}
 			
 				if( _config.graphicHeight ){
@@ -230,6 +248,47 @@ package org.xas.jchart.mixchart.controller
 								
 				calcChartPoint();
 				//_config.mixModel.calcGraphic();
+								
+				if( _config.yAxisEnabled && _config.labelRotationEnable ){
+					//Log.log( _config.c.chartX );
+					var _fixOffset:Number = _config.c.chartX
+						, _opOffset:Number = _config.c.chartX + _config.c.chartWidth
+						;
+					if( _config.vlineEnabled ){
+						_fixOffset -= _config.c.arrowLength;
+						_opOffset +=_config.c.arrowLength;
+					}
+					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+						if( !_item.enabeld ) return;
+						if( _item.isOpposite ) return;
+						_fixOffset -= 1;
+						_item.left = _fixOffset;
+						_fixOffset -= pMixChartVLabelMediator.getMaxWidth( _k );
+						
+						if( _item.hasVTitle ){
+							_fixOffset -= pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+							_config.c.vtitle[ _k ].x = _fixOffset;
+							_fixOffset -= pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+							_fixOffset -= _config.vlabelSpace;
+						}
+					}, true );
+					
+					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+						if( !_item.enabeld ) return;
+						if( !_item.isOpposite ) return;
+						
+						_opOffset += 1;
+						_item.left = _opOffset;
+						_opOffset += pMixChartVLabelMediator.getMaxWidth( _k );
+						
+						if( _item.hasVTitle ){
+							_opOffset += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+							_config.c.vtitle[ _k ].x = _opOffset;
+							_opOffset += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+							_opOffset += _config.vlabelSpace;
+						}
+					} );
+				}
 				
 				_config.c.mix = {};
 				Common.each( _config.mixModel.graphicType, function( _k:String, _item:* ):void{
@@ -341,6 +400,10 @@ package org.xas.jchart.mixchart.controller
 			return facade.retrieveMediator( MixChartVTitleMediator.name ) as MixChartVTitleMediator;
 		}
 		
+		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
+			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
+		}
+		
 		private function get pLegendMediator():LegendMediator{
 			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
 		}
@@ -351,10 +414,6 @@ package org.xas.jchart.mixchart.controller
 		
 		private function get pHLabelMediator():HLabelMediator{
 			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
-		}
-		
-		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
-			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

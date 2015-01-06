@@ -28,8 +28,8 @@ package
 	//[SWF(frameRate="30", width="600", height="425")]
 	//[SWF(frameRate="30", width="590", height="360")]
 	//[SWF(frameRate="30", width="1400", height="460")]   
-	[SWF(frameRate="30", width="800", height="360")]
-	public class MixChart extends Sprite 
+	[SWF(frameRate="30", width="800", height="600")]
+	public class MixChart extends Sprite  
 	{ 
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
@@ -37,7 +37,7 @@ package
 		private var _facade:Facade;
 		private var _resizeTimer:Timer;  
 		private var _ins:MixChart;
-		private var _loaderInfo:Object; 
+		private var _loaderInfo:Object;  
 		
 		public function MixChart()
 		{			
@@ -168,7 +168,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !MixChartData.instance.data.length ) return;
-				_data = MixChartData.instance.data[1];
+				_data = MixChartData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

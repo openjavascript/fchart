@@ -10,6 +10,7 @@ package org.xas.jchart.common
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
+	import org.xas.jchart.common.data.mixchart.MixChartModel;
 
 	public class BaseConfig 
 	{
@@ -1174,6 +1175,10 @@ package org.xas.jchart.common
 			return _labelRotationAngle;
 		}
 		
+		public function get absLabelRotationAngle():Number{
+			return Math.abs( labelRotationAngle );
+		}
+		
 		private var _labelRotationDir:int = 1; // 0 - 向右 | 1 - 向左
 		public function get labelRotationDir():int{
 			var _tmpDir:String;
@@ -1627,6 +1632,21 @@ package org.xas.jchart.common
 				&& ( _r = Common.extendObject( _r, group.label.style ) );
 			return _r;
 		}	
+		
+		protected var _mixModel:MixChartModel;
+		public function get mixModel():MixChartModel{ return _mixModel; }
+		
+		public function getYAxisIndex( _seriesItem:Object ):int{
+			var _r:int = 0;
+			return _r;
+		}	
+		
+		public function get hasVTitle():Boolean{
+			var _r:Boolean;
+
+			
+			return _r;
+		}
 		
 		/* legend end */
 		
