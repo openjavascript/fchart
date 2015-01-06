@@ -598,7 +598,7 @@ package org.xas.jchart.common
 						_r = _r - Common.percentDown( _r ) * minOffset;
 					}
 					
-					!floatLen && ( _r = int( _r ) );
+					!floatLen && ( _r = Math.floor( _r ) );
 					
 					if( _tmpR > 0 && _r < 0 ){
 						_r = _tmpR;
@@ -658,7 +658,7 @@ package org.xas.jchart.common
 			}
 			//Log.log( _r );
 			
-			!floatLen && ( _r = int( _r ) );
+			!floatLen && ( _r = Math.floor( _r ) );
 			//return 11000;
 		
 			return _r;
