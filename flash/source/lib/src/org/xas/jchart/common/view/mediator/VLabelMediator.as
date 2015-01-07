@@ -24,15 +24,8 @@ package org.xas.jchart.common.view.mediator
 		override public function onRegister():void{			
 			switch( (facade as BaseFacade).name ){
 				case 'TrendFacade':
-				case 'CurveGramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new HistogramVLabelView() );
-					break;
-				}
-				case 'ZHistogramFacade':
-				case 'HistogramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new HistogramVLabelView( ) );
 					break;
 				}
 				case 'VHistogramFacade':
@@ -48,6 +41,12 @@ package org.xas.jchart.common.view.mediator
 				case 'MapFacade':
 				{
 					mainMediator.view.index6.addChild( _view = new MapVLabelView() );
+					break;
+				}
+				case 'ZHistogramFacade':
+				case 'HistogramFacade':
+				case 'CurveGramFacade': {
+					mainMediator.view.index6.addChild( _view = new NormalVLabelView() );
 					break;
 				}
 				default:{

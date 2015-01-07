@@ -51,11 +51,7 @@ package org.xas.jchart.common.controller
 			_labels = hlabelMediator.labels;
 			if( !_labels.length ) return;
 			
-			if( _config.yAxisEnabled ){
-				_chartWidth = _config.c.maxX - _config.c.minX - 5;
-			}else{
-				_chartWidth = _config.c.maxX - _config.c.minX;
-			}
+			_chartWidth = _config.c.maxX - _config.c.minX - _config.hspace;
 			
 			_itemWidth = Math.floor( _chartWidth / ( _labels.length ) );
 							

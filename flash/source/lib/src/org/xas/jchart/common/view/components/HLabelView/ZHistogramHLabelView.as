@@ -70,33 +70,46 @@ package org.xas.jchart.common.view.components.HLabelView
 			if( !( _config.c && _config.c.hpoint ) ) return;
 			
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
-				var _tf:TextField = _labels[ _k ];
+				var _tf:TextField = _labels[ _k ]
+				, _location:Point = new Point( _tf.x, _tf.y )
+				;
 				
 				/* 指定标签定位的坐标 */
-				var _x:Number = _item.end.x - _tf.width / 2;
+				_location.x = _item.end.x - _tf.width / 2;
+				_location.y = _item.end.y;
+				
+				if( _config.vlineEnabled ){
+					_location.y += _config.xArrowLength - 1;
+				}else{
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
+				}
 				
 				if( _k === 0 ){
-					_x < _config.c.chartX && ( _x = _config.c.chartX - 3 );
+					_location.x < _config.c.chartX && ( _location.x = _config.c.chartX - 3 );
 				}else if( _k === _config.c.hpointReal.length - 1 ){
-					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+					if( _location.x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
+						_location.x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
 					}
 				}
 				
 				if( BaseConfig.ins.animationEnabled ){
-					_tf.y = _item.end.y + 200;
-					_tf.x = _x;
+					_tf.y = _location.y + 200;
+					_tf.x = _location.x;
 					TweenLite.delayedCall( 0, 
 						function():void{
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
-									x: _x
-									, y: _item.end.y - 2
+									x: _location.x
+									, y: _location.y - 2
 									, ease: Expo.easeOut } );
 						});
 				}else{
-					_tf.x = _x;
-					_tf.y = _item.end.y - 2;
+					_tf.x = _location.x;
+					_tf.y = _location.y - 2;
 				}
 			});
 		}
@@ -113,6 +126,15 @@ package org.xas.jchart.common.view.components.HLabelView
 					, _newLocation:Point
 					;				
 					
+				if( _config.vlineEnabled ){
+					_location.y += _config.xArrowLength - 1;
+				}else{
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
+				}
 					
 				_offsetPoint = config.c.rotationCoor[ _k ].offset as Point;
 				if( !_offsetPoint ) return;
@@ -126,12 +148,12 @@ package org.xas.jchart.common.view.components.HLabelView
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
 									x: _newLocation.x
-									, y: _newLocation.y - 2
+									, y: _newLocation.y
 									, ease: Expo.easeOut } );
 						});
 				}else{
 					_tf.x = _newLocation.y;
-					_tf.y = _newLocation.y - 2;
+					_tf.y = _newLocation.y;
 				}
 			});
 		}

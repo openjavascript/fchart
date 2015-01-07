@@ -33,6 +33,7 @@ package org.xas.jchart.common.controller
 //			Log.log( _config.labelRotationEnable, _config.displayAllLabel );
 			if( !_config.xAxisEnabled ) return;
 			if( !_config.displayAllLabel ) return;
+			if( !hlabelMediator ) return;
 			
 			_labels = hlabelMediator.labels;
 			if( !( _labels && _labels.length) ) return;

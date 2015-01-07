@@ -26,52 +26,60 @@ package org.xas.jchart.common.view.components.BgLineView
 		private var _hlineLs:Vector.<DSprite>;
 		private var _vlineLs:Vector.<DSprite>;
 		
+		private var _config:Config;
+		
 		public function HistogramBgLineView()
 		{
 			super();
+			_config = BaseConfig.ins as Config;
 		}
 		
 		override protected function update( _evt:JChartEvent ):void{			
 			super.update( _evt );			
 		}
-		
+		//横线
 		override protected function drawHLine():void{
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.vpoint )  ) return;
+			if( !( BaseConfig.ins.c && _config.c.vpoint )  ) return;
 			
-			if( !BaseConfig.ins.hlineEnabled ) {
+			var _startX:Number = _config.c.chartX;
+			if( _config.yAxisEnabled ){
+				_startX -= _config.yArrowLength;
+			}
+			
+			if( !_config.hlineEnabled ) {
 				addChildAt( _hboldLine = new Sprite(), 0 );
 				_hboldLine.graphics.lineStyle( 1, 0x999999, .35 );
-				_hboldLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
-				_hboldLine.graphics.lineTo( BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight );
+				_hboldLine.graphics.moveTo( _startX, _config.c.chartY + _config.c.chartHeight );
+				_hboldLine.graphics.lineTo( _config.c.chartX + _config.c.chartWidth, _config.c.chartY + _config.c.chartHeight );
 				return;	
 			}	
 			
 			_hlineLs = new Vector.<DSprite>;
 			
-			Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
+			Common.each( _config.c.vpoint, function( _k:int, _item:Object ):void{
 				
 				var _ele:DSprite = new DSprite();
 				
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point
-				, _sx:Number = _sp.x, _ex:Number = _ep.x
+				, _sx:Number = _startX, _ex:Number = _ep.x
 				;
-				if( !BaseConfig.ins.yAxisEnabled ){
-					_sx += BaseConfig.ins.c.arrowLength - 2;
+				if( !_config.yAxisEnabled ){
+//					_sx += _config.c.arrowLength - 2;
 				}
 				_ele.graphics.lineStyle( 1, 0x999999, .35 );
 				addChild( _ele );
 				
 				var _delay:Number = 0;
-				BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+				_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 				
-				if( BaseConfig.ins.animationEnabled ){
+				if( _config.animationEnabled ){
 					_ele.max = Math.ceil( _ex - _sx );
 					_ele.count = 0;
 					
 					//Log.log( _ele.max, _ep.x, _sp.x );
 					TweenLite.delayedCall( _delay, function():void{		
-						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+						TweenLite.to( _ele, _config.animationDuration
 							, { 
 								count: _ele.max
 								//, ease: Expo.easeIn
@@ -79,14 +87,14 @@ package org.xas.jchart.common.view.components.BgLineView
 									//Log.log( _ele.count );
 									_ele.graphics.clear();
 									_ele.graphics.lineStyle( 1, 0x999999, .35 );
-									_ele.graphics.moveTo( _sx, _sp.y );
-									_ele.graphics.lineTo( _sx + _ele.count, _ep.y );
+									_ele.graphics.moveTo( _startX, _sp.y );
+									_ele.graphics.lineTo( _startX + _ele.count, _ep.y );
 								}
 							} );
 					});
 					
 				}else{
-					_ele.graphics.moveTo( _sx, _sp.y );
+					_ele.graphics.moveTo( _startX, _sp.y );
 					_ele.graphics.lineTo( _ex, _ep.y );
 				}
 				
@@ -94,53 +102,59 @@ package org.xas.jchart.common.view.components.BgLineView
 				_hlineLs.push( _ele );
 			});
 		}
-		
+		//竖线
 		override protected function drawVLine():void{
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.hlinePoint )  ) return;
+			if( !( _config.c && _config.c.hlinePoint )  ) return;
+			var _endY:Number = _config.c.chartY + _config.c.chartHeight + 1, _tmpY:Number = _endY, _plus:Number = 1;
+			if( _config.xAxisEnabled ){
+				_tmpY += _config.xArrowLength;
+			}
 				
 			if( 
 				( 
-					!BaseConfig.ins.vlineEnabled 
-						&& !BaseConfig.ins.hlineEnabled 
-						&& BaseConfig.ins.yAxisEnabled
+					!_config.vlineEnabled 
+						&& !_config.hlineEnabled 
+						&& _config.yAxisEnabled
 				)
-				|| BaseConfig.ins.vsideLineEnabled
+				|| _config.vsideLineEnabled
 			) {
 				addChildAt( _vsideLine = new Sprite(), 0 );
 				_vsideLine.graphics.lineStyle( 1, 0x999999, .35 );
-				_vsideLine.graphics.moveTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY - 5 );
-				_vsideLine.graphics.lineTo( BaseConfig.ins.c.chartX, BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight + 5 );
+				_vsideLine.graphics.moveTo( _config.c.chartX, _config.c.chartY  );
+				_vsideLine.graphics.lineTo( _config.c.chartX, _tmpY );
+				return;
 			}
 			
 			if( 
 				( 
-					!BaseConfig.ins.vlineEnabled 
-					&& !BaseConfig.ins.hlineEnabled 
-					&& BaseConfig.ins.yAxisEnabled
+					!_config.vlineEnabled 
+					&& !_config.hlineEnabled 
+					&& _config.yAxisEnabled
 				)
 			) {
 				_vlineLs = new Vector.<DSprite>;
 				
-				Common.each( BaseConfig.ins.c.vpoint, function( _k:int, _item:Object ):void{
+				Common.each( _config.c.vpoint, function( _k:int, _item:Object ):void{
 					var _sp:Point =_item.start as Point
 					, _ep:Point = _item.end as Point
-					, _sx:Number = _sp.x, _ex:Number = BaseConfig.ins.c.chartX
+					, _sx:Number = _sp.x, _ex:Number = _sx
 					;
-					if( !BaseConfig.ins.yAxisEnabled ){
-						_sx += BaseConfig.ins.c.arrowLength - 2;
+					if( !_config.xAxisEnabled ){
+//						_sx += _config.c.arrowLength - 2;
 					}
 					
 					graphics.moveTo( _sx, _sp.y );
-					graphics.lineTo( _ex, _ep.y );
+					graphics.lineTo( _ex, _endY );
 				});
 			}
 			
-			if( !BaseConfig.ins.vlineEnabled ) return;
+			if( !_config.vlineEnabled ) return;
 			
 			var _delay:Number = 0;
-			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 			
-			Common.each( BaseConfig.ins.c.hlinePoint, function( _k:int, _item:Object ):void{
+			
+			Common.each( _config.c.hlinePoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point;
 				;
@@ -148,12 +162,12 @@ package org.xas.jchart.common.view.components.BgLineView
 				_ele.graphics.lineStyle( 1, 0x999999, .35 );
 				addChild( _ele );				
 				
-				if( BaseConfig.ins.animationEnabled ){
-					_ele.max = Math.ceil( _ep.y - _sp.y );
+				if( _config.animationEnabled ){
+					_ele.max = Math.ceil( _endY - _sp.y );
 					_ele.count = 0;
 					
 					TweenLite.delayedCall( _delay, function():void{						
-						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+						TweenLite.to( _ele, _config.animationDuration
 							, { 
 								count: _ele.max
 								//, ease: Expo.easeIn
@@ -161,49 +175,61 @@ package org.xas.jchart.common.view.components.BgLineView
 									//Log.log( _ele.count );
 									_ele.graphics.clear();
 									_ele.graphics.lineStyle( 1, 0x999999, .35 );
-									_ele.graphics.moveTo( _sp.x, _ep.y );
-									_ele.graphics.lineTo( _sp.x, _ep.y - _ele.count );
+									_ele.graphics.moveTo( _sp.x, _ep.y + _plus );
+									_ele.graphics.lineTo( _sp.x, _ep.y + _plus- _ele.count );
 								}
 							} );
 					});
 					
 				}else{
 					_ele.graphics.moveTo( _sp.x, _sp.y );
-					_ele.graphics.lineTo( _ep.x, _ep.y );
+					_ele.graphics.lineTo( _ep.x, _endY );
 				}
 				
 			});	
 		}
 		
 		override protected function drawLineArrow():void{
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.hpoint )  ) return;
-			if( !BaseConfig.ins.vlineEnabled ) return;
-			
+			if( !( _config.c && _config.c.hpoint )  ) return;
+			if( !_config.vlineEnabled ) return;
+
+			var _endY:Number = _config.c.chartY + _config.c.chartHeight;
+			if( _config.xAxisEnabled ){
+				_endY += _config.xArrowLength;
+			}
 			
 			var _delay:Number = 0;
-			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
+			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 			
-			Common.each( BaseConfig.ins.c.hpoint, function( _k:int, _item:Object ):void{
+			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point;
 				;
 				
-				if( !BaseConfig.ins.displayAllLabel ){
-					if( !( _k in BaseConfig.ins.labelDisplayIndex ) ){
+				if( !_config.displayAllLabel ){
+					if( !( _k in _config.labelDisplayIndex ) ){
 						return;
 					}
 				}
+				if( !_config.displayAllLabel ){
+					if( ( _k in _config.labelDisplayIndex ) ){
+						_ep.y = _endY;	
+					}
+				}else{
+					_ep.y = _endY;	
+				}
+				
 				
 				var _ele:DSprite = new DSprite();
 				_ele.graphics.lineStyle( 1, 0x999999, .35 );
 				addChild( _ele );				
 				
-				if( BaseConfig.ins.animationEnabled ){
+				if( _config.animationEnabled ){
 					_ele.max = Math.ceil( _ep.y - _sp.y );
 					_ele.count = 0;
 					
 					TweenLite.delayedCall( _delay, function():void{						
-						TweenLite.to( _ele, BaseConfig.ins.animationDuration
+						TweenLite.to( _ele, _config.animationDuration
 							, { 
 								count: _ele.max
 								//, ease: Expo.easeIn

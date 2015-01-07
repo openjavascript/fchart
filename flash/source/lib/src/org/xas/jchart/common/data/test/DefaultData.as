@@ -2711,6 +2711,9 @@ package org.xas.jchart.common.data.test
 				}
 				, point: {
 				}
+				, animation: {
+					enabled: true
+				}
 			});
 			
 			_data.push( {
@@ -5819,6 +5822,7 @@ package org.xas.jchart.common.data.test
 				}, 
 				xAxis: {
 					categories: [ '1', '2', '3' ]
+					, enabled: false
 				}, 
 				yAxis: {
 					title: {

@@ -83,7 +83,7 @@ package org.xas.jchart.common.data.test
 				legend: {
 					enabled: true
 					, interval: 20
-					, direction: 'TOP_RIGHT'
+					, direction: 'BOTTOM_RIGHT'
 				},
 				animation: {
 					enabled: true
@@ -3341,20 +3341,20 @@ package org.xas.jchart.common.data.test
 				//isPercent: true,
 				displayAllLabel: true,
 				legend: {
-					enabled: false
+//					enabled: false
 				}
 				, dataLabels: {
 					enabled: true,
 					format: '{0}%'
 				}
 				, vline: {
-					enabled: false
+//					enabled: false
 				}
 				, hline: {
 					enabled: false
 				}
 				, tooltip: {
-					enabled: false
+//					enabled: false
 				}
 				, colors: [
 					0x00ABEF

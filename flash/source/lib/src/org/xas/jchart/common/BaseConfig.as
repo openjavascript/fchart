@@ -143,6 +143,8 @@ package org.xas.jchart.common
 		}
 		protected var _displaySeriesIndexMap:Object;
 		public function get displaySeriesIndexMap():Object{ return _displaySeriesIndexMap || {}; }
+		protected var _displayLegend:Array = [];
+		public function get displayLegend():Array{ return _displayLegend; }
 		
 		public function serialDataLabelValue( _serialIx:int, _itemIx:int ):String{
 			var _r:String = '', _item:Object = displaySeries[ _serialIx ];		
@@ -220,7 +222,7 @@ package org.xas.jchart.common
 		protected var _chartData:Object;
 		public function setChartData( _d:Object ):Object { 		
 			_displayAllLabel = true;
-			reset();			
+			reset();		
 			_chartData = _d;			
 			this._hasNegative = Common.hasNegative( displaySeries );
 			calcRate();
@@ -393,6 +395,8 @@ package org.xas.jchart.common
 				_r = StringUtils.parseBool( cd.yAxis.enabled );
 			}
 			
+			!displaySeries.length && ( _r = false );
+			
 			return _r;
 		}
 		
@@ -402,6 +406,8 @@ package org.xas.jchart.common
 			if( cd && cd.xAxis && ( 'enabled' in cd.xAxis ) ){
 				_r = StringUtils.parseBool( cd.xAxis.enabled );
 			}
+			
+			!displaySeries.length && ( _r = false );
 			
 			return _r;
 		}
@@ -1350,6 +1356,7 @@ package org.xas.jchart.common
 			_displaySeriesIndexMap = {};
 			_filterData = {};
 			_chartData = {};
+			_displayLegend = [];
 			
 			return this;
 		}
@@ -1464,6 +1471,25 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get vspace():Number{
+			var _r:Number = 5;
+			this.cd 
+				&& this.cd.yAxis
+				&& ( 'space' in this.cd.yAxis )
+				&& ( _r = this.cd.yAxis.space )
+				;
+			return _r;
+		}		
+		public function get hspace():Number{
+			var _r:Number = 15;
+			this.cd 
+				&& this.cd.xAxis
+				&& ( 'space' in this.cd.xAxis )
+				&& ( _r = this.cd.xAxis.space )
+				;
+			return _r;
+		}
+		
 		public function get stageWidth():Number{
 			var _r:Number = this.width;			
 			if( this.chartParams.width && this.chartParams.width > 0 ){
@@ -1513,6 +1539,7 @@ package org.xas.jchart.common
 			var _r:Boolean;
 			//return true;
 			'enabled' in animation && ( _r =  StringUtils.parseBool( this.animation.enabled ) );
+			!displaySeries.length && ( _r = false );
 			return _r;
 		}
 		
@@ -1643,8 +1670,27 @@ package org.xas.jchart.common
 		
 		public function get hasVTitle():Boolean{
 			var _r:Boolean;
-
-			
+			return _r;
+		}
+		
+		public function get yArrowLength():int{
+			var _r:int = 8;
+			this.cd
+				&& this.cd.yAxis
+				&& ( 'arrowLength' in this.cd.yAxis )
+				&& ( _r = this.cd.yAxis.arrowLength )
+				;
+				
+			return _r;
+		}
+		
+		public function get xArrowLength():int{
+			var _r:int = 8;
+			this.cd
+				&& this.cd.xAxis
+				&& ( 'arrowLength' in this.cd.xAxis )
+				&& ( _r = this.cd.xAxis.arrowLength )
+				;
 			return _r;
 		}
 		

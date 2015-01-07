@@ -23,10 +23,12 @@ package org.xas.jchart.common.view.components.HLabelView
 		private var _labelDir:Number;
 		
 		private var _displayAllLabel:Boolean;
+		private var _config:Config;
 		
 		public function HistogramHLabelView()
 		{
 			super();
+			_config = config;
 		}
 		
 		override protected function addToStage( _evt:Event ):void{
@@ -83,7 +85,9 @@ package org.xas.jchart.common.view.components.HLabelView
 		override protected function normalUpdate():void{
 			
 			Common.each( config.c.hpoint, function( _k:int, _item:Object ):void{
-				var _tf:TextField = _labels[ _k ];
+				var _tf:TextField = _labels[ _k ]
+				, _location:Point = new Point( _tf.x, _tf.y )
+				;
 				
 				if( !_displayAllLabel ) {
 					if( !( _k in config.labelDisplayIndex ) ) {
@@ -92,36 +96,45 @@ package org.xas.jchart.common.view.components.HLabelView
 				}
 				
 				/* 指定标签定位的坐标 */
-				var _x:Number, _y:Number;
 				var _chartPoint:Point;
 				
-				_x = _item.end.x - _tf.width / 2;
-				_y = _item.end.y - 2;
+				_location.x = _item.end.x - _tf.width / 2;
+				_location.y = _item.end.y;
+				
+				if( _config.vlineEnabled ){
+					_location.y += _config.xArrowLength - 1;
+				}else{
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
+				}
 				
 				if( _k === 0 ) {
-					_x < config.c.chartX && ( 
-						_x = config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
+					_location.x < config.c.chartX && ( 
+						_location.x = config.c.chartX - _tf.width / 2 + _tf.textWidth / 2 - 3
 					);
 				} else if ( _k === config.c.hpointReal.length - 1 ) {
-					if( _x + _tf.width > config.c.chartX + config.c.chartWidth ){
-						_x = config.c.chartX + config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
+					if( _location.x + _tf.width > config.c.chartX + config.c.chartWidth ){
+						_location.x = config.c.chartX + config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
 					}
 				}
 				
 				if( BaseConfig.ins.animationEnabled ) {
 					//_tf.visible = true;
-					_tf.y = _item.end.y + 200;
-					_tf.x = _x;
+					_tf.y = _location.y + 200;
+					_tf.x = _location.x;
 					TweenLite.delayedCall( 0, function():void{
 						TweenLite.to( _tf, BaseConfig.ins.animationDuration, { 
-							x: _x
-							, y: _y
+							x: _location.x
+							, y: _location.y
 							, ease: Expo.easeOut 
 						} );
 					} );
 				} else {
-					_tf.x = _x;
-					_tf.y = _y;
+					_tf.x = _location.x;
+					_tf.y = _location.y;
 				}
 			});
 		}
@@ -149,10 +162,21 @@ package org.xas.jchart.common.view.components.HLabelView
 				var _x:Number, _y:Number;
 				var _chartPoint:Point;
 				
-				_x = _item.end.x ;
+				_x = _item.end.x;
 				_y = _item.end.y;
 				
 				_location = new Point( _x, _y );
+				
+				if( _config.vlineEnabled ){
+					_location.y += _config.xArrowLength - 1;
+				}else{
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
+				}
+				
 				_newLocation = _location.subtract( _offsetPoint );
 				
 				if( BaseConfig.ins.animationEnabled ) {

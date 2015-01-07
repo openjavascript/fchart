@@ -79,7 +79,7 @@ package org.xas.jchart.common.view.components.HLabelView
 							_titem.visible = false;
 						}
 					}
-					if( BaseConfig.ins.animationEnabled ){
+					if( _config.animationEnabled ){
 						_titem.visible = false;
 					}
 					
@@ -105,20 +105,25 @@ package org.xas.jchart.common.view.components.HLabelView
 					;
 				
 				if( _config.vlineEnabled ){
-					normalPosition( _k, _item, _location );
+					_location = normalPosition( _k, _item, _location );
 				} else {
 					vlineDisabledPosition( _k, _item, _location );
 				}
 				_location.y = _item.end.y;
 				
 				if( _config.vlineEnabled ){
-					_location.y += _config.c.arrowLength - 1;
+					_location.y += _config.xArrowLength - 1;
 				}else{
-					_location.y += 2;
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
 				}
+
 				_tf.x = _location.x;
 				
-				if( BaseConfig.ins.animationEnabled ){
+				if( _config.animationEnabled ){
 					
 					if( !_config.displayAllLabel ){
 						if( !( _k in _config.labelDisplayIndex ) ){
@@ -130,7 +135,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					_tf.y = _location.y + 200;
 					TweenLite.delayedCall( 0, 
 						function():void{
-							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+							TweenLite.to( _tf, _config.animationDuration
 								, { 
 									y: _location.y
 									, ease: Expo.easeOut } );
@@ -166,16 +171,20 @@ package org.xas.jchart.common.view.components.HLabelView
 				_location.y = _item.end.y;
 				
 				if( _config.vlineEnabled ){
-					_location.y += _config.c.arrowLength - 1;
+					_location.y += _config.xArrowLength - 1;
 				}else{
-					_location.y += 2;
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
 				}
 				
 				_newLocation = _location.subtract( _offsetPoint );
 				
 				_tf.x = _newLocation.x;
 				
-				if( BaseConfig.ins.animationEnabled ){
+				if( _config.animationEnabled ){
 					
 					if( !_config.displayAllLabel ){
 						if( !( _k in _config.labelDisplayIndex ) ){
@@ -187,7 +196,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					_tf.y = _newLocation.y + 200;
 					TweenLite.delayedCall( 0, 
 						function():void{
-							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+							TweenLite.to( _tf, _config.animationDuration
 								, { 
 									y: _newLocation.y
 									, ease: Expo.easeOut } );
@@ -199,7 +208,7 @@ package org.xas.jchart.common.view.components.HLabelView
 			});
 		}
 		
-		private function normalPosition( _index:int, _item:Object, _point:Point ):void{
+		private function normalPosition( _index:int, _item:Object, _point:Point ):Point{
 			var _tf:TextField = _labels[ _index ]		
 				, _k:int = _index
 				;
@@ -216,6 +225,7 @@ package org.xas.jchart.common.view.components.HLabelView
 					_point.x = _config.c.chartX + _config.c.chartWidth - _tf.width / 2 - _tf.textWidth / 2 + 3
 				}
 			}
+			return _point;
 		}
 		
 		private function vlineDisabledPosition( _index:int, _item:Object, _point:Point ):void{
@@ -225,6 +235,12 @@ package org.xas.jchart.common.view.components.HLabelView
 				, _chartWidth:Number = _config.c.chartWidth - _config.c.linePadding
 				;
 			_point.x = _item.end.x - _tf.width / 2;
+			
+			if( _point.x + _tf.width > _config.stageWidth ){
+				_point.x = _config.stageWidth - _tf.width;
+			}else if( _point.x - _tf.width / 2 < 1 ){
+				_point.x = 1;
+			}
 		}
 	}
 }

@@ -31,7 +31,7 @@ package org.xas.jchart.common.proxy.data.legend
 				}
 				case 2 : {/* legend在下部 */
 					legend_y = _config.c.maxY - view.height + 2;
-					_config.c.maxY -= view.height - 2;
+					_config.c.maxY -= ( view.height );
 					break;
 				}
 				case 3 : {/* legend在左部 */

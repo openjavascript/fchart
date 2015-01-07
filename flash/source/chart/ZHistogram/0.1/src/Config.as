@@ -48,6 +48,7 @@ package
 			if( !( _data && _data.series && _data.series.length ) ) return this;
 			_displaySeries = JSON.parse( JSON.stringify( _data.series ) ) as Array;
 			_displaySeriesIndexMap = null;
+			_displayLegend = [];
 			if( _filter ){
 				var _tmp:Array = [], _count:int = 0;
 				_displaySeriesIndexMap = {};
@@ -57,6 +58,10 @@ package
 						if( !(_sk in _filter) ){
 							_tmpData.push( _sitem );	
 							_displaySeriesIndexMap[ _count++ ] = _sk;
+							
+							if( _k === 0 ){
+								_displayLegend.push( { sk: _sk } );
+							}
 						}
 					});
 					_item.data = _tmpData;
@@ -67,6 +72,12 @@ package
 					*/
 				});
 				//_displaySeries = _tmp;
+			}else{
+				if( displaySeries.length ){
+					Common.each( displaySeries[0].data, function( _sk:int, _sitem:Number ):void{
+						_displayLegend.push( { sk: _sk } );
+					});
+				}
 			}
 			_filterData = _filter || {};
 			
@@ -83,6 +94,23 @@ package
 			}
 			
 			_r = _colors[ _ix % ( _colors.length ) ];			
+			return _r;
+		}
+		
+		
+		override public function get yAxisEnabled():Boolean{
+			var _r:Boolean = super.yAxisEnabled;
+			
+			!displayLegend.length && ( _r = false );
+			
+			return _r;
+		}		
+		
+		override public function get xAxisEnabled():Boolean{
+			var _r:Boolean = super.xAxisEnabled;
+			
+			!displayLegend.length && ( _r = false );
+			
 			return _r;
 		}
 		

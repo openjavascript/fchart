@@ -38,7 +38,8 @@ package org.xas.jchart.curvegram.controller
 			_c.minX = _c.x + _config.vlabelSpace + 2;
 			_c.minY = _c.y + 5;
 			_c.maxX = _c.x + _config.stageWidth - 6;
-			_c.maxY = _c.y + _config.stageHeight - 5;
+			_c.maxY = _c.y + _config.stageHeight - 5;			
+			//_c.arrowLength = 0;
 			
 			if( _config.serialLabelEnabled ){
 				_c.minX += 10;
@@ -48,7 +49,7 @@ package org.xas.jchart.curvegram.controller
 			var _yPad:Number = _c.minY;
 						
 			facade.registerMediator( new BgMediator( ) )		
-			
+			 
 			if( _config.cd ){
 				
 				if( _config.cd.title && _config.cd.title.text ){
@@ -107,8 +108,9 @@ package org.xas.jchart.curvegram.controller
 				if( _config.yAxisEnabled ){
 					facade.registerMediator( new VLabelMediator() );
 					_config.c.minX += pVLabelMediator.maxWidth;
-				}else{
+					_config.c.minX += _config.yArrowLength;
 				}
+				
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
 					facade.registerMediator( new HoverBgMediator() );
@@ -122,14 +124,6 @@ package org.xas.jchart.curvegram.controller
 					_config.c.minY += _config.c.serialLabelPadY;
 					_yPad += _config.c.serialLabelPadY;
 				}
-				
-				_config.c.arrowLength = 8;
-				
-//				if( _config.yAxisEnabled ){
-//					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
-//				}else{
-//					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
-//				}
 				
 				if( _config.categories && _config.categories.length ){
 					if( _config.displayAllLabel ){
@@ -151,11 +145,8 @@ package org.xas.jchart.curvegram.controller
 						_config.c.maxX -= _tmpMaxWidth;
 					}
 				}
-				if( _config.yAxisEnabled ){
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
-				}else{
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
-				}
+				
+				_config.c.chartWidth = _config.c.maxX - _config.c.minX - _config.hspace;
 				
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
@@ -173,7 +164,7 @@ package org.xas.jchart.curvegram.controller
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
 				
-				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
+				_config.c.chartX = _config.c.minX + _config.yArrowLength - 2;
 				_config.c.chartY = _config.c.minY;
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
@@ -205,7 +196,6 @@ package org.xas.jchart.curvegram.controller
 			_config.c.vectorPaths = [];
 			if( !( _config.series && _config.series.length ) ) return;
 			_config.c.partWidth = _config.c.itemWidth / _config.displaySeries.length;
-
 			
 			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void {
 				
@@ -295,9 +285,7 @@ package org.xas.jchart.curvegram.controller
 		}
 		
 		private function calcChartVPoint():void{
-			var _partN:Number = _config.c.chartHeight / ( _config.rate.length -1 )
-				, _sideLen:Number = _config.c.arrowLength
-				;
+			var _partN:Number = _config.c.chartHeight / ( _config.rate.length -1 );
 			_config.c.vpart = _partN;
 			_config.c.itemHeight = _partN / 2;
 			_config.c.vpoint = [];
@@ -305,20 +293,19 @@ package org.xas.jchart.curvegram.controller
 			
 			var _padX:Number = 0;
 			if( !_config.yAxisEnabled ){
-				//_padX = _config.c.arrowLength - ( _config.c.arrowLength -  _config.c.chartX );
-				//_padX = _config.vlabelSpace + 2;
-			}
+
+			} 
 			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
-				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
+				var _n:Number = _config.c.chartY + _partN * _k;
 				_config.c.vpoint.push( {
-					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX, _n )
+					start: new Point( _config.c.chartX, _n )
+					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
 				});
-				
+				 
 				_config.c.vpointReal.push( {
-					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen, _n )
+					start: new Point( _config.c.chartX, _n )
+					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
 				});
 			});
 		}
@@ -326,7 +313,6 @@ package org.xas.jchart.curvegram.controller
 		private function calcChartHPoint():void{
 			var _partN:Number = 　_config.c.chartWidth / ( ( _config.categories.length - 1 ) || 1 ) 
 				, _rpartN:Number = ( _config.c.chartWidth - _config.c.linePadding ) / ( ( _config.categories.length - 1 ) || 1)
-				, _sideLen:Number = _config.c.arrowLength
 				;
 			_config.c.hpart = _partN;
 			_config.c.rhpart = _rpartN;
@@ -335,33 +321,25 @@ package org.xas.jchart.curvegram.controller
 			_config.c.hpointReal = [];
 			_config.c.itemWidth = _partN / 2;
 			_config.c.ritemWidth = _rpartN / 2;
-			
-						
+									
 			Common.each( _config.categories, function( _k:int, _item:* ):void{
-				var _n:Number = _config.c.minX + _partN * _k + 5
-					, _rn:Number = _config.c.minX +  _config.c.linePadding / 2 + _rpartN * _k + 5
-					, _sideLen:int = _config.c.arrowLength
+				var _n:Number = _config.c.chartX + _partN * _k
+					, _rn:Number = _config.c.chartX + _rpartN * _k +  _config.c.linePadding / 2
 					;
 								
 				_config.c.hlinePoint.push( {
-					start: new Point( _n, _config.c.minY )
-					, end: new Point( _n, _config.c.maxY + 1 )
+					start: new Point( _n, _config.c.chartY )
+					, end: new Point( _n, _config.c.chartY + _config.c.chartHeight )
 				});
 				
-				if( !_config.displayAllLabel ){
-					if( !( _k in _config.labelDisplayIndex ) ){
-						_sideLen = 0;
-					}
-				}
-				
 				_config.c.hpoint.push( {
-					start: new Point( _n, _config.c.maxY )
-					, end: new Point( _n, _config.c.maxY + _sideLen )
+					start: new Point( _n, _config.c.chartY + _config.c.chartHeight )
+					, end: new Point( _n, _config.c.chartY + _config.c.chartHeightY  )
 				});
 				
 				_config.c.hpointReal.push( {
-					start: new Point( _rn, _config.c.minY )
-					, end: new Point( _rn, _config.c.maxY )
+					start: new Point( _rn, _config.c.chartY )
+					, end: new Point( _rn, _config.c.chartY + _config.c.chartHeight)
 				});
 			});
 		}
