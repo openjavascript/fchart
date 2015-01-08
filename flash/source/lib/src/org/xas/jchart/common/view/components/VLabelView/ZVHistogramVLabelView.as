@@ -1,6 +1,8 @@
 package org.xas.jchart.common.view.components.VLabelView
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -18,8 +20,6 @@ package org.xas.jchart.common.view.components.VLabelView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
-	import com.greensock.TweenLite;
-	import com.greensock.easing.Expo;
 	
 	public class ZVHistogramVLabelView extends BaseVLabelView
 	{
@@ -41,7 +41,7 @@ package org.xas.jchart.common.view.components.VLabelView
 				
 				var _floatLen:int = BaseConfig.ins.realRateFloatLen;
 				
-				if( BaseConfig.ins.floatLen === 0 && BaseConfig.ins.maxNum >= 8 ){
+				if( _config.floatLen === 0 && _config.maxNum >= 8 ){
 					_floatLen = 0;
 				}
 				
@@ -49,19 +49,19 @@ package org.xas.jchart.common.view.components.VLabelView
 				
 				_titem = new TextField();
 				
-				if( BaseConfig.ins.isPercent ){
+				if( _config.isPercent ){
 					_titem.text = _t + '%';
 				}
 				
 				
 				
-				_titem.text = StringUtils.printf( BaseConfig.ins.yAxisFormat, _t );
+				_titem.text = StringUtils.printf( _config.yAxisFormat, _t );
 				
 				Common.implementStyle( _titem, [
 					DefaultOptions.title.style
 					, DefaultOptions.yAxis.labels.style
 					, { color: 0x838383 }
-					, BaseConfig.ins.vlabelsStyle
+					, _config.vlabelsStyle
 				] );
 				
 				addChild( _titem );
@@ -75,42 +75,48 @@ package org.xas.jchart.common.view.components.VLabelView
 		}
 		
 		override protected function update( _evt:JChartEvent ):void{
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.vpoint ) ) return;
+			if( !( _config.c && _config.c.vpoint ) ) return;
 			
-			Common.each( BaseConfig.ins.c.vpointReal, function( _k:int, _item:Object ):void{
+			var _endY:Number = _config.c.chartY + _config.c.chartHeight + 1;
+			if( _config.yAxisEnabled && _config.vlineEnabled ){
+				_endY += _config.yArrowLength;
+			}
+			
+			Common.each( _config.c.vpointReal, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
-				var _x:Number = _item.end.x - _tf.width / 2;
+				var _x:Number = _item.end.x - _tf.width / 2
+					;
 				
 				if( _k === 0 ){
-					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+					if( _x + _tf.width > _config.stageWidth ){
+						_x = _config.stageWidth - _tf.width;
 					}
 				}else if( _k === _config.c.vpointReal.length - 1 ){
-					_x < 5 && ( _x = _config.c.chartX - 3 );
+					_x < 1 && ( _x = 1 );
 				}
 				
 //				_tf.x = _x;
 //				_tf.y = _item.end.y;
 				
-				if( BaseConfig.ins.animationEnabled ){
+				if( _config.animationEnabled ){
 					_tf.visible = true;
 					_tf.x = _x;
 					_tf.y = _item.end.y + 200;
 					
 					TweenLite.delayedCall( 0, 
 						function():void{
-							TweenLite.to( _tf, BaseConfig.ins.animationDuration
+							TweenLite.to( _tf, _config.animationDuration
 								, { 
 									x: _x
-									, y: _item.end.y
+									, y: _endY
 									, ease: Expo.easeOut } );
 						});
 				}else{
-//					_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace;
+//					_tf.x = _item.start.x - _tf.width - _config.vlabelSpace;
 //					_tf.y = _item.start.y - _tf.height / 2;
 					_tf.x = _x;
-					_tf.y = _item.end.y;
+					_tf.y = _endY;
 				}
 			});
 		}

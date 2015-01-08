@@ -1,6 +1,8 @@
 package org.xas.jchart.common.view.components.SerialLabel
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -8,8 +10,6 @@ package org.xas.jchart.common.view.components.SerialLabel
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
-	import com.greensock.TweenLite;
-	import com.greensock.easing.Expo;
 	
 	import org.xas.core.utils.EffectUtility;
 	import org.xas.core.utils.Log;
@@ -21,42 +21,58 @@ package org.xas.jchart.common.view.components.SerialLabel
 	
 	public class VHistogramSerialLabelView extends BaseSerialLabelView
 	{	
+		private var _config:Config;
+		
 		public function VHistogramSerialLabelView()
 		{
 			super();
+			_config = BaseConfig.ins as Config;
 		}
 		
 		override protected function addToStage( _evt:Event ):void{
+			_labels = new Vector.<Vector.<TextField>>;
+			if( !( _config.displaySeries.length && _config.displaySeries[0].data.length ) ) return;
+			Common.each( _config.displaySeries[0].data, function( _k:int, _item:Number ):void{
+				var _temp:Vector.<TextField> = new Vector.<TextField>();
+				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
+					var _label:JTextField = new JTextField( _sitem );
+					_label.text = _config.serialDataLabelValue( _sk, _k );
+					
+					_label.autoSize = TextFieldAutoSize.LEFT;
+					_label.selectable = false;
+					_label.textColor = _config.itemColor( _sk );
+					_label.mouseEnabled = false;
+					
+					var _maxStyle:Object = {};
+					if( _sitem.value == _config.maxValue ){
+						_maxStyle = _config.maxItemParams.style || _maxStyle;
+					}
+					
+					Common.implementStyle( _label, [ { size: 14 }, _maxStyle ] );
+					EffectUtility.textShadow( _label as TextField, { color: _config.itemColor( _sk ), size: 12 }, 0xffffff );
+					_temp.push( _label );
+					
+					( _label.height > _maxHeight ) && ( _maxHeight = _label.height );
+					( _label.width > _maxWidth ) && ( _maxWidth = _label.width );
+					_label.x = -1000;
+					addChild( _label );
+				});
+				_labels.push( _temp );
+			});
 		}
 		
 		override protected function showChart( _evt: JChartEvent ):void{
-			this.graphics.clear();			
-			this.graphics.beginFill( 0xcccccc, .13 );
 						
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
-			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
+			if( !( _config.c && _config.c.rects ) ) return;
+			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
 					
-					if( BaseConfig.ins.serialLabelEnabled ){
+					if( _config.serialLabelEnabled ){
 						
-						var _label:JTextField = new JTextField( _sitem );
-						_label.text = BaseConfig.ins.serialDataLabelValue( _sk, _k );
-						
-						_label.autoSize = TextFieldAutoSize.LEFT;
-						_label.selectable = false;
-						_label.textColor = BaseConfig.ins.itemColor( _sk );
-						_label.mouseEnabled = false;
-						
-						var _maxStyle:Object = {};
-						if( _sitem.value == BaseConfig.ins.maxValue ){
-							_maxStyle = BaseConfig.ins.maxItemParams.style || _maxStyle;
-						}
-						
-						Common.implementStyle( _label, [ { size: 14 }, _maxStyle ] );
-						EffectUtility.textShadow( _label as TextField, { color: BaseConfig.ins.itemColor( _sk ), size: 12 }, 0xffffff );
+						var _label:TextField = _labels[ _k ][ _sk ];
 						
 						_label.y = _sitem.y + _sitem.height / 2 - _label.height / 2;
 						
@@ -66,20 +82,16 @@ package org.xas.jchart.common.view.components.SerialLabel
 							_label.x = _sitem.x - _label.width - 5;
 						}
 						
-						if( BaseConfig.ins.animationEnabled ){
+						if( _config.animationEnabled ){
 							_label.alpha = 0;
-							TweenLite.delayedCall( BaseConfig.ins.animationDuration, 
+							TweenLite.delayedCall( _config.animationDuration, 
 								function():void{
-									TweenLite.to( _label, BaseConfig.ins.animationDuration
+									TweenLite.to( _label, _config.animationDuration
 										, { 
 											alpha: 1, ease: Expo.easeOut 
 										} );
 								});
 						}
-						
-						addChild( _label );
-						
-						( _label.height > _maxHeight ) && ( _maxHeight = _label.height );
 					}
 					
 				});

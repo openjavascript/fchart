@@ -9,6 +9,7 @@ package org.xas.jchart.common.view.components.HoverBgView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.HistogramUI;
+	import org.xas.jchart.common.view.mediator.SerialLabelMediator;
 
 	public class VHistogramHoverBgView extends BaseHoverBgView
 	{
@@ -38,7 +39,12 @@ package org.xas.jchart.common.view.components.HoverBgView
 					, _bgColor:uint = 0xF0F0F0
 					, _borderColor:uint = 0xB4B4B4
 					, _borderWidth:uint = 2
+					, _width:Number = _config.c.chartWidth
 					;
+					
+				if( _config.serialLabelEnabled && smediator ){
+//					_width += smediator.maxWidth;
+				}
 				
 				( 'bgColor' in _config.hoverBgStyle ) && ( _bgColor = _config.hoverBgStyle.bgColor );
 				( 'borderColor' in _config.hoverBgStyle ) && ( _borderColor = _config.hoverBgStyle.borderColor );
@@ -47,7 +53,7 @@ package org.xas.jchart.common.view.components.HoverBgView
 				_box.graphics.beginFill( _bgColor );
 				_box.graphics.lineStyle( _borderWidth, _borderColor );
 
-				_box.graphics.drawRect( _config.c.minX, _item.x, _item.width - 5, _item.height );
+				_box.graphics.drawRect( _config.c.chartX, _item.x, _width, _item.height );
 				_box.visible = false;
 
 				_boxs.push( _box );
@@ -81,6 +87,10 @@ package org.xas.jchart.common.view.components.HoverBgView
 			
 			_boxs[ _ix ].visible = true;
 			_preIndex = _ix;
+		}
+		
+		private function get smediator():SerialLabelMediator{
+			return _config.facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
 		}
 		
 	}

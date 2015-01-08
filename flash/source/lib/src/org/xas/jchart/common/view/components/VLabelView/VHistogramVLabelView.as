@@ -1,6 +1,8 @@
 package org.xas.jchart.common.view.components.VLabelView
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -18,8 +20,6 @@ package org.xas.jchart.common.view.components.VLabelView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
-	import com.greensock.TweenLite;
-	import com.greensock.easing.Expo;
 	
 	public class VHistogramVLabelView extends BaseVLabelView
 	{
@@ -80,14 +80,20 @@ package org.xas.jchart.common.view.components.VLabelView
 			Common.each( BaseConfig.ins.c.vpointReal, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
-				var _x:Number = _item.end.x - _tf.width / 2;
+				var _x:Number = _item.end.x - _tf.width / 2
+					, _y:Number = _item.end.y
+					;
+					
+				if( _config.hlineEnabled ){
+				}
+				_y += _config.xArrowLength;
 				
 				if( _k === 0 ){
-					if( _x + _tf.width > _config.c.chartX + _config.c.chartWidth ){
-						_x = _config.c.chartX + _config.c.chartWidth - _tf.width + 3;
+					if( _x + _tf.width > _config.stageWidth ){
+						_x = _config.stageWidth - _tf.width - 2;
 					}
 				}else if( _k === _config.c.vpointReal.length - 1 ){
-					_x < 5 && ( _x = _config.c.chartX - 3 );
+					_x < 2 && ( _x = 2 );
 				}
 				
 //				_tf.x = _x;
@@ -96,21 +102,21 @@ package org.xas.jchart.common.view.components.VLabelView
 				if( BaseConfig.ins.animationEnabled ){
 					_tf.visible = true;
 					_tf.x = _x;
-					_tf.y = _item.end.y + 200;
+					_tf.y = _y + 200;
 					
 					TweenLite.delayedCall( 0, 
 						function():void{
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
 									x: _x
-									, y: _item.end.y
+									, y: _y
 									, ease: Expo.easeOut } );
 						});
 				}else{
 //					_tf.x = _item.start.x - _tf.width - BaseConfig.ins.vlabelSpace;
 //					_tf.y = _item.start.y - _tf.height / 2;
 					_tf.x = _x;
-					_tf.y = _item.end.y;
+					_tf.y = _y;
 				}
 			});
 		}

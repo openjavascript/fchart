@@ -30,20 +30,18 @@ package org.xas.jchart.vhistogram.controller
 		override public function execute(notification:INotification):void{
 			
 			_c = _config.setCoordinate( new Coordinate() );
-			
+			 
 			_c.corner = corner();
 			
 			_c.minX = _c.x + _config.vlabelSpace + 2;
-			_c.minY = _c.y + 5;
-			_c.maxX = _c.x + _config.stageWidth - 5;
-			_c.maxY = _c.y + _config.stageHeight - 5;
+			_c.minY = _config.vspace;
+			_c.maxX = _c.x + _config.stageWidth - _config.hspace;
+			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
 						
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
 			if( _config.cd ){
-				
-				_config.c.arrowLength = 8;
 				
 				if( _config.cd.title && _config.cd.title.text ){
 					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )
@@ -55,14 +53,14 @@ package org.xas.jchart.vhistogram.controller
 					facade.registerMediator( new SubtitleMediator( _config.cd.subtitle.text ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
-					_config.c.minY += pSubtitleMediator.view.height + 5;
+					_config.c.minY += pSubtitleMediator.view.height + _config.vspace;
 				}
 				
 				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
 					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
-					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace + 5;
+					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
 				} else {
 					_config.c.minX += 5;
 				}
@@ -84,7 +82,7 @@ package org.xas.jchart.vhistogram.controller
 					_config.c.maxY -= 2;
 				}
 				
-				_config.c.maxX -= 5;
+//				_config.c.maxX -= 5;
 				
 				//初始化vlabel,并修改图标最大Y的范围
 				if( _config.yAxisEnabled ){
@@ -107,8 +105,8 @@ package org.xas.jchart.vhistogram.controller
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new SerialLabelMediator() );
-					_config.c.minY += _config.c.serialLabelPadY;
-					_yPad += _config.c.serialLabelPadY;
+					_config.c.maxX -= pSerialLabelMediator.maxWidth;
+//					Log.log( pSerialLabelMediator.maxWidth )
 				}
 				
 				if( _config.categories && _config.categories.length ){
@@ -120,7 +118,7 @@ package org.xas.jchart.vhistogram.controller
 					_config.c.minX += pHLabelMediator.maxWidth;
 				}
 				
-				_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
+				_config.c.chartWidth = _config.c.maxX - _config.c.minX - _config.vspace;
 			
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
@@ -138,7 +136,7 @@ package org.xas.jchart.vhistogram.controller
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
 				
-				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
+				_config.c.chartX = _config.c.minX + _config.yArrowLength - 2;
 				_config.c.chartY = _config.c.minY;
 				
 				facade.registerMediator( new GraphicBgMediator() );	
@@ -244,7 +242,7 @@ package org.xas.jchart.vhistogram.controller
 						_partWidth = _partWidth || 1;
 						
 						_rectItem.y = _y;
-						_rectItem.x = _nx - 1;
+						_rectItem.x = _nx ;
 						_rectItem.width = _h;
 						_rectItem.height = _partWidth;
 						_rectItem.value = _sitem.data[ _k ];
@@ -285,7 +283,6 @@ package org.xas.jchart.vhistogram.controller
 		/* 处理柱状图粒度 */
 		private function calcChartVPoint():void{
 			var _partN:Number = _config.c.chartWidth / ( _config.rate.length -1 )
-				, _sideLen:Number = _config.c.arrowLength
 				;
 			
 			_config.c.vpart = _partN;
@@ -293,23 +290,19 @@ package org.xas.jchart.vhistogram.controller
 			_config.c.vpoint = [];
 			_config.c.vpointReal = [];
 			
-			
-			var _padY:Number = 0;
 			var _startX:Number;
-			if( !_config.yAxisEnabled ){
-			}
 			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
-				_startX = _config.c.maxX - 5 - _partN * _k;
+				_startX = _config.c.chartX + _config.c.chartWidth - _partN * _k;
 					
 				_config.c.vpoint.push( {
-					start: new Point( _startX, _config.c.minY + _padY )
-					, end: new Point( _startX, _config.c.maxY + _padY )
+					start: new Point( _startX, _config.c.chartY )
+					, end: new Point( _startX, _config.c.chartY + _config.c.chartHeight )
 				});
 				
 				_config.c.vpointReal.push( {
-					start: new Point( _startX, _config.c.minY )
-					, end: new Point( _startX, _config.c.maxY + _sideLen )
+					start: new Point( _startX, _config.c.chartY )
+					, end: new Point( _startX, _config.c.chartY + _config.c.chartHeight )
 				});
 			});
 		}
@@ -317,11 +310,10 @@ package org.xas.jchart.vhistogram.controller
 		/* 处理柱状图分组 */
 		private function calcChartHPoint():void{
 			if( !_config.yAxisEnabled ){
-				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
+//				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
 			
-			var _partN:Number = _config.c.chartHeight / ( _config.categories.length )
-				, _sideLen:Number = _config.c.arrowLength
+			var _partN:Number = _config.c.chartHeight / ( _config.categories.length || 1 )
 				;
 			
 			_config.c.hpart = _partN;
@@ -332,30 +324,30 @@ package org.xas.jchart.vhistogram.controller
 			_config.c.itemHeight = _partN / _config.c.itemHeightRate;
 			
 			Common.each( _config.categories, function( _k:int, _item:* ):void{
-				var _topY:Number = _config.c.minY + _partN * _k
+				var _topY:Number = _config.c.chartY + _partN * _k
 					, _bottomY:Number = _topY + _partN
 					;
 				
 				if( _k === 0 ){
 					_config.c.hlinePoint.push( {
-						start: new Point( _config.c.minX, _topY )
-						, end: new Point( _config.c.maxX - 4, _topY )
+						start: new Point( _config.c.chartX, _topY )
+						, end: new Point( _config.c.chartX + _config.c.chartWidth, _topY )
 					});					
 				}
 								
 				_config.c.hlinePoint.push( {
-					start: new Point( _config.c.minX, _bottomY )
-					, end: new Point( _config.c.maxX - 4, _bottomY )
+					start: new Point( _config.c.chartX, _bottomY )
+					, end: new Point( _config.c.chartX + _config.c.chartWidth, _bottomY )
 				});
 				
 				_config.c.hpoint.push( {
-					start: new Point( _config.c.minX - _sideLen, _bottomY - _partN / 2 )
-					, end: new Point( _config.c.minX, _bottomY - _partN / 2 )
+					start: new Point( _config.c.chartX, _bottomY - _partN / 2 )
+					, end: new Point( _config.c.chartX, _bottomY - _partN / 2 )
 				});
 				
 				_config.c.hpointReal.push( {
-					start: new Point( _config.c.minX, _topY )
-					, end: new Point( _config.c.maxX, _topY )
+					start: new Point( _config.c.chartX, _topY )
+					, end: new Point( _config.c.chartX + _config.c.chartWidth, _topY )
 				});
 			});
 		}

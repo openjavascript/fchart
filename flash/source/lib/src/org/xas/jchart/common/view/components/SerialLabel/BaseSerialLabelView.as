@@ -18,6 +18,12 @@ package org.xas.jchart.common.view.components.SerialLabel
 		protected var _maxHeight:Number = 0;
 		public function get maxHeight():Number{ return _maxHeight; }
 		
+		protected var _maxWidth:Number = 0;
+		public function get maxWidth():Number{ return _maxWidth; }
+		
+		protected var _labels:Vector.< Vector.<TextField> >;
+		public function get labels():Vector.<Vector.<TextField>>{ return _labels; }
+		
 		public function BaseSerialLabelView()
 		{
 			super();

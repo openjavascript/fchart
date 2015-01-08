@@ -15,11 +15,11 @@ package
 	import org.puremvc.as3.multicore.patterns.facade.*;
 	import org.xas.core.events.*;
 	import org.xas.core.ui.error.BaseError;
-	import org.xas.core.utils.Log;
+	import org.xas.core.utils.Log; 
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.ZHistogramData;
-	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.vzhistogram.MainFacade; 
 	   
 
@@ -161,7 +161,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !ZHistogramData.instance.data.length ) return;
-				_data = ZHistogramData.instance.data[0];
+				_data = ZHistogramData.instance.data[31];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

@@ -2647,7 +2647,6 @@ package org.xas.jchart.common.data.test
 				}
 				, yAxis: {
 					format: '{0}%'
-					, maxvalue: 100
 				}
 				, series:[{
 					name: '目标PV'
@@ -2836,7 +2835,6 @@ package org.xas.jchart.common.data.test
 				, yAxis: {
 					format: '{0}%'
 					, enabled: true
-					, maxvalue: 100
 					, rate: [ 1, .8, .6, .4, .2, .0 ]
 				}
 				, series:[{
@@ -3211,7 +3209,7 @@ package org.xas.jchart.common.data.test
 						, 20, 21, 22, 23, 0
 					]
 				}],
-				isPercent: true,
+				isPercent: false,
 				displayAllLabel: true,
 				legend: {
 					enabled: false
@@ -3463,7 +3461,7 @@ package org.xas.jchart.common.data.test
 				legend: {
 					enabled: false
 				}
-				, isPercent: true
+				, isPercent: false
 			});
 			
 			_data.push({
@@ -3498,13 +3496,13 @@ package org.xas.jchart.common.data.test
 				credits: {
 					enabled: true
 					, text: 'fchart.openjavascript.org'
-					, href: 'http://fchart.openjavascript.org/'
+					, href: 'http4://fchart.openjavascript.org/'
 				},
 				displayAllLabel: true,
 				legend: {
 					enabled: false
 				}
-				, isPercent: true
+				, isPercent: false
 			});
 			
 			_data.push({

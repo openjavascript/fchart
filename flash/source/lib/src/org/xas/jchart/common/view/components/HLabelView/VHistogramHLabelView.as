@@ -1,5 +1,8 @@
 package org.xas.jchart.common.view.components.HLabelView
 {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
+	
 	import flash.events.Event;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -9,8 +12,6 @@ package org.xas.jchart.common.view.components.HLabelView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
 	import org.xas.jchart.common.event.JChartEvent;
-	import com.greensock.TweenLite;
-	import com.greensock.easing.Expo;
 
 	public class VHistogramHLabelView extends BaseHLabelView
 	{
@@ -72,27 +73,32 @@ package org.xas.jchart.common.view.components.HLabelView
 		
 		override protected function update( _evt:JChartEvent ):void{
 			if( !( _config.c && _config.c.hpoint ) ) return;
-			
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
 				/* 指定标签定位的坐标 */
-				var _y:Number = _item.end.y - _tf.height / 2;
+				var _y:Number = _item.end.y - _tf.height / 2
+					, _x:Number = _item.start.x - _tf.width
+					;
+					
+				if( _config.vlineEnabled ){
+				}
+				_x -= _config.yArrowLength;
 				
 				if( BaseConfig.ins.animationEnabled ){
 					_tf.visible = true;
-					_tf.x = _item.start.x - _tf.width - 200;
+					_tf.x = _x - 200;
 					_tf.y = _y;
 					TweenLite.delayedCall( 0, 
 						function():void{
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
-									x: _item.start.x - _tf.width
+									x: _x
 									, y: _y
 									, ease: Expo.easeOut } );
 						});
 				}else{					
-					_tf.x = _item.start.x - _tf.width;
+					_tf.x = _x;
 					_tf.y = _y;
 				}
 			});

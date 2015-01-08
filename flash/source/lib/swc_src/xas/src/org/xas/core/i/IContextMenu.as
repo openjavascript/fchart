@@ -1,5 +1,7 @@
 package org.xas.core.i
 {
+	import flash.net.URLRequest;
+
 	public interface IContextMenu
 	{
 		function get text():String;

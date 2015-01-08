@@ -49,7 +49,7 @@ package org.xas.jchart.common.view.components.ItemBgView
 					_spItem.graphics.beginFill( _bgColor );
 					_spItem.graphics.lineStyle( _borderWidth, _borderColor );
 
-					_spItem.graphics.drawRect( _config.c.minX, _sitem.y, _config.c.chartWidth, _sitem.height );
+					_spItem.graphics.drawRect( _config.c.chartX, _sitem.y, _config.c.chartWidth, _sitem.height );
 					//Log.log( _sitem.x, _sitem.width, _config.c.chartY, _config.c.chartHeight  )
 					//Log.printJSON( _item );
 					//Log.printJSON( _sitem );

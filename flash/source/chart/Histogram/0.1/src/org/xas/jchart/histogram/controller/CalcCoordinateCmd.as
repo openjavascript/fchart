@@ -54,7 +54,7 @@ package org.xas.jchart.histogram.controller
 					facade.registerMediator( new SubtitleMediator( _config.cd.subtitle.text ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
-					_config.c.minY += pSubtitleMediator.view.height + _config.hspace;
+					_config.c.minY += pSubtitleMediator.view.height;
 				}
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){

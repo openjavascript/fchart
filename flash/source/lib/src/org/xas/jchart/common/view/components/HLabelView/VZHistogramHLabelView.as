@@ -72,7 +72,13 @@ package org.xas.jchart.common.view.components.HLabelView
 				var _tf:TextField = _labels[ _k ];
 
 				/* 指定标签定位的坐标 */
-				var _y:Number = _item.end.y - _tf.height / 2;
+				var _y:Number = _item.end.y - _tf.height / 2
+					, _x:Number = _item.start.x
+					;
+				
+				if( _config.xAxisEnabled && _config.hlineEnabled ){
+					_x -= ( _config.xArrowLength );
+				}
 				
 				if( _k === 0 ){
 					_y < _config.c.chartY && ( _y = _config.c.chartY - 3 );
@@ -83,18 +89,18 @@ package org.xas.jchart.common.view.components.HLabelView
 				}
 				
 				if( BaseConfig.ins.animationEnabled ){
-					_tf.x = _item.start.x - _tf.width - 200;
+					_tf.x = _x - _tf.width - 200;
 					_tf.y = _y;
 					TweenLite.delayedCall( 0, 
 						function():void{
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
-									x: _item.start.x - _tf.width
+									x: _x - _tf.width
 									, y: _y
 									, ease: Expo.easeOut } );
 						});
 				}else{					
-					_tf.x = _item.start.x - _tf.width;
+					_tf.x = _x - _tf.width;
 					_tf.y = _y;
 				}
 			});

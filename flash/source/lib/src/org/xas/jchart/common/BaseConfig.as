@@ -13,7 +13,7 @@ package org.xas.jchart.common
 	import org.xas.jchart.common.data.mixchart.MixChartModel;
 
 	public class BaseConfig 
-	{
+	{		
 		public function get facade():BaseFacade{ return _facade; }
 		public var _facade:BaseFacade;
 		public function setFacade( _setter:BaseFacade ):void{ _facade = _setter; }

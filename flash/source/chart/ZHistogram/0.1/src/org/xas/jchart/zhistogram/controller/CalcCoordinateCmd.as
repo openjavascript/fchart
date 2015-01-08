@@ -36,9 +36,9 @@ package org.xas.jchart.zhistogram.controller
 			_c.corner = corner();
 			
 			_c.minX = _c.x + _config.vlabelSpace + 2;
-			_c.minY = _c.y + _config.hspace;
+			_c.minY = _c.y + _config.vspace;
 			_c.maxX = _c.x + _config.stageWidth -_config.vspace;
-			_c.maxY = _c.y + _config.stageHeight - _config.hspace;
+			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
 						
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
@@ -55,7 +55,7 @@ package org.xas.jchart.zhistogram.controller
 					facade.registerMediator( new SubtitleMediator( _config.cd.subtitle.text ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
-					_config.c.minY += pSubtitleMediator.view.height + _config.hspace;
+					_config.c.minY += pSubtitleMediator.view.height + _config.vspace;
 				}
 				
 				if( _config.legendEnabled ){
