@@ -35,9 +35,9 @@ package org.xas.jchart.histogram.controller
 			_c.corner = corner();
 			
 			_c.minX = _c.x + _config.vlabelSpace + 2;
-			_c.minY = _c.y + _config.hspace;
+			_c.minY = _c.y + _config.vspace * 2;
 			_c.maxX = _c.x + _config.stageWidth - _config.vspace;
-			_c.maxY = _c.y + _config.stageHeight - _config.hspace;
+			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
 									
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
@@ -100,8 +100,8 @@ package org.xas.jchart.histogram.controller
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new SerialLabelMediator() );
-					_config.c.minY += _config.c.serialLabelPadY;
-					_yPad += _config.c.serialLabelPadY;
+//					_config.c.minY += _config.c.serialLabelPadY;
+//					_yPad += _config.c.serialLabelPadY;
 				}
 								
 				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;

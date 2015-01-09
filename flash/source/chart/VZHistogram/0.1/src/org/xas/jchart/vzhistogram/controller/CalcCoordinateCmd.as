@@ -35,7 +35,7 @@ package org.xas.jchart.vzhistogram.controller
 			_c.corner = corner();
 			
 			_c.minX = _config.vlabelSpace + 2;
-			_c.minY = _c.y ;
+			_c.minY = _c.y + _config.vspace * 2;
 			_c.maxX = _c.x + _config.stageWidth - _config.vspace;
 			_c.maxY = _config.stageHeight - _config.vspace;
 						
@@ -106,8 +106,8 @@ package org.xas.jchart.vzhistogram.controller
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new SerialLabelMediator() );
-					_config.c.minY += _config.c.serialLabelPadY;
-					_yPad += _config.c.serialLabelPadY;
+//					_config.c.minY += _config.c.serialLabelPadY;
+//					_yPad += _config.c.serialLabelPadY;
 				}
 				
 				if( _config.categories && _config.categories.length ){
@@ -266,7 +266,7 @@ package org.xas.jchart.vzhistogram.controller
 				}
 				
 				if( _config.serialLabelEnabled ){
-					_tmpDataRect.y -= _config.c.serialLabelPadY;
+//					_tmpDataRect.y -= _config.c.serialLabelPadY;
 					//_tmpDataRect.height += _config.c.serialLabelPadX
 				}
 				

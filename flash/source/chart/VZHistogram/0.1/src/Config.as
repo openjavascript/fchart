@@ -11,6 +11,11 @@ package
 			super();
 		}
 		
+		
+		override public function get chartName():String{ return 'VZHistogram'; }
+		override public function get chartUrl():String{ return 'http://fchart.openjavascript.org/modules/JC.FChart/0.1/_demo/hcolumn/'; }
+		
+		
 		protected var _totalArray:Array = new Array();
 		public function get totalArray():Array{ return _totalArray; }
 		

@@ -72,15 +72,33 @@ package org.xas.jchart.common.view.components.SerialLabel
 					
 					if( _config.serialLabelEnabled ){
 						
-						var _label:TextField = _labels[ _k ][ _sk ];
+						var _label:TextField = _labels[ _k ][ _sk ]
+							, _x:Number = 0
+							, _y:Number = 0
+							;
 						
-						_label.y = _sitem.y + _sitem.height / 2 - _label.height / 2;
+						_y = _sitem.y + _sitem.height / 2 - _label.height / 2;
 						
 						if( _sitem.value >= 0 ){
-							_label.x = _sitem.x + 5 + (!!_sitem.width ? _sitem.width : 0);
+							_x = _sitem.x + _config.vspace + (!!_sitem.width ? _sitem.width : 0);
 						}else{
-							_label.x = _sitem.x - _label.width - 5;
+							_x = _sitem.x - _label.width - _config.vspace;
 						}
+						
+						if( _x < 0 ){ 
+							_x = 0;
+						}else if( _x + _label.width >= _config.stageWidth ){
+							_x = _config.stageWidth - _label.width;
+						}
+						
+						if( _y < 0 ){
+							_y = 0;
+						}else if( _y + _label.height > _config.stageHeight ){
+							_y = _config.stageHeight - _label.height;
+						}
+						
+						_label.x = _x;
+						_label.y = _y;
 						
 						if( _config.animationEnabled ){
 							_label.alpha = 0;

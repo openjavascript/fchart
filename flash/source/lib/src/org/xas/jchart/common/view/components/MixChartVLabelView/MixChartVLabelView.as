@@ -93,32 +93,43 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 			//return;
 			
 			Common.each( _config.c.vpoint, function( _k:int, _item:Object ):void{
-				var _tf:TextField = _labels[ _k ];
+				var _tf:TextField = _labels[ _k ]
+					, _ex:Number = 0; 
+					;
+					
+				if( _model.isOpposite ){
+					_ex = _model.left;
+//					if( _config.c.hasOppositeYAxis ){
+//						_ex += _config.yArrowLength
+//					}
+				}else{						
+					_ex = _model.left - _tf.width;
+				}
 				
 				if( _config.animationEnabled ){
 					_tf.visible = true;
 					
 					if( _model.isOpposite ){
 						_tf.y = _item.start.y - _tf.height / 2;
-						_tf.x = _model.left + 200;
+						_tf.x = _ex + 200;
 						
 						TweenLite.delayedCall( 0, 
 							function():void{
 								TweenLite.to( _tf, _config.animationDuration
 									, { 
-										x: _model.left
+										x: _ex
 										, y: _item.start.y - _tf.height / 2
 										, ease: Expo.easeOut } );
 							});
 					}else{		
 						_tf.y = _item.start.y - _tf.height / 2;
-						_tf.x = _model.left - _tf.width - 200;
+						_tf.x = _ex - 200;
 						
 						TweenLite.delayedCall( 0, 
 							function():void{
 								TweenLite.to( _tf, _config.animationDuration
 									, { 
-										x: _model.left - _tf.width
+										x: _ex
 										, y: _item.start.y - _tf.height / 2
 										, ease: Expo.easeOut } );
 							});
@@ -126,11 +137,7 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 
 				}else{
 					_tf.visible = true;
-					if( _model.isOpposite ){
-						_tf.x = _model.left;
-					}else{						
-						_tf.x = _model.left - _tf.width;
-					}
+					_tf.x = _ex;
 					//Log.log( _model.left );
 					_tf.y = _item.start.y - _tf.height / 2;
 				}

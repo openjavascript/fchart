@@ -8,7 +8,10 @@ package
 		{
 			super();
 		}	
-
+		
+		override public function get chartName():String{ return 'VHistogram'; }
+		override public function get chartUrl():String{ return 'http://fchart.openjavascript.org/modules/JC.FChart/0.1/_demo/vbar/'; }
+		
 
 	}
 }

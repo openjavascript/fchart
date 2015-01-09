@@ -36,15 +36,10 @@ package org.xas.jchart.curvegram.controller
 			_c.corner = corner();
 			
 			_c.minX = _c.x + _config.vlabelSpace + 2;
-			_c.minY = _c.y + 5;
-			_c.maxX = _c.x + _config.stageWidth - 6;
-			_c.maxY = _c.y + _config.stageHeight - 5;			
+			_c.minY = _c.y + _config.vspace * 2;
+			_c.maxX = _c.x + _config.stageWidth - _config.vspace;
+			_c.maxY = _c.y + _config.stageHeight - _config.vspace;			
 			//_c.arrowLength = 0;
-			
-			if( _config.serialLabelEnabled ){
-				_c.minX += 10;
-				_c.maxX -= 10;
-			}
 			
 			var _yPad:Number = _c.minY;
 						
@@ -121,8 +116,8 @@ package org.xas.jchart.curvegram.controller
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new SerialLabelMediator() );
-					_config.c.minY += _config.c.serialLabelPadY;
-					_yPad += _config.c.serialLabelPadY;
+//					_config.c.minY += _config.c.serialLabelPadY;
+//					_yPad += _config.c.serialLabelPadY;
 				}
 				
 				if( _config.categories && _config.categories.length ){

@@ -12,6 +12,9 @@ package
 			super();
 		}
 		
+		override public function get chartName():String{ return 'CurveGram'; }
+		override public function get chartUrl():String{ return 'http://fchart.openjavascript.org/modules/JC.FChart/0.1/_demo/line/'; }
+		
 		
 		public function lineDashStyle( _seriesPart:Object ):String{
 			var _r:String = 'Solid';

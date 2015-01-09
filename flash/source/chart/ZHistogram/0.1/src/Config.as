@@ -11,8 +11,11 @@ package
 		public function Config()
 		{
 			super();
-		}
+		}	
 		
+		override public function get chartName():String{ return 'ZHistogram'; }
+		override public function get chartUrl():String{ return 'http://fchart.openjavascript.org/modules/JC.FChart/0.1/_demo/column/'; }
+				
 		protected var _totalArray:Array = new Array();
 		public function get totalArray():Array{ return _totalArray; }
 		

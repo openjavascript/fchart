@@ -33,6 +33,8 @@ package org.xas.jchart.mixchart.controller
 			super();
 			
 			_config = BaseConfig.ins as Config;
+			
+//			Log.log( _config.serialLabelEnabled, _config.superSerialLabelEnabled );
 		}
 		
 		override public function execute(notification:INotification):void{
@@ -41,14 +43,13 @@ package org.xas.jchart.mixchart.controller
 			
 			_c.corner = corner();
 			
-			_c.minX = _c.x + _config.vlabelSpace + 2;
-			_c.minY = _c.y + 5;
-			_c.maxX = _c.x + _config.stageWidth - 5;
-			_c.maxY = _c.y + _config.stageHeight - 5;
+			_c.minX = _c.x + _config.vlabelSpace + 2 + _config.vspace;
+			_c.minY = _c.y + _config.vspace;
+			_c.maxX = _c.x + _config.stageWidth - _config.vspace * 2;
+			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
+
 			_c.vtitle = {};
-			
-			_c.arrowLength = 8;
-						
+									
 			facade.registerMediator( new BgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
@@ -85,7 +86,7 @@ package org.xas.jchart.mixchart.controller
 					_config.c.maxY -= pCreditMediator.view.height;
 				}	
 				
-				_config.c.maxX -= 5;
+//				_config.c.maxX -= 5;
 				
 				
 				if( _config.yAxisEnabled ){
@@ -120,10 +121,11 @@ package org.xas.jchart.mixchart.controller
 							_config.c.minX += pMixChartVTitleMediator.getWidth( _k );
 						}
 						
-						_config.c.hasYAxis = true;
 						_config.c.minX += pMixChartVLabelMediator.getMaxWidth( _k );
 						_item.left = _config.c.minX ;
 						_config.c.minX += _config.vlabelSpace;
+						
+						_config.c.hasYAxis = true;
 					});
 					
 					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
@@ -143,15 +145,16 @@ package org.xas.jchart.mixchart.controller
 						_config.c.maxX -= pMixChartVLabelMediator.getMaxWidth( _k );
 						_item.left = _config.c.maxX;
 						_config.c.maxX -= _config.vlabelSpace;
+						
 						_config.c.hasOppositeYAxis = true;
 					}, true );
 					
 					if( _config.c.hasYAxis ){
-						_config.c.maxX -= _config.c.arrowLength;
+						_config.c.minX += _config.yArrowLength;
 					}
 					
 					if( _config.c.hasOppositeYAxis ){
-						
+						_config.c.maxX -= _config.yArrowLength;
 					}
 				}
 
@@ -169,24 +172,25 @@ package org.xas.jchart.mixchart.controller
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new SerialLabelMediator() );
-					_config.c.minY += _config.c.serialLabelPadY;
-					_yPad += _config.c.serialLabelPadY;
+//					_config.c.minY += _config.c.serialLabelPadY;
+//					_yPad += _config.c.serialLabelPadY;
 				}
 				
-				if( _config.yAxisEnabled ){
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
-				}else{
-					//_config.c.chartWidth = _config.c.maxX - 5;
-					_config.c.chartWidth = _config.c.maxX - _config.c.minX;
-				}
-				
-				if( _config.categories && _config.categories.length ){
-					if( _config.displayAllLabel ){
-						_config.c.labelWidth = _config.c.chartWidth / ( _config.categories.length ) / 2;
-					}else{
-						_config.c.labelWidth = _config.c.chartWidth / 7;
-					}
-				}
+//				_config.c.vlabelMaxWidth = pMixChartVLabelMediator ? pMixChartVLabelMediator.maxWidth : 0;
+//				
+//				if( _config.categories && _config.categories.length ) {
+//					if( _config.displayAllLabel ){
+//						_config.c.labelWidth = _config.c.chartWidth / _config.categories.length / 2;
+//					} else {
+//						if( _config.displayMod ){
+//							_config.c.labelWidth = _config.c.chartWidth * _config.displayMod 
+//								/ _config.categories.length;
+//						} else {
+//							_config.c.labelWidth = _config.c.chartWidth / 7;
+//						}
+//					}
+//				}
+
 				
 				if( _config.xAxisEnabled ){
 					facade.registerMediator( new HLabelMediator() );
@@ -200,14 +204,9 @@ package org.xas.jchart.mixchart.controller
 					} else {
 						_config.c.maxX -= _tmpMaxWidth;
 					}
-					
-					if( _config.yAxisEnabled ){
-						_config.c.chartWidth = _config.c.maxX - _config.c.minX - 5;
-					}else{
-						//_config.c.chartWidth = _config.c.maxX - 5;
-						_config.c.chartWidth = _config.c.maxX - _config.c.minX;
-					}
+
 				}
+				_config.c.chartWidth = _config.c.maxX - _config.c.minX;
 			
 				if( _config.graphicHeight ){
 					var _hpad:Number = _config.c.maxY - _config.graphicHeight;
@@ -225,7 +224,7 @@ package org.xas.jchart.mixchart.controller
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}	
 				
-				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
+				_config.c.chartX = _config.c.minX - 2;
 				_config.c.chartY = _config.c.minY;
 				
 				if( _config.yAxisEnabled ){
@@ -255,8 +254,8 @@ package org.xas.jchart.mixchart.controller
 						, _opOffset:Number = _config.c.chartX + _config.c.chartWidth
 						;
 					if( _config.vlineEnabled ){
-						_fixOffset -= _config.c.arrowLength;
-						_opOffset +=_config.c.arrowLength;
+						_fixOffset -= _config.xArrowLength;
+						_opOffset +=_config.xArrowLength;
 					}
 					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
 						if( !_item.enabeld ) return;
@@ -294,7 +293,7 @@ package org.xas.jchart.mixchart.controller
 				Common.each( _config.mixModel.graphicType, function( _k:String, _item:* ):void{
 					//Log.printClass( _item.model as MixChartModelItem );
 					//Log.printJSON( _item );
-					_config.c.mix[ _k ] = {};
+					_config.c.mix[ _k ] = { srcData: _item };
 					sendNotification( JChartEvent.MIX_CHART_CALC_COORDINATE_PREFIX + _k, _item, _k );
 				});
 				
@@ -328,38 +327,31 @@ package org.xas.jchart.mixchart.controller
 		
 		private function calcChartVPoint():void{
 			var _partN:Number = _config.c.chartHeight / ( _config.rate.length -1 )
-				, _sideLen:Number = _config.c.arrowLength
 				;
 			_config.c.vpart = _partN;
 			_config.c.itemHeight = _partN / 2;
 			_config.c.vpoint = [];
 			_config.c.vpointReal = [];
 			
-			
-			var _padX:Number = 0;
-			if( !_config.yAxisEnabled ){
-			}
-			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
-				var _n:Number = _config.c.minY + _partN * _k, _sideLen:int = _config.c.arrowLength;
+				var _n:Number = _config.c.chartY + _partN * _k;
 				_config.c.vpoint.push( {
-					start: new Point( _config.c.minX + _padX, _n )
-					, end: new Point( _config.c.maxX + _padX, _n )
+					start: new Point( _config.c.chartX, _n )
+					, end: new Point( _config.c.chartX + _config.c.chartWidth + 1, _n )
 				});
 				
 				_config.c.vpointReal.push( {
-					start: new Point( _config.c.minX + _sideLen, _n )
-					, end: new Point( _config.c.maxX + _sideLen, _n )
+					start: new Point( _config.c.chartX, _n )
+					, end: new Point( _config.c.chartX + _config.c.chartWidth, _n )
 				});
 			});
 		}
 		
 		private function calcChartHPoint():void{
 			if( !_config.yAxisEnabled ){
-				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
+//				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
-			var _partN:Number = _config.c.chartWidth / ( _config.categories.length )
-				, _sideLen:Number = _config.c.arrowLength
+			var _partN:Number = _config.c.chartWidth / ( _config.categories.length || 1 )
 				;
 			
 			_config.c.hpart = _partN;
@@ -370,28 +362,28 @@ package org.xas.jchart.mixchart.controller
 			_config.c.itemWidth = _partN / _config.c.itemWidthRate;
 						
 			Common.each( _config.categories, function( _k:int, _item:* ):void{
-				var _n:Number = _config.c.minX + _partN * _k + 5, _sideLen:int = _config.c.arrowLength;
+				var _n:Number = _config.c.chartX + _partN * _k;
 				
 				if( _k === 0 ){					
 					_config.c.hlinePoint.push( {
-						start: new Point( _n, _config.c.minY )
-						, end: new Point( _n, _config.c.maxY + 1 )
+						start: new Point( _n, _config.c.chartY )
+						, end: new Point( _n, _config.c.chartY + _config.c.chartHeight )
 					});					
 				}
 								
 				_config.c.hlinePoint.push( {
-					start: new Point( _n + _partN, _config.c.minY )
-					, end: new Point( _n + _partN, _config.c.maxY + 1 )
+					start: new Point( _n + _partN, _config.c.chartY )
+					, end: new Point( _n + _partN, _config.c.chartY + _config.c.chartHeight )
 				});
 				
 				_config.c.hpoint.push( {
-					start: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.maxY )
-					, end: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.maxY + _sideLen )
+					start: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.chartY + _config.c.chartHeight  )
+					, end: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.chartY + _config.c.chartHeight )
 				});
 				
 				_config.c.hpointReal.push( {
-					start: new Point( _n, _config.c.minY )
-					, end: new Point( _n, _config.c.maxY )
+					start: new Point( _n, _config.c.chartY )
+					, end: new Point( _n, _config.c.chartY + _config.c.chartHeight )
 				});
 			});
 		}

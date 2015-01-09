@@ -515,6 +515,10 @@ package org.xas.jchart.common
 				&& ( _r = StringUtils.parseBool( cd.dataLabels.enabled ) );
 			
 			return _r;
+		}		
+		
+		public function get superSerialLabelEnabled():Boolean{
+			return serialLabelEnabled;
 		}
 		
 		public function get vlineEnabled():Boolean{
@@ -1695,6 +1699,9 @@ package org.xas.jchart.common
 		}
 		
 		/* legend end */
+		
+		public function get chartName():String{ return ''; }
+		public function get chartUrl():String{ return ''; }
 		
 		public function BaseConfig() {
 		}

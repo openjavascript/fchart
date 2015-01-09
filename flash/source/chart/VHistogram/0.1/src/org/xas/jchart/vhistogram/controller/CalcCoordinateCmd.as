@@ -105,7 +105,7 @@ package org.xas.jchart.vhistogram.controller
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new SerialLabelMediator() );
-					_config.c.maxX -= pSerialLabelMediator.maxWidth;
+//					_config.c.maxX -= pSerialLabelMediator.maxWidth;
 //					Log.log( pSerialLabelMediator.maxWidth )
 				}
 				
