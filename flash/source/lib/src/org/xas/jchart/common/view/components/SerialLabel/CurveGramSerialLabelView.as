@@ -53,6 +53,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 				var _position:Array = _item.position as Array
 					;
 				//Log.log( _values );
+				if( !seriesEnabled( config.displaySeries, _k ) ) return;
 					
 				Common.each( _position, function( _sk:int, _sitem:Object ):void{
 					if( _config.serialLabelEnabled ){

@@ -184,26 +184,7 @@ package
 			
 			return _r;
 		}
-		
-		override public function get serialLabelEnabled():Boolean{
-			var _r:Boolean = false;
-			
-			_r = super.serialLabelEnabled;
-			
-			if( !_r ){
-				Common.each( this.displaySeries, function( _k:int, _item:Object ):void{
-					if( _item.dataLabels && ( 'enabled' in _item.dataLabels ) ){
-						_r = StringUtils.parseBool( _item.dataLabels.enabled ) || _r;
-					}
-				});
-			}
-			
-			return _r;
-		}		
-		override public function get superSerialLabelEnabled():Boolean{
-			return super.serialLabelEnabled;
-		}
-
+	
  
 	}
 }

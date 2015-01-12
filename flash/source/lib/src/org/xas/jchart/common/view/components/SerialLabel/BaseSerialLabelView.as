@@ -10,6 +10,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 	import flash.text.TextFormatAlign;
 	
 	import org.xas.core.utils.Log;
+	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
 	
@@ -24,9 +25,13 @@ package org.xas.jchart.common.view.components.SerialLabel
 		protected var _labels:Vector.< Vector.<TextField> >;
 		public function get labels():Vector.<Vector.<TextField>>{ return _labels; }
 		
+		private var _config:Config;
+		public function get config():Config{ return _config; }
+		
 		public function BaseSerialLabelView()
 		{
 			super();
+			_config = BaseConfig.ins as Config;
 		
 			addEventListener( JChartEvent.SHOW_CHART, showChart );
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
@@ -49,6 +54,30 @@ package org.xas.jchart.common.view.components.SerialLabel
 		}		
 		
 		protected function updateTips( _evt: JChartEvent ):void{
+		}
+		
+		protected function seriesEnabled( _srcData:Object, _k:int ):Boolean{
+			var _r:Boolean = _config.superSerialLabelEnabled, _tmp:Object;
+			
+			if( _srcData && ( _tmp = _srcData[ _k ] ) ){
+				//				"data":
+				//				{
+				//					"dataLabels":
+				//					{
+				//						"enabled": false
+				//					}, 
+//				Log.printFormatJSON( _srcData[ _k ] )
+				//				_r = _config.superSerialLabelEnabled;
+				_tmp.dataLabels
+					&& ( 'enabled' in _tmp.dataLabels )
+					&& ( _r = StringUtils.parseBool( _tmp.dataLabels.enabled ) );
+				
+				_tmp.dataLabel
+					&& ( 'enabled' in _tmp.dataLabel )
+					&& ( _r = StringUtils.parseBool( _tmp.dataLabel.enabled ) );
+			}
+			
+			return _r;
 		}
 
 	}

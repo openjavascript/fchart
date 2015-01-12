@@ -69,6 +69,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
+					if( !seriesEnabled( config.displaySeries, _sk ) ) return;
 					
 					if( _config.serialLabelEnabled ){
 						

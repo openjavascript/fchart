@@ -159,6 +159,16 @@ package org.xas.jchart.common
 				_r = StringUtils.printf( dataLabelFormat, Common.moneyFormat( _item.data[ _itemIx ], 3, floatLen ) );				
 			}			
 			
+			_item.dataLabels
+				&& _item.dataLabels.data
+				&& _item.dataLabels.data.length
+				&& ( _r = _item.dataLabels.data[_itemIx] );
+			
+			_item.dataLabel
+				&& _item.dataLabel.data
+				&& _item.dataLabel.data.length
+				&& ( _r = _item.dataLabel.data[_itemIx] );
+			
 			return _r;
 		}
 		
@@ -504,21 +514,33 @@ package org.xas.jchart.common
 				&& ( _r = StringUtils.parseBool( cd.xAxis.wordwrap ) );
 			
 			return _r;
-		}
+		}	
 		
 		public function get serialLabelEnabled():Boolean{
+			var _r:Boolean = superSerialLabelEnabled;
+			
+			if( !_r ){
+				Common.each( this.displaySeries, function( _k:int, _item:Object ):void{
+					if( _item.dataLabels && ( 'enabled' in _item.dataLabels ) ){
+						_r = StringUtils.parseBool( _item.dataLabels.enabled ) || _r;
+					}
+					if( _item.dataLabel && ( 'enabled' in _item.dataLabel ) ){
+						_r = StringUtils.parseBool( _item.dataLabel.enabled ) || _r;
+					}
+				});
+			}
+			
+			return _r;
+		}	
+		
+		public function get superSerialLabelEnabled():Boolean{
 			var _r:Boolean = false;
 			//return false;
 			cd 
-			&& cd.dataLabels
+				&& cd.dataLabels
 				&& ( 'enabled' in cd.dataLabels )
 				&& ( _r = StringUtils.parseBool( cd.dataLabels.enabled ) );
-			
 			return _r;
-		}		
-		
-		public function get superSerialLabelEnabled():Boolean{
-			return serialLabelEnabled;
 		}
 		
 		public function get vlineEnabled():Boolean{

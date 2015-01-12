@@ -22,6 +22,8 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+//			return;
+			
 			_data.push(
 				{
 					"chart": {

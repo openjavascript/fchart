@@ -59,11 +59,6 @@ package org.xas.jchart.common.data.test
 						"ptlogin2.qq.com"
 					]
 				}, 
-				"dataLabels":
-				{
-					"format": "{0}", 
-					"enabled": true
-				}, 
 				"yAxis":
 				{
 //					"enabled": false
@@ -106,18 +101,22 @@ package org.xas.jchart.common.data.test
 							941430913, 
 							914735040
 						]
-						, "labelData": [
-							"70.26亿", 
-							"22.43亿", 
-							"19.18亿", 
-							"18.87亿", 
-							"15.17亿", 
-							"14.63亿", 
-							"9.58亿", 
-							"9.51亿", 
-							"9.41亿", 
-							"9.14亿"
-						]
+						, dataLabel: {
+							"format": "{0}", 
+							"enabled": true,
+							"data": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
+							]
+						}
 					}
 				],
 				"animation": {
@@ -5987,6 +5986,7 @@ package org.xas.jchart.common.data.test
 					data: [19170, 32060, 13600, 7000, 14800, ]
 					//, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", ]
 					, format: '{0}台 约占{1}%'
+					, dataLabel: { enabled: true }
 				}],
 				credits: {
 					enabled: true

@@ -222,7 +222,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 			});
 		}
 
-		private function seriesEnabled( _srcData:Object, _k:int ):Boolean{
+		override protected function seriesEnabled( _srcData:Object, _k:int ):Boolean{
 			var _r:Boolean = _config.superSerialLabelEnabled, _tmp:Object;
 			
 			if( _srcData && ( _tmp = _srcData[ _k ] ) ){
@@ -232,7 +232,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 //					{
 //						"enabled": false
 //					}, 
-				Log.printFormatJSON( _srcData[ _k ] )
+//				Log.printFormatJSON( _srcData[ _k ] )
 //				_r = _config.superSerialLabelEnabled;
 				_tmp.data 
 					&& _tmp.data.dataLabels
