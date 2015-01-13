@@ -36,24 +36,27 @@ package org.xas.jchart.common.view.components.BgLineView
 		//竖线
 		override protected function drawHLine():void{
 			if( !( BaseConfig.ins.c && BaseConfig.ins.c.vpoint )  ) return;
+			var _endY:Number = _config.c.chartY + _config.c.chartHeight;
+
+			if( _config.vlineEnabled && _config.yAxisEnabled ){
+				_endY += _config.xArrowLength ;
+			}
 			
 			if( !_config.hlineEnabled ) {
+
 				addChildAt( _hboldLine = new Sprite(), 0 );
 				_hboldLine.graphics.lineStyle( 1, 0x999999, .35 );
-				_hboldLine.graphics.moveTo( _config.c.chartX, _config.c.chartY + _config.c.chartHeight + _config.xArrowLength );
+				_hboldLine.graphics.moveTo( _config.c.chartX, _endY );
 				_hboldLine.graphics.lineTo( _config.c.chartX, _config.c.chartY  );
 				return;	
 			}
 			
+			
 			Common.each( _config.c.vpointReal, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
 				, _ep:Point = _item.end as Point
-				, _sy:Number = _sp.y, _ey:Number = _ep.y
+				, _sy:Number = _sp.y
 				;
-				
-				if( _config.vlineEnabled && _config.yAxisEnabled ){
-					_ey += _config.xArrowLength;
-				}
 				
 				var _ele:DSprite = new DSprite();
 				
@@ -63,9 +66,8 @@ package org.xas.jchart.common.view.components.BgLineView
 				var _delay:Number = 0;
 				
 				_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
-				
 				if( _config.animationEnabled ){
-					_ele.max = Math.ceil( _ey - _sy );
+					_ele.max = Math.ceil( _endY - _sy );
 					_ele.count = 0;
 					
 					TweenLite.delayedCall( _delay, function():void{		
@@ -75,15 +77,15 @@ package org.xas.jchart.common.view.components.BgLineView
 								, onUpdate: function():void{
 									_ele.graphics.clear();
 									_ele.graphics.lineStyle( 1, 0x999999, .35 );
-									_ele.graphics.moveTo( _sp.x, _ey );
-									_ele.graphics.lineTo( _ep.x, _ey - _ele.count );
+									_ele.graphics.moveTo( _sp.x, _endY );
+									_ele.graphics.lineTo( _ep.x, _endY - _ele.count );
 								}
 							} );
 					});
 					
 				} else {
 					_ele.graphics.moveTo( _sp.x, _sy );
-					_ele.graphics.lineTo( _ep.x, _ey );
+					_ele.graphics.lineTo( _ep.x, _endY );
 				}
 				
 			});

@@ -23,6 +23,189 @@ package org.xas.jchart.common.data.test
 			_data = new Vector.<Object>();
 			
 //			return;
+			_data.push({
+				"chart":
+				{
+					"type": "bar",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+				}, 
+				"colors":
+				[
+					44015, 
+					10333619, 
+					639232, 
+					816836, 
+					16713241
+				], 
+				"vline":
+				{
+					//					"enabled": true
+				}, 
+				"xAxis":
+				{
+					"wordwrap": true, 
+					"categories":
+					[
+						"pos.baidu.com", 
+						"www.baidu.com", 
+						"hao.360.cn", 
+						"wd.360.cn"
+					]
+				}, 
+				"yAxis":
+				{
+					//					"enabled": false
+					"labels": {
+						"rotation": -45
+					}
+				}, 
+				"legend":
+				{
+					//					"enabled": false
+				}, 
+				"displayAllLabel": true, 
+				"maxItem":
+				{
+					"style":
+					{
+						"size": 18, 
+						"color": 6146425
+					}
+				}, 
+				"tooltip":
+				{
+					//					"enabled": true
+				}, 
+				"hline":
+				{
+					//					"enabled": false
+				}, 
+				"series":
+				[
+					{
+						"name": "pv", 
+						"data":
+						[
+							7026299386, 
+							2243248546, 
+							1918390720, 
+							1887903406
+						]
+						, dataLabel: {
+							"format": "{0}", 
+							"enabled": true,
+							"data": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
+							]
+						}
+					}
+				],
+				"animation": {
+					"enabled": true
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "bar",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+				}, 
+				"colors":
+				[
+					44015, 
+					10333619, 
+					639232, 
+					816836, 
+					16713241
+				], 
+				"vline":
+				{
+					//					"enabled": true
+				}, 
+				"xAxis":
+				{
+					"wordwrap": true, 
+					"categories":
+					[
+						"pos.baidu.com", 
+						"www.baidu.com", 
+						"hao.360.cn", 
+						"wd.360.cn"
+					]
+				}, 
+				"yAxis":
+				{
+					//					"enabled": false
+					"labels": {
+						"rotation": 45
+					}
+				}, 
+				"legend":
+				{
+					//					"enabled": false
+				}, 
+				"displayAllLabel": true, 
+				"maxItem":
+				{
+					"style":
+					{
+						"size": 18, 
+						"color": 6146425
+					}
+				}, 
+				"tooltip":
+				{
+					//					"enabled": true
+				}, 
+				"hline":
+				{
+					//					"enabled": false
+				}, 
+				"series":
+				[
+					{
+						"name": "pv", 
+						"data":
+						[
+							7026299386, 
+							2243248546, 
+							1918390720, 
+							1887903406
+						]
+						, dataLabel: {
+							"format": "{0}", 
+							"enabled": true,
+							"data": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
+							]
+						}
+					}
+				],
+				"animation": {
+					"enabled": true
+				}
+			});
 			 
 			_data.push( {
 				chart: {

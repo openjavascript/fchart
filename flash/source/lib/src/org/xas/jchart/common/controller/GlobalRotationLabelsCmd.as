@@ -51,7 +51,7 @@ package org.xas.jchart.common.controller
 			_labels = hlabelMediator.labels;
 			if( !_labels.length ) return;
 			
-			_chartWidth = _config.c.maxX - _config.c.minX - _config.hspace;
+			_chartWidth = _config.c.maxX - _config.c.minX - _config.vspace;
 			
 			_itemWidth = Math.floor( _chartWidth / ( _labels.length ) );
 							
@@ -97,11 +97,11 @@ package org.xas.jchart.common.controller
 				_item.width > _maxWidth && ( _maxWidth = _item.width );
 				_rect.height > _maxHeight && ( _maxHeight = _rect.height );
 				
-				if( _config.labelRotationAngle < 0 ){
-					_plus = _k * _itemWidth - _itemWidth / 2;		
-				}else if( _config.labelRotationAngle > 0 ){
-					_plus = ( _labels.length - _k - 1 ) * _itemWidth - _itemWidth / 2;		
-				}
+//				if( _config.labelRotationAngle < 0 ){
+//					_plus = _k * _itemWidth - _itemWidth / 2;		
+//				}else if( _config.labelRotationAngle > 0 ){
+//					_plus = ( _labels.length - _k - 1 ) * _itemWidth - _itemWidth / 2;		
+//				}
 				
 				if( _config.labelRotationAngle < 0 ){
 					_plus = _k * _itemWidth;	

@@ -23,16 +23,22 @@ package org.xas.jchart.common.view.components.VLabelView
 		
 		protected var _maxWidth:Number = 0;
 		public function get maxWidth():Number{ return _maxWidth; }
+		public function set maxHeight( _setter:Number ):void{ _maxHeight = _setter; }
 		
 		protected var _maxWidthRight:Number = 0;
 		public function get maxWidthRight():Number{ return _maxWidth; }
 		
 		protected var _maxHeight:Number = 0;
 		public function get maxHeight():Number{ return _maxHeight; }
+		public function set maxWidth( _setter:Number ):void{ _maxWidth = _setter; }
+		
+		protected var __config:Config;
+		public function get config():Config{ return __config; }
 		
 		public function BaseVLabelView()
 		{
 			super();
+			__config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			addEventListener( JChartEvent.UPDATE, update );			
@@ -43,7 +49,20 @@ package org.xas.jchart.common.view.components.VLabelView
 		}
 		
 		protected function update( _evt:JChartEvent ):void{
-
+			if( !( config.c && config.c.hpoint ) ) return;
+			
+			if( config.labelRotationEnable ){
+				rotationUpdate();
+			}else{
+				normalUpdate();
+			}
+		}
+		
+		protected function normalUpdate():void{
+		}
+		
+		protected function rotationUpdate():void{
+			normalUpdate();
 		}
 	}
 }

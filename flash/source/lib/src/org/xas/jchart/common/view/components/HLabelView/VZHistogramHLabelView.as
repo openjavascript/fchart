@@ -70,6 +70,12 @@ package org.xas.jchart.common.view.components.HLabelView
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				
 				var _tf:TextField = _labels[ _k ];
+				
+				if( !_config.displayAllLabel ) {
+					if( !( _k in config.labelDisplayIndex ) ) {
+						return;
+					}
+				}
 
 				/* 指定标签定位的坐标 */
 				var _y:Number = _item.end.y - _tf.height / 2

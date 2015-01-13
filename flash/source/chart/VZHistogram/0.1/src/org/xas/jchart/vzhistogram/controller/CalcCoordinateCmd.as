@@ -85,12 +85,12 @@ package org.xas.jchart.vzhistogram.controller
 				
 //				_config.c.maxX -= 5;
 				
-				//初始化vlabel,并修改图标最大Y的范围
-				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
-					_config.c.maxY -= pVLabelMediator.maxHeight;
-					_config.c.maxY -= 2;
-				}
+//				//初始化vlabel,并修改图标最大Y的范围
+//				if( _config.yAxisEnabled ){
+//					facade.registerMediator( new VLabelMediator() );
+//					_config.c.maxY -= pVLabelMediator.maxHeight;
+//					_config.c.maxY -= 2;
+//				}
 
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
@@ -119,6 +119,20 @@ package org.xas.jchart.vzhistogram.controller
 					_config.c.minX += pHLabelMediator.maxWidth;
 				}
 				
+				//初始化vlabel,并修改图标最大Y的范围
+				if( _config.yAxisEnabled ){
+					facade.registerMediator( new VLabelMediator() );
+					_config.c.maxY -= pVLabelMediator.maxHeight;
+					//					_config.c.maxX = pVLabelMediator.maxWidth;
+					var _tmpMaxWidth:Number = pVLabelMediator.maxWidth;
+					//					Log.log( _tmpMaxWidth );
+					if( _tmpMaxWidth > 0 ){
+						_config.c.maxX -= Math.abs( _tmpMaxWidth );
+					} else {
+					}
+					
+				}
+
 				_config.c.chartWidth = _config.c.maxX - _config.c.minX - _config.hspace;
 			
 				if( _config.graphicHeight ){
@@ -142,6 +156,9 @@ package org.xas.jchart.vzhistogram.controller
 				
 				facade.registerMediator( new GraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				
+				sendNotification( JChartEvent.DISPLAY_ALL_CHECK, {}, 'vzbar' );
+
 				
 				calcChartPoint();
 				
