@@ -38,7 +38,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 			
 			Common.each( _config.c.mix, function( _mtype:String, _mdata:Object ):void{
 //				Log.log( _mtype );
-				Log.printFormatJSON( _mdata.srcData );
+//				Log.printFormatJSON( _mdata.srcData );
 				switch( _mtype ){
 					case 'line': {
 						initLine( _mdata );
@@ -238,6 +238,11 @@ package org.xas.jchart.common.view.components.SerialLabel
 					&& _tmp.data.dataLabels
 					&& ( 'enabled' in _tmp.data.dataLabels )
 					&& ( _r = StringUtils.parseBool( _tmp.data.dataLabels.enabled ) );
+				
+				_tmp.data 
+					&& _tmp.data.dataLabel
+					&& ( 'enabled' in _tmp.data.dataLabel )
+					&& ( _r = StringUtils.parseBool( _tmp.data.dataLabel.enabled ) );
 			}
 			
 			return _r;

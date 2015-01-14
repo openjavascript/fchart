@@ -518,7 +518,7 @@ package org.xas.jchart.common
 		
 		public function get serialLabelEnabled():Boolean{
 			var _r:Boolean = superSerialLabelEnabled;
-			
+//			Log.log( 'superSerialLabelEnabled', _r );
 			if( !_r ){
 				Common.each( this.displaySeries, function( _k:int, _item:Object ):void{
 					if( _item.dataLabels && ( 'enabled' in _item.dataLabels ) ){

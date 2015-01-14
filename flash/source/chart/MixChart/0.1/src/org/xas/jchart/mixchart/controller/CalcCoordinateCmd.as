@@ -175,6 +175,7 @@ package org.xas.jchart.mixchart.controller
 //					_config.c.minY += _config.c.serialLabelPadY;
 //					_yPad += _config.c.serialLabelPadY;
 				}
+//				Log.log('_config.serialLabelEnabled:', _config.serialLabelEnabled  );
 				
 //				_config.c.vlabelMaxWidth = pMixChartVLabelMediator ? pMixChartVLabelMediator.maxWidth : 0;
 //				
