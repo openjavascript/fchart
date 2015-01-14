@@ -152,6 +152,16 @@ package org.xas.jchart.common.view.components.HLabelView
 				_y = _item.end.y;
 				
 				_location = new Point( _x, _y );
+				
+				if( _config.vlineEnabled ){
+					_location.y += _config.xArrowLength - 1;
+				}else{
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
+				}
 				_newLocation = _location.subtract( _offsetPoint );
 				
 				if( BaseConfig.ins.animationEnabled ) {
