@@ -129,6 +129,13 @@
             "namespaces": {
                 "window": 1
             }
+        },
+        "../nginx_config.js": {
+            "name": "../nginx_config.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
         }
     },
     "modules": {},
@@ -5921,6 +5928,25 @@
             ],
             "class": "window.requirejs",
             "namespace": "window"
+        },
+        {
+            "file": "../nginx_config.js",
+            "line": 7,
+            "description": "requirejs config.js for JC Project",
+            "class": "",
+            "namespace": "window"
+        },
+        {
+            "file": "../nginx_config.js",
+            "line": 70,
+            "description": "取当前脚本标签的 src路径",
+            "static": 1,
+            "return": {
+                "description": "脚本所在目录的完整路径",
+                "type": "String"
+            },
+            "class": "",
+            "namespace": "window"
         }
     ],
     "warnings": [
@@ -6443,6 +6469,14 @@
         {
             "message": "Missing item type\nExecutes the text. Normally just uses eval, but can be modified\nto use a better, environment-specific call. Only used for transpiling\nloader plugins, not for plain JS modules.",
             "line": " ../lib.js:2047"
+        },
+        {
+            "message": "Missing item type\nrequirejs config.js for JC Project",
+            "line": " ../nginx_config.js:7"
+        },
+        {
+            "message": "Missing item type\n取当前脚本标签的 src路径",
+            "line": " ../nginx_config.js:70"
         }
     ]
 }

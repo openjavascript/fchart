@@ -21,8 +21,216 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-			return;  
-			   
+//			return; 
+			
+			_data.push({
+				"chart":
+				{
+					"type": "bar",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+				}, 
+				"colors":
+				[
+					44015, 
+					10333619, 
+					639232, 
+					816836, 
+					16713241
+				], 
+				"vline":
+				{
+					//					"enabled": true
+				}, 
+				"xAxis":
+				{
+					"wordwrap": true, 
+					"categories":
+					[
+						"pos.baidu.com", 
+						"www.baidu.com", 
+						"hao.360.cn", 
+						"wd.360.cn", 
+						"internal.host.com", 
+						"eclick.baidu.com", 
+						"googleads.g.doubleclick.net", 
+						"user.qzone.qq.com", 
+						"www.so.com", 
+						"ptlogin2.qq.com"
+					]
+				}, 
+				"yAxis":
+				{
+					//					"enabled": false
+					"labels": {
+						"rotation": 45
+					}
+				}, 
+				"legend":
+				{
+					//					"enabled": false
+				}, 
+				"displayAllLabel": true, 
+				"maxItem":
+				{
+					"style":
+					{
+						"size": 18, 
+						"color": 6146425
+					}
+				}, 
+				"tooltip":
+				{
+					//					"enabled": true
+				}, 
+				"hline":
+				{
+					//					"enabled": false
+				}, 
+				"series":
+				[
+					{
+						"name": "pv", 
+						"data":
+						[
+							7026299386, 
+							2243248546, 
+							1918390720, 
+							1887903406, 
+							1517144906, 
+							1463547200, 
+							958396100, 
+							951335880, 
+							941430913, 
+							914735040
+						]
+						, dataLabel: {
+							"format": "{0}", 
+							"enabled": true,
+							"data": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
+							]
+						}
+					}
+				],
+				"animation": {
+					"enabled": true
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "bar",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+				}, 
+				"colors":
+				[
+					44015, 
+					10333619, 
+					639232, 
+					816836, 
+					16713241
+				], 
+				"vline":
+				{
+//					"enabled": true
+				}, 
+				"xAxis":
+				{
+					"wordwrap": true, 
+					"categories":
+					[
+						"pos.baidu.com", 
+						"www.baidu.com", 
+						"hao.360.cn", 
+						"wd.360.cn", 
+						"internal.host.com", 
+						"eclick.baidu.com", 
+						"googleads.g.doubleclick.net", 
+						"user.qzone.qq.com", 
+						"www.so.com", 
+						"ptlogin2.qq.com"
+					]
+				}, 
+				"yAxis":
+				{
+//					"enabled": false
+					"labels": {
+						"rotation": -45
+					}
+				}, 
+				"legend":
+				{
+//					"enabled": false
+				}, 
+				"displayAllLabel": true, 
+				"maxItem":
+				{
+					"style":
+					{
+						"size": 18, 
+						"color": 6146425
+					}
+				}, 
+				"tooltip":
+				{
+//					"enabled": true
+				}, 
+				"hline":
+				{
+//					"enabled": false
+				}, 
+				"series":
+				[
+					{
+						"name": "pv", 
+						"data":
+						[
+							7026299386, 
+							2243248546, 
+							1918390720, 
+							1887903406, 
+							1517144906, 
+							1463547200, 
+							958396100, 
+							951335880, 
+							941430913, 
+							914735040
+						]
+						, dataLabel: {
+							"format": "{0}", 
+							"enabled": true,
+							"data": [
+								"70.26亿", 
+								"22.43亿", 
+								"19.18亿", 
+								"18.87亿", 
+								"15.17亿", 
+								"14.63亿", 
+								"9.58亿", 
+								"9.51亿", 
+								"9.41亿", 
+								"9.14亿"
+							]
+						}
+					}
+				],
+				"animation": {
+					"enabled": true
+				}
+			});
+			     
 			_data.push({
 				"chart":
 				{
@@ -5221,7 +5429,7 @@ package org.xas.jchart.common.data.test
 					enabled: true
 				}
 				, tooltip: {		
-					enabled: false
+//					enabled: false
 				}
 				, colors: [
 					0x00ABEF
@@ -5315,7 +5523,7 @@ package org.xas.jchart.common.data.test
 					, pointStyle: {}
 				}, {
 					name: 'Rainfall',
-					data: [20, 21, 20, 100, 200]
+					data: [20, 21, 20, -100, 200]
 				}],
 				//isPercent: true,
 				displayAllLabel: true,
@@ -5332,7 +5540,7 @@ package org.xas.jchart.common.data.test
 					enabled: true
 				}
 				, tooltip: {
-					enabled: false
+//					enabled: false
 				}
 				, colors: [
 					0x00ABEF
@@ -5885,6 +6093,7 @@ package org.xas.jchart.common.data.test
 					data: [19170, 32060, 13600, 7000, 14800, ]
 					//, label: [ "Dell", "Asus", "Sony", "Lenovo", "iMac", ]
 					, format: '{0}台 约占{1}%'
+					, dataLabel: { enabled: true }
 				}],
 				credits: {
 					enabled: true

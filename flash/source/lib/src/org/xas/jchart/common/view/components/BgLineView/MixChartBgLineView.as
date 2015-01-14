@@ -58,11 +58,11 @@ package org.xas.jchart.common.view.components.BgLineView
 				, _ep:Point = _item.end as Point
 				, _sx:Number = _sp.x, _ex:Number = _ep.x
 				;
-				if( !_config.c.hasYAxis ){
-					_sx += _config.c.arrowLength - 2;
+				if( _config.c.hasYAxis ){
+					_sx -= _config.yArrowLength;
 				}
 				if( _config.c.hasOppositeYAxis ){
-					_ex += _config.c.arrowLength - 2;
+					_ex += _config.yArrowLength;
 				}
 				
 				_ele.graphics.lineStyle( 1, 0x999999, .35 );
@@ -145,17 +145,17 @@ package org.xas.jchart.common.view.components.BgLineView
 			
 			var _delay:Number = 0;
 			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
-			
 			Common.each( _config.c.hlinePoint, function( _k:int, _item:Object ):void{
 				var _sp:Point =_item.start as Point
-				, _ep:Point = _item.end as Point;
+				, _ep:Point = _item.end as Point
+				, _ey:Number = _ep.y
 				;
 				var _ele:DSprite = new DSprite();
 				_ele.graphics.lineStyle( 1, 0x999999, .35 );
 				addChild( _ele );				
 				
 				if( _config.animationEnabled ){
-					_ele.max = Math.ceil( _ep.y - _sp.y );
+					_ele.max = Math.ceil( _ey - _sp.y );
 					_ele.count = 0;
 					
 					TweenLite.delayedCall( _delay, function():void{						
@@ -167,15 +167,15 @@ package org.xas.jchart.common.view.components.BgLineView
 									//Log.log( _ele.count );
 									_ele.graphics.clear();
 									_ele.graphics.lineStyle( 1, 0x999999, .35 );
-									_ele.graphics.moveTo( _sp.x, _ep.y );
-									_ele.graphics.lineTo( _sp.x, _ep.y - _ele.count );
+									_ele.graphics.moveTo( _sp.x, _ey );
+									_ele.graphics.lineTo( _sp.x, _ey - _ele.count );
 								}
 							} );
 					});
 					
 				}else{
 					_ele.graphics.moveTo( _sp.x, _sp.y );
-					_ele.graphics.lineTo( _ep.x, _ep.y );
+					_ele.graphics.lineTo( _ep.x, _ey );
 				}
 				
 			});	
@@ -185,6 +185,10 @@ package org.xas.jchart.common.view.components.BgLineView
 			if( !( _config.c && _config.c.hpoint )  ) return;
 			if( !_config.vlineEnabled ) return;
 			
+			var _endY:Number = _config.c.chartY + _config.c.chartHeight;
+			if( _config.xAxisEnabled ){
+				_endY += _config.xArrowLength;
+			}
 			
 			var _delay:Number = 0;
 			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
@@ -199,6 +203,14 @@ package org.xas.jchart.common.view.components.BgLineView
 						return;
 					}
 				}
+				if( !_config.displayAllLabel ){
+					if( ( _k in _config.labelDisplayIndex ) ){
+						_ep.y = _endY;	
+					}
+				}else{
+					_ep.y = _endY;	
+				}
+				
 				
 				var _ele:DSprite = new DSprite();
 				_ele.graphics.lineStyle( 1, 0x999999, .35 );

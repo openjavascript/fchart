@@ -89,6 +89,7 @@ package org.xas.jchart.common.data.mixchart
 					}
 					!( _type in _graphicType ) && ( _graphicType[ _type ] = [] );
 					_tmp = { data: _sitem, type: _type, modelIndex: _k, dataIndex: _sk };
+//					Log.log( _sk );
 					_graphicType[ _type ].push( _tmp );
 					//Log.printClass( _tmp.model as  );
 				});

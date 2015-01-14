@@ -27,7 +27,7 @@ package
 	//[SWF(frameRate="30", width="600", height="425")]  
 	//[SWF(frameRate="30", width="590", height="360")] 
 	//[SWF(frameRate="30", width="1400", height="460")]   
-	[SWF(frameRate="30", width="600", height="600")]
+	[SWF(frameRate="30", width="600", height="400")]
 	public class VHistogram extends Sprite 
 	{ 
 		private var _inited: Boolean = false;
@@ -160,7 +160,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !DefaultData.instance.data.length ) return;
-				_data = DefaultData.instance.data[ 65 ];
+				_data = DefaultData.instance.data[ 7 ];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

@@ -2,6 +2,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 {
 	import com.adobe.utils.StringUtil;
 	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -18,12 +19,11 @@ package org.xas.jchart.common.view.components.SerialLabel
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
-	public class CurveGramSerialLabelView extends BaseSerialLabelView
+	public class MixChartSerialLabelView extends BaseSerialLabelView
 	{	
-		protected var _list:Vector.<JTextField>;
-		private var _config:Config;
+		private var _config:BaseConfig;
 		
-		public function CurveGramSerialLabelView()
+		public function MixChartSerialLabelView()
 		{
 			super();
 			_config = BaseConfig.ins as Config;
@@ -33,37 +33,59 @@ package org.xas.jchart.common.view.components.SerialLabel
 		}
 		
 		override protected function showChart( _evt: JChartEvent ):void{
+			this.graphics.clear();			
+			this.graphics.beginFill( 0xcccccc, .13 );
 			
-			if( !( _config.c && _config.c.paths && _config.c.paths.length ) ) return;
-			_list = new Vector.<JTextField>();
+			Common.each( _config.c.mix, function( _mtype:String, _mdata:Object ):void{
+//				Log.log( _mtype );
+				Log.printFormatJSON( _mdata.srcData );
+				switch( _mtype ){
+					case 'line': {
+						initLine( _mdata );
+						break;
+					}
+					default: {
+						initBar( _mdata );
+						break;
+					}
+				}
+			});
+			
+
+		}
+		
+		private function initLine( _mdata:Object ):void{
+			
+			if( !( _mdata && _mdata.paths && _mdata.paths.length ) ) return;
+			var _list:Vector.<JTextField> = new Vector.<JTextField>();
 			
 			var _p:BaseSerialLabelView = this;
 			
 			if( _config.animationEnabled ){
 				_p.visible = false;
 			}
-						
+			
 			this.graphics.clear();			
 			this.graphics.beginFill( 0xcccccc, .13 );
 			
 			var _labelSpace:Number = 4;
-			
-			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
+			Common.each( _mdata.paths, function( _k:int, _item:Object ):void{
 				
 				var _position:Array = _item.position as Array
-					;
+				;
+				if( !seriesEnabled( _mdata.srcData, _k ) ) return;
 				//Log.log( _values );
-				if( !seriesEnabled( config.displaySeries, _k ) ) return;
-					
+				
 				Common.each( _position, function( _sk:int, _sitem:Object ):void{
 					if( _config.serialLabelEnabled ){
 						var _label:JTextField = new JTextField( _sitem.value )
 						, _x:Number = 0
 						, _y:Number = 0
+						, _seriesIx:int = _mdata.srcData[ _k ].data.displayIndex
 						;
 						
 						//_label.text = StringUtils.printf( _config.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, _config.floatLen ) );
-						_label.text = _config.serialDataLabelValue( _k, _sk );
+						_label.text = _config.serialDataLabelValue( _seriesIx, _sk );
 						
 						_label.autoSize = TextFieldAutoSize.LEFT;
 						_label.selectable = false;
@@ -107,9 +129,6 @@ package org.xas.jchart.common.view.components.SerialLabel
 					}
 					
 				});
-				
-				//addChild( _gitem = new CurveGramUI( _cmd, _path, _config.itemColor( _k ) ) );
-				//_boxs.push( _gitem );
 			});
 			
 			if( _config.animationEnabled ){
@@ -122,19 +141,31 @@ package org.xas.jchart.common.view.components.SerialLabel
 				});
 				
 			}
-						
-			/*
-			if( !( _config.c && _config.c.rects ) ) return;
-			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
-				
+
+		}
+		
+		private function initBar( _mdata:Object ):void{
+			if( !( _mdata && _mdata.rects ) ) return;
+//			Log.printFormatJSON( _mdata.srcData );
+//			Log.log( 'MixChartSerialLabelView 1' );
+			//Log.log( _config.floatLen );
+			Common.each( _mdata.rects, function( _k:int, _item:Object ):void{
+//				Log.printFormatJSON( _item );
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
-					
+//					if( _k > 0 ) return;
+//					if( !seriesEnabled( _mdata.srcData, _k ) ) return;
+					if( !seriesEnabled( _mdata.srcData, _sk ) ) return;
+//					if( _sk > 0 ) return;
 					if( _config.serialLabelEnabled ){
 						
-						var _label:JTextField = new JTextField( _sitem );
-						_label.text = StringUtils.printf( _config.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, _config.floatLen ) );
+						var _label:JTextField = new JTextField( _sitem )
+							, _x:Number = 0
+							, _y:Number = 0
+							;
+							
+						_label.text = _config.serialDataLabelValue( _sk, _k );
 						
 						_label.autoSize = TextFieldAutoSize.LEFT;
 						_label.selectable = false;
@@ -147,12 +178,39 @@ package org.xas.jchart.common.view.components.SerialLabel
 						}
 						
 						Common.implementStyle( _label, [ { size: 14 }, _maxStyle ] );
+						EffectUtility.textShadow( _label as TextField, { color: _config.itemColor( _sk ), size: 12 }, 0xffffff );
 						
-						_label.x = _sitem.x + _sitem.width / 2 - _label.width / 2;
+						_x = _sitem.x + _sitem.width / 2 - _label.width / 2;
 						if( _sitem.value >= 0 ){
-							_label.y = _sitem.y - _label.height;
+							_y = _sitem.y - _label.height - 2;
 						}else{
-							_label.y = _sitem.y + _sitem.height;
+							_y = _sitem.y + _sitem.height + 2;
+						}
+						
+						if( _x < 0 ){ 
+							_x = 0;
+						}else if( _x + _label.width >= _config.stageWidth ){
+							_x = _config.stageWidth - _label.width;
+						}
+						
+						if( _y < 0 ){
+							_y = 0;
+						}else if( _y + _label.height > _config.stageHeight ){
+							_y = _config.stageHeight - _label.height;
+						}
+						
+						_label.x = _x;
+						_label.y = _y;
+						
+						if( _config.animationEnabled ){
+							_label.alpha = 0;
+							TweenLite.delayedCall( _config.animationDuration, 
+								function():void{
+									TweenLite.to( _label, _config.animationDuration
+										, { 
+											alpha: 1, ease: Expo.easeOut 
+										} );
+								});
 						}
 						
 						addChild( _label );
@@ -162,8 +220,27 @@ package org.xas.jchart.common.view.components.SerialLabel
 					
 				});
 			});
-			*/
 		}
 
+		override protected function seriesEnabled( _srcData:Object, _k:int ):Boolean{
+			var _r:Boolean = _config.superSerialLabelEnabled, _tmp:Object;
+			
+			if( _srcData && ( _tmp = _srcData[ _k ] ) ){
+//				"data":
+//				{
+//					"dataLabels":
+//					{
+//						"enabled": false
+//					}, 
+//				Log.printFormatJSON( _srcData[ _k ] )
+//				_r = _config.superSerialLabelEnabled;
+				_tmp.data 
+					&& _tmp.data.dataLabels
+					&& ( 'enabled' in _tmp.data.dataLabels )
+					&& ( _r = StringUtils.parseBool( _tmp.data.dataLabels.enabled ) );
+			}
+			
+			return _r;
+		}
 	}
 }

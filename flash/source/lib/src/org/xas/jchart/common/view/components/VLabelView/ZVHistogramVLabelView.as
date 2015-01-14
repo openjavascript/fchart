@@ -6,6 +6,7 @@ package org.xas.jchart.common.view.components.VLabelView
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.geom.Point;
 	import flash.media.Video;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -72,9 +73,10 @@ package org.xas.jchart.common.view.components.VLabelView
 				_titem.height > _maxHeight && ( _maxHeight = _titem.height );
 			});			
 			//Log.log( 'maxwidth', _maxWidth );
+			config.facade.sendNotification( JChartEvent.ROTATION_LABELS_YAXIS, {}, 'vzbar' );
 		}
 		
-		override protected function update( _evt:JChartEvent ):void{
+		override protected function normalUpdate( ):void{
 			if( !( _config.c && _config.c.vpoint ) ) return;
 			
 			var _endY:Number = _config.c.chartY + _config.c.chartHeight + 1;
@@ -117,6 +119,51 @@ package org.xas.jchart.common.view.components.VLabelView
 //					_tf.y = _item.start.y - _tf.height / 2;
 					_tf.x = _x;
 					_tf.y = _endY;
+				}
+			});
+		}
+		override protected function rotationUpdate():void{
+			if( !( config.c.rotationCoor && config.c.rotationCoor.length ) ) return;
+			
+			var _endY:Number = _config.c.chartY + _config.c.chartHeight + 1;
+			if( _config.yAxisEnabled && _config.vlineEnabled ){
+				_endY += _config.yArrowLength;
+			}
+			
+			Common.each( _config.c.vpointReal, function( _k:int, _item:Object ):void{
+				var _tf:TextField = _labels[ _k ]
+				, _location:Point
+				, _newLocation:Point
+				, _offsetPoint:Point
+				, _x:Number = _item.end.x 
+				, _y:Number = _endY
+				;
+				_offsetPoint = config.c.rotationCoor[ _k ].offset as Point;
+				if( !_offsetPoint ) return;
+				
+
+				_location = new Point( _x, _y );
+				_newLocation = _location.subtract( _offsetPoint );
+				
+				//				_tf.x = _x;
+				//				_tf.y = _item.end.y;
+				
+				if( _config.animationEnabled ){
+					_tf.visible = true;
+					_tf.x = _newLocation.x;
+					_tf.y = _newLocation.y + 200;
+					
+					TweenLite.delayedCall( 0, 
+						function():void{
+							TweenLite.to( _tf, _config.animationDuration
+								, { 
+									x: _newLocation.x
+									, y: _newLocation.y
+									, ease: Expo.easeOut } );
+						});
+				}else{
+					_tf.x = _newLocation.x;
+					_tf.y = _newLocation.y;
 				}
 			});
 		}

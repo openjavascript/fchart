@@ -57,6 +57,13 @@ package org.xas.jchart.common.view.components.HLabelView
 				normalUpdate();
 			}
 		}
+				
+		protected function normalUpdate():void{
+		}
+		
+		protected function rotationUpdate():void{
+			normalUpdate();
+		}
 		
 		protected function reset( _evt:JChartEvent ):void{
 //			Log.log( 'BaseHLabelView.reset' );
@@ -69,13 +76,6 @@ package org.xas.jchart.common.view.components.HLabelView
 				_item.visible = config.labelDisplayIndex[ _k ] || false;
 				//Log.log( _item.visible );
 			});
-		}
-		
-		protected function normalUpdate():void{
-		}
-		
-		protected function rotationUpdate():void{
-			normalUpdate();
 		}
 	}
 }

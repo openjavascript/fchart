@@ -6,10 +6,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.SerialLabel.BaseSerialLabelView;
-	import org.xas.jchart.common.view.components.SerialLabel.CurveGramSerialLabelView;
-	import org.xas.jchart.common.view.components.SerialLabel.HistogramSerialLabelView;
-	import org.xas.jchart.common.view.components.SerialLabel.VHistogramSerialLabelView;
+	import org.xas.jchart.common.view.components.SerialLabel.*;
 	import org.xas.jchart.common.view.components.TitleView;
 	
 	public class SerialLabelMediator extends Mediator implements IMediator
@@ -27,7 +24,6 @@ package org.xas.jchart.common.view.mediator
 		override public function onRegister():void{
 			//Log.log( 'DataLabelMediator register' );				
 			switch( (facade as BaseFacade).name ){
-				case 'ZHistogramFacade':
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new HistogramSerialLabelView() );
@@ -38,9 +34,24 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index8.addChild( _view = new VHistogramSerialLabelView() );
 					break;
 				}
+				case 'ZHistogramFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new ZHistogramSerialLabelView() );
+					break;
+				}
+				case 'VZHistogramFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new VZHistogramSerialLabelView() );
+					break;
+				}
 				case 'CurveGramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new CurveGramSerialLabelView() );
+					break;
+				}
+				case 'MixChartFacade':
+				{
+					mainMediator.view.index9.addChild( _view = new MixChartSerialLabelView() );
 					break;
 				}
 				default:{

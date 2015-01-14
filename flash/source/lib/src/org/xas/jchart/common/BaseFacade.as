@@ -36,44 +36,19 @@ package org.xas.jchart.common
 			
 			registerCommand( JChartEvent.INITED, InitedCmd );
 			
-			registerCommand( JChartEvent.SHOW_CHART			, GlobalShowChartCmd );
-			registerCommand( JChartEvent.DRAW				, GlobalDrawCmd );
+			registerCommand( JChartEvent.SHOW_CHART				, GlobalShowChartCmd );
+			registerCommand( JChartEvent.DRAW					, GlobalDrawCmd );
 			
-			registerCommand( JChartEvent.UI_ITEM_CLICK		, UIItemClickCmd );
-			registerCommand( JChartEvent.ITEM_CLICK			, ItemClickCmd );
-			registerCommand( JChartEvent.GROUP_CLICK		, GroupClickCmd );
+			registerCommand( JChartEvent.UI_ITEM_CLICK			, UIItemClickCmd );
+			registerCommand( JChartEvent.ITEM_CLICK				, ItemClickCmd );
+			registerCommand( JChartEvent.GROUP_CLICK			, GroupClickCmd );
 			
-			registerCommand( JChartEvent.DISPLAY_ALL_CHECK	, DisplayAllCheckCmd );
-			registerCommand( JChartEvent.ROTATION_LABELS	, GlobalRotationLabelsCmd );
+			registerCommand( JChartEvent.DISPLAY_ALL_CHECK		, DisplayAllCheckCmd );
+			registerCommand( JChartEvent.ROTATION_LABELS		, GlobalRotationLabelsCmd );
+			registerCommand( JChartEvent.ROTATION_LABELS_YAXIS	, GlobalRotationLabelsYAxisCmd );
 			
 //			Log.log( 'BaseFacade', new Date().getTime() );
-			initContentMenu();
+			ProjectInfo.getInstance( BaseConfig.ins as Config, { facadeName: _name } );
 		}
-		
-		protected function initContentMenu():void{
-			
-			var _list:Vector.<ContextMenuData> = new Vector.<ContextMenuData>()
-				, _menu:ContextMenu
-				;
-					
-			_list.push( new ContextMenuData( 'about ' + ProjectInfo.name , true, ProjectInfo.url )  );				
-			_menu = SystemUtils.contentmenuX( BaseConfig.ins.root as DisplayObjectContainer, _list );
-			
-			Common.each( _menu.customItems, function( _k:int, _item:ContextMenuItem ):void{
-				initMenuEvent( _item, _list[ _k ] );
-			});
-		}
-		
-		protected function initMenuEvent( _item:ContextMenuItem, _data:ContextMenuData ):void{
-			_item.addEventListener( ContextMenuEvent.MENU_ITEM_SELECT, function( _evt:ContextMenuEvent ):void{
-				if( _data.url ){
-//					Log.log( _data.url );
-					//URLUtils.openWindow( _data.url, 'JCFChart' );
-					var _url:URLRequest = new URLRequest( _data.url );
-					navigateToURL( _url, 'JCFChart' );
-				}
-			});
-		}
-		
 	}
 }

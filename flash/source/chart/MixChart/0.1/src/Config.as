@@ -14,7 +14,11 @@ package
 		public function Config()
 		{
 			super();
-		}	
+		}			
+		
+		override public function get chartName():String{ return 'MixChart'; }
+		override public function get chartUrl():String{ return 'http://fchart.openjavascript.org/modules/JC.FChart/0.1/_demo/mix/'; }
+		
 
 		override public function setChartData( _d:Object ):Object {
 			
@@ -180,7 +184,7 @@ package
 			
 			return _r;
 		}
-
+	
  
 	}
 }

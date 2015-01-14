@@ -59,7 +59,7 @@ package org.xas.jchart.common.view.components.HLabelView
 							_titem.visible = false;
 						}
 					}
-					
+					_titem.x = -10000;
 					addChild( _titem );
 					
 					_labels.push( _titem );
@@ -76,17 +76,24 @@ package org.xas.jchart.common.view.components.HLabelView
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				
+				if( !_config.displayAllLabel ) {
+					if( !( _k in config.labelDisplayIndex ) ) {
+						return;
+					}
+				}
+				
 				/* 指定标签定位的坐标 */
 				var _y:Number = _item.end.y - _tf.height / 2
 					, _x:Number = _item.start.x - _tf.width
 					;
+					
 					
 				if( _config.vlineEnabled ){
 				}
 				_x -= _config.yArrowLength;
 				
 				if( BaseConfig.ins.animationEnabled ){
-					_tf.visible = true;
+//					_tf.visible = true;
 					_tf.x = _x - 200;
 					_tf.y = _y;
 					TweenLite.delayedCall( 0, 

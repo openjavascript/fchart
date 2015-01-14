@@ -6,6 +6,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.filters.GlowFilter;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
@@ -19,11 +20,11 @@ package org.xas.jchart.common.view.components.SerialLabel
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
-	public class HistogramSerialLabelView extends BaseSerialLabelView
+	public class VZHistogramSerialLabelView extends BaseSerialLabelView
 	{	
 		private var _config:BaseConfig;
 		
-		public function HistogramSerialLabelView()
+		public function VZHistogramSerialLabelView()
 		{
 			super();
 			_config = BaseConfig.ins as Config;
@@ -36,42 +37,49 @@ package org.xas.jchart.common.view.components.SerialLabel
 			this.graphics.clear();			
 			this.graphics.beginFill( 0xcccccc, .13 );
 						
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.rects ) ) return;
-			//Log.log( BaseConfig.ins.floatLen );
-			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
+			if( !( _config.c && _config.c.rects ) ) return;
+			//Log.log( _config.floatLen );
+			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 					
-					if( !seriesEnabled( config.displaySeries, _sk ) ) return;
 					
-					if( BaseConfig.ins.serialLabelEnabled ){
+					if( _config.serialLabelEnabled ){
 						
 						var _label:JTextField = new JTextField( _sitem )
 							, _x:Number = 0
 							, _y:Number = 0
 							;
 							
-						_label.text = BaseConfig.ins.serialDataLabelValue( _sk, _k );
+						_label.text = _config.serialDataLabelValue( _k, _sk );
 						
 						_label.autoSize = TextFieldAutoSize.LEFT;
 						_label.selectable = false;
-						_label.textColor = BaseConfig.ins.itemColor( _sk );
+						_label.textColor = _config.itemColor( _sk );
 						_label.mouseEnabled = false;
 						
 						var _maxStyle:Object = {};
-						if( _sitem.value == BaseConfig.ins.maxValue ){
-							_maxStyle = BaseConfig.ins.maxItemParams.style || _maxStyle;
+						if( _sitem.value == _config.maxValue ){
+							_maxStyle = _config.maxItemParams.style || _maxStyle;
 						}
 						
-						Common.implementStyle( _label, [ { size: 14 }, _maxStyle ] );
-						EffectUtility.textShadow( _label as TextField, { color: BaseConfig.ins.itemColor( _sk ), size: 12 }, 0xffffff );
+						Common.implementStyle( _label, [ 
+							{ color: 0xffffff, size: 14 }
+							, _maxStyle ] 
+						);
+						
+						EffectUtility.textShadow( _label as TextField, 
+							{ color: 0xffffff, size: 12 }
+							, _config.itemColor( _sk ) 
+						);
+///						_label.filters = [new GlowFilter(_config.itemColor( _sk ), 1, 2, 2, 16, 1, true )];
 						
 						_x = _sitem.x + _sitem.width / 2 - _label.width / 2;
 						if( _sitem.value >= 0 ){
-							_y = _sitem.y - _label.height - 2;
+							_y = _sitem.y + _sitem.height / 2 - _label.height / 2;
 						}else{
-							_y = _sitem.y + _sitem.height + 2;
+							_y = _sitem.y + _sitem.height / 2 - _label.height / 2;
 						}
 						
 						if( _x < 0 ){ 
@@ -86,14 +94,18 @@ package org.xas.jchart.common.view.components.SerialLabel
 							_y = _config.stageHeight - _label.height;
 						}
 						
+						if( _sitem.width < _label.width ){
+							_label.visible = false;
+						}
+						
 						_label.x = _x;
 						_label.y = _y;
 						
-						if( BaseConfig.ins.animationEnabled ){
+						if( _config.animationEnabled ){
 							_label.alpha = 0;
-							TweenLite.delayedCall( BaseConfig.ins.animationDuration, 
+							TweenLite.delayedCall( _config.animationDuration, 
 								function():void{
-									TweenLite.to( _label, BaseConfig.ins.animationDuration
+									TweenLite.to( _label, _config.animationDuration
 										, { 
 											alpha: 1, ease: Expo.easeOut 
 										} );

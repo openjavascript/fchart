@@ -159,6 +159,16 @@ package org.xas.jchart.common
 				_r = StringUtils.printf( dataLabelFormat, Common.moneyFormat( _item.data[ _itemIx ], 3, floatLen ) );				
 			}			
 			
+			_item.dataLabels
+				&& _item.dataLabels.data
+				&& _item.dataLabels.data.length
+				&& ( _r = _item.dataLabels.data[_itemIx] );
+			
+			_item.dataLabel
+				&& _item.dataLabel.data
+				&& _item.dataLabel.data.length
+				&& ( _r = _item.dataLabel.data[_itemIx] );
+			
 			return _r;
 		}
 		
@@ -501,16 +511,32 @@ package org.xas.jchart.common
 				&& ( _r = StringUtils.parseBool( cd.xAxis.wordwrap ) );
 			
 			return _r;
-		}
+		}	
 		
 		public function get serialLabelEnabled():Boolean{
+			var _r:Boolean = superSerialLabelEnabled;
+			
+			if( !_r ){
+				Common.each( this.displaySeries, function( _k:int, _item:Object ):void{
+					if( _item.dataLabels && ( 'enabled' in _item.dataLabels ) ){
+						_r = StringUtils.parseBool( _item.dataLabels.enabled ) || _r;
+					}
+					if( _item.dataLabel && ( 'enabled' in _item.dataLabel ) ){
+						_r = StringUtils.parseBool( _item.dataLabel.enabled ) || _r;
+					}
+				});
+			}
+			
+			return _r;
+		}	
+		
+		public function get superSerialLabelEnabled():Boolean{
 			var _r:Boolean = false;
 			//return false;
 			cd 
-			&& cd.dataLabels
+				&& cd.dataLabels
 				&& ( 'enabled' in cd.dataLabels )
 				&& ( _r = StringUtils.parseBool( cd.dataLabels.enabled ) );
-			
 			return _r;
 		}
 		
@@ -1142,7 +1168,7 @@ package org.xas.jchart.common
 		}
 
 		/* xlabel rotation start */
-		private var _labelRotationEnable:Boolean = false;
+		protected var _labelRotationEnable:Boolean = false;
 		public function get labelRotationEnable():Boolean{
 			this.cd
 				&& this.cd.xAxis
@@ -1159,7 +1185,7 @@ package org.xas.jchart.common
 			return _labelRotationEnable;
 		}
 		
-		private var _labelRotationAngle:Number = -45;
+		protected var _labelRotationAngle:Number = -45;
 		public function get labelRotationAngle():Number{
 			
 			this.cd
@@ -1182,7 +1208,7 @@ package org.xas.jchart.common
 			return Math.abs( labelRotationAngle );
 		}
 		
-		private var _labelRotationDir:int = 1; // 0 - 向右 | 1 - 向左
+		protected var _labelRotationDir:int = 1; // 0 - 向右 | 1 - 向左
 		public function get labelRotationDir():int{
 			var _tmpDir:String;
 			
@@ -1201,9 +1227,9 @@ package org.xas.jchart.common
 			return _labelRotationDir;
 		}
 		
-		private var _displayOverride:Boolean;
-		private var _displayOverrideValue:Boolean;
-		private var _displayAllLabel:Boolean = true;
+		protected var _displayOverride:Boolean;
+		protected var _displayOverrideValue:Boolean;
+		protected var _displayAllLabel:Boolean = true;
 		public function get displayAllLabel():Boolean{
 			
 			if( _displayOverride ){
@@ -1692,6 +1718,9 @@ package org.xas.jchart.common
 		}
 		
 		/* legend end */
+		
+		public function get chartName():String{ return ''; }
+		public function get chartUrl():String{ return ''; }
 		
 		public function BaseConfig() {
 		}
