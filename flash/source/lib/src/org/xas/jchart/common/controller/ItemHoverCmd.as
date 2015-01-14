@@ -20,7 +20,7 @@ package org.xas.jchart.common.controller
 		override public function execute( notification:INotification ):void{
 			
 			var _data:Object = notification.getBody();
-			var _loader:Object = BaseConfig.params;
+			var _loader:Object = _config.params;
 			var _callBackSet:Object;
 
 			if( !_data || !_loader ){
