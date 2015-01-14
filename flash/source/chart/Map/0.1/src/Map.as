@@ -175,7 +175,7 @@ package
 				}				
 				_data = _data || {};
 				
-				BaseConfig.setParams( _data );
+				BaseConfig.ins.setParams( _data );
 			}
 			
 			update( _data );

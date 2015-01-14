@@ -53,12 +53,12 @@ package org.xas.jchart.common.view.mediator
 		override public function handleNotification(notification:INotification):void{
 			switch( notification.getName() ){
 				case JChartEvent.SHOW_CHART:
-				{					
+				{
 					_view.x = 0;
 					_view.y = 0;
 					break;
 				}
-					
+			
 			}
 		}
 		

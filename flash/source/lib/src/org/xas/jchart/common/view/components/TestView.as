@@ -6,6 +6,7 @@ package org.xas.jchart.common.view.components
 	
 	import org.xas.core.ui.button.XButton;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	
@@ -79,7 +80,9 @@ package org.xas.jchart.common.view.components
 			var _btn:XButton = _evt.currentTarget as XButton;
 			//Log.log( 'xxx' );
 			if( !_btn ) return;
+			
 			this.dispatchEvent( new JChartEvent( JChartEvent.UPDATE, _btn.data ) );
+//			BaseConfig.ins.facade.sendNotification( JChartEvent.UPDATE, _btn.data );
 			
 			//Log.printJSON( _btn.data.data );
 		}
