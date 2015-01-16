@@ -16,12 +16,12 @@ package org.xas.jchart.common.data.test
 		
 		public function DefaultData()
 		{ 
-			init();
+			init(); 
 		}
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-//			return; 
+			return; 
 			
 			_data.push({
 				"chart":
@@ -51,19 +51,31 @@ package org.xas.jchart.common.data.test
 						"www.baidu.com", 
 						"hao.360.cn", 
 						"wd.360.cn", 
-						"internal.host.com", 
+						"internal.host.com",  
 						"eclick.baidu.com", 
 						"googleads.g.doubleclick.net", 
 						"user.qzone.qq.com", 
-						"www.so.com", 
+						"www.so.com",  
 						"ptlogin2.qq.com"
 					]
+					, "title": {
+						"enabled": true
+//						, "text": 'test title...' 
+					}
+					, "subtitle": {
+//						"enabled": true
+//						"text": 'test subtitle...' 
+					}
 				}, 
 				"yAxis":
 				{
-					//					"enabled": false
+					"enabled": false,
 					"labels": {
 						"rotation": 45
+					}	
+					, "title": { 
+//						"enabled": true,
+						"text": 'test vtitle...' 
 					}
 				}, 
 				"legend":

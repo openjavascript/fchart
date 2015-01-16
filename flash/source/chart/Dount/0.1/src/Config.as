@@ -47,6 +47,7 @@ package
 			
 			_displaySeries = []
 			//Log.printJSON( _tmpSeries[0].data );
+			_displaySeriesIndexMap = {};
 			
 			Common.each( _tmpSeries[0].data, function( _k:int, _item: * ):void{
 				var _o:Object, _a:Array = _item as Array;
@@ -56,9 +57,8 @@ package
 					_o = { 'name': _a[0], 'y': _a[1] };
 				}
 				_displaySeries.push( _o );
+				_displaySeriesIndexMap[ _k ] = _k;
 			});			
-			
-			_displaySeriesIndexMap = null;
 			
 			
 			if( _filter ){

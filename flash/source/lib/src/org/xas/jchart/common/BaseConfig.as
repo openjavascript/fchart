@@ -125,7 +125,11 @@ package org.xas.jchart.common
 			_data = _data || chartData;
 			if( !( _data && _data.series && _data.series.length ) ) return this;
 			_displaySeries = JSON.parse( JSON.stringify( _data.series ) ) as Array;
-			_displaySeriesIndexMap = null;
+			_displaySeriesIndexMap = {};
+			
+			Common.each( _displaySeries, function( _k:int, _item:Object ):void{
+				_displaySeriesIndexMap[ _k ] = _k;
+			});
 			if( _filter ){
 				var _tmp:Array = [], _count:int = 0;
 				_displaySeriesIndexMap = {};
@@ -428,6 +432,11 @@ package org.xas.jchart.common
 				&& cd.plotOptions.pie.dataLabels
 				&& ( 'enabled' in cd.plotOptions.pie.dataLabels )
 				&& ( _r = cd.plotOptions.pie.dataLabels.enabled );
+								
+			cd 
+				&& cd.dataLabels
+				&& ( 'enabled' in cd.dataLabels )
+				&& ( _r = StringUtils.parseBool( cd.dataLabels.enabled ) );
 			
 			return _r;
 		}
@@ -589,11 +598,16 @@ package org.xas.jchart.common
 			var _r:Boolean = false;
 			//return false;
 			cd 
-			&& cd.plotOptions
+				&& cd.plotOptions
 				&& cd.plotOptions.dount
 				&& cd.plotOptions.dount.cdataLabels
 				&& ( 'enabled' in cd.plotOptions.dount.cdataLabels )
 				&& ( _r = cd.plotOptions.dount.cdataLabels.enabled );
+						
+			cd 
+				&& cd.dataLabels
+				&& ( 'enabled' in cd.dataLabels )
+				&& ( _r = StringUtils.parseBool( cd.dataLabels.enabled ) );
 			
 			return _r;
 		}
@@ -877,87 +891,175 @@ package org.xas.jchart.common
 		
 		public function get titleStyle():Object{
 			var _r:Object = {};
-			chartData 
-			&& chartData.xAxis
-				&& chartData.xAxis.title
-				&& chartData.xAxis.title.style
-				&& ( _r = chartData.xAxis.title.style )
+			cd 
+				&& cd.xAxis
+				&& cd.xAxis.title
+				&& cd.xAxis.title.style
+				&& ( _r = cd.xAxis.title.style )
 				;
 			return _r;
 		}		
 		public function get titleEnable():Boolean{
-			var _r:Boolean = true
-			chartData 
-				&& chartData.xAxis
-				&& chartData.xAxis.title
-				&& ( 'enabled' in chartData.xAxis.title )
-				&& ( _r = chartData.xAxis.title.enabled )
+			var _r:Boolean = true, _text:String = '', _isset:Boolean = false;
+				
+			cd 
+				&& cd.title
+				&& ( 'enabled' in cd.title )
+				&& ( _r = cd.title.enabled, _text = cd.title.text || _text, _isset = true )
+				;
+			cd 
+				&& cd.xAxis
+				&& cd.xAxis.title
+				&& ( 'enabled' in cd.xAxis.title )
+				&& ( _r = cd.xAxis.title.enabled, _text = cd.xAxis.title.text || _text, _isset = true )
+				;
+				
+			_isset && !_text && ( _r = false );
+				
+			return _r;
+		}
+		public function get titleText():String{
+			var _r:String = '';
+			
+			cd 
+				&& cd.title
+				&& ( 'text' in cd.title )
+				&& ( _r = cd.title.text || _r )
+				;
+			cd 
+				&& cd.xAxis
+				&& cd.xAxis.title
+				&& ( 'text' in cd.xAxis.title )
+				&& ( _r = cd.xAxis.title.text || _r )
 				;
 			return _r;
 		}
 		public function get labelsStyle():Object{
 			var _r:Object = {};
-			chartData 
-			&& chartData.xAxis
-				&& chartData.xAxis.labels
-				&& chartData.xAxis.labels.style
-				&& ( _r = chartData.xAxis.labels.style )
+			cd 
+			&& cd.xAxis
+				&& cd.xAxis.labels
+				&& cd.xAxis.labels.style
+				&& ( _r = cd.xAxis.labels.style )
 				;
 			return _r;
 		}
 		
 		public function get vtitleStyle():Object{
 			var _r:Object = {};
-			chartData 
-			&& chartData.yAxis
-				&& chartData.yAxis.title
-				&& chartData.yAxis.title.style
-				&& ( _r = chartData.yAxis.title.style )
+			cd 
+			&& cd.yAxis
+				&& cd.yAxis.title
+				&& cd.yAxis.title.style
+				&& ( _r = cd.yAxis.title.style )
 				;
 			return _r;
 		}
 		
 		public function get vtitleEnabled():Boolean{
-			var _r:Boolean = true;
-			chartData 
-				&& chartData.yAxis
-				&& chartData.yAxis.title
-				&& ( 'enabled' in chartData.yAxis.title )
-				&& ( _r = chartData.yAxis.title.enabled )
+			var _r:Boolean = true, _text:String = '', _isset:Boolean = false;
+			
+			cd 
+				&& cd.title
+				&& ( 'enabled' in cd.title )
+				&& ( _r = cd.title.enabled, _text = cd.title.text, _isset = true )
+				;
+			
+			cd 
+				&& cd.yAxis
+				&& cd.yAxis.title
+				&& ( 'enabled' in cd.yAxis.title )
+				&& ( _r = cd.yAxis.title.enabled, _text = cd.yAxis.title.text, _isset = true  )
+				;
+				
+			_isset && !_text && ( _r = false );
+//			_r = _r && yAxisEnabled;
+				
+			return _r;
+		}
+		
+		public function get vtitleText():String{
+			var _r:String = '';
+						
+			cd 
+				&& cd.vtitle
+				&& cd.vtitle
+				&& ( 'text' in cd.vtitle )
+				&& ( _r = cd.vtitle.text || _r )
+			
+			cd 
+				&& cd.yAxis
+				&& cd.yAxis.title
+				&& ( 'text' in cd.yAxis.title )
+				&& ( _r = cd.yAxis.title.text || _r )
 				;
 			return _r;
 		}
 		
 		public function get vlabelsStyle():Object{
 			var _r:Object = {};
-			chartData 
-			&& chartData.yAxis
-				&& chartData.yAxis.labels
-				&& chartData.yAxis.labels.style
-				&& ( _r = chartData.yAxis.labels.style )
+			cd 
+				&& cd.yAxis
+				&& cd.yAxis.labels
+				&& cd.yAxis.labels.style
+				&& ( _r = cd.yAxis.labels.style )
 				;
 			return _r;
 		}
 		
 		public function get subtitleStyle():Object{
 			var _r:Object = {};
-			chartData 
-			&& chartData.subtitle
-				&& chartData.subtitle.style
-				&& ( _r = chartData.subtitle.style )
+			cd 
+				&& cd.subtitle
+				&& cd.subtitle.style
+				&& ( _r = cd.subtitle.style )
 				;
 			return _r;
-		}		
+		}	
+		
 		public function get subtitleEnable():Boolean{
-			var _r:Boolean = true
-			chartData 
-				&& chartData.subtitle
-				&& ( 'enabled' in chartData.subtitle )
-				&& ( _r = StringUtils.parseBool( chartData.subtitle.enabled ) )
+			var _r:Boolean = true, _text:String = '', _isset:Boolean = false;
+			
+			cd 
+				&& cd.subtitle
+				&& ( 'enabled' in cd.subtitle )
+				&& ( _r = StringUtils.parseBool( cd.subtitle.enabled )
+					, _text = cd.subtitle.text || _text 
+					, _isset = true
+				)
+				;
+				
+			cd 
+				&& cd.xAxis
+				&& cd.xAxis.subtitle
+				&& ( 'enabled' in cd.xAxis.subtitle )
+				&& ( _r = cd.xAxis.subtitle.enabled
+					, _text = cd.xAxis.subtitle.text || _text
+					, _isset = true
+				)
+				;
+			_isset && !_text && ( _r = false );
+				
+			return _r;
+		}	
+		
+		public function get subtitleText():String{
+			var _r:String = ''
+			cd 
+				&& cd.subtitle
+				&& ( 'text' in cd.subtitle )
+				&& ( _r = cd.subtitle.text )
+				;
+				
+			cd 
+				&& cd.xAxis
+				&& cd.xAxis.subtitle
+				&& ( 'text' in cd.xAxis.subtitle )
+				&& ( _r = cd.xAxis.subtitle.text )
 				;
 			return _r;
 		}
-		
+				
 		public function get creditsStyle():Object{
 			var _r:Object = {};
 			chartData 
@@ -1380,6 +1482,7 @@ package org.xas.jchart.common
 			_filterData = {};
 			_chartData = {};
 			_displayLegend = [];
+			_selected = -1;
 			
 			return this;
 		}
@@ -1425,7 +1528,7 @@ package org.xas.jchart.common
 			this.cd 
 				&& this.cd.chart
 				&& ( _r = this.cd.chart );
-						return _r;
+			return _r;
 		}
 		
 		public function get hoverBgParams():Object{
@@ -1541,7 +1644,7 @@ package org.xas.jchart.common
 			_isFloatLenReady = false;
 			_isMaxValueReady = false;
 			_maxValue = 0;			
-			selected = -1;
+//			selected = -1;
 			_ignoreAutoRate = false;
 			
 			_labelRotationEnable = false;
@@ -1606,9 +1709,12 @@ package org.xas.jchart.common
 						case 'TOP_LEFT' : { _interval = 0;break; }
 						case 'TOP_CENTER' : { _interval = 1;break; }
 						case 'TOP_RIGHT' : { _interval = 2;break; }
-							
+						
 						case 'RIGHT_TOP' : { _interval = 3;break; }
-						case 'RIGHT_MIDDLE' : { _interval = 4;break; }
+						case 'MIDDLE_RIGHT' : 
+						case 'RIGHT_MIDDLE' : { 
+							_interval = 4;break; 
+						}
 						case 'RIGHT_BOTTOM' : { _interval = 5;break; }
 							
 						case 'BOTTOM_LEFT' : { _interval = 6;break; }
@@ -1616,6 +1722,7 @@ package org.xas.jchart.common
 						case 'BOTTOM_RIGHT' : { _interval = 8;break; }
 							
 						case 'LEFT_TOP' : { _interval = 9;break; }
+						case 'MIDDLE_LEFT' :
 						case 'LEFT_MIDDLE' : { _interval = 10;break; }
 						case 'LEFT_BOTTOM' : { _interval = 11;break; }
 						

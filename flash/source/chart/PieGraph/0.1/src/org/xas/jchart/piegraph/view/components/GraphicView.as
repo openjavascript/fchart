@@ -28,87 +28,131 @@ package org.xas.jchart.piegraph.view.components
 		private var _piePart:Vector.<PiePart>;
 		
 		private var _hideTimer:Timer;
+		private var _config:Config;
+		private var _selectedIndex:int = -1;
+		
+		private var _ready:Boolean;
 		
 		public function GraphicView()
 		{
 			super(); 
+			_config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
 			_hideTimer = new Timer( 200, 1 );
 			_hideTimer.addEventListener( TimerEvent.TIMER, onTimerHideDone );
-			//_hideTimer.start();
-			
-			/*
-			addEventListener( JChartEvent.SHOW_TIPS, showTips );
-			addEventListener( JChartEvent.UPDATE_TIPS, updateTips );
-			addEventListener( JChartEvent.HIDE_TIPS, hideTips );
-			*/
+
 		}
 		
-		private function addToStage( _evt:Event ):void{
-			
-			//addChild( new PiePart( new Point( 200, 200 ), 0, 100 ) );			
-			//addChild( new PiePart( new Point( 200, 200 ), 0, 360, 100 ) );
+		private function addToStage( _evt:Event ):void{			
+			addEventListener( JChartEvent.SELECTED, onSelected );
 		}
 		
 		public function update():void{
 			
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.piePart && BaseConfig.ins.c.piePart.length ) ) return;
-			//Log.log( 'GraphicView update', BaseConfig.ins.c.piePart.length );
+			if( !( _config.c && _config.c.piePart && _config.c.piePart.length ) ) return;
+//			Log.printFormatJSON( _config.displaySeriesIndexMap );
 			
 			graphics.clear();
 			_piePart = new Vector.<PiePart>();
 			
-			Common.each( BaseConfig.ins.c.piePart, function( _k:int, _item:Object ):void{
-				if( _item.data.y === 0 ) return;
-				var _pp:PiePart = new PiePart( 
-										new Point( _item.cx, _item.cy )
-										, _item.startAngle, _item.endAngle
-										, _item.radius
-										, _k
-										, { 'color': BaseConfig.ins.itemColor( _k ) }
-									);				
-				_pp.addEventListener( JChartEvent.UPDATE_STATUS, onPiePartUpdateStatus );
-				_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
-				_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
-				_pp.addEventListener( MouseEvent.CLICK, onMouseClick );
-				addChild( _pp );
-				_piePart.push( _pp );
-				
-				//Log.log( _item.cx, _item.cy, _item.startAngle, _item.endAngle, _item.radius );
-			});
-						
-			var _selectedIndex:int = -1;
-			Common.each( BaseConfig.ins.displaySeries, function( _k:int, _item:Object ):void{
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
 				if( _item.selected ){
 					_selectedIndex = _k;
 				}
 			});
 			
-			//Log.log( _selectedIndex );
-			if( BaseConfig.ins.selected >= 0 ){
-				_selectedIndex = BaseConfig.ins.selected;
+//			Log.log( 'GraphicView: _config.selected = ', _config.selected );
+			
+			if( _config.selected >= 0 ){
+				Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+					if( _config.selected === _config.displaySeriesIndexMap[ _k ] ){
+						_selectedIndex = _k;
+					}
+				});
+//				Log.log( _selectedIndex, _config.selected );
 			}
 			
-			if( _selectedIndex >= 0 && _selectedIndex <= (_piePart.length - 1 ) && _piePart.length > 1 ){
-				_piePart[ _selectedIndex ].selected( true );
+			Common.each( _config.c.piePart, function( _k:int, _item:Object ):void{
+				
+				if( _item.data.y === 0 ) return;
+				
+				var _preItem:PiePart;
+				_k && _piePart.length && ( _preItem = _piePart[ _piePart.length - 1 ] );
+				
+				var _pp:PiePart = new PiePart( 
+										new Point( _item.cx, _item.cy )
+										, _item.startAngle, _item.endAngle
+										, _item.radius
+										, _k
+										, { 
+											'color': _config.itemColor( _k )
+										}
+										, {}
+										, 0
+										, {
+											'seriesIndex': _config.displaySeriesIndexMap[ _k ]
+											, 'preItem': _preItem
+										}
+									);				
+				_piePart.push( _pp );
+				
+				_pp.addEventListener( JChartEvent.UPDATE_STATUS, onPiePartUpdateStatus );
+				_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
+				_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
+				_pp.addEventListener( MouseEvent.CLICK, onMouseClick );
+				_pp.addEventListener( JChartEvent.READY, onItemReady );
+				_pp.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+				
+				addChild( _pp );
+				
+				//Log.log( _item.cx, _item.cy, _item.startAngle, _item.endAngle, _item.radius );
+			});
+						
+		}
+		
+		private function onItemReady( _evt:JChartEvent ):void{
+			var _data:Object = _evt.data || {}
+				, _index:int = _data.index || 0
+				;
+			if( _data.index === ( _config.c.piePart.length - 1 ) ){				
+//				Log.log( 'onItemReady:', _data.index, _selectedIndex, _piePart.length - 1 );
+//				Log.log( 'onItemReady', _selectedIndex );
+				
+				_ready = true;
+				dispatchEvent( new JChartEvent( JChartEvent.SELECTED, { index: _selectedIndex } ) );
+				_config.facade.sendNotification( JChartEvent.READY );
+			}
+		}
+		
+		private function onSelected( _evt:JChartEvent ):void{
+			if( !_ready ) return;
+			var _data:Object = _evt.data || {}
+				, _index:int = _data.index || 0
+				;
+			if( !_piePart.length ) return;
+			
+			if( _index >= 0 && _index <= (_piePart.length - 1 ) && _piePart.length > 1 ){
+				_piePart[ _index ].toggle();
+//				Log.log( _index );
 			}
 		}
 				
 		protected function onMouseOver( _evt:MouseEvent ):void{
+			if( !_ready ) return;
 			
 			_hideTimer.running && _hideTimer.stop();
-			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+//			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
 			//Log.log( 'show tips' );
 			
 		}
 		
 		protected function onMouseOut( _evt:MouseEvent ):void{
+			if( !_ready ) return;
 			try{
-				root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+//				root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 				//dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );
 				_hideTimer.running && _hideTimer.stop();
 				_hideTimer.start();
@@ -123,40 +167,55 @@ package org.xas.jchart.piegraph.view.components
 		}
 		
 		protected function onMouseClick( _evt:MouseEvent ):void{
-			var _pp:PiePart = _evt.target as PiePart;
-			if( !(　_pp && BaseConfig.ins.displaySeries.length >= 2 ) )  return;
-			_pp.toggle();
+			if( !_ready ) return;
+//			Log.log( 'onMouseClick' );
+			var _pp:PiePart = _evt.currentTarget as PiePart;
+			if( !(　_pp && _config.displaySeries.length >= 2 ) )  return;
+//			_pp.toggle();
+			dispatchEvent( new JChartEvent( JChartEvent.SELECTED, { index: _pp.dataIndex } ) );
 		}
 		
 		protected function onMouseMove( _evt:MouseEvent ):void{
+//			Log.log( 1 );
+			if( !_ready ) return;
 			//Log.log( 'GraphicView onMouseMove', new Date().getTime() );
-			var _pp:PiePart = _evt.target as PiePart;
+			var _pp:PiePart = _evt.currentTarget as PiePart;
+//			Log.log( 2 );
 			if( !_pp ) return;
+//			Log.log( 3 );
 			//Log.log( _pp.dataIndex );
 			dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, { evt: _evt, index: _pp.dataIndex } ) );
 		}	
 				
 		private function onPiePartUpdateStatus( _evt:JChartEvent ):void{
-			var _data:Object = _evt.data as Object;
-			
-			
+			if( !_ready ) return;
+			var _data:Object = _evt.data as Object
+				, _oindex:int = _config.displaySeriesIndexMap[ _data.index ]
+				;
+				
 			if( _piePart.length === 1 ) {
 				return;
 			}
 			
-			if( BaseConfig.ins.selected >= 0 
-				&& BaseConfig.ins.selected <= ( _piePart.length - 1 ) 
-				&& BaseConfig.ins.selected != _data.dataIndex 
-			){
-				_piePart[ BaseConfig.ins.selected ].unselected();
-			}
+			if( _oindex > -1 && _oindex != _config.selected ){
+				Common.each( _piePart, function( _k:int, _item:PiePart ):Boolean{
+					var _r:Boolean = true, _tindex:int = _config.displaySeriesIndexMap[ _item.dataIndex ];
+					if( _config.selected === _tindex ){
+						_r = false;
+						_item.unselected();
+					}
+					
+					return _r;
+				});
+			}			
 			
 			if( _data.selected ){
-				BaseConfig.ins.selected = _data.dataIndex;
+				_config.selected = _oindex;
 			}else{
-				BaseConfig.ins.selected = -1;
+				_config.selected = -1;
 			}					
-			//Log.log( BaseConfig.ins.selected );			
+//			Log.log( 'onPiePartUpdateStatus: _config.selected = ', _config.selected );
+//			Log.log( _config.selected, _data.selected );			
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{

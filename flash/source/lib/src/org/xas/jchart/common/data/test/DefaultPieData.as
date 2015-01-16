@@ -22,6 +22,282 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
+			return;
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: true
+				}					
+				, "legend": {
+					"enabled": true
+//					, "direction": "MIDDLE_RIGHT"
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+				, "animation": {
+					"enabled": true
+					, "duration": 1
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: true
+				}					
+				, "legend": {
+					"direction": "MIDDLE_RIGHT"
+					, "enabled": false
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: true
+				}					
+				, "legend": {
+					"direction": "MIDDLE_RIGHT"
+					, "enabled": true
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1					
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: false
+				}					
+				, "legend": {
+					"direction": "MIDDLE_RIGHT"
+					, "enabled": false
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+			});
+			
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": true
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": true
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: true
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, plotOptions: {
+					pie: {
+						dataLabels: {
+							enabled: true
+						}
+					}
+				}
+				, "legend": {
+					"direction": "RIGHT_TOP"
+				}
+			});
+			
 			
 			_data.push({
 				title: {
@@ -182,6 +458,11 @@ package org.xas.jchart.common.data.test
 				}]
 				, radius: {
 					innerRate: .5
+				}
+				
+				, legend: {
+					"enabled": true
+					,"direction": "MIDDLE_RIGHT"
 				}
 			});
 			

@@ -1,6 +1,7 @@
 package org.xas.jchart.common.ui.widget
 {	
 	import com.greensock.TweenLite;
+	import com.greensock.data.TweenLiteVars;
 	import com.greensock.easing.*;
 	
 	import flash.display.Sprite;
@@ -18,17 +19,21 @@ package org.xas.jchart.common.ui.widget
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
 	
+	import org.osmf.elements.F4MElement;
 	import org.xas.core.utils.EffectUtility;
 	import org.xas.core.utils.ElementUtility;
 	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	
-	public class PiePart extends Sprite
+	public class PiePart extends JSprite
 	{
 		private var _centerPoint:Point;
 		public function get centerPoint():Point{ return _centerPoint; }
+		
+		private var _startPoint:Point;
 		
 		private var _radius:Number;
 		public function get radius():Number{ return _radius; }
@@ -41,6 +46,17 @@ package org.xas.jchart.common.ui.widget
 		
 		public function get midAngle():Number{ return _beginAngle + ( _endAngle - _beginAngle ) / 2; }
 		
+		private var _seriesAngle:Number = 0;
+		public function get seriesAngle():Number{ return _seriesAngle; }
+		
+		private var  _angleStepCount:Number = 0;
+		public function get anglePadCount():Number{ return _angleStepCount; }
+		
+		private var _countAngle:Number = 0;
+		public function get countAngle():Number{ return _countAngle; }
+		
+		private var angleStep:Number = .5;		
+		
 		private var _offsetAngle:Number;
 		
 		private var _style:Object;
@@ -48,6 +64,26 @@ package org.xas.jchart.common.ui.widget
 		
 		private var _dataIndex:int = 0;
 		public function get dataIndex():int{ return _dataIndex; }
+		
+		private var _config:Config;
+		
+				
+		private var _lineColor:uint = 0xffffff
+					, _fillColor:uint = 0x000000
+					;
+		
+		private var tempPoint:Point;
+		
+		private var _count:Number = 0;
+		public function get count():Number{ return _count; }
+		public function set count( _setter:Number ):void{ _count = _setter; }
+		
+		private var _originCenterPoint:Point;
+		private var _part:Sprite;
+		private var _ins:Sprite
+		
+		private var _preItem:PiePart;
+		
 		
 		public function PiePart( 
 			_centerPoint:Point
@@ -57,9 +93,16 @@ package org.xas.jchart.common.ui.widget
 			 , _style:Object = null
 			 , _hoverStyle:Object = null
 			 , _offsetAngle:Number = 0
+			 , _data:Object = null
 		)
 		{
+			
+			super( _data || {} );
+			_config = BaseConfig.ins as Config;
+			_ins = this;
+			
 			this._centerPoint = _centerPoint;
+			this._originCenterPoint = _centerPoint.clone();
 			this._beginAngle = _beginAngle + _offsetAngle;
 			this._endAngle = _endAngle + _offsetAngle;
 			this._radius = _radius;
@@ -69,14 +112,20 @@ package org.xas.jchart.common.ui.widget
 			this._style = _style;
 			this._hoverStyle = _hoverStyle;
 			
+			if( data.preItem ){
+				_preItem = data.preItem as PiePart;
+			}
+			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 		}
 		
 		private function addToStage( _evt:Event ):void{
 			
-			addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
-			addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
-			addEventListener( MouseEvent.CLICK, onMouseClick );
+			addChild( _part = new Sprite() );
+			
+			_part.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
+			_part.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
+			_part.addEventListener( MouseEvent.CLICK, onMouseClick );
 			
 			addEventListener( JChartEvent.UPDATE, onUpdate );
 			
@@ -84,65 +133,142 @@ package org.xas.jchart.common.ui.widget
 		}
 		
 		private function draw():void{
-			
-			var _lineColor:uint = 0xffffff
-				, _fillColor:uint = 0x000000
-				;
-			
+						
 			if( _style && _style.color ){
 				_fillColor = _style.color;
 			}
 			
-			graphics.lineStyle(1, _lineColor);
-			graphics.beginFill( _fillColor );
+			_part.graphics.lineStyle(1, _lineColor);
+			_part.graphics.beginFill( _fillColor );
 			
-			graphics.moveTo( _centerPoint.x, _centerPoint.y );
+			_centerPoint.x = 0;
+			_centerPoint.y = 0;
 			
-			var p1:Point = GeoUtils.moveByAngle
+			_part.graphics.moveTo( _centerPoint.x, _centerPoint.y );
+			
+			_startPoint = GeoUtils.moveByAngle
 				( 
 					_beginAngle
 					, _centerPoint
 					, _radius 
 				);
-			graphics.lineTo( p1.x, p1.y );
-			
-			var countAngle:Number = _beginAngle;
-			var angleStep:Number = .5;
-			
-			var tempPoint:Point;
+			_part.graphics.lineTo( _startPoint.x, _startPoint.y );
+						
+			_countAngle = _beginAngle;
+			angleStep = .5;
 			
 			
-			if( countAngle > _endAngle ){
+			if( _countAngle > _endAngle ){
 				_endAngle += 360;
 			}
 			
-			if( countAngle == _endAngle || ( countAngle == 0 && _endAngle == 360 ) ){
-				graphics.lineStyle( 1, _fillColor );
+			if( _countAngle == _endAngle || ( _countAngle == 0 && _endAngle == 360 ) ){
+				_part.graphics.lineStyle( 1, _fillColor );
 			}
 			
-			if( countAngle == _endAngle ){
+			if( _countAngle == _endAngle ){
 				_endAngle += 360;		
 			}
 			
-			//Log.log( countAngle, _endAngle );
-			
+			_ins.x = _originCenterPoint.x;
+			_ins.y = _originCenterPoint.y;
+						
+			if( _config.animationEnabled ){
+				animationDraw();
+			}else{
+				normalDraw();
+			}
+		}
+		
+		private function normalDraw():void{
+
 			while( true )
 			{
-				if( countAngle >= _endAngle )
+				if( _countAngle >= _endAngle )
 				{
+					_countAngle = _endAngle;
 					tempPoint = GeoUtils.moveByAngle( _endAngle, _centerPoint, _radius );
-					graphics.lineTo( tempPoint.x, tempPoint.y );
+					_part.graphics.lineTo( tempPoint.x, tempPoint.y );
 					break;
 				}
-				tempPoint = GeoUtils.moveByAngle( countAngle, _centerPoint, _radius );
-				graphics.lineTo( tempPoint.x, tempPoint.y );
+				tempPoint = GeoUtils.moveByAngle( _countAngle, _centerPoint, _radius );
+				_part.graphics.lineTo( tempPoint.x, tempPoint.y );
 				
-				//Log.log( countAngle, _radius );
+				//Log.log( _countAngle, _radius );
 				
-				countAngle += angleStep;
+				_countAngle += angleStep;
 			}
 			
-			graphics.endFill();		
+			_part.graphics.endFill();		
+			
+			dispatchEvent( new JChartEvent( JChartEvent.READY, { index: dataIndex } ) );
+		}
+		
+		private function animationDraw():void{			
+//			normalDraw();
+			
+			TweenLite.to( this, _config.animationDuration
+				, { 
+					count: _endAngle - _countAngle
+					//, ease: Expo.easeIn
+//					, ease: Circ.easeInOut
+					, onUpdate: function():void{
+						var cur:Number = _beginAngle + _count
+							, _tmpAngle:Number = _countAngle
+							, _anglePad:Number = 0
+							;
+						
+						while( true )
+						{
+							if( _tmpAngle >= cur )
+							{
+								_tmpAngle = cur;
+								tempPoint = GeoUtils.moveByAngle( _tmpAngle, _centerPoint, _radius );
+								_part.graphics.lineTo( tempPoint.x, tempPoint.y );
+								break;
+							}
+							tempPoint = GeoUtils.moveByAngle( _tmpAngle, _centerPoint, _radius );
+							_part.graphics.lineTo( tempPoint.x, tempPoint.y );
+							
+							//Log.log( _countAngle, _radius );
+							
+							_tmpAngle += angleStep;
+						}
+
+						_anglePad = cur - _countAngle;
+						_angleStepCount += _anglePad;
+						_countAngle = cur;
+						
+						
+						if( _preItem && _dataIndex  ){
+							var _rangle:Number =  _preItem.seriesAngle + _config.offsetAngle - _preItem.endAngle
+								;
+													
+							_part.rotationZ = _rangle;
+							_ins.x = _originCenterPoint.x;
+							_ins.y = _originCenterPoint.y;
+						}
+						
+						if( !_dataIndex ){
+							_seriesAngle += _anglePad;
+						}else if( _preItem ){
+							_seriesAngle = _preItem.seriesAngle + _angleStepCount;
+						}
+						
+					}
+					, onComplete: 
+						function():void{		
+							if( !_dataIndex ){								
+								_seriesAngle = _config.offsetAngle + Math.abs( _endAngle - _beginAngle );
+							}else if( _preItem ){
+								_seriesAngle = _preItem.seriesAngle + Math.abs( _endAngle - _beginAngle );
+							}
+							_part.rotationZ = 0;
+							_part.graphics.endFill();									
+							dispatchEvent( new JChartEvent( JChartEvent.READY, { index: dataIndex } ) );
+						}
+				} 
+			);
 		}
 		
 		private function onUpdate( _evt:JChartEvent ):void{
@@ -150,7 +276,7 @@ package org.xas.jchart.common.ui.widget
 			this.dispatchEvent( 
 				new JChartEvent( 
 					JChartEvent.UPDATE_STATUS
-					, { selected: _selected, dataIndex: dataIndex, type: 'click' }
+					, { selected: _selected, dataIndex: dataIndex, index: dataIndex, type: 'click' }
 				) 
 			);	
 		}
@@ -164,6 +290,8 @@ package org.xas.jchart.common.ui.widget
 				, _tw:TweenLite
 				;
 			
+//			Log.log( 'update:', _selected );
+			
 			//TweenLite.defaultEase = com.greensock.easing.Elastic;
 			if( _selected ){
 				_obj = { x:0, y: 0 };
@@ -176,7 +304,7 @@ package org.xas.jchart.common.ui.widget
 						//Log.log( _obj.x, _obj.y );
 						_matrix.tx = _obj.x;
 						_matrix.ty = _obj.y;
-						transform.matrix = _matrix;
+						_part.transform.matrix = _matrix;
 					}
 					, ease: com.greensock.easing.Expo.easeOut
 				} );
@@ -185,7 +313,8 @@ package org.xas.jchart.common.ui.widget
 				_matrix.ty = _point.y;
 				*/
 			} else {
-				_obj = { x: transform.matrix.tx, y: transform.matrix.ty };
+				if( !( _part && _part.transform && _part.transform.matrix ) ) return; 
+				_obj = { x:_part.transform.matrix.tx, y: _part.transform.matrix.ty };
 				_point = Common.distanceAngleToPoint( _distance, midAngle );
 				_tw = new TweenLite( _obj, .5, { 
 					x: 0
@@ -195,12 +324,12 @@ package org.xas.jchart.common.ui.widget
 						//Log.log( _obj.x, _obj.y );
 						_matrix.tx = _obj.x;
 						_matrix.ty = _obj.y;
-						transform.matrix = _matrix;
+						_part.transform.matrix = _matrix;
 					}
 					, ease: com.greensock.easing.Expo.easeOut
 				} );
 			}
-			this.transform.matrix = _matrix;			
+			_part.transform.matrix = _matrix;			
 		}
 		
 		public function unselected():void{

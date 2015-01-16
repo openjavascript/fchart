@@ -1,18 +1,16 @@
-package 
+package org.xas.jchart.common.config
 {
-	import org.xas.core.utils.Log;
-	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	
-	public class Config extends BaseConfig
+	public class BasePieConfig extends BaseConfig
 	{
-		public function Config()
+		public function BasePieConfig()
 		{
 			super();
 		}
 		
-		private var _pseries:Array = [];
+		protected var _pseries:Array = [];
 		
 		override public function setChartData(_d:Object):Object{
 			super.setChartData( _d );
@@ -47,9 +45,8 @@ package
 				;
 			
 			_displaySeries = []
-			//Log.printJSON( _tmpSeries[0].data );
-			
 			_displaySeriesIndexMap = {};
+			//Log.printJSON( _tmpSeries[0].data );
 			
 			Common.each( _tmpSeries[0].data, function( _k:int, _item: * ):void{
 				var _o:Object, _a:Array = _item as Array;
@@ -61,8 +58,7 @@ package
 				_displaySeries.push( _o );
 				_displaySeriesIndexMap[ _k ] = _k;
 			});			
-			
-			
+						
 			if( _filter ){
 				var _tmp:Array = [], _count:int = 0;
 				_displaySeriesIndexMap = {};
@@ -75,9 +71,7 @@ package
 				_displaySeries = _tmp;
 			}
 			
-			_filterData = _filter || {};
-			
-			//Log.printJSON( _displaySeries );			
+			_filterData = _filter || {};		
 			
 			return this;
 		}
@@ -124,27 +118,11 @@ package
 			return _floatLen;
 		}
 		
-		override public function get legendEnabled():Boolean{
-			var _r:Boolean = false;
-			
-			if( cd && cd.legend && ( 'enabled' in cd.legend ) ){
-				_r = StringUtils.parseBool( cd.legend.enabled );
-			}
-			
-			return _r;
-		}
-		
-		override public function get dataLabelEnabled():Boolean{
-			var _r:Boolean = false;
-			//return false;
-			cd 
-			&& cd.plotOptions
-				&& cd.plotOptions.pie
-				&& cd.plotOptions.pie.dataLabels
-				&& ( 'enabled' in cd.plotOptions.pie.dataLabels )
-				&& ( _r = cd.plotOptions.pie.dataLabels.enabled );
-			
-			return _r;
-		}
+//		
+//		override public function get animationDuration():Number {
+//			var _r:Number = .5;
+//			'duration' in animation && ( _r =  parseFloat( this.animation.duration ) );
+//			return _r;
+//		}
 	}
 }

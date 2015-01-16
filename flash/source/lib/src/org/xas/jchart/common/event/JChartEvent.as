@@ -14,6 +14,7 @@ package org.xas.jchart.common.event
 		public static const PROCESS:String = 'process';
 		public static const CALC_COORDINATE:String = 'calc_coordinate';
 		
+		public static const READY:String = 'ready';
 		public static const DRAW:String = 'draw';
 		public static const CLEAR:String = 'clear';
 		
@@ -29,6 +30,7 @@ package org.xas.jchart.common.event
 		public static const UPDATE:String = 'update';
 		public static const UPDATE_STATUS:String = 'update_status';
 		public static const FILTER_DATA:String = 'filter_data';
+		public static const SELECTED:String = 'selected';
 		
 		public static const SHOW_LEGEND_ARROW:String = 'show_legend_arrow';
 		public static const HIDE_LEGEND_ARROW:String = 'hide_legend_arrow';
@@ -71,8 +73,7 @@ package org.xas.jchart.common.event
 			_ele.root.stage.addEventListener( Event.MOUSE_LEAVE, stageLeave );
 			_ele.root.stage.addEventListener( Event.RESIZE, remove );
 			_ele.addEventListener( Event.REMOVED_FROM_STAGE, remove );
-			
-			
+						
 			function stageLeave( _evt:Event ):void{				
 				_isOver = false;
 				_isOut = true;

@@ -5,13 +5,13 @@ package org.xas.jchart.common.view.mediator
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.PieLabelView;
+	import org.xas.jchart.common.view.components.PieLabelView.BasePieLabelView;
 	
 	public class PieLabelMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PPieLabelMediator';
-		private var _view:PieLabelView;
-		public function get view():PieLabelView{ return _view; }
+		private var _view:BasePieLabelView;
+		public function get view():BasePieLabelView{ return _view; }
 		
 		public function PieLabelMediator()
 		{
@@ -19,7 +19,7 @@ package org.xas.jchart.common.view.mediator
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index6.addChild( _view = new PieLabelView( ) );
+			mainMediator.view.index6.addChild( _view = new BasePieLabelView( ) );
 		}
 		
 		override public function onRemove():void{
@@ -29,15 +29,20 @@ package org.xas.jchart.common.view.mediator
 		override public function listNotificationInterests():Array{
 			return [
 				JChartEvent.SHOW_CHART
+				, JChartEvent.READY
 			];
 		}
 		
 		override public function handleNotification(notification:INotification):void{
 			switch( notification.getName() ){
-			case JChartEvent.SHOW_CHART:
-				{
-					//_view.update();
-					_view.dispatchEvent( new JChartEvent( JChartEvent.SHOW_CHART ) );
+				
+				case JChartEvent.SHOW_CHART: {
+						_view.dispatchEvent( new JChartEvent( JChartEvent.SHOW_CHART ) );
+						break;
+					}
+					
+				case JChartEvent.READY: {
+					_view.dispatchEvent( new JChartEvent( JChartEvent.READY ) );
 					break;
 				}
 			

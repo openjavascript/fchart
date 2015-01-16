@@ -57,14 +57,14 @@ package org.xas.jchart.mixchart.controller
 			
 			if( _config.cd ){			
 				
-				if( _config.cd.title && _config.cd.title.text ){
-					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )	
+				if( _config.titleEnable ){
+					facade.registerMediator( new TitleMediator( _config.titleText ) )	
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
-				if( _config.cd.subtitle && _config.cd.subtitle.text ){
-					facade.registerMediator( new SubtitleMediator( _config.cd.subtitle.text ) )
+				if( _config.subtitleEnable ){
+					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height + 5;

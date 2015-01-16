@@ -31,8 +31,40 @@ package org.xas.jchart.common.view.components.GraphicBgView
 		override protected function showChart( _evt: JChartEvent ):void{
 			this.graphics.clear();
 			
-			this.graphics.beginFill( 0xffffff );
-			this.graphics.lineStyle( 1, 0x999999, .35 );
+			var _bgColor:uint = 0xffffff
+				, _bgAlpha:Number = 1
+				
+				, _borderColor:uint = 0xcccccc
+				, _borderAlpha:uint = 1
+				, _borderThickness:uint = 1
+				;
+			
+//			if( 'bgColor' in BaseConfig.ins.chartParams ){
+//				_bg = BaseConfig.ins.chartParams.bgColor;
+//			}
+//			if( 'bgAlpha' in BaseConfig.ins.chartParams ){
+//				_alpha = BaseConfig.ins.chartParams.bgAlpha;
+//			}
+			
+			if( BaseConfig.ins.chartParams.graphic ){
+				'bgColor' in BaseConfig.ins.chartParams.graphic 
+					&& ( _bgColor = BaseConfig.ins.chartParams.graphic.bgColor );
+				
+				'bgAlpha' in BaseConfig.ins.chartParams.graphic 
+					&& ( _bgAlpha = BaseConfig.ins.chartParams.graphic.bgAlpha );
+				
+				'borderColor' in BaseConfig.ins.chartParams.graphic 
+					&& ( _borderColor = BaseConfig.ins.chartParams.graphic.borderColor );
+				
+				'borderAlpha' in BaseConfig.ins.chartParams.graphic 
+					&& ( _borderAlpha = BaseConfig.ins.chartParams.graphic.borderAlpha );
+				
+				'borderThickness' in BaseConfig.ins.chartParams.graphic 
+					&& ( _borderThickness = BaseConfig.ins.chartParams.graphic.borderThickness );
+			}
+			
+			this.graphics.beginFill( _bgColor, _bgAlpha );
+			this.graphics.lineStyle( _borderThickness, _borderColor, _borderAlpha );
 			this.graphics.drawRect(
 				0, 0, BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartHeight 
 			);

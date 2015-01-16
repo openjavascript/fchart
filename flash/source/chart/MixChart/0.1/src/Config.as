@@ -36,7 +36,7 @@ package
 			}
 			*/
 			Common.each( _mixModel.items, function( _k:int, _item:MixChartModelItem ):Boolean{
-				if( _item.enabeld ){
+				if( _item.enabeld && _item.hasVTitle){
 					return _allFalse = false;
 				}
 				return true;
@@ -76,7 +76,7 @@ package
 				){
 					var _isEnabled:Boolean = true;
 					if( 'enabled' in _item.params.title ){
-						_isEnabled = StringUtils.parseBool( _item.params.title.enabled );
+						_isEnabled = StringUtils.parseBool( _item.params.title.enabled ) && _item.params.title.text;
 					}
 					if( _isEnabled ){
 						_r = true;

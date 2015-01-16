@@ -165,7 +165,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !DefaultData.instance.data.length ) return;
-				_data = DefaultData.instance.data[52];
+				_data = DefaultData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};
 				

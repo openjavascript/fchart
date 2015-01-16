@@ -22,7 +22,7 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-//			return;
+			return;
 			
 			_data.push( 				{
 				"chart": {
@@ -30,6 +30,9 @@ package org.xas.jchart.common.data.test
 				}
 				, "title": {
 					"text": "全站统计"
+				}
+				, "subtitle": {
+					"text": "for CRM"
 				}
 				, "xAxis": {
 					"categories": [

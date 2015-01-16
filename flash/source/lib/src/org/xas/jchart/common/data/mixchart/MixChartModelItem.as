@@ -218,7 +218,7 @@ package org.xas.jchart.common.data.mixchart
 			){
 				var _isEnabled:Boolean = true;
 				if( 'enabled' in this.params.title ){
-					_isEnabled = StringUtils.parseBool( this.params.title.enabled );
+					_isEnabled = StringUtils.parseBool( this.params.title.enabled ) && this.params.title.text;
 				}
 				_r = _isEnabled;
 			}

@@ -22,7 +22,7 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-//			return;
+			return;
 			_data.push({
 				"chart":
 				{
@@ -52,12 +52,24 @@ package org.xas.jchart.common.data.test
 						"hao.360.cn", 
 						"wd.360.cn"
 					]
+					, "title": {
+						"enabled": true
+						, "text": 'test title...' 
+					}
+					, "subtitle": {
+						"enabled": true
+						, "text": 'test subtitle...' 
+					}
 				}, 
 				"yAxis":
 				{
 					//					"enabled": false
 					"labels": {
 						"rotation": -45
+					}
+					, "title": { 
+						//						"enabled": true,
+						"text": 'test vtitle...' 
 					}
 				}, 
 				"legend":

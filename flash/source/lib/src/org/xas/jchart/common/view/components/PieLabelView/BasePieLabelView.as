@@ -1,6 +1,8 @@
-package org.xas.jchart.common.view.components
+package org.xas.jchart.common.view.components.PieLabelView
 {
 	import com.adobe.utils.StringUtil;
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Expo;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -21,46 +23,65 @@ package org.xas.jchart.common.view.components
 	import org.xas.jchart.common.ui.widget.JSprite;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
-	public class PieLabelView extends Sprite
+	public class BasePieLabelView extends Sprite
 	{
-		private var _labels:Vector.<JTextField>;
+		protected var _labels:Vector.<JTextField>;
 		public function get labels():Vector.<JTextField>{ return _labels; }
 		
-		private var _lines:Vector.<JSprite>;
+		protected var _lines:Vector.<JSprite>;
 		public function get lines():Vector.<JSprite>{ return _lines; }
 		
-		private var _leftTopLabel:Vector.<JTextField>;
-		private var _leftTopLine:Vector.<JSprite>;
+		protected var _leftTopLabel:Vector.<JTextField>;
+		protected var _leftTopLine:Vector.<JSprite>;
 		
-		private var _rightTopLabel:Vector.<JTextField>;
-		private var _rightTopLine:Vector.<JSprite>;
+		protected var _rightTopLabel:Vector.<JTextField>;
+		protected var _rightTopLine:Vector.<JSprite>;
 		
-		private var _leftBottomLabel:Vector.<JTextField>;
-		private var _leftBottomLine:Vector.<JSprite>;
+		protected var _leftBottomLabel:Vector.<JTextField>;
+		protected var _leftBottomLine:Vector.<JSprite>;
 		
-		private var _rightBottomLabel:Vector.<JTextField>;
-		private var _rightBottomLine:Vector.<JSprite>;
+		protected var _rightBottomLabel:Vector.<JTextField>;
+		protected var _rightBottomLine:Vector.<JSprite>;
 		
-		private var _isIntersect:Boolean = false;
+		protected var _isIntersect:Boolean = false;
 		
-		private var _maxWidth:Number;
-		private var _maxHeight:Number;
+		protected var _maxWidth:Number;
+		protected var _maxHeight:Number;
 		
-		private var _debugLabel:Boolean = false;
+		protected var _debugLabel:Boolean = false;
 		
-		public function PieLabelView()
+		protected var _config:Config;
+		
+		public function BasePieLabelView()
 		{
 			super();
+			_config = BaseConfig.ins as Config;
 		
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 		}
 		
-		private function addToStage( _evt:Event ):void{
+		protected function addToStage( _evt:Event ):void{
 			_debugLabel = false;
+			
+			if( _config.animationEnabled ){
+				this.visible = false;
+			}
+			
 			addEventListener( JChartEvent.SHOW_CHART, onShowChart );
+			addEventListener( JChartEvent.READY, onReady );
 		}
 		
-		private function onShowChart( _evt:JChartEvent ):void{
+		private function onReady( _evt:JChartEvent ):void{
+			this.alpha = 0;
+			this.visible = true;
+			
+			TweenLite.to( this, _config.animationDuration
+				, { 
+					alpha: 1, ease: Expo.easeOut
+				} );
+		}
+		
+		protected function onShowChart( _evt:JChartEvent ):void{
 			ElementUtility.removeAllChild( this );
 			graphics.clear();
 			
@@ -84,9 +105,9 @@ package org.xas.jchart.common.view.components
 			_maxHeight = 15;
 			
 			
-			if( !BaseConfig.ins.dataLabelEnabled ) return;
+			if( !_config.dataLabelEnabled ) return;
 			
-			if( !( BaseConfig.ins.c && BaseConfig.ins.c.piePart && BaseConfig.ins.c.piePart.length ) ) return;
+			if( !( _config.c && _config.c.piePart && _config.c.piePart.length ) ) return;
 			
 			var _topLabel:JTextField, _topLine:JSprite
 				, _rightLabel:JTextField, _rightLine:JSprite
@@ -94,20 +115,20 @@ package org.xas.jchart.common.view.components
 				, _leftLabel:JTextField, _leftLine:Sprite
 				;
 			
-			Common.each( BaseConfig.ins.c.pieLine, function( _k:int, _lineData:Object ):void{
+			Common.each( _config.c.pieLine, function( _k:int, _lineData:Object ):void{
 				
-				var _data:Object = { index: _k, data: _lineData, color: BaseConfig.ins.itemColor( _k ) }
+				var _data:Object = { index: _k, data: _lineData, color: _config.itemColor( _k ) }
 					, _line:JSprite = new JSprite( _data )
 					, _label:JTextField = new JTextField( _data )
 					;
 					_data.line = _line;
 				
-				_line.graphics.lineStyle( 1, BaseConfig.ins.itemColor( _k ) );
+				_line.graphics.lineStyle( 1, _config.itemColor( _k ) );
 				_line.graphics.moveTo( _lineData.start.x, _lineData.start.y );
 				_line.graphics.curveTo( _lineData.control.x, _lineData.control.y, _lineData.end.x, _lineData.end.y );												
 				addChild( _line );
 				
-				_label.text = BaseConfig.ins.displaySeries[ _k ].name;
+				_label.text = _config.displaySeries[ _k ].name;
 				_label.mouseEnabled = false;
 				_label.autoSize = TextFieldAutoSize.LEFT;
 				
@@ -192,8 +213,17 @@ package org.xas.jchart.common.view.components
 						_rightBottomLine.push( _line );
 						break;
 					}
-				}			
-				_label.textColor = BaseConfig.ins.itemColor( _k );
+				}		
+				
+//				if( _label.x < 1 ){
+//					_label.x = 1;
+//				}
+//				
+//				if( _label.x + _label.width >= _config.stageWidth ){
+//					_label.x = _config.stageWidth - _label.x - _label.width - 1;
+//				}
+				
+				_label.textColor = _config.itemColor( _k );
 				addChild( _label );
 				
 				_label.width > _maxWidth && ( _maxWidth = _label.width );
@@ -236,19 +266,40 @@ package org.xas.jchart.common.view.components
 				fixLeftTopLabel( _leftTopLabel );
 				
 				fixLeftBottomLabel( _leftBottomLabel );
-			}
+			}			
+			
+			Common.each( _labels, function( _k:int, _label:JTextField ):void{
+				if( _label.x < 0 ){
+					_lines[ _k ].x += Math.abs( _label.x );
+					_label.x = 0;	
+				}
+				if( _label.x + _label.width > _config.stageWidth ){
+//					_lines[_k].x -= _config.stageWidth - _label.width - _label.x;
+					_lines[ _k ].x -= Math.abs( _label.width + _label.x - _config.stageWidth );
+					_label.x = _config.stageWidth - _label.width;	
+				}
+				
+				if( _label.y < 0 ){
+					_label.y = 0;	
+					_lines[ _k ].y += Math.abs( _label.y );
+				}
+				if( _label.y + _label.height > _config.stageHeight ){
+					_lines[ _k ].y -= Math.abs( _label.height + _label.y - _config.stageHeight );
+					_label.y = _config.stageHeight - _label.height;	
+				}
+			});
 		}
 		
-		private function fixRightTopLabel( _labels:Vector.<JTextField> ):void{
+		protected function fixRightTopLabel( _labels:Vector.<JTextField> ):void{
 			if( !_labels.length ) return;
-			var _x:Number = BaseConfig.ins.c.cx + 5
-				, _y:Number = BaseConfig.ins.c.chartY + 5
-				, _endX:Number = BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth - 5 - _maxWidth
-				, _endY:Number = BaseConfig.ins.c.cy - _maxHeight - 5
+			var _x:Number = _config.c.cx + 5
+				, _y:Number = _config.c.chartY + 5
+				, _endX:Number = _config.c.chartX + _config.c.chartWidth - 5 - _maxWidth
+				, _endY:Number = _config.c.cy - _maxHeight - 5
 				;	
 			
 			if( _labels.length < 5 ){
-				_x = BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth - ( BaseConfig.ins.c.cx - BaseConfig.ins.c.chartX ) / 5;
+				_x = _config.c.chartX + _config.c.chartWidth - ( _config.c.cx - _config.c.chartX ) / 5;
 			}
 						
 			positionItems( _labels, _x, _y, _endX, _endY, function( _item:JTextField ):void{				
@@ -281,17 +332,17 @@ package org.xas.jchart.common.view.components
 			} );
 		}
 		
-		private function fixRightBottomLabel( _labels:Vector.<JTextField> ):void{
+		protected function fixRightBottomLabel( _labels:Vector.<JTextField> ):void{
 			if( !_labels.length ) return;
-			var _x:Number = BaseConfig.ins.c.cx + 5
-				, _endX:Number = BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth - 5 - _maxWidth
+			var _x:Number = _config.c.cx + 5
+				, _endX:Number = _config.c.chartX + _config.c.chartWidth - 5 - _maxWidth
 				
-				, _y:Number = BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight - 5 - _maxHeight
-				, _endY:Number = BaseConfig.ins.c.cy + _maxHeight - 5
+				, _y:Number = _config.c.chartY + _config.c.chartHeight - 5 - _maxHeight
+				, _endY:Number = _config.c.cy + _maxHeight - 5
 				;	
 			
 			if( _labels.length < 5 ){
-				_x = BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth - ( BaseConfig.ins.c.cx - BaseConfig.ins.c.chartX ) / 5;
+				_x = _config.c.chartX + _config.c.chartWidth - ( _config.c.cx - _config.c.chartX ) / 5;
 			}
 			
 			positionItems( _labels, _x, _y, _endX, _endY, function( _item:JTextField ):void{				
@@ -326,16 +377,16 @@ package org.xas.jchart.common.view.components
 			} );
 		}
 		
-		private function fixLeftTopLabel( _labels:Vector.<JTextField> ):void{
+		protected function fixLeftTopLabel( _labels:Vector.<JTextField> ):void{
 			if( !_labels.length ) return;
-			var _x:Number = BaseConfig.ins.c.cx - _maxWidth - 5
-				, _y:Number = BaseConfig.ins.c.chartY + 5
-				, _endX:Number = BaseConfig.ins.c.chartX + 10
-				, _endY:Number = BaseConfig.ins.c.cy - _maxHeight / 2 - 10
+			var _x:Number = _config.c.cx - _maxWidth - 5
+				, _y:Number = _config.c.chartY + 5
+				, _endX:Number = _config.c.chartX + 10
+				, _endY:Number = _config.c.cy - _maxHeight / 2 - 10
 				;
 			
 			if( _labels.length < 5 ){
-				_x = BaseConfig.ins.c.chartX + ( BaseConfig.ins.c.cx - BaseConfig.ins.c.chartX ) / 5;
+				_x = _config.c.chartX + ( _config.c.cx - _config.c.chartX ) / 5;
 			}
 			
 			positionItems( _labels, _x, _y, _endX, _endY, function( _item:JTextField ):void{				
@@ -368,16 +419,16 @@ package org.xas.jchart.common.view.components
 			} );
 		}		
 		
-		private function fixLeftBottomLabel( _labels:Vector.<JTextField> ):void{
+		protected function fixLeftBottomLabel( _labels:Vector.<JTextField> ):void{
 			if( !_labels.length ) return;
-			var _x:Number = BaseConfig.ins.c.cx - _maxWidth - 5
-				, _endX:Number = BaseConfig.ins.c.chartX + 5
-				, _y:Number = BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight - 5 - _maxHeight
-				, _endY:Number = BaseConfig.ins.c.cy + _maxHeight / 2 - 5
+			var _x:Number = _config.c.cx - _maxWidth - 5
+				, _endX:Number = _config.c.chartX + 5
+				, _y:Number = _config.c.chartY + _config.c.chartHeight - 5 - _maxHeight
+				, _endY:Number = _config.c.cy + _maxHeight / 2 - 5
 				;
 			
 			if( _labels.length < 5 ){
-				_x = BaseConfig.ins.c.chartX + ( BaseConfig.ins.c.cx - BaseConfig.ins.c.chartX ) / 5;
+				_x = _config.c.chartX + ( _config.c.cx - _config.c.chartX ) / 5;
 			}
 			
 			positionItems( _labels, _x, _y, _endX, _endY, function( _item:JTextField ):void{				
@@ -412,7 +463,7 @@ package org.xas.jchart.common.view.components
 			} );
 		}	
 		
-		private function positionItems( _labels:Vector.<JTextField>
+		protected function positionItems( _labels:Vector.<JTextField>
 										, _x:Number, _y:Number
 										  , _endX:Number, _endY:Number
 											, _cb:Function = null
@@ -469,7 +520,7 @@ package org.xas.jchart.common.view.components
 			}
 		}
 		
-		private function checkIntersect( _labes:Vector.<JTextField> ):Boolean{
+		protected function checkIntersect( _labes:Vector.<JTextField> ):Boolean{
 			var _r:Boolean = false
 				, _len:int
 				, i:int, j:int

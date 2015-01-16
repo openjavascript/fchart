@@ -44,21 +44,21 @@ package org.xas.jchart.vzhistogram.controller
 			
 			if( _config.cd ){
 				
-				if( _config.cd.title && _config.cd.title.text ){
-					facade.registerMediator( new TitleMediator( _config.cd.title.text ) )
+				if( _config.titleEnable ){
+					facade.registerMediator( new TitleMediator( _config.titleText ) )
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;
 				}
 				 
-				if( _config.cd.subtitle && _config.cd.subtitle.text ){
-					facade.registerMediator( new SubtitleMediator( _config.cd.subtitle.text ) )
+				if( _config.subtitleEnable ){
+					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height;
 				} 
 				
-				if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
-					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
+				if( _config.vtitleEnabled ){
+					facade.registerMediator( new VTitleMediator( _config.vtitleText ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace + _config.vspace;
