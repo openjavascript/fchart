@@ -22,7 +22,7 @@ package org.xas.jchart.dount.view.components
 	
 	public class GraphicView extends Sprite
 	{	
-		private var _boxs:Vector.<DountUI>;
+		private var _boxs:Vector.<DountUI>; 
 		
 		private var _preIndex:int = -1;
 		private var _piePart:Vector.<DountPart>;
@@ -31,7 +31,10 @@ package org.xas.jchart.dount.view.components
 		
 		private var _config:Config;
 		private var _currentPart:DountPart;
+		private var _selectedIndex:int = -1;
 		
+		private var _ready:Boolean;
+				
 		public function GraphicView()
 		{
 			_config = BaseConfig.ins as Config;
@@ -41,20 +44,11 @@ package org.xas.jchart.dount.view.components
 			
 			_hideTimer = new Timer( 200, 1 );
 			_hideTimer.addEventListener( TimerEvent.TIMER, onTimerHideDone );
-			//_hideTimer.start();
-			
-			/*
-			addEventListener( JChartEvent.SHOW_TIPS, showTips );
-			addEventListener( JChartEvent.UPDATE_TIPS, updateTips );
-			addEventListener( JChartEvent.HIDE_TIPS, hideTips );
-			*/
-			
+
 		}
 		
 		private function addToStage( _evt:Event ):void{
-			
-			//addChild( new DountPart( new Point( 200, 200 ), 0, 100 ) );			
-			//addChild( new DountPart( new Point( 200, 200 ), 0, 360, 100 ) );
+			addEventListener( JChartEvent.SELECTED, onSelected );
 		}
 		
 		public function update():void{
@@ -64,45 +58,89 @@ package org.xas.jchart.dount.view.components
 			
 			graphics.clear();
 			_piePart = new Vector.<DountPart>();
+				
+			if( !_config.dataInited ){
+				Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+					if( _item.selected ){
+						_selectedIndex = _k;
+	//					_item.selected = false;
+					}
+				});
+			}
+			
+			//			Log.log( 'GraphicView: _config.selected = ', _config.selected );
+			
+			if( _config.selected >= 0 ){
+				Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+					if( _config.selected === _config.displaySeriesIndexMap[ _k ] ){
+						_selectedIndex = _k;
+					}
+				});
+				//				Log.log( _selectedIndex, _config.selected );
+			}
 			
 			Common.each( _config.c.piePart, function( _k:int, _item:Object ):void{
 				if( _item.data.y === 0 ) return;
+				
+				var _preItem:DountPart;
+				_k && _piePart.length && ( _preItem = _piePart[ _piePart.length - 1 ] );
 
 				var _pp:DountPart = new DountPart(
 					new Point( _item.cx, _item.cy )
 					, _item.startAngle, _item.endAngle
-					, _item.radius, _item.radius * _config.radiusInnerRate
+					, _config.outRadius, _config.inRadius
 					, _k
 					, { 'color': _config.itemColor( _k ) }
 					, {}
+					, 0
+					, {
+						'seriesIndex': _config.displaySeriesIndexMap[ _k ]
+						, 'preItem': _preItem
+						, "moveDistance": _config.moveDistance
+					}
 				);
 				
-				_pp.addEventListener( JChartEvent.UPDATE_STATUS, onDountPartUpdateStatus );
+				_pp.addEventListener( JChartEvent.UPDATE_STATUS, onPiePartUpdateStatus );
 				_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
 				_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
 				_pp.addEventListener( MouseEvent.CLICK, onMouseClick );
+				_pp.addEventListener( JChartEvent.READY, onItemReady );
+				_pp.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+
 				addChild( _pp );
 				_piePart.push( _pp );
 				
-				//Log.log( _item.cx, _item.cy, _item.startAngle, _item.endAngle, _item.radius );
 			});
-						
-			var _selectedIndex:int = -1;
-			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
-				if( _item.selected ){
-					_selectedIndex = _k;
-				}
-			});
-			
-			//Log.log( _selectedIndex );
-			if( _config.selected >= 0 ){
-				_selectedIndex = _config.selected;
-			}
-			
-			if( _selectedIndex >= 0 && _selectedIndex <= (_piePart.length - 1 ) && _piePart.length > 1 ){
-				_piePart[ _selectedIndex ].selected( true );
+
+
+		}
+		
+		private function onItemReady( _evt:JChartEvent ):void{
+			var _data:Object = _evt.data || {}
+				, _index:int = _data.index || 0
+				;
+//			Log.log( 'onItemReady:', _selectedIndex, _data.index );
+			if( _data.index === ( _config.c.piePart.length - 1 ) ){			
+				
+				_ready = true;
+				dispatchEvent( new JChartEvent( JChartEvent.SELECTED, { index: _selectedIndex } ) );
+				_config.facade.sendNotification( JChartEvent.READY );
 			}
 		}
+		
+		private function onSelected( _evt:JChartEvent ):void{
+			if( !_ready ) return;
+			var _data:Object = _evt.data || {}
+				, _index:int = _data.index || 0
+				;
+			if( !_piePart.length ) return;
+			
+			if( _index >= 0 && _index <= (_piePart.length - 1 ) && _piePart.length > 1 ){
+				_piePart[ _index ].toggle();
+				//				Log.log( _index );
+			}
+		}
+
 				
 		protected function onMouseOver( _evt:MouseEvent ):void{
 			var _target:DountPart = _evt.currentTarget as DountPart;
@@ -110,8 +148,8 @@ package org.xas.jchart.dount.view.components
 			_currentPart = _target;
 			
 			_hideTimer.running && _hideTimer.stop();
-			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
-			root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+//			root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+//			root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
 			//Log.log( 'show tips' );
 			
@@ -119,7 +157,7 @@ package org.xas.jchart.dount.view.components
 		
 		protected function onMouseOut( _evt:MouseEvent ):void{
 			try{
-				root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+//				root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 				//dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );
 				_hideTimer.running && _hideTimer.stop();
 				_hideTimer.start();
@@ -150,28 +188,37 @@ package org.xas.jchart.dount.view.components
 			dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, { evt: _evt, index: _pp.dataIndex } ) );
 		}	
 				
-		private function onDountPartUpdateStatus( _evt:JChartEvent ):void{
-			var _data:Object = _evt.data as Object;
-			
+		private function onPiePartUpdateStatus( _evt:JChartEvent ):void{
+			if( !_ready ) return;
+			var _data:Object = _evt.data as Object
+				, _oindex:int = _config.displaySeriesIndexMap[ _data.index ]
+				;
 			
 			if( _piePart.length === 1 ) {
 				return;
 			}
 			
-			if( _config.selected >= 0 
-				&& _config.selected <= ( _piePart.length - 1 ) 
-				&& _config.selected != _data.dataIndex 
-			){
-				_piePart[ _config.selected ].unselected();
-			}
+			if( _oindex > -1 && _oindex != _config.selected ){
+				Common.each( _piePart, function( _k:int, _item:DountPart ):Boolean{
+					var _r:Boolean = true, _tindex:int = _config.displaySeriesIndexMap[ _item.dataIndex ];
+					if( _config.selected === _tindex ){
+						_r = false;
+						_item.unselected();
+					}
+					
+					return _r;
+				});
+			}			
 			
 			if( _data.selected ){
-				_config.selected = _data.dataIndex;
+				_config.selected = _oindex;
 			}else{
 				_config.selected = -1;
 			}					
-			//Log.log( _config.selected );			
+			//			Log.log( 'onPiePartUpdateStatus: _config.selected = ', _config.selected );
+			//			Log.log( _config.selected, _data.selected );			
 		}
+
 		
 		private function showTips( _evt: JChartEvent ):void{
 		}
@@ -184,7 +231,7 @@ package org.xas.jchart.dount.view.components
 				});
 			}
 			_preIndex = -1;
-			
+			 
 		}		
 		
 		private function updateTips( _evt: JChartEvent ):void{

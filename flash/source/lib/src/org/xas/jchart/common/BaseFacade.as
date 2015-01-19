@@ -45,7 +45,9 @@ package org.xas.jchart.common
 			
 			registerCommand( JChartEvent.DISPLAY_ALL_CHECK		, DisplayAllCheckCmd );
 			registerCommand( JChartEvent.ROTATION_LABELS		, GlobalRotationLabelsCmd );
-			registerCommand( JChartEvent.ROTATION_LABELS_YAXIS	, GlobalRotationLabelsYAxisCmd );
+			registerCommand( JChartEvent.ROTATION_LABELS_YAXIS	, GlobalRotationLabelsYAxisCmd )
+			;
+			registerCommand( JChartEvent.READY					, GlobalReadyCmd );
 			
 //			Log.log( 'BaseFacade', new Date().getTime() );
 			ProjectInfo.getInstance( BaseConfig.ins as Config, { facadeName: _name } );

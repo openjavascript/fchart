@@ -14,6 +14,7 @@ package org.xas.jchart.common
 	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.Common;
+	import flash.display.Graphics;
 	
 	public class Common
 	{		
@@ -460,6 +461,8 @@ package org.xas.jchart.common
 					}
 				});
 			}
+import flash.geom.Point;
+
 			return _r;
 		}
 		
@@ -666,6 +669,74 @@ package org.xas.jchart.common
 			_i && ( _i = parseFloat( _i.toFixed( _dot ) ) );
 			
 			return _i;
+		}
+		
+		public static function drawCircleArc( 
+			_g:Graphics
+			, _centerPoint:Point 
+			, _radius:Number
+			, _startAngle:Number
+			, _endAngle:Number
+			, _angleStep:Number = .5
+			, _data:Object = null
+		):Object {
+			_data = _data || {};
+			var _r:Object = {
+					centerPoint: _centerPoint
+					, radius: _radius
+					
+					, startAngle: _startAngle
+					, endAngle: _endAngle
+					
+					, angleStep: _angleStep
+					
+					, countAngle: _startAngle
+					, data: _data
+				}
+				, _tmpPoint:Point
+				;
+			
+			if( 'color' in _data ){
+				_g.lineStyle( 1, _data.color );
+			}
+			
+			if( 'firstColor' in _data ){
+				_g.lineStyle( 1, _data.firstColor );
+			}
+			
+			while( true )
+			{
+				
+				if( _startAngle > _endAngle ){
+					if( _r.countAngle <= _endAngle )
+					{
+						_r.countAngle = _endAngle;
+						_tmpPoint = GeoUtils.moveByAngle( _endAngle, _centerPoint, _radius );
+						_g.lineTo( _tmpPoint.x, _tmpPoint.y );
+						break;
+					}
+					_tmpPoint = GeoUtils.moveByAngle( _r.countAngle, _centerPoint, _radius );
+					_g.lineTo( _tmpPoint.x, _tmpPoint.y );				
+					_r.countAngle -= _angleStep;
+					
+				}else{
+					if( _r.countAngle >= _endAngle )
+					{
+						_r.countAngle = _endAngle;
+						_tmpPoint = GeoUtils.moveByAngle( _endAngle, _centerPoint, _radius );
+						_g.lineTo( _tmpPoint.x, _tmpPoint.y );
+						break;
+					}
+					_tmpPoint = GeoUtils.moveByAngle( _r.countAngle, _centerPoint, _radius );
+					_g.lineTo( _tmpPoint.x, _tmpPoint.y );				
+					_r.countAngle += _angleStep;
+				}
+				if( 'color' in _data ){
+					_g.lineStyle( 1, _data.color );
+				}
+			}
+			
+			return _r;
 		}
 		
 		public static function each( _items:*, _cb:Function, _isReverse:Boolean = false ):*{

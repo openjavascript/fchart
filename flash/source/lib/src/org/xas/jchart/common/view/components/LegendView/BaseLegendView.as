@@ -24,6 +24,17 @@ package org.xas.jchart.common.view.components.LegendView
 		protected var _isVertical:Boolean;
 		protected var _data:Array;
 		
+		protected var _maxHeight:Number = 0;
+		public function get maxHeight():Number{ return _maxHeight; }
+		public function set maxHeight( _setter:Number ):void{ _maxHeight = _setter; }
+		
+		protected var _maxWidth:Number = 0;
+		public function get maxWidth():Number{ return _maxWidth; }
+		public function set maxWidth( _setter:Number ):void{ _maxWidth = _setter; }
+		
+		protected var __config:Config;
+		public function get config():Config{ return __config; }
+		
 		public function BaseLegendView()
 		{
 			this._interval = BaseConfig.ins.legendInterval;
@@ -73,6 +84,8 @@ package org.xas.jchart.common.view.components.LegendView
 				if( _k in BaseConfig.ins.filterData ){
 					_tmp.toggle();
 				} 
+				_tmp.width > _maxWidth && ( _maxWidth = _tmp.width );
+				_tmp.height > _maxHeight && ( _maxHeight = _tmp.height );
 
 			});
 			

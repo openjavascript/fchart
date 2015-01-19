@@ -31,19 +31,20 @@ package org.xas.jchart.common.view.components.GraphicBgView
 		override protected function showChart( _evt: JChartEvent ):void{
 			this.graphics.clear();
 			
-			var _bgColor:uint = 0xffffff
-				, _bgAlpha:Number = 1
+			var _bgColor:uint = 0xcccccc
+				, _bgAlpha:Number = 0
 				
 				, _borderColor:uint = 0xcccccc
-				, _borderAlpha:uint = 1
+				, _borderAlpha:uint = 0
 				, _borderThickness:uint = 1
 				;
 			
-//			if( 'bgColor' in BaseConfig.ins.chartParams ){
-//				_bg = BaseConfig.ins.chartParams.bgColor;
-//			}
+			if( 'bgColor' in BaseConfig.ins.chartParams ){
+				_bgColor = BaseConfig.ins.chartParams.bgColor;
+				_borderColor = BaseConfig.ins.chartParams.bgColor;
+			}
 //			if( 'bgAlpha' in BaseConfig.ins.chartParams ){
-//				_alpha = BaseConfig.ins.chartParams.bgAlpha;
+//				_bgAlpha = BaseConfig.ins.chartParams.bgAlpha;
 //			}
 			
 			if( BaseConfig.ins.chartParams.graphic ){

@@ -158,7 +158,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !DefaultPieData.instance.data.length ) return;
-				_data = DefaultPieData.instance.data[0];
+				_data = DefaultPieData.instance.data[ 0 ];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};				
 				if( _loaderInfo.chart ){

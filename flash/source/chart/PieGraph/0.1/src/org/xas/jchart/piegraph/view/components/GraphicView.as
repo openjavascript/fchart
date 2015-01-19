@@ -57,11 +57,13 @@ package org.xas.jchart.piegraph.view.components
 			graphics.clear();
 			_piePart = new Vector.<PiePart>();
 			
-			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
-				if( _item.selected ){
-					_selectedIndex = _k;
-				}
-			});
+			if( !_config.dataInited ){
+				Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+					if( _item.selected ){
+						_selectedIndex = _k;
+					}
+				});
+			}
 			
 //			Log.log( 'GraphicView: _config.selected = ', _config.selected );
 			
@@ -94,6 +96,7 @@ package org.xas.jchart.piegraph.view.components
 										, {
 											'seriesIndex': _config.displaySeriesIndexMap[ _k ]
 											, 'preItem': _preItem
+											, 'moveDistance': _config.moveDistance * 1
 										}
 									);				
 				_piePart.push( _pp );

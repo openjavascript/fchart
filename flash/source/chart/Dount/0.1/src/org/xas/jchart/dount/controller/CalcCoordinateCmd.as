@@ -12,17 +12,21 @@ package org.xas.jchart.dount.controller
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.test.DefaultPieData;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.dount.view.mediator.*;
-	import org.xas.jchart.common.proxy.LegendProxy;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
 		private var _c:Coordinate;
+		private var _config:Config;
+		private var _maxLabelWidth:Number = 0;
+		private var _maxLabelHeight:Number = 0;
 		
 		public function CalcCoordinateCmd()
 		{
 			super();
+			_config = BaseConfig.ins as Config;
 		}
 		
 		override public function execute(notification:INotification):void{
@@ -31,32 +35,32 @@ package org.xas.jchart.dount.controller
 			
 			_c.corner = corner();
 			
-			_c.minX = _c.x;
-			_c.minY = _c.y + 5;
-			_c.maxX = _c.x + _c.width - 5;
-			_c.maxY = _c.y + _c.height - 5;
+			_c.minX = _config.vlabelSpace;
+			_c.minY = _config.vspace;
+			_c.maxX = _config.stageWidth - _config.vlabelSpace;
+			_c.maxY = _config.stageHeight - _config.vspace;
 						
 			facade.registerMediator( new BgMediator( ) )		
 			
 			//Log.log( BaseConfig.ins.rate.length );
 			//Log.log( BaseConfig.ins.maxNum, BaseConfig.ins.finalMaxNum, BaseConfig.ins.chartMaxNum, 11111 );
 			
-			if( BaseConfig.ins.cd ){			
+			if( _config.cd ){			
 				
-				if( BaseConfig.ins.cd.title && BaseConfig.ins.cd.title.text ){
-					facade.registerMediator( new TitleMediator( BaseConfig.ins.cd.title.text ) )	
-					BaseConfig.ins.c.title = { x: _c.width / 2, y: _c.minY, item: pTitleMediator };
-					BaseConfig.ins.c.minY += pTitleMediator.view.height;			
+				if( _config.titleEnable ){
+					facade.registerMediator( new TitleMediator( _config.titleText ) )	
+					_config.c.title = { x: _c.width / 2, y: _c.minY, item: pTitleMediator };
+					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
-				if( BaseConfig.ins.cd.subtitle && BaseConfig.ins.cd.subtitle.text ){
-					facade.registerMediator( new SubtitleMediator( BaseConfig.ins.cd.subtitle.text ) )
+				if( _config.subtitleEnable ){
+					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
 					
-					BaseConfig.ins.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
-					BaseConfig.ins.c.minY += pSubtitleMediator.view.height + 5;
+					_config.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
+					_config.c.minY += pSubtitleMediator.view.height + _config.vspace;
 				}
 				
-				if( BaseConfig.ins.legendEnabled ){
+				if( _config.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
 					facade.registerMediator( new LegendMediator() );
@@ -64,42 +68,52 @@ package org.xas.jchart.dount.controller
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
 				
-				if( BaseConfig.ins.cd.yAxis && BaseConfig.ins.cd.yAxis.title && BaseConfig.ins.cd.yAxis.title.text ){
-					facade.registerMediator( new VTitleMediator( BaseConfig.ins.cd.yAxis.title.text ) )
+				if( _config.vtitleEnabled ){
+					facade.registerMediator( new VTitleMediator( _config.vtitleText ) )
 					
-					BaseConfig.ins.c.vtitle = { x: BaseConfig.ins.c.minX, y: BaseConfig.ins.c.x + BaseConfig.ins.c.height / 2, item: pVTitleMediator };
-					BaseConfig.ins.c.minX += pVTitleMediator.view.width - 5;
+					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
+					_config.c.minX += pVTitleMediator.view.width - _config.vspace;
 				}
 				
-				if( BaseConfig.ins.cd.credits && BaseConfig.ins.cd.credits.enabled && ( BaseConfig.ins.cd.credits.text || BaseConfig.ins.cd.credits.href ) ){
-					facade.registerMediator( new CreditMediator( BaseConfig.ins.cd.credits.text, BaseConfig.ins.cd.credits.href ) )
+				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
+					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
 					
-					BaseConfig.ins.c.credits = { x: BaseConfig.ins.c.maxX, y: BaseConfig.ins.c.maxY, item: pCreditMediator };
-					BaseConfig.ins.c.maxY -= pCreditMediator.view.height;
+					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
+					_config.c.maxY -= pCreditMediator.view.height;
 				}	
 				
-				BaseConfig.ins.c.maxX -= 5;
+//				_config.c.maxX -= 5;
 				
-				BaseConfig.ins.c.arrowLength = 0;
-				BaseConfig.ins.c.chartWidth = BaseConfig.ins.c.maxX - BaseConfig.ins.c.minX - 5;
-				BaseConfig.ins.c.chartHeight = BaseConfig.ins.c.maxY - BaseConfig.ins.c.minY;	
+				_config.c.arrowLength = 0;
+				_config.c.chartWidth = _config.c.maxX - _config.c.minX;
+				_config.c.chartHeight = _config.c.maxY - _config.c.minY;	
 				
-				BaseConfig.ins.c.chartX = BaseConfig.ins.c.minX + BaseConfig.ins.c.arrowLength + 6.5;
-				BaseConfig.ins.c.chartY = BaseConfig.ins.c.minY;
+				_config.c.chartX = _config.c.minX;
+				_config.c.chartY = _config.c.minY;
 				
-				BaseConfig.ins.c.chartMaxX = BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth;
-				BaseConfig.ins.c.chartMaxY = BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight;
+				_config.c.chartMaxX = _config.c.chartX + _config.c.chartWidth;
+				_config.c.chartMaxY = _config.c.chartY + _config.c.chartHeight;
 				
 				facade.registerMediator( new GraphicBgMediator() );	
 				facade.registerMediator( new TipsMediator() );
-								
+				
+				if( _config.dataLabelEnabled ){
+					facade.registerMediator( new PieLabelMediator() );	
+					_maxLabelWidth = pPieLabelMediator.maxWidth;
+					_maxLabelHeight = pPieLabelMediator.maxHeight;
+				}
+				facade.registerMediator( new GraphicMediator() );
+				
+				calcGraphic();	
+
+				
 				calcGraphic();	
 				
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
 				}
 				
-				//Log.log( BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartHeight );
+				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
 									
 			sendNotification( JChartEvent.SHOW_CHART );			
@@ -107,34 +121,33 @@ package org.xas.jchart.dount.controller
 		
 		private function calcGraphic():void{			
 			
-			facade.registerMediator( new PieLabelMediator() );
-			facade.registerMediator( new GraphicMediator() );
+			_config.c.cx = _config.c.chartX + _config.c.chartWidth / 2;
+			_config.c.cy = _config.c.chartY + _config.c.chartHeight / 2;
 			
-			BaseConfig.ins.c.cx = BaseConfig.ins.c.chartX + BaseConfig.ins.c.chartWidth / 2;
-			BaseConfig.ins.c.cy = BaseConfig.ins.c.chartY + BaseConfig.ins.c.chartHeight / 2;
-			BaseConfig.ins.c.lineLength = 40;
-			BaseConfig.ins.c.lineStart = 10;
-			BaseConfig.ins.c.radius = calcRadius( BaseConfig.ins.c.chartWidth, BaseConfig.ins.c.chartHeight );
+			_config.c.lineLength = _config.dataLabelLineLength;
+			_config.c.lineStart = _config.dataLabelLineStart;
 			
-			BaseConfig.ins.c.piePart = [];
-			BaseConfig.ins.c.pieLine = [];
+			_config.c.radius = calcRadius( _config.c.chartWidth, _config.c.chartHeight );
 			
-			if( !( BaseConfig.ins.series && BaseConfig.ins.series.length ) ) return;
+			_config.c.piePart = [];
+			_config.c.pieLine = [];
+			
+			if( !( _config.series && _config.series.length ) ) return;
 			
 			var _angle:Number = 360
 				, _angleCount:Number = 0
-				, _offsetAngle:Number = BaseConfig.ins.offsetAngle
-				, _totalNum:Number = BaseConfig.ins.totalNum
+				, _offsetAngle:Number = _config.offsetAngle
+				, _totalNum:Number = _config.totalNum
 				, _tmpPoint:Point
-				, _cpoint:Point = new Point( BaseConfig.ins.c.cx, BaseConfig.ins.c.cy )
+				, _cpoint:Point = new Point( _config.c.cx, _config.c.cy )
 				;
 
-			Common.each( BaseConfig.ins.displaySeries, function( _k:int, _item:Object ):void {
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void {
 				if( _item.y === 0 ) return;
 				var _pieP:Object = { 
-						cx: BaseConfig.ins.c.cx
-						, cy: BaseConfig.ins.c.cy
-						, radius: BaseConfig.ins.c.radius 
+						cx: _config.c.cx
+						, cy: _config.c.cy
+						, radius: _config.c.radius 
 						, offsetAngle: _offsetAngle
 						, totalNum: _totalNum
 						, data: _item
@@ -164,11 +177,11 @@ package org.xas.jchart.dount.controller
 				_pieP.startPoint = { x: _spoint.x + _pieP.cx, y: _spoint.y + _pieP.cy };
 				_pieP.endPoint = { x: _epoint.x + _pieP.cx, y: _epoint.y + _pieP.cy };
 				
-				_spoint = Common.distanceAngleToPoint( _pieP.radius - BaseConfig.ins.c.lineStart, _pieP.midAngle );
-				_epoint = Common.distanceAngleToPoint( _pieP.radius + BaseConfig.ins.c.lineLength, _pieP.midAngle );
+				_spoint = Common.distanceAngleToPoint( _pieP.radius - _config.c.lineStart, _pieP.midAngle );
+				_epoint = Common.distanceAngleToPoint( _pieP.radius + _config.c.lineLength, _pieP.midAngle );
 				
-				_pieL.cx = BaseConfig.ins.c.cx;
-				_pieL.cy = BaseConfig.ins.c.cy;
+				_pieL.cx = _config.c.cx;
+				_pieL.cy = _config.c.cy;
 				_pieL.start = { x: _spoint.x + _pieL.cx, y: _spoint.y + _pieL.cy };
 				_pieL.end = { x: _epoint.x + _pieL.cx, y: _epoint.y + _pieL.cy };
 				_pieL.ex = { x: _expoint.x + _pieL.cx, y: _expoint.y + _pieL.cy };
@@ -189,26 +202,26 @@ package org.xas.jchart.dount.controller
 				}else{
 					//left top
 					if( _pieL.end.x < _pieL.cx && _pieL.end.y < _pieL.cy ){
-						_controlY -= 5;
-						_controlX += 5;
+						_controlY -= _config.dataLabelLineControlYOffset;
+						_controlX += _config.dataLabelLineControlXOffset;
 						_pieL.direction = "left_top";
 					}
 					//right top
 					if( _pieL.end.x > _pieL.cx && _pieL.end.y < _pieL.cy ){
-						_controlY -= 5;
-						_controlX -= 5;
+						_controlY -= _config.dataLabelLineControlYOffset;
+						_controlX -= _config.dataLabelLineControlXOffset;
 						_pieL.direction = "right_top";
 					}
 					//left bottom
 					if( _pieL.end.x < _pieL.cx && _pieL.end.y > _pieL.cy ){
-						_controlY += 5;
-						_controlX += 5;
+						_controlY += _config.dataLabelLineControlYOffset;
+						_controlX += _config.dataLabelLineControlXOffset;
 						_pieL.direction = "left_bottom";
 					}
 					//right bottom
 					if( _pieL.end.x > _pieL.cx && _pieL.end.y > _pieL.cy ){
-						_controlY += 5;
-						_controlX -= 5;
+						_controlY += _config.dataLabelLineControlYOffset;
+						_controlX -= _config.dataLabelLineControlXOffset;
 						_pieL.direction = "right_bottom";
 					}
 				}
@@ -222,31 +235,45 @@ package org.xas.jchart.dount.controller
 				);
 				*/
 				
-				BaseConfig.ins.c.piePart.push( _pieP );
-				BaseConfig.ins.c.pieLine.push( _pieL );
+				_config.c.piePart.push( _pieP );
+				_config.c.pieLine.push( _pieL );
 			});
 		}
 		
 		private function calcRadius( _w:Number, _h:Number ):Number{
 			var _radius:Number = Math.min( _w, _h );
 			
-			if( BaseConfig.ins.legendEnabled ){
-				_radius -= 30;
-			}
-			
-			if( BaseConfig.ins.dataLabelEnabled ){
-				_radius -= ( BaseConfig.ins.c.lineLength - BaseConfig.ins.c.lineStart + 40 ) * 2;
-			}else{
-				_radius -= 40;
+
+			if( _config.legendEnabled ){
+//				_radius += pLegendMediator.maxHeight;
 			}
 			
 			_radius /= 2;
 			
+			//			Log.log( '_maxLabelWidth:', _maxLabelWidth );
+			
+			if( _config.dataLabelEnabled ){			
+				_radius -= (_config.dataLabelLineLength - _config.dataLabelLineStart );	
+				if( _w > _h ){
+					_radius = _radius - _maxLabelHeight;
+				}else{
+					_radius = _radius - _maxLabelWidth;
+				}
+			}else{
+				_radius -= _config.moveDistance;
+			}
+			//			Log.log( _config.c.chartWidth,_config.c.chartHeight, _radius );
+			
 			return _radius;
 		}
+
 		
 		private function get pLegendMediator():LegendMediator{
 			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		}
+				
+		private function get pPieLabelMediator():PieLabelMediator{
+			return facade.retrieveMediator( PieLabelMediator.name ) as PieLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

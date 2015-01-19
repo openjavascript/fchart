@@ -29,7 +29,7 @@ package
 		private var _timer:Timer;
 		private var _data:Object;
 		private var _facade:Facade;
-		private var _resizeTimer:Timer;
+		private var _resizeTimer:Timer; 
 		private var _ins:Dount; 
 		private var _loaderInfo:Object;
 		
@@ -150,7 +150,8 @@ package
 			
 			var _data:Object = {};
 			
-			if( !ExternalInterface.available ){							
+			if( !ExternalInterface.available ){		
+				if( ! DefaultPieData.instance.data.length ) return;
 				_data = DefaultPieData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};				

@@ -22,7 +22,8 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-			return;
+//			return;
+			
 			_data.push({
 				"chart":
 				{
@@ -68,9 +69,13 @@ package org.xas.jchart.common.data.test
 				, 
 				dataLabels: {
 					enabled: true
+					, line: {
+						start: 0
+						, length: 40
+					}
 				}					
 				, "legend": {
-					"enabled": true
+//					"enabled": false
 //					, "direction": "MIDDLE_RIGHT"
 				}
 				, "tooltip": {
@@ -79,6 +84,9 @@ package org.xas.jchart.common.data.test
 				, "animation": {
 					"enabled": true
 					, "duration": 1
+				}
+				, "radius": {
+					"width": 20
 				}
 			});
 			
@@ -135,6 +143,9 @@ package org.xas.jchart.common.data.test
 				, "tooltip": {
 					"enabled": true
 				}
+				, "animation": {
+					"enabled": true
+				}
 			});
 			
 			_data.push({
@@ -188,6 +199,9 @@ package org.xas.jchart.common.data.test
 					, "enabled": true
 				}
 				, "tooltip": {
+					"enabled": true
+				}		
+				, "animation": {
 					"enabled": true
 				}
 			});

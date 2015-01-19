@@ -80,9 +80,11 @@ package org.xas.jchart.common.ui.widget
 		
 		private var _originCenterPoint:Point;
 		private var _part:Sprite;
-		private var _ins:Sprite
+		private var _ins:PiePart
 		
 		private var _preItem:PiePart;
+		
+		private var _moveDistance:Number = 10;
 		
 		
 		public function PiePart( 
@@ -116,6 +118,10 @@ package org.xas.jchart.common.ui.widget
 				_preItem = data.preItem as PiePart;
 			}
 			
+			if( 'moveDistance' in data ){
+				_moveDistance = data.moveDistance;
+			}
+			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 		}
 		
@@ -144,7 +150,6 @@ package org.xas.jchart.common.ui.widget
 			_centerPoint.x = 0;
 			_centerPoint.y = 0;
 			
-			_part.graphics.moveTo( _centerPoint.x, _centerPoint.y );
 			
 			_startPoint = GeoUtils.moveByAngle
 				( 
@@ -152,7 +157,6 @@ package org.xas.jchart.common.ui.widget
 					, _centerPoint
 					, _radius 
 				);
-			_part.graphics.lineTo( _startPoint.x, _startPoint.y );
 						
 			_countAngle = _beginAngle;
 			angleStep = .5;
@@ -172,6 +176,9 @@ package org.xas.jchart.common.ui.widget
 			
 			_ins.x = _originCenterPoint.x;
 			_ins.y = _originCenterPoint.y;
+			
+			_part.graphics.moveTo( _centerPoint.x, _centerPoint.y );
+			_part.graphics.lineTo( _startPoint.x, _startPoint.y );
 						
 			if( _config.animationEnabled ){
 				animationDraw();
@@ -182,24 +189,17 @@ package org.xas.jchart.common.ui.widget
 		
 		private function normalDraw():void{
 
-			while( true )
-			{
-				if( _countAngle >= _endAngle )
-				{
-					_countAngle = _endAngle;
-					tempPoint = GeoUtils.moveByAngle( _endAngle, _centerPoint, _radius );
-					_part.graphics.lineTo( tempPoint.x, tempPoint.y );
-					break;
-				}
-				tempPoint = GeoUtils.moveByAngle( _countAngle, _centerPoint, _radius );
-				_part.graphics.lineTo( tempPoint.x, tempPoint.y );
-				
-				//Log.log( _countAngle, _radius );
-				
-				_countAngle += angleStep;
-			}
-			
-			_part.graphics.endFill();		
+
+			Common.drawCircleArc( 
+				_part.graphics
+				, _centerPoint
+				, _radius
+				, _countAngle
+				, _endAngle
+				, angleStep 
+			);
+
+			_part.graphics.endFill();
 			
 			dispatchEvent( new JChartEvent( JChartEvent.READY, { index: dataIndex } ) );
 		}
@@ -210,35 +210,24 @@ package org.xas.jchart.common.ui.widget
 			TweenLite.to( this, _config.animationDuration
 				, { 
 					count: _endAngle - _countAngle
-					//, ease: Expo.easeIn
-//					, ease: Circ.easeInOut
 					, onUpdate: function():void{
 						var cur:Number = _beginAngle + _count
 							, _tmpAngle:Number = _countAngle
 							, _anglePad:Number = 0
 							;
-						
-						while( true )
-						{
-							if( _tmpAngle >= cur )
-							{
-								_tmpAngle = cur;
-								tempPoint = GeoUtils.moveByAngle( _tmpAngle, _centerPoint, _radius );
-								_part.graphics.lineTo( tempPoint.x, tempPoint.y );
-								break;
-							}
-							tempPoint = GeoUtils.moveByAngle( _tmpAngle, _centerPoint, _radius );
-							_part.graphics.lineTo( tempPoint.x, tempPoint.y );
 							
-							//Log.log( _countAngle, _radius );
-							
-							_tmpAngle += angleStep;
-						}
+						Common.drawCircleArc( 
+							_part.graphics
+							, _centerPoint
+							, _radius
+							, _tmpAngle
+							, cur
+							, angleStep 
+						);
 
 						_anglePad = cur - _countAngle;
 						_angleStepCount += _anglePad;
-						_countAngle = cur;
-						
+						_countAngle = cur;						
 						
 						if( _preItem && _dataIndex  ){
 							var _rangle:Number =  _preItem.seriesAngle + _config.offsetAngle - _preItem.endAngle
@@ -284,7 +273,6 @@ package org.xas.jchart.common.ui.widget
 		private function update( _setter:Boolean ):void{
 			//Log.log( 'PiePart selected', _selected );
 			var _matrix:Matrix = new Matrix()
-				, _distance:Number = 10
 				, _point:Point
 				, _obj:Object
 				, _tw:TweenLite
@@ -295,7 +283,7 @@ package org.xas.jchart.common.ui.widget
 			//TweenLite.defaultEase = com.greensock.easing.Elastic;
 			if( _selected ){
 				_obj = { x:0, y: 0 };
-				_point = Common.distanceAngleToPoint( _distance, midAngle );
+				_point = Common.distanceAngleToPoint( _moveDistance, midAngle );
 				_tw = new TweenLite( _obj, .5, { 
 					x: _point.x
 					, y: _point.y
@@ -315,7 +303,7 @@ package org.xas.jchart.common.ui.widget
 			} else {
 				if( !( _part && _part.transform && _part.transform.matrix ) ) return; 
 				_obj = { x:_part.transform.matrix.tx, y: _part.transform.matrix.ty };
-				_point = Common.distanceAngleToPoint( _distance, midAngle );
+				_point = Common.distanceAngleToPoint( _moveDistance, midAngle );
 				_tw = new TweenLite( _obj, .5, { 
 					x: 0
 					, y: 0

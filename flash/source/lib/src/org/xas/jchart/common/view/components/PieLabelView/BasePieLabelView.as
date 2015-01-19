@@ -45,8 +45,14 @@ package org.xas.jchart.common.view.components.PieLabelView
 		
 		protected var _isIntersect:Boolean = false;
 		
-		protected var _maxWidth:Number;
-		protected var _maxHeight:Number;
+		protected var _maxHeight:Number = 0;
+		public function get maxHeight():Number{ return _maxHeight; }
+		public function set maxHeight( _setter:Number ):void{ _maxHeight = _setter; }
+		
+		protected var _maxWidth:Number = 0;
+		public function get maxWidth():Number{ return _maxWidth; }
+		public function set maxWidth( _setter:Number ):void{ _maxWidth = _setter; }
+		
 		
 		protected var _debugLabel:Boolean = false;
 		
@@ -60,16 +66,6 @@ package org.xas.jchart.common.view.components.PieLabelView
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 		}
 		
-		protected function addToStage( _evt:Event ):void{
-			_debugLabel = false;
-			
-			if( _config.animationEnabled ){
-				this.visible = false;
-			}
-			
-			addEventListener( JChartEvent.SHOW_CHART, onShowChart );
-			addEventListener( JChartEvent.READY, onReady );
-		}
 		
 		private function onReady( _evt:JChartEvent ):void{
 			this.alpha = 0;
@@ -81,9 +77,18 @@ package org.xas.jchart.common.view.components.PieLabelView
 				} );
 		}
 		
-		protected function onShowChart( _evt:JChartEvent ):void{
-			ElementUtility.removeAllChild( this );
-			graphics.clear();
+		protected function addToStage( _evt:Event ):void{
+			_debugLabel = false;
+						
+			if( !_config.dataLabelEnabled ) return;
+			
+			if( _config.animationEnabled ){
+				this.visible = false;
+			}
+			
+			addEventListener( JChartEvent.SHOW_CHART, onShowChart );
+			addEventListener( JChartEvent.READY, onReady );
+			
 			
 			_labels = new Vector.<JTextField>();
 			_lines = new Vector.<JSprite>();
@@ -105,7 +110,34 @@ package org.xas.jchart.common.view.components.PieLabelView
 			_maxHeight = 15;
 			
 			
-			if( !_config.dataLabelEnabled ) return;
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+				if( _item.y === 0 ) return;
+				var _data:Object = { index: _k, color: _config.itemColor( _k ) }
+				, _line:JSprite = new JSprite( _data )
+				, _label:JTextField = new JTextField( _data )
+				;
+				_data.line = _line;
+				
+				_line.graphics.lineStyle( 1, _config.itemColor( _k ) );										
+				addChild( _line );
+				
+				_label.text = _config.displaySeries[ _k ].name;
+				_label.mouseEnabled = false;
+				_label.autoSize = TextFieldAutoSize.LEFT;
+				
+				
+				_label.textColor = _config.itemColor( _k );
+				addChild( _label );
+				
+				_label.width > _maxWidth && ( _maxWidth = _label.width );
+				_label.height > _maxHeight && ( _maxHeight = _label.height );				
+				
+				_labels.push( _label );
+				_lines.push( _line );
+			});
+		}
+		
+		protected function onShowChart( _evt:JChartEvent ):void{
 			
 			if( !( _config.c && _config.c.piePart && _config.c.piePart.length ) ) return;
 			
@@ -118,20 +150,17 @@ package org.xas.jchart.common.view.components.PieLabelView
 			Common.each( _config.c.pieLine, function( _k:int, _lineData:Object ):void{
 				
 				var _data:Object = { index: _k, data: _lineData, color: _config.itemColor( _k ) }
-					, _line:JSprite = new JSprite( _data )
-					, _label:JTextField = new JTextField( _data )
+					, _line:JSprite = _lines[ _k ]
+					, _label:JTextField = _labels[ _k ]
 					;
 					_data.line = _line;
+					_line.data = _data;
+					_label.data = _data;
 				
 				_line.graphics.lineStyle( 1, _config.itemColor( _k ) );
 				_line.graphics.moveTo( _lineData.start.x, _lineData.start.y );
 				_line.graphics.curveTo( _lineData.control.x, _lineData.control.y, _lineData.end.x, _lineData.end.y );												
-				addChild( _line );
-				
-				_label.text = _config.displaySeries[ _k ].name;
-				_label.mouseEnabled = false;
-				_label.autoSize = TextFieldAutoSize.LEFT;
-				
+
 				
 				switch( _lineData.direction ){
 					case 'top':
@@ -215,22 +244,7 @@ package org.xas.jchart.common.view.components.PieLabelView
 					}
 				}		
 				
-//				if( _label.x < 1 ){
-//					_label.x = 1;
-//				}
-//				
-//				if( _label.x + _label.width >= _config.stageWidth ){
-//					_label.x = _config.stageWidth - _label.x - _label.width - 1;
-//				}
-				
 				_label.textColor = _config.itemColor( _k );
-				addChild( _label );
-				
-				_label.width > _maxWidth && ( _maxWidth = _label.width );
-				_label.height > _maxHeight && ( _maxHeight = _label.height );				
-				
-				_labels.push( _label );
-				_lines.push( _line );
 			});
 			
 			if( _topLabel ){

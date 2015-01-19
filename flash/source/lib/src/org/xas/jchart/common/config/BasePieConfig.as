@@ -118,6 +118,134 @@ package org.xas.jchart.common.config
 			return _floatLen;
 		}
 		
+		public function get radius():Number{
+			var _r:Number = this.coordinate.radius;
+			_r < 10 && ( _r = 10 );
+			return _r;
+		}
+		
+		public function get outRadius():Number{
+			return radius;
+		}
+		
+		public function get inRadius():Number{
+			return outRadius - radiusWidth;
+		}
+		
+		public function get radiusWidth():Number{
+			var _r:Number = radius - radius * this.radiusInnerRate;
+			
+			radiusData.width 
+				&& ( _r = radiusData.width );
+			
+			_r < 5 && ( _r = 5 );
+			
+			return _r;
+		}
+				
+		public function get radiusInnerRate():Number{
+			var _r:Number = .6;
+			radiusData.innerRate && ( _r = radiusData.innerRate );
+			return _r;
+		}
+		
+		public function get radiusData():Object{
+			var _r:Object = {};
+			cd && cd.radius && ( _r = cd.radius || _r );
+			return _r;
+		}
+		
+		public function get dataLabelLineStart():Number{
+			var _r:Number = 0;
+			
+			cd 
+				&& cd.plotOptions
+				&& cd.plotOptions.pie
+				&& cd.plotOptions.pie.dataLabels
+				&& cd.plotOptions.pie.dataLabels.line
+				&& ( 'start' in cd.plotOptions.pie.dataLabels.line )
+				&& ( _r = cd.plotOptions.pie.dataLabels.line.start );
+			
+			cd 
+				&& cd.dataLabels
+				&& cd.dataLabels.line
+				&& ( 'start' in cd.dataLabels.line )
+				&& ( _r = cd.dataLabels.line.start );
+			
+			return _r;
+		}
+		
+		
+		public function get dataLabelLineLength():Number{
+			var _r:Number = 40;
+			
+			cd 
+			&& cd.plotOptions
+				&& cd.plotOptions.pie
+				&& cd.plotOptions.pie.dataLabels
+				&& cd.plotOptions.pie.dataLabels.line
+				&& ( 'length' in cd.plotOptions.pie.dataLabels.line )
+				&& ( _r = cd.plotOptions.pie.dataLabels.line.length );
+			
+			cd 
+			&& cd.dataLabels
+				&& cd.dataLabels.line
+				&& ( 'length' in cd.dataLabels.line )
+				&& ( _r = cd.dataLabels.line.length );
+			
+			return _r;
+		}
+		
+		public function get dataLabelLineControlXOffset():Number{
+			var _r:Number = 5;
+			
+			cd 
+			&& cd.plotOptions
+				&& cd.plotOptions.pie
+				&& cd.plotOptions.pie.dataLabels
+				&& cd.plotOptions.pie.dataLabels.line
+				&& ( 'controlX' in cd.plotOptions.pie.dataLabels.line )
+				&& ( _r = cd.plotOptions.pie.dataLabels.line.controlX );
+			
+			cd 
+			&& cd.dataLabels
+				&& cd.dataLabels.line
+				&& ( 'controlX' in cd.dataLabels.line )
+				&& ( _r = cd.dataLabels.line.controlX );
+			
+			return _r;
+		}
+				
+		public function get dataLabelLineControlYOffset():Number{
+			var _r:Number = 5;
+			
+			cd 
+			&& cd.plotOptions
+				&& cd.plotOptions.pie
+				&& cd.plotOptions.pie.dataLabels
+				&& cd.plotOptions.pie.dataLabels.line
+				&& ( 'controlY' in cd.plotOptions.pie.dataLabels.line )
+				&& ( _r = cd.plotOptions.pie.dataLabels.line.controlY );
+			
+			cd 
+			&& cd.dataLabels
+				&& cd.dataLabels.line
+				&& ( 'controlY' in cd.dataLabels.line )
+				&& ( _r = cd.dataLabels.line.controlY );
+			
+			return _r;
+		}
+		
+		public function get moveDistance():Number{
+			var _r:Number = 10;
+			cd
+				&& cd.animation
+				&& 'moveDistance' in cd.animation
+				&& ( _r = cd.animation.moveDistance );
+				
+			return _r;
+		}
+		
 //		
 //		override public function get animationDuration():Number {
 //			var _r:Number = .5;

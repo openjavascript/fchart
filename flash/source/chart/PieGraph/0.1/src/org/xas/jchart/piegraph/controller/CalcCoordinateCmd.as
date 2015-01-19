@@ -20,7 +20,9 @@ package org.xas.jchart.piegraph.controller
 	{
 		private var _c:Coordinate;
 		private var _config:Config;
-		
+		private var _maxLabelWidth:Number = 0;
+		private var _maxLabelHeight:Number = 0;
+		 
 		public function CalcCoordinateCmd()
 		{
 			super();
@@ -42,13 +44,13 @@ package org.xas.jchart.piegraph.controller
 			
 			if(_config.cd ){			
 				
-				if( _config.titleEnable && _config.titleText ){
+				if( _config.titleEnable){
 					facade.registerMediator( new TitleMediator( _config.titleText ) )	
 					_config.c.title = { x: _c.width / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
-				if( _config.subtitleEnable && _config.subtitleText ){
+				if( _config.subtitleEnable ){
 					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
@@ -63,7 +65,7 @@ package org.xas.jchart.piegraph.controller
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
 				
-				if( _config.vtitleEnabled && _config.vtitleText ){
+				if( _config.vtitleEnabled ){
 					facade.registerMediator( new VTitleMediator( _config.vtitleText ) )
 					
 					_config.c.vtitle = { x:_config.c.minX, y:_config.c.x +_config.c.height / 2, item: pVTitleMediator };
@@ -79,7 +81,6 @@ package org.xas.jchart.piegraph.controller
 				
 //				_config.c.maxX -= 5;
 				
-				_config.c.arrowLength = 0;
 				_config.c.chartWidth =_config.c.maxX -_config.c.minX;
 				_config.c.chartHeight =_config.c.maxY -_config.c.minY;	
 				
@@ -97,6 +98,8 @@ package org.xas.jchart.piegraph.controller
 				
 				if( _config.dataLabelEnabled ){
 					facade.registerMediator( new PieLabelMediator() );	
+					_maxLabelWidth = pPieLabelMediator.maxWidth;
+					_maxLabelHeight = pPieLabelMediator.maxHeight;
 				}
 				facade.registerMediator( new GraphicMediator() );
 				
@@ -116,8 +119,10 @@ package org.xas.jchart.piegraph.controller
 			
 			_config.c.cx =_config.c.chartX +_config.c.chartWidth / 2;
 			_config.c.cy =_config.c.chartY +_config.c.chartHeight / 2;
-			_config.c.lineLength = 40;
-			_config.c.lineStart = 10;
+			
+			_config.c.lineLength = _config.dataLabelLineLength;
+			_config.c.lineStart = _config.dataLabelLineStart;
+			
 			_config.c.radius = calcRadius(_config.c.chartWidth,_config.c.chartHeight );
 			
 			_config.c.piePart = [];
@@ -141,7 +146,7 @@ package org.xas.jchart.piegraph.controller
 						, radius:_config.c.radius 
 						, offsetAngle: _offsetAngle
 						, totalNum: _totalNum
-						, data: _item
+						, data: _item 
 					}
 					, _pieL:Object  = { data: _item }
 					;
@@ -193,26 +198,26 @@ package org.xas.jchart.piegraph.controller
 				}else{
 					//left top
 					if( _pieL.end.x < _pieL.cx && _pieL.end.y < _pieL.cy ){
-						_controlY -= 5;
-						_controlX += 5;
+						_controlY -= _config.dataLabelLineControlYOffset;
+						_controlX += _config.dataLabelLineControlXOffset;
 						_pieL.direction = "left_top";
 					}
 					//right top
 					if( _pieL.end.x > _pieL.cx && _pieL.end.y < _pieL.cy ){
-						_controlY -= 5;
-						_controlX -= 5;
+						_controlY -= _config.dataLabelLineControlYOffset;
+						_controlX -= _config.dataLabelLineControlXOffset;
 						_pieL.direction = "right_top";
 					}
 					//left bottom
 					if( _pieL.end.x < _pieL.cx && _pieL.end.y > _pieL.cy ){
-						_controlY += 5;
-						_controlX += 5;
+						_controlY += _config.dataLabelLineControlYOffset;
+						_controlX += _config.dataLabelLineControlXOffset;
 						_pieL.direction = "left_bottom";
 					}
 					//right bottom
 					if( _pieL.end.x > _pieL.cx && _pieL.end.y > _pieL.cy ){
-						_controlY += 5;
-						_controlX -= 5;
+						_controlY += _config.dataLabelLineControlYOffset;
+						_controlX -= _config.dataLabelLineControlXOffset;
 						_pieL.direction = "right_bottom";
 					}
 				}
@@ -225,24 +230,32 @@ package org.xas.jchart.piegraph.controller
 		
 		private function calcRadius( _w:Number, _h:Number ):Number{
 			var _radius:Number = Math.min( _w, _h );
-			
-			if(_config.legendEnabled ){
-				_radius -= 30;
-			}
-			
-			if(_config.dataLabelEnabled ){
-				_radius -= (_config.c.lineLength -_config.c.lineStart + 40 ) * 2;
-			}else{
-				_radius -= 40;
-			}
-			
+
 			_radius /= 2;
+			
+//			Log.log( '_maxLabelWidth:', _maxLabelWidth );
+			
+			if( _config.dataLabelEnabled ){			
+				_radius -= (_config.dataLabelLineLength - _config.dataLabelLineStart );	
+				if( _w > _h ){
+					_radius = _radius - _maxLabelHeight;
+				}else{
+					_radius = _radius - _maxLabelWidth;
+				}
+			}else{ 
+				_radius -= _config.moveDistance;
+			}
+//			Log.log( _config.c.chartWidth,_config.c.chartHeight, _radius );
 			
 			return _radius;
 		}
 		
 		private function get pLegendMediator():LegendMediator{
 			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		}
+		
+		private function get pPieLabelMediator():PieLabelMediator{
+			return facade.retrieveMediator( PieLabelMediator.name ) as PieLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

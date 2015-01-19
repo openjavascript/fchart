@@ -48,6 +48,14 @@ package org.xas.jchart.common.view.mediator
 			
 			}
 		}	
+				
+		public function get maxHeight():Number{
+			return _view.maxHeight;
+		}		
+		
+		public function get maxWidth():Number{
+			return _view.maxWidth;
+		}
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

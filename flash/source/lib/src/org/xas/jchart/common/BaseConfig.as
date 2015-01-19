@@ -1476,13 +1476,18 @@ package org.xas.jchart.common
 		public function set selected( _setter:int ):void{ _selected = _setter; }
 		public function get itemName():String{ return ''; }
 		
+		protected var _dataInited:Boolean = false;
+		public function get dataInited():Boolean{ return _dataInited };
+		public function set dataInited( _setter:Boolean ):void{ _dataInited = _setter }
+		
 		public function clearData():BaseConfig{
 			_displaySeries = [];
 			_displaySeriesIndexMap = {};
 			_filterData = {};
 			_chartData = {};
 			_displayLegend = [];
-			_selected = -1;
+			_selected = -1;			
+			_dataInited = false;
 			
 			return this;
 		}
