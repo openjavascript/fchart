@@ -1,7 +1,12 @@
 package org.xas.jchart.common.config
 {
+	import flash.geom.Rectangle;
+	
+	import org.xas.core.utils.Log;
+	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
+	import org.xas.jchart.common.view.mediator.LegendMediator;
 	
 	public class BasePieConfig extends BaseConfig
 	{
@@ -9,7 +14,7 @@ package org.xas.jchart.common.config
 		{
 			super();
 		}
-		
+		 
 		protected var _pseries:Array = [];
 		
 		override public function setChartData(_d:Object):Object{
@@ -118,6 +123,39 @@ package org.xas.jchart.common.config
 			return _floatLen;
 		}
 		
+		public function get innerRadiusEnabled():Boolean{
+			var _r:Boolean = false;
+			
+			cd 
+				&& cd.innerRadius
+				&& 'enabled' in cd.innerRadius
+				&& ( _r = StringUtils.parseBool( cd.innerRadius.enabled ) );
+			
+			return _r;
+		}
+		
+		public function get innerRadiusThickness():uint{
+			var _r:uint = 2;
+			
+			cd 
+				&& cd.innerRadius
+				&& 'thickness' in cd.innerRadius
+				&& ( _r = cd.innerRadius.thickness );
+			
+			return _r; 
+		}
+		
+		public function get innerRadiusMargin():uint{
+			var _r:uint = 6;
+			
+			cd 
+				&& cd.innerRadius
+				&& 'margin' in cd.innerRadius
+				&& ( _r = cd.innerRadius.margin );
+			
+			return _r;
+		}
+		
 		public function get radius():Number{
 			var _r:Number = this.coordinate.radius;
 			_r < 10 && ( _r = 10 );
@@ -142,12 +180,13 @@ package org.xas.jchart.common.config
 			
 			return _r;
 		}
-				
+		
 		public function get radiusInnerRate():Number{
 			var _r:Number = .6;
 			radiusData.innerRate && ( _r = radiusData.innerRate );
 			return _r;
-		}
+		}		
+
 		
 		public function get radiusData():Object{
 			var _r:Object = {};
@@ -246,6 +285,173 @@ package org.xas.jchart.common.config
 			return _r;
 		}
 		
+		public function get selectableEnabled():Boolean{
+			var _r:Boolean = true;
+			
+			cd 
+				&& cd.selectable
+				&& 'enabled' in cd.selectable
+				&& ( _r = StringUtils.parseBool( cd.selectable.enabled ) );
+			
+			return _r;
+		}
+		
+		override public function get offsetAngle():Number{
+			var _r:Number = 270;
+			
+			cd 
+				&& ( 'offsetAngle' in cd )
+				&& ( _r = cd.offsetAngle );
+			
+			
+			cd 
+				&& cd.angle
+				&& ( 'offset' in cd.angle )
+				&& ( _r = cd.angle.offset );
+							
+			return _r;
+		}
+				
+		public function get angleMargin():Number{
+			var _r:Number = 0;
+			
+			cd 
+				&& cd.angle
+				&& ( 'margin' in cd.angle )
+				&& ( _r = cd.angle.margin );
+			
+			return _r;
+		}
+		
+		public function legendIntersect( _radius:Number, _offsetWidth:Number, _offsetPad:Number ):Boolean{
+			var _r:Boolean = false
+				, _legendRect:Rectangle
+				, _chartRect:Rectangle
+				;
+
+			if( this.legendEnabled && this.c && this.c.legend ){
+				_chartRect = new Rectangle( 
+					this.c.cx - _radius - _offsetWidth - _offsetPad
+					, this.c.cy - _radius - _offsetPad
+					, ( _radius + _offsetWidth + _offsetPad ) * 2
+					, ( _radius + _offsetPad ) * 2
+					)
+				_legendRect = new Rectangle( this.c.legend.x, this.c.legend.y, pLegendMediator.maxWidth, pLegendMediator.maxHeight );
+//				Log.log( _chartRect, _legendRect );
+				_r = _chartRect.intersects( _legendRect );
+			}
+			
+			return _r;
+		}
+		
+		protected function get pLegendMediator():LegendMediator{
+			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		}
+		
+		public function get totalLabelEnabled():Boolean{
+			var _r:Boolean = false;
+			//return false;
+
+//			return true && this.totalNum; 
+			
+			cd 
+				&& cd.totalLabel
+				&& ( 'enabled' in cd.totalLabel )
+				&& ( _r = StringUtils.parseBool( cd.totalLabel.enabled ) && this.totalNum );
+			
+			return _r;
+		}
+		
+		public function get totalLabelFormat():String{
+			var _r:String = "{0}";
+			cd 
+				&& cd.totalLabel
+				&& ( 'format' in cd.totalLabel )
+				&& ( _r = cd.totalLabel.format );
+			
+			return _r;
+		}
+		
+		
+		public function get totalLabelBgColor():uint{
+			var _r:uint = 0xF5F5DC;
+			cd  
+				&& cd.totalLabel
+				&& cd.totalLabel.bgStyle
+				&& ( 'color' in cd.totalLabel.bgStyle )
+				&& ( _r = cd.totalLabel.bgStyle.color );
+			
+			return _r;
+		}	
+			
+		
+		public function get totalLabelBgAlpha():Number{
+			var _r:Number = .9;
+			cd 
+				&& cd.totalLabel
+				&& cd.totalLabel.bgStyle
+				&& ( 'alpha' in cd.totalLabel.bgStyle )
+				&& ( _r = cd.totalLabel.bgStyle.alpha );
+			
+			return _r;
+		}	
+		
+		public function get totalLabelLabelStyle():Object{
+			var _r:Object = {
+				size: 16
+//				, bold: true
+				, color: 0xff0000
+			};
+			cd 
+				&& cd.totalLabel
+				&& cd.totalLabel.labelStyle
+				&& ( _r = Common.extendObject( _r, cd.totalLabel.labelStyle, true ) );			
+				
+			return _r;
+		}
+		
+		
+		public function get totalLabelRadiusRate():Number{
+			var _r:Number = .6;
+			this.cd
+				&& this.cd.totalLabel
+				&& 'rate' in this.cd.totalLabel
+				&& ( _r = this.cd.totalLabel.rate )
+				;
+			return _r;
+		}
+		
+		public function get totalLabelRadius():Number{
+			return inRadius * totalLabelRadiusRate;
+		}
+		
+		public function calcRadius( _w:Number, _h:Number, _maxLabelWidth:Number, _maxLabelHeight:Number ):Number{
+			var _radius:Number = Math.min( _w, _h );
+			
+			_radius /= 2;
+			
+			//			Log.log( '_maxLabelWidth:', _maxLabelWidth );
+			
+			if( this.dataLabelEnabled ){			
+				_radius -= (this.dataLabelLineLength - this.dataLabelLineStart );	
+				if(
+					_w > _h && !this.legendIntersect( _radius - _maxLabelHeight
+						, _maxLabelWidth
+						,  this.dataLabelLineLength - this.dataLabelLineStart
+					)
+				){
+					_radius = _radius - _maxLabelHeight;
+				}else{
+					_radius = _radius - _maxLabelWidth;
+				}
+			}else{ 
+				_radius -= this.moveDistance;
+			}
+			//			Log.log( this.c.chartWidth,this.c.chartHeight, _radius );
+			
+			return _radius;
+		}
+
 //		
 //		override public function get animationDuration():Number {
 //			var _r:Number = .5;

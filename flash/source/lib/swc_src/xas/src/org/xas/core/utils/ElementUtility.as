@@ -1,6 +1,7 @@
 package org.xas.core.utils
 {
 	import flash.display.DisplayObject;
+	import flash.geom.Point;
 
 	public final class ElementUtility
 	{
@@ -31,10 +32,17 @@ package org.xas.core.utils
 			catch(ex:Error){}
 		}
 		
-		public static function center($v:DisplayObject):void
+		public static function center( $v:DisplayObject, _offsetPoint:Point = null, _subtract:Boolean = true ):void
 		{
-			$v.x = ($v.root.stage.stageWidth - $v.width) / 2;
-			$v.y = ($v.root.stage.stageHeight - $v.height) / 2;
+			if( !_offsetPoint ){
+				_offsetPoint = new Point( $v.root.stage.stageWidth / 2, $v.root.stage.stageHeight / 2 );
+			}
+			if( _subtract ){
+				_offsetPoint.x -= $v.width / 2;
+				_offsetPoint.y -=  $v.height / 2
+			}
+			$v.x = _offsetPoint.x;
+			$v.y = _offsetPoint.y;
 		}
 		
 		public static function topIndex($display:DisplayObject):void

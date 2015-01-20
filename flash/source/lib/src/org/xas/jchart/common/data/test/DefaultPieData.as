@@ -22,7 +22,326 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-//			return;
+//			return; 
+			
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, dataLabels: {
+					enabled: true
+					, radiusRate: .8
+					, line: {
+						start: 0
+						, length: 40
+					}
+					, format: '{0}({1})'
+				}			
+				, totalLabel: {
+					"enabled": true
+					, "bgStyle": {
+//						'color': 0xcccccc
+//						color: 0xffffff
+					}
+					, "labelStyle": {
+						
+					}
+					, "format": "{0}~"
+				}
+				, "legend": {
+					//					"enabled": false
+					//					, "direction": "MIDDLE_RIGHT"
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+				, "animation": {
+					"enabled": true
+					, "duration": 1
+				}
+				, "radius": {
+					"width": 20
+				}
+				, innerRadius: {
+					"enabled": true
+					//					, "thickness": 2
+				}
+				, selectable: {
+//					"enabled": false
+				}
+				, angle: {
+					offset: 270
+					, margin: .6
+				}
+			});			
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: true
+					, line: {
+						start: 0
+						, length: 40
+					}
+					, format: '{0}({1})'
+				}					
+				, "legend": {
+					//					"enabled": false
+					//					, "direction": "MIDDLE_RIGHT"
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+				, "animation": {
+					"enabled": true
+					, "duration": 1
+				}
+				, "radius": {
+					"width": 20
+				}
+				, innerRadius: {
+					"enabled": true
+					//					, "thickness": 2
+				}
+				, selectable: {
+					"enabled": false
+				}
+				, angle: {
+					offset: 270
+					, margin: .6
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: false
+					, line: {
+						start: 0
+						, length: 40
+					}
+				}					
+				, "legend": {
+					//					"enabled": false
+					//					, "direction": "MIDDLE_RIGHT"
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+				, "animation": {
+					//					"enabled": true
+					//					, "duration": 1
+				}
+				, "radius": {
+					"width": 20
+				}
+				, innerRadius: {
+					"enabled": true
+					//					, "thickness": 2
+				}
+				, selectable: {
+//					"enabled": false
+				}
+				, angle: {
+					offset: 270
+					, margin: .6
+				}
+			});
+			
+			_data.push({
+				"chart":
+				{
+					"type": "pie",
+					"bgColor": 16777215, 
+					"bgAlpha": 1
+					, "graphic": {
+						bgColor: 0xffffff
+						, borderColor: 0xffffff
+					}
+				}, 
+				xAxis: {
+					title: {
+						text:'浏览器使用份额'
+						, "enabled": false
+					}
+					, subtitle: {
+						text: 'for PC'
+						, "enabled": false
+					}
+				},
+				yAxis: {
+					title: {
+						text: '中文 vtitle'
+						, enabled: false
+					}
+				},
+				series:[{
+					name: 'Browser share',
+					data: [
+						['Firefox',   45.0],
+						['IE',       26.8],
+						{
+							name: 'Chrome',
+							y: 12.8,
+							selected: true
+						},
+						['Safari',    8.5],
+						['Opera',     6.2],
+						['Others',   0.7]
+					]
+				}]
+				, 
+				dataLabels: {
+					enabled: true
+					, line: {
+						start: 0
+						, length: 40
+					}
+				}					
+				, "legend": {
+					//					"enabled": false
+					//					, "direction": "MIDDLE_RIGHT"
+				}
+				, "tooltip": {
+					"enabled": true
+				}
+				, "animation": {
+					"enabled": true
+					, "duration": 1
+				}
+				, "radius": {
+					"width": 20
+					, "space": 2
+				}
+				, innerRadius: {
+					"enabled": true
+					, "thickness": 2
+				}
+				, selectable: {
+//					"enabled": false
+				}
+			});
 			
 			_data.push({
 				"chart":
@@ -88,6 +407,7 @@ package org.xas.jchart.common.data.test
 				, "radius": {
 					"width": 20
 				}
+				
 			});
 			
 			_data.push({
@@ -193,7 +513,8 @@ package org.xas.jchart.common.data.test
 				, 
 				dataLabels: {
 					enabled: true
-				}					
+					, format: "{0}, {1}, {2}%"
+				}		 			
 				, "legend": {
 					"direction": "MIDDLE_RIGHT"
 					, "enabled": true

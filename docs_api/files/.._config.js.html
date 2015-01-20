@@ -122,6 +122,7 @@ JC.PATH = JC.PATH || scriptPath();
 /**
  * requirejs config.js for JC Chart Project
  */
+
 window.requirejs &amp;&amp; 
 requirejs.config( {
     baseUrl: JC.PATH
@@ -129,6 +130,8 @@ requirejs.config( {
     , paths: {
         &#x27;JC.common&#x27;: &#x27;modules/JC.common/0.3/common&#x27;
         , &#x27;JC.BaseMVC&#x27;: &#x27;modules/JC.BaseMVC/0.1/BaseMVC&#x27;
+
+        , &#x27;JC.FchartDemo&#x27;: &#x27;modules/JC.FChart/0.1/_demo/all_demo/0.1/all_demo&#x27;
 
         , &#x27;JC.FChart&#x27;: &#x27;modules/JC.FChart/0.1/FChart&#x27;
 
@@ -142,6 +145,7 @@ requirejs.config( {
         , &#x27;SWFObject&#x27;: &#x27;modules/swfobject/2.3/swfobject&#x27;
     }
 });
+
 /**
  * 取当前脚本标签的 src路径 
  * @static

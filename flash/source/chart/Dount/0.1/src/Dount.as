@@ -22,7 +22,7 @@ package
 	import org.xas.jchart.dount.MainFacade; 
 	  
 	  
-	[SWF(frameRate="30", width="800", height="500")] 
+	[SWF(frameRate="30", width="600", height="500")] 
 	public class Dount extends Sprite  
 	{ 
 		private var _inited: Boolean = false;

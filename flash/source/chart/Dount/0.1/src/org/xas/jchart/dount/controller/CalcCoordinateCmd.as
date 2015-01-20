@@ -102,13 +102,16 @@ package org.xas.jchart.dount.controller
 					_maxLabelWidth = pPieLabelMediator.maxWidth;
 					_maxLabelHeight = pPieLabelMediator.maxHeight;
 				}
-				facade.registerMediator( new GraphicMediator() );
-				
-				calcGraphic();	
 
 				
-				calcGraphic();	
+				facade.registerMediator( new GraphicMediator() );
 				
+				calcGraphic();		
+				
+				if( _config.totalLabelEnabled ){
+					facade.registerMediator( new PieTotalLabelMediator() );
+				}
+								
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
 				}
@@ -141,6 +144,7 @@ package org.xas.jchart.dount.controller
 				, _tmpPoint:Point
 				, _cpoint:Point = new Point( _config.c.cx, _config.c.cy )
 				;
+//			Log.log( _offsetAngle );
 
 			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void {
 				if( _item.y === 0 ) return;
@@ -254,7 +258,12 @@ package org.xas.jchart.dount.controller
 			
 			if( _config.dataLabelEnabled ){			
 				_radius -= (_config.dataLabelLineLength - _config.dataLabelLineStart );	
-				if( _w > _h ){
+				if(
+					_w > _h && !_config.legendIntersect( _radius - _maxLabelHeight
+						, _maxLabelWidth
+						,  _config.dataLabelLineLength - _config.dataLabelLineStart
+					)
+				){
 					_radius = _radius - _maxLabelHeight;
 				}else{
 					_radius = _radius - _maxLabelWidth;

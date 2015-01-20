@@ -317,6 +317,12 @@ package org.xas.jchart.common
 			c.height = height;
 			c.x = 0;
 			c.y = 0;
+			
+			c.minX = this.vlabelSpace;
+			c.minY = this.vspace;
+			c.maxX = this.stageWidth - this.vlabelSpace;
+			c.maxY = this.stageHeight - this.vspace;
+
 			return _coordinate;
 		}
 		
@@ -444,7 +450,7 @@ package org.xas.jchart.common
 		public function get dataLabelFormat():String{
 			var _r:String = "{0}";
 			cd 
-			&& cd.dataLabels
+				&& cd.dataLabels
 				&& ( 'format' in cd.dataLabels )
 				&& ( _r = cd.dataLabels.format );
 			

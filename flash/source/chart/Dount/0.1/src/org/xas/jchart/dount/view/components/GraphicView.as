@@ -79,6 +79,8 @@ package org.xas.jchart.dount.view.components
 				//				Log.log( _selectedIndex, _config.selected );
 			}
 			
+//			Log.log( _config.angleBeginMargin )
+			
 			Common.each( _config.c.piePart, function( _k:int, _item:Object ):void{
 				if( _item.data.y === 0 ) return;
 				
@@ -87,7 +89,7 @@ package org.xas.jchart.dount.view.components
 
 				var _pp:DountPart = new DountPart(
 					new Point( _item.cx, _item.cy )
-					, _item.startAngle, _item.endAngle
+					, _item.startAngle + _config.angleMargin, _item.endAngle - _config.angleMargin
 					, _config.outRadius, _config.inRadius
 					, _k
 					, { 'color': _config.itemColor( _k ) }
@@ -97,6 +99,9 @@ package org.xas.jchart.dount.view.components
 						'seriesIndex': _config.displaySeriesIndexMap[ _k ]
 						, 'preItem': _preItem
 						, "moveDistance": _config.moveDistance
+						, 'innerRadiusEnabled': _config.innerRadiusEnabled
+						, 'innerRadiusThickness': _config.innerRadiusThickness
+						, 'innerRadiusMargin': _config.innerRadiusMargin
 					}
 				);
 				
@@ -129,6 +134,7 @@ package org.xas.jchart.dount.view.components
 		}
 		
 		private function onSelected( _evt:JChartEvent ):void{
+			if( !_config.selectableEnabled ) return;
 			if( !_ready ) return;
 			var _data:Object = _evt.data || {}
 				, _index:int = _data.index || 0
@@ -175,7 +181,8 @@ package org.xas.jchart.dount.view.components
 		protected function onMouseClick( _evt:MouseEvent ):void{
 			var _pp:DountPart = _evt.currentTarget as DountPart;
 			if( !(　_pp && _config.displaySeries.length >= 2 ) )  return;
-			_pp.toggle();
+//			_pp.toggle();
+			dispatchEvent( new JChartEvent( JChartEvent.SELECTED, { index: _pp.dataIndex } ) );
 			
 		}
 		

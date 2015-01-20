@@ -32,7 +32,7 @@ package org.xas.jchart.common.view.mediator
 				case 'DountFacade':
 				case 'RateFacade':
 				{
-					mainMediator.view.index8.addChild( _view = new PieTipsView() );
+					mainMediator.view.index9.addChild( _view = new PieTipsView() );
 					break;
 				}
 				case 'CurveGramFacade':

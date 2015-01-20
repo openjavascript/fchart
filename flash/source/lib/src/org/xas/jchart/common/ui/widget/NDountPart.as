@@ -198,6 +198,8 @@ package org.xas.jchart.common.ui.widget
 				countAngle -= angleStep;
 			}
 			_dountSprite.graphics.lineTo( p1.x, p1.y );
+			
+			dispatchEvent( new JChartEvent( JChartEvent.READY, { index: dataIndex } ) );
 		}
 		
 		public function toggle():void{

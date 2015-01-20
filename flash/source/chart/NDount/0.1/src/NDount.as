@@ -24,7 +24,7 @@ package
 	import org.xas.jchart.ndount.MainFacade;
 	 
 	  
-	[SWF(frameRate="30", width="1200", height="185")] 
+	[SWF(frameRate="30", width="600", height="500")] 
 	public class NDount extends Sprite
 	{ 
 		private var _inited: Boolean = false;

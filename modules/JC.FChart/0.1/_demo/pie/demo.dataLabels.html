@@ -23,7 +23,7 @@
     </script>
 </head>    
 <body>
-    <h2>JC.FChart - ndount chart 示例</h2>
+    <h2>JC.FChart - pie chart 示例</h2>
 
     <div class="js_jchartTest"></div>
 
@@ -39,7 +39,7 @@
                     {
                         "chart":
                         {
-                            "type": "ndount",
+                            "type": "pie",
                             "bgColor": 16777215, 
                             "bgAlpha": 1
                             , "graphic": {
@@ -76,6 +76,9 @@
                         , animation: {
                             enabled: true
                         }
+                        , dataLabels: {
+                            format: "~{0}~"
+                        }
                     }
                 </script>
             </div>
@@ -90,7 +93,7 @@
                     {
                         "chart":
                         {
-                            "type": "ndount",
+                            "type": "pie",
                             "bgColor": 16777215, 
                             "bgAlpha": 1
                             , "graphic": {
@@ -121,13 +124,64 @@
                                 ['Others',   0.7]
                             ]
                         }]
-                        ,offsetAngle: 0
-                        , plotOptions: {
-                            ndount: {
-                                dataLabels: {
-                                    enabled: false
-                                }
+                        , dataLabels: {
+                            format: "{0}, {1}"
+                        }
+                        , legend: {
+                            enabled: true
+                            , "direction": "MIDDLE_RIGHT"
+                        }
+                        , animation: {
+                            enabled: true
+                            , "duration": 2
+                        }
+                    }
+                </script>
+            </div>
+        </dd>
+        <dd>
+            <div class="js_compFChart"
+                chartScriptData="/script"
+                chartWidth="600"
+                chartHeight="500"
+                >
+                <script type="text/template">
+                    {
+                        "chart":
+                        {
+                            "type": "pie",
+                            "bgColor": 16777215, 
+                            "bgAlpha": 1
+                            , "graphic": {
+                                bgColor: 0xffffff
+                                , borderColor: 0xffffff
                             }
+                        }, 
+                        title: {
+                            text:'浏览器使用份额'
+                            , "enabled": false
+                        },
+                        subtitle: {
+                            text: 'for PC'
+                            , "enabled": false
+                        }, 
+                        series:[{
+                            name: 'Browser share',
+                            data: [
+                                ['Firefox',   45.0],
+                                ['IE',       26.8],
+                                {
+                                    name: 'Chrome',
+                                    y: 12.8,
+                                    selected: true
+                                },
+                                ['Safari',    8.5],
+                                ['Opera',     6.2],
+                                ['Others',   0.7]
+                            ]
+                        }]
+                        , dataLabels: {
+                            format: "{0}, {1}, {2}%"
                         }
                         , legend: {
                             enabled: true
@@ -142,6 +196,7 @@
             </div>
         </dd>
 
+
         <dd>
             <div class="js_compFChart"
                 chartScriptData="/script"
@@ -152,7 +207,7 @@
                     {
                         "chart":
                         {
-                            "type": "ndount",
+                            "type": "pie",
                             "bgColor": 16777215, 
                             "bgAlpha": 1
                             , "graphic": {
@@ -181,174 +236,22 @@
                                 ['Others',   0.7]
                             ]
                         }]
-                        ,offsetAngle: 90
                         , dataLabels: {
-                            enabled: false
+                            enabled: true
+                        }
+                        , totalLabel: {
+                            enabled: true
+                            , bgStyle: {
+                                color: 0xffffff
+                                , alpha: 1
+                            }
+                            , rate: .4
+                            , format: "{0}~"
                         }
                         , legend: {
                             enabled: true
                             , "direction": "RIGHT_BOTTOM"
                         }
-                        , animation: {
-                            enabled: true
-                        }
-
-                    }
-                </script>
-            </div>
-        </dd>
-        <dd>
-            <div class="js_compFChart"
-                chartScriptData="/script"
-                chartWidth="600"
-                chartHeight="500"
-                >
-                <script type="text/template">
-                    {
-                        "chart":
-                        {
-                            "type": "ndount",
-                            "bgColor": 16777215, 
-                            "bgAlpha": 1
-                            , "graphic": {
-                                bgColor: 0xffffff
-                                , borderColor: 0xffffff
-                            }
-                        }, 
-                        title: {
-                            text:'浏览器使用份额'
-                        },
-                        subtitle: {
-                            text: 'for PC'
-                        }, 
-                        series:[{
-                            name: 'Browser share',
-                            data: [
-                                ['Firefox',   45.0],
-                                ['IE',       26.8],
-                                {
-                                    name: 'Chrome',
-                                    y: 12.8,
-                                    selected: true
-                                },
-                                ['Safari',    8.5],
-                                ['Opera',     6.2],
-                                ['Others',   0.7]
-                            ]
-                        }]
-                        ,offsetAngle: 180
-                        , animation: {
-                            enabled: true
-                        }
-                    }
-                </script>
-            </div>
-        </dd>
-        <dd>
-            <div class="js_compFChart"
-                chartScriptData="/script"
-                chartWidth="600"
-                chartHeight="500"
-                >
-                <script type="text/template">
-                    {
-                        "chart":
-                        {
-                            "type": "ndount",
-                            "bgColor": 16777215, 
-                            "bgAlpha": 1
-                            , "graphic": {
-                                bgColor: 0xffffff
-                                , borderColor: 0xffffff
-                            }
-                        }, 
-                        title: {
-                            text:'浏览器使用份额'
-                        },
-                        subtitle: {
-                            text: 'for PC'
-                        }, 
-                        series:[{
-                            name: 'Browser share',
-                            data: [
-                                ['Firefox',  100]
-                            ]
-                        }]
-                        , animation: {
-                            enabled: true
-                        }
-                    }
-                </script>
-            </div>
-        </dd>
-        <dd>
-            <div class="js_compFChart"
-                chartScriptData="/script"
-                chartWidth="600"
-                chartHeight="500"
-                >
-                <script type="text/template">
-                    {
-                        "chart":
-                        {
-                            "type": "ndount",
-                            "bgColor": 16777215, 
-                            "bgAlpha": 1
-                            , "graphic": {
-                                bgColor: 0xffffff
-                                , borderColor: 0xffffff
-                            }
-                        }, 
-                        title: {
-                            text:'浏览器使用份额'
-                        },
-                        subtitle: {
-                            text: 'for PC'
-                        }, 
-                        series:[{
-                            name: 'Browser share',
-                            data: [
-                                ['Firefox',  99]
-                                , ['chrome',  1]
-                            ]
-                        }]
-                        , animation: {
-                            enabled: true
-                        }
-                    }
-                </script>
-            </div>
-        </dd>
-
-        <dd>
-            <div class="js_compFChart"
-                chartScriptData="/script"
-                >
-                <script type="text/template">
-                    {
-                        "chart":
-                        {
-                            "type": "ndount",
-                            "bgColor": 16777215, 
-                            "bgAlpha": 1
-                            , "graphic": {
-                                bgColor: 0xffffff
-                                , borderColor: 0xffffff
-                            }
-                        }, 
-                        title: {
-                            text:'浏览器使用份额'
-                        },
-                        subtitle: {
-                            text: 'for PC'
-                        }, 
-                        series:[{
-                            name: 'Browser share',
-                            data: [
-                                ['Firefox',  99]
-                                , ['chrome',  1]
-                            ]
-                        }]
                         , animation: {
                             enabled: true
                         }

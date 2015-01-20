@@ -79,7 +79,14 @@ package org.xas.jchart.common.ui.widget
 		public function set count( _setter:Number ):void{ _count = _setter; }
 		
 		private var _moveDistance:Number = 10;
-
+		
+		private var _innerRadiusSprite:Sprite;
+		private var _innerRadiusEnabled:Boolean = false;
+		private var _innerRadiusThickness:uint = 1;
+		private var _innerRadiusMargin:uint = 2;
+		public function get innerRadius():Number{
+			return _inRadius - _innerRadiusMargin - _innerRadiusThickness;
+		}
 		
 		public function DountPart( 
 			_centerPoint:Point
@@ -112,10 +119,25 @@ package org.xas.jchart.common.ui.widget
 //			if( _dataIndex > 0 ) return;
 			if( data.preItem ){
 				_preItem = data.preItem as DountPart;
+			}else{				
+				_seriesAngle = _config.angleMargin;
 			}
 			
 			if( 'moveDistance' in data ){
 				_moveDistance = data.moveDistance;
+			}
+			
+			if( 'innerRadiusEnabled' in data ){
+				_innerRadiusEnabled = data.innerRadiusEnabled;
+			}
+			
+			if( 'innerRadiusThickness' in data ){
+				_innerRadiusThickness = data.innerRadiusThickness;
+			}
+//			_innerRadiusThickness = 2;
+			
+			if( 'innerRadiusMargin' in data ){
+				_innerRadiusMargin = data.innerRadiusMargin;
 			}
 						
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
@@ -135,6 +157,7 @@ package org.xas.jchart.common.ui.widget
 			
 			ElementUtility.removeAllChild( this );
 			addChild( _dountSprite = new Sprite() );
+			addChild( _innerRadiusSprite = new Sprite() );
 			//addChild( _lineSprite = new Sprite() );
 			
 			if( _style && _style.color ){
@@ -146,6 +169,8 @@ package org.xas.jchart.common.ui.widget
 			
 			_dountSprite.graphics.beginFill( _fillColor );	
 			_dountSprite.graphics.lineStyle(1, _lineColor);
+			
+			_innerRadiusSprite.graphics.lineStyle(_innerRadiusThickness, _lineColor);
 //			_dountSprite.graphics.lineStyle(1, 0x000000 );
 			
 			_centerPoint.x = 0;
@@ -166,8 +191,12 @@ package org.xas.jchart.common.ui.widget
 		
 		private function normalDraw():void{
 			
+			_dountSprite.graphics.clear();
 			_dountSprite.graphics.beginFill( _fillColor );	
 			_dountSprite.graphics.lineStyle(1, _lineColor);
+			
+			_innerRadiusSprite.graphics.clear();
+			_innerRadiusSprite.graphics.lineStyle(_innerRadiusThickness, _lineColor);
 			_countAngle = _beginAngle;
 			
 			var p1:Point, p2:Point, tmpPoint:Point
@@ -185,20 +214,15 @@ package org.xas.jchart.common.ui.widget
 						
 			_endAngle = fixEndAngle( _beginAngle, _endAngle );
 			
-			while( true )
-			{
-				if( _countAngle >= _endAngle )
-				{
-					tmpPoint = GeoUtils.moveByAngle( _endAngle, _centerPoint, _inRadius );
-					_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
-					
-					break;
-				}
-				tmpPoint = GeoUtils.moveByAngle( _countAngle, _centerPoint, _inRadius );
-				_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
-				
-				_countAngle += angleStep;
-			}
+			Common.drawCircleArc( 
+				_dountSprite.graphics
+				, _centerPoint
+				, _inRadius
+				, _countAngle
+				, _endAngle
+				, angleStep
+			);
+			
 			
 			p2 = GeoUtils.moveByAngle
 				( 
@@ -213,20 +237,35 @@ package org.xas.jchart.common.ui.widget
 						
 			_endAngle = fixEndAngle( _beginAngle, _endAngle );
 			
-			while( true )
-			{
-				if( _countAngle <= _beginAngle )
-				{
-					tmpPoint = GeoUtils.moveByAngle( _beginAngle, _centerPoint, _outRadius );
-					_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
-					break;
-				}
-				tmpPoint = GeoUtils.moveByAngle( _countAngle, _centerPoint, _outRadius );
-				_dountSprite.graphics.lineTo( tmpPoint.x, tmpPoint.y );
-				
-				_countAngle -= angleStep;
-			}
+			Common.drawCircleArc( 
+				_dountSprite.graphics
+				, _centerPoint
+				, _outRadius
+				, _countAngle
+				, _beginAngle
+				, angleStep
+			);
 			_dountSprite.graphics.lineTo( p1.x, p1.y );
+			
+			if( _innerRadiusEnabled ){
+				p1 = GeoUtils.moveByAngle
+					( 
+						_beginAngle
+						, _centerPoint
+						, innerRadius  
+					)
+					;
+				_innerRadiusSprite.graphics.moveTo( p1.x, p1.y );
+				
+				Common.drawCircleArc( 
+					_innerRadiusSprite.graphics
+					, _centerPoint
+					, innerRadius
+					, _beginAngle
+					, _endAngle
+					, angleStep
+				);	
+			}
 						
 			dispatchEvent( new JChartEvent( JChartEvent.READY, { index: dataIndex } ) );
 		}
@@ -267,9 +306,21 @@ package org.xas.jchart.common.ui.widget
 			
 			_dountSprite.graphics.lineStyle( 1, _fillColor );
 			
+			if( _innerRadiusEnabled ){
+				var innerFirstPoint:Point = GeoUtils.moveByAngle
+					( 
+						_beginAngle
+						, _centerPoint
+						, innerRadius  
+					)
+					;
+				_innerRadiusSprite.graphics.moveTo( innerFirstPoint.x, innerFirstPoint.y );
+	
+			}
+			
 			TweenLite.to( this, _config.animationDuration
 				, { 
-					count: _endAngle - _countAngle
+					count: _endAngle - _countAngle 
 					, onUpdate: function():void{
 						
 						var _curAngle:Number = _beginAngle + _count
@@ -314,6 +365,18 @@ package org.xas.jchart.common.ui.widget
 							, _curAngle
 							, angleStep
 						);
+						
+						if( _innerRadiusEnabled ){
+							Common.drawCircleArc( 
+								_innerRadiusSprite.graphics
+								, _centerPoint
+								, innerRadius
+								, _tmpAngle
+								, _curAngle
+								, angleStep
+							);
+						}
+					
 							
 						_dountSprite.graphics.lineTo( _innerEndPointTmp.x, _innerEndPointTmp.y );
 						
@@ -336,16 +399,21 @@ package org.xas.jchart.common.ui.widget
 							var _rangle:Number =  _preItem.seriesAngle + _config.offsetAngle - _preItem.endAngle
 							;
 							
-							_dountSprite.rotationZ = _rangle;
+							if( _innerRadiusEnabled ){
+								_innerRadiusSprite.rotation = _rangle;
+							}
+							
+							_dountSprite.rotation = _rangle;
 							_ins.x = _originCenterPoint.x;
 							_ins.y = _originCenterPoint.y;
+							
 						}
 						
 						if( !_dataIndex ){
-							_seriesAngle += _anglePad;
+							_seriesAngle += _anglePad ;
 //							Log.log( _seriesAngle );
 						}else if( _preItem ){
-							_seriesAngle = _preItem.seriesAngle + _angleStepCount;
+							_seriesAngle = _preItem.seriesAngle + _angleStepCount + ( _dataIndex - 1) * _config.angleMargin;
 						} 
 						
 					}
@@ -357,6 +425,7 @@ package org.xas.jchart.common.ui.widget
 							_seriesAngle = _preItem.seriesAngle + Math.abs( _endAngle - _beginAngle );
 						}
 						_dountSprite.rotation = 0;
+						_innerRadiusSprite.rotation = 0;
 						
 						normalDraw();		
 //						_dountSprite.graphics.endFill();	
@@ -399,9 +468,12 @@ package org.xas.jchart.common.ui.widget
 				;
 			
 			//TweenLite.defaultEase = com.greensock.easing.Elastic;
+			TweenLite.killTweensOf( _ins, true );
+			
 			if( _selected ){
-				_obj = { x:0, y: 0 };
+				_obj = { x:_originCenterPoint.x, y: _originCenterPoint.y };
 				_point = Common.distanceAngleToPoint( _moveDistance, midAngle );
+				_point = _point.add( _originCenterPoint );
 				_tw = new TweenLite( _obj, .5, { 
 					x: _point.x
 					, y: _point.y
@@ -410,7 +482,7 @@ package org.xas.jchart.common.ui.widget
 						//Log.log( _obj.x, _obj.y );
 						_matrix.tx = _obj.x;
 						_matrix.ty = _obj.y;
-						_dountSprite.transform.matrix = _matrix;
+						_ins.transform.matrix = _matrix;
 					}
 					, ease: com.greensock.easing.Expo.easeOut
 				} );
@@ -419,23 +491,21 @@ package org.xas.jchart.common.ui.widget
 				_matrix.ty = _point.y;
 				*/
 			} else {
-				if( !( _dountSprite && _dountSprite.transform && _dountSprite.transform.matrix ) ) return; 
-				_obj = { x: _dountSprite.transform.matrix.tx, y: _dountSprite.transform.matrix.ty };
-				_point = Common.distanceAngleToPoint( _moveDistance, midAngle );
+				_obj = { x: _ins.transform.matrix.tx, y: _ins.transform.matrix.ty };
 				_tw = new TweenLite( _obj, .5, { 
-					x: 0
-					, y: 0
+					x: _originCenterPoint.x
+					, y: _originCenterPoint.y
 					, onUpdate:
 					function():void{
 						//Log.log( _obj.x, _obj.y );
 						_matrix.tx = _obj.x;
 						_matrix.ty = _obj.y;
-						_dountSprite.transform.matrix = _matrix;
+						_ins.transform.matrix = _matrix;
 					}
 					, ease: com.greensock.easing.Expo.easeOut
 				} );
 			}
-			_dountSprite.transform.matrix = _matrix;			
+//			_ins.transform.matrix = _matrix;			
 		}
 
 		
@@ -458,7 +528,9 @@ package org.xas.jchart.common.ui.widget
 		}
 		
 		protected function onMouseOver( _evt:MouseEvent ):void{
-			flash.ui.Mouse.cursor = MouseCursor.BUTTON;	
+			if( _config.selectableEnabled ){
+				flash.ui.Mouse.cursor = MouseCursor.BUTTON;	
+			}
 		}
 		
 		protected function onMouseOut( _evt:MouseEvent ):void{

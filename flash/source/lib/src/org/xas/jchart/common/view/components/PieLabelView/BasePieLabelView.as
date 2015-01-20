@@ -16,6 +16,7 @@ package org.xas.jchart.common.view.components.PieLabelView
 	
 	import org.xas.core.utils.ElementUtility;
 	import org.xas.core.utils.Log;
+	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
@@ -67,7 +68,7 @@ package org.xas.jchart.common.view.components.PieLabelView
 		}
 		
 		
-		private function onReady( _evt:JChartEvent ):void{
+		protected function onReady( _evt:JChartEvent ):void{
 			this.alpha = 0;
 			this.visible = true;
 			
@@ -121,7 +122,13 @@ package org.xas.jchart.common.view.components.PieLabelView
 				_line.graphics.lineStyle( 1, _config.itemColor( _k ) );										
 				addChild( _line );
 				
-				_label.text = _config.displaySeries[ _k ].name;
+				_label.text = 
+					StringUtils.printf( 
+						_config.dataLabelFormat
+						, _config.displaySeries[ _k ].name 
+						, Common.moneyFormat( _item.y, 3, _config.floatLen )
+						, Common.moneyFormat( _item.y / _config.totalNum * 100, 3, _config.floatLen )
+					);
 				_label.mouseEnabled = false;
 				_label.autoSize = TextFieldAutoSize.LEFT;
 				

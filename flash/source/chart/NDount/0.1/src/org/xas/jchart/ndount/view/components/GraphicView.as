@@ -31,6 +31,10 @@ package org.xas.jchart.ndount.view.components
 		
 		private var _bgCircle:Sprite;
 		private var _config:Config;
+		private var _selectedIndex:int = -1;
+		
+		private var _ready:Boolean;
+
 		
 		public function GraphicView()
 		{
@@ -46,10 +50,41 @@ package org.xas.jchart.ndount.view.components
 		}
 		
 		private function addToStage( _evt:Event ):void{
-			
+			addEventListener( JChartEvent.SELECTED, onSelected );
+
 			//addChild( new PiePart( new Point( 200, 200 ), 0, 100 ) );			
 			//addChild( new PiePart( new Point( 200, 200 ), 0, 360, 100 ) );
 		}
+		
+		private function onItemReady( _evt:JChartEvent ):void{
+			var _data:Object = _evt.data || {}
+				, _index:int = _data.index || 0
+				;
+			if( _data.index === ( _config.c.piePart.length - 1 ) ){				
+				//				Log.log( 'onItemReady:', _data.index, _selectedIndex, _piePart.length - 1 );
+				//				Log.log( 'onItemReady', _selectedIndex );
+				
+				_ready = true;
+				dispatchEvent( new JChartEvent( JChartEvent.SELECTED, { index: _selectedIndex } ) );
+				_config.facade.sendNotification( JChartEvent.READY );
+			}
+		}
+		
+		private function onSelected( _evt:JChartEvent ):void{
+			return;
+			if( !_config.selectableEnabled ) return;
+			if( !_ready ) return;
+			var _data:Object = _evt.data || {}
+				, _index:int = _data.index || 0
+				;
+			if( !_piePart.length ) return;
+			
+			if( _index >= 0 && _index <= (_piePart.length - 1 ) && _piePart.length > 1 ){
+				_piePart[ _index ].toggle();
+				//				Log.log( _index );
+			}
+		}
+
 		
 		public function update():void{
 			
@@ -106,6 +141,9 @@ package org.xas.jchart.ndount.view.components
 				_pp.addEventListener( MouseEvent.MOUSE_OVER, onMouseOver );
 				_pp.addEventListener( MouseEvent.MOUSE_OUT, onMouseOut );
 				_pp.addEventListener( MouseEvent.CLICK, onMouseClick );
+				_pp.addEventListener( JChartEvent.READY, onItemReady );
+				_pp.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
+
 				addChild( _pp );
 				//_pp.x = 10000;
 				_piePart.push( _pp );

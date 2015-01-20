@@ -130,6 +130,7 @@ package org.xas.jchart.piegraph.view.components
 		}
 		
 		private function onSelected( _evt:JChartEvent ):void{
+			if( !_config.selectableEnabled ) return;
 			if( !_ready ) return;
 			var _data:Object = _evt.data || {}
 				, _index:int = _data.index || 0

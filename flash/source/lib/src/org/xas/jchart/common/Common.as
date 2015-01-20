@@ -461,7 +461,6 @@ package org.xas.jchart.common
 					}
 				});
 			}
-import flash.geom.Point;
 
 			return _r;
 		}

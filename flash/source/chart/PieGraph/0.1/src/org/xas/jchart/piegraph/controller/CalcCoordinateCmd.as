@@ -105,6 +105,10 @@ package org.xas.jchart.piegraph.controller
 				
 				calcGraphic();	
 				
+				if( _config.totalLabelEnabled ){
+					facade.registerMediator( new PieTotalLabelMediator() );	
+				}
+				
 				if( !ExternalInterface.available ){
 					facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
 				}
@@ -237,7 +241,12 @@ package org.xas.jchart.piegraph.controller
 			
 			if( _config.dataLabelEnabled ){			
 				_radius -= (_config.dataLabelLineLength - _config.dataLabelLineStart );	
-				if( _w > _h ){
+				if(
+					_w > _h && !_config.legendIntersect( _radius - _maxLabelHeight
+						, _maxLabelWidth
+						,  _config.dataLabelLineLength - _config.dataLabelLineStart
+					)
+				){
 					_radius = _radius - _maxLabelHeight;
 				}else{
 					_radius = _radius - _maxLabelWidth;

@@ -27,8 +27,7 @@ package org.xas.jchart.common.view.mediator
 			switch( (facade as BaseFacade).name ){
 				case 'DDountFacade':
 				case 'NDountFacade':
-				case 'DountFacade':
-				case 'RateFacade':
+				case 'RateFacade': 
 				{
 					mainMediator.view.index1.addChild( _view = new DDountBgView() );
 					break;

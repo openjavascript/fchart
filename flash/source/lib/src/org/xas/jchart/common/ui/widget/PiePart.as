@@ -233,7 +233,7 @@ package org.xas.jchart.common.ui.widget
 							var _rangle:Number =  _preItem.seriesAngle + _config.offsetAngle - _preItem.endAngle
 								;
 													
-							_part.rotationZ = _rangle;
+							_part.rotation = _rangle;
 							_ins.x = _originCenterPoint.x;
 							_ins.y = _originCenterPoint.y;
 						}
@@ -252,7 +252,7 @@ package org.xas.jchart.common.ui.widget
 							}else if( _preItem ){
 								_seriesAngle = _preItem.seriesAngle + Math.abs( _endAngle - _beginAngle );
 							}
-							_part.rotationZ = 0;
+							_part.rotation = 0;
 							_part.graphics.endFill();									
 							dispatchEvent( new JChartEvent( JChartEvent.READY, { index: dataIndex } ) );
 						}
@@ -338,7 +338,9 @@ package org.xas.jchart.common.ui.widget
 		}
 		
 		protected function onMouseOver( _evt:MouseEvent ):void{
-			flash.ui.Mouse.cursor = MouseCursor.BUTTON;	
+			if( _config.selectableEnabled ){
+				flash.ui.Mouse.cursor = MouseCursor.BUTTON;
+			}
 		}
 		
 		protected function onMouseOut( _evt:MouseEvent ):void{
