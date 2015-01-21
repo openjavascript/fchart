@@ -29,6 +29,7 @@ package org.xas.jchart.common.view.mediator
 			switch( (facade as BaseFacade).name ){
 				case 'ZHistogramFacade':
 				case 'HistogramFacade':
+				case 'StackFacade':
 				{
 					mainMediator.view.index4.addChild( _view = new HistogramItemBgView() );
 					break;

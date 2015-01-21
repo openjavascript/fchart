@@ -36,6 +36,7 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index2.addChild( _view = new ZHistogramGraphicBgView() );
 					break;
 				}
+				case 'StackFacade':
 				case 'HistogramFacade':{
 					mainMediator.view.index2.addChild( _view = new HistogramGraphicBgView() );
 					break;

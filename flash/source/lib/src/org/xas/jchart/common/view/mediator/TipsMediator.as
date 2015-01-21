@@ -35,6 +35,7 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index9.addChild( _view = new PieTipsView() );
 					break;
 				}
+				case 'StackFacade':
 				case 'CurveGramFacade':
 				case 'HistogramFacade':
 				case 'VHistogramFacade':

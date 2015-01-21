@@ -23,6 +23,284 @@ package org.xas.jchart.common.data.test
 			_data = new Vector.<Object>();
 //			return; 
 			
+			
+			_data.push( {
+				title: { text: 'test title 中文' }
+				, subtitle: { text: 'test subtitle 中文' }
+				, yAxis: { title: { text: 'vtitle 中文' } }
+				, credits: {
+					enabled: true
+					, text: 'fchart.openjavascript.org'
+					, href: 'http://fchart.openjavascript.org/'
+				},
+				xAxis: {
+					categories: [2111111111111, 2, 3, 4, 5, 6, 7, 8, 999999999999]
+					, tipTitlePostfix: '{0}月'
+				}, 
+				xAxis: {
+					"autoRate": {
+						enabled: true
+					}
+				},
+				series:[{
+					name: 'Rainfall999',
+					data: [-40, 0, -20, -100, -10, -210, -120, -100, -20]
+				}
+					
+				],
+				legend: {
+					enabled: true
+				}
+				, animation: {
+					enabled: true
+				}
+				, dataLabels: {
+					enabled: true
+				}
+			});
+			
+			_data.push({
+				"chart": {
+					"type": "stack"
+				},
+				"title": {
+					"text": "日趋势"
+				},
+				"xAxis": {
+					"categories": [
+						"2014-11-16",
+						"2014-11-17",
+						"2014-11-18",
+						"2014-11-19",
+						"2014-11-20",
+						"2014-11-21",
+						"2014-11-22",
+						"2014-11-23",
+						"2014-11-24",
+						"2014-11-25",
+						"2014-11-26",
+						"2014-11-27",
+						"2014-11-28",
+						"2014-11-29",
+						"2014-11-30",
+						"2014-12-01",
+						"2014-12-02",
+						"2014-12-03",
+						"2014-12-04",
+						"2014-12-05",
+						"2014-12-06",
+						"2014-12-07",
+						"2014-12-08",
+						"2014-12-09",
+						"2014-12-10",
+						"2014-12-11",
+						"2014-12-12",
+						"2014-12-13",
+						"2014-12-14",
+						"2014-12-15"
+					]
+				},
+				"yAxis": {
+					"autoRate": {
+						"enabled": true
+					}
+				},
+				"series": [
+					{
+						"name": "宝马",
+						"data": [
+							176860,
+							196424,
+							195231,
+							199324,
+							199135,
+							195460,
+							182204,
+							183666,
+							204611,
+							198314,
+							194346,
+							194150,
+							166646,
+							155503,
+							152753,
+							168358,
+							178876,
+							187454,
+							180138,
+							199983,
+							175656,
+							175451,
+							198325,
+							199036,
+							193808,
+							194871,
+							183148,
+							171972,
+							174395,
+							210501
+						],
+						"style": {
+							"stroke": "#ff7100"
+						},
+						"pointStyle": {}
+					},
+					{
+						"name": "别克",
+						"data": [
+							136029,
+							151341,
+							148358,
+							148603,
+							149719,
+							146800,
+							136326,
+							139291,
+							155798,
+							150060,
+							147560,
+							149341,
+							128774,
+							119725,
+							120879,
+							128208,
+							135880,
+							144561,
+							137500,
+							149427,
+							131567,
+							131653,
+							150249,
+							148043,
+							145478,
+							144805,
+							140207,
+							131481,
+							133515,
+							159550
+						],
+						"style": {
+							"stroke": "#ff7100"
+						},
+						"pointStyle": {}
+					}
+				],
+				"displayAllLabel": false,
+				"legend": {
+					"enabled": true
+				},
+				"plotOptions": {
+					"area": {
+						"fillColor": {}
+					}
+				},
+				"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+				],
+				"callback": {
+					"initedCallback": "initedCallback"
+				}
+			});
+			
+			_data.push({
+				chart: {
+					type: "stack"
+					, bgColor: 0xffffff
+					, bgAlpha: 1
+				}
+				, xAxis: {
+					categories: [ '网页游戏', '游戏平台', '桌面游戏', '手机游戏', '个体经营', '小游戏', '网页游戏', '游戏平台', '桌面游戏', '手机游戏' ]
+				}
+				, yAxis: {					
+//					enabled: false	
+				} 
+				, series:[{
+					name: '全体覆盖率'
+					, data: [26, 36, 46, 56, 77, 76, 86, 72, 62, 52]
+				}, {
+					name: '样式覆盖率',
+					data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
+				}]
+				, tooltip: {		
+					"headerFormat": "{0}"			
+					, "pointFormat": "{0}%"
+					//, enabled: false
+					, afterSerial: [
+						{
+							name: '区分度',
+							data: [81, 71, 61, 51, 41, 31, 21, 11, 29, 39]
+						}
+					]
+					
+					, headerYSpace: 6
+					, itemYSpace: 6
+					, valueLabelXSpace: 0
+					
+					, headerStyle: {
+						font: "Microsoft YaHei"
+						, size: 14
+						, color: 0x777777
+					}
+					, labelStyle: {
+						font: "Microsoft YaHei"
+						, size: 12
+						, color: 0xaaaaaa
+					}
+					, valueStyle: {
+						font: "Microsoft YaHei"
+						, size: 12
+						, color: 0x5dc068
+					}
+					
+					, headerIcon: {
+						enabled: true
+						, style: {
+							color: 0x5DC068
+						}
+					}
+					
+				}
+				, legend: {
+					enabled: false
+				}
+				, dataLabels: {
+					enabled: true
+					, format: '{0}%'
+				}
+				, vline: {
+					enabled: true
+				}
+				, hline: {
+					enabled: true
+				}
+				, colors: [
+					0x00ABEF
+					, 0x9DADB3
+					, 0x09c100
+					, 0x0c76c4 				
+					, 0xff0619
+					
+					, 0xFFBF00			
+					, 0xff7100	
+					, 0xff06b3
+					
+					, 0x41e2e6			
+					, 0xc3e2a4	
+					, 0xffb2bc
+					
+					, 0xdbb8fd
+				]       
+				, hoverBg: {
+					enabled: true		
+					, style: {
+						borderColor: 0xB4B4B4
+						, borderWidth: 2
+						, bgColor: 0xF0F0F0
+					}										
+				}
+			});
+			
 			_data.push({
 				"chart":
 				{
@@ -5828,7 +6106,9 @@ package org.xas.jchart.common.data.test
 				legend: {
 					enabled: true
 				}
-				, displayAllLabel: false
+				, animation: {
+					enabled: true
+				}
 			});
 			
 			_data.push( {
@@ -6100,6 +6380,7 @@ package org.xas.jchart.common.data.test
 					, data: [ 27000, 23600, 16200, 14100, 8400 ]
 					//, label: [ "iphone", "samsung", "huawei", "mi", "meizu" ]
 					, format: '{0}台 占{1}%'
+					, dataLabel: { enabled: true }
 				}, {
 					name: 'Computer',
 					data: [19170, 32060, 13600, 7000, 14800, ]

@@ -31,7 +31,7 @@ package org.xas.jchart.common.controller
 			_body = notification.getBody();
 			_type = notification.getType() || '';
 			
-			Log.log( _config.labelRotationEnable, _config.displayAllLabel, _type );
+//			Log.log( _config.labelRotationEnable, _config.displayAllLabel, _type );
 			if( !_config.xAxisEnabled ) return;
 			if( !_config.displayAllLabel ) return;
 			if( !hlabelMediator ) return;

@@ -41,6 +41,7 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index5.addChild( _view = new ZHistogramHLabelView() );
 					break;
 				}
+				case 'StackFacade':
 				case 'HistogramFacade':
 				{
 					mainMediator.view.index5.addChild( _view = new HistogramHLabelView() );

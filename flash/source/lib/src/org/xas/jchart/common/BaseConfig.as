@@ -121,6 +121,18 @@ package org.xas.jchart.common
 		public function get displaySeries():Array{
 			return _displaySeries;	
 		}
+		
+		public function get itemLength():int{
+			var _r:int = 0;
+			this.displaySeries
+				&& this.displaySeries.length
+				&& this.displaySeries[0]
+				&& this.displaySeries[0].data
+				&& this.displaySeries[0].data.length
+				&& ( _r = this.displaySeries[0].data.length );
+			return _r;
+		}
+		
 		public function updateDisplaySeries( _filter:Object = null, _data:Object = null ):BaseConfig{
 			_data = _data || chartData;
 			if( !( _data && _data.series && _data.series.length ) ) return this;

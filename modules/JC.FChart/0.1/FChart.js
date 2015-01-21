@@ -289,6 +289,8 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         , 'ddount': 'DDount'
         , 'ndount': 'NDount'
 
+        , 'stack': 'Stack'
+
         , 'rate': 'Rate'
     };
 

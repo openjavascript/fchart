@@ -45,6 +45,7 @@ package org.xas.jchart.common.view.mediator
 					mainMediator.view.index6.addChild( _view = new MapVLabelView() );
 					break;
 				}
+				case 'StackFacade':
 				case 'ZHistogramFacade':
 				case 'HistogramFacade':
 				case 'CurveGramFacade': {

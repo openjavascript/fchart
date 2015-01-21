@@ -19,7 +19,7 @@ package org.xas.jchart.common.view.mediator
 		{
 			super( name );
 			
-		}
+		} 
 		
 		override public function onRegister():void{
 			//Log.log( 'DataLabelMediator register' );				
@@ -32,6 +32,11 @@ package org.xas.jchart.common.view.mediator
 				case 'VHistogramFacade':
 				{
 					mainMediator.view.index8.addChild( _view = new VHistogramSerialLabelView() );
+					break;
+				}
+				case 'StackFacade':
+				{
+					mainMediator.view.index8.addChild( _view = new StackSerialLabelView() );
 					break;
 				}
 				case 'ZHistogramFacade':
