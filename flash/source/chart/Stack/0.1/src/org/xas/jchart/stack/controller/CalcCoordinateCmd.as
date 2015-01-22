@@ -14,6 +14,20 @@ package org.xas.jchart.stack.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.StackBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.StackBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.StackGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.StackHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HoverBgMediator.StackHoverBgMediator;
+	import org.xas.jchart.common.view.mediator.ItemBgMediator.StackItemBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.StackLegendMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.StackSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.StackTipsMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.StackVLabelMediator;
 	import org.xas.jchart.stack.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -34,7 +48,7 @@ package org.xas.jchart.stack.controller
 			
 			_c.corner = corner();
 									
-			facade.registerMediator( new BgMediator( ) );
+			facade.registerMediator( new StackBgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
 			if( _config.cd ){			
@@ -63,7 +77,7 @@ package org.xas.jchart.stack.controller
 				
 				if( _config.legendEnabled ){
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new StackLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
@@ -76,25 +90,25 @@ package org.xas.jchart.stack.controller
 				}
 				
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
+					facade.registerMediator( new StackVLabelMediator() );
 					_config.c.minX += pVLabelMediator.maxWidth;
 					_config.c.minX += _config.yArrowLength;
 				}
 
 				_config.c.hoverPadY = 5;
 				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new HoverBgMediator() );
+					facade.registerMediator( new StackHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 //					_yPad += _config.c.hoverPadY;
 				}
 				
 				if( _config.itemBgEnabled ){
-					facade.registerMediator( new ItemBgMediator() );
+					facade.registerMediator( new StackItemBgMediator() );
 				}
 				
 				_config.c.serialLabelPadY = 0;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new StackSeriesLabelMediator() );
 				}
 								
 				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;
@@ -113,7 +127,7 @@ package org.xas.jchart.stack.controller
 				}
 				
 				if( _config.xAxisEnabled ){
-					facade.registerMediator( new HLabelMediator() );
+					facade.registerMediator( new StackHLabelMediator() );
 					
 					_config.c.maxY -= pHLabelMediator.maxHeight;
 					
@@ -149,8 +163,8 @@ package org.xas.jchart.stack.controller
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new StackGraphicBgMediator() );	
+				_config.tooltipEnabled && facade.registerMediator( new StackTipsMediator() );
 				//Log.log( _config.tooltipEnabled );
 				
 				
@@ -342,14 +356,14 @@ package org.xas.jchart.stack.controller
 				_tmp.push( _tmpData );
 			} );
 			Common.each( _positiveItems, function( _k:int, _item:Object ):void{
-				Log.log( _item.x, _tmp[ _k ].y, _item.width, _tmp[ _k ].height );
+//				Log.log( _item.x, _tmp[ _k ].y, _item.width, _tmp[ _k ].height );
 				_item.y = _tmp[ _k ].y;
 				_item.height = _tmp[ _k ].height;
 			});
 		}
 		
 		private function calcChartPoint():void{
-			facade.registerMediator( new BgLineMediator() );
+			facade.registerMediator( new StackBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
@@ -423,20 +437,20 @@ package org.xas.jchart.stack.controller
 			});
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
-		private function get pSerialLabelMediator():SerialLabelMediator{
-			return facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
+		private function get pSerialLabelMediator():BaseSeriesLabelMediator{
+			return facade.retrieveMediator( BaseSeriesLabelMediator.name ) as BaseSeriesLabelMediator;
 		}
 		
-		private function get pHLabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		private function get pHLabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
-		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+	
+		private function get pVLabelMediator():BaseVLabelMediator{
+			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

@@ -14,6 +14,10 @@ package org.xas.jchart.piegraph.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.DountGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.DountTipsMediator;
 	import org.xas.jchart.piegraph.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -40,7 +44,7 @@ package org.xas.jchart.piegraph.controller
 			_c.maxX = _config.stageWidth - _config.vlabelSpace;
 			_c.maxY = _config.stageHeight - _config.vspace;
 						
-			facade.registerMediator( new BgMediator( ) )		
+			facade.registerMediator( new BaseBgMediator( ) )		
 			
 			if(_config.cd ){			
 				
@@ -60,7 +64,7 @@ package org.xas.jchart.piegraph.controller
 				if(_config.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new BaseLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
@@ -90,10 +94,10 @@ package org.xas.jchart.piegraph.controller
 				_config.c.chartMaxX =_config.c.chartX +_config.c.chartWidth;
 				_config.c.chartMaxY =_config.c.chartY +_config.c.chartHeight;
 				
-				facade.registerMediator( new GraphicBgMediator() );	
+				facade.registerMediator( new DountGraphicBgMediator() );	
 				
 				if( _config.tooltipEnabled ){
-					facade.registerMediator( new TipsMediator() );
+					facade.registerMediator( new DountTipsMediator() );
 				}
 				
 				if( _config.dataLabelEnabled ){
@@ -131,7 +135,7 @@ package org.xas.jchart.piegraph.controller
 			
 			_config.c.piePart = [];
 			_config.c.pieLine = [];
-			
+			 
 			if( !(_config.series &&_config.series.length ) ) return;
 			
 			var _angle:Number = 360
@@ -259,8 +263,8 @@ package org.xas.jchart.piegraph.controller
 			return _radius;
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
 		private function get pPieLabelMediator():PieLabelMediator{

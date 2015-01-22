@@ -13,6 +13,11 @@ package org.xas.jchart.map.controller
 	import org.xas.jchart.common.data.test.MapData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.BaseGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.MapLegendMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.MapTipsMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.MapVLabelMediator;
 	import org.xas.jchart.map.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -36,7 +41,7 @@ package org.xas.jchart.map.controller
 			_c.maxX = _c.x + _config.stageWidth - 5;
 			_c.maxY = _c.y + _config.stageHeight - 5;
 			
-			facade.registerMediator( new BgMediator( ) );
+			facade.registerMediator( new BaseBgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
 			if( _config.cd ){
@@ -103,7 +108,7 @@ package org.xas.jchart.map.controller
 					}
 					
 					//初始化tips
-					_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+					_config.tooltipEnabled && facade.registerMediator( new MapTipsMediator() );
 					
 					//初始化callback
 					_config.c.initedCallback = _config.initedCallback;
@@ -119,8 +124,8 @@ package org.xas.jchart.map.controller
 					_config.c.legend.pX = 50 + _config.c.legend.width;
 					_config.c.legend.pY = _config.c.maxY - _config.c.legend.height - 5;
 					
-					facade.registerMediator( new LegendMediator() );
-					facade.registerMediator( new VLabelMediator() );
+					facade.registerMediator( new MapLegendMediator() );
+					facade.registerMediator( new MapVLabelMediator() );
 				}
 				
 				calcGraphic();
@@ -179,7 +184,7 @@ package org.xas.jchart.map.controller
 			_res._g = _fullhex.substr( 2, 2);
 			_res._b = _fullhex.substr( 4, 2);
 			return _res;
-		}
+		}  
 		
 		private function RGB2Hex( _r:String, _g:String, _b:String ):String{
 			var _nr:Number = parseInt( _r, 16 );
@@ -215,8 +220,8 @@ package org.xas.jchart.map.controller
 			return facade.retrieveMediator( CreditMediator.name ) as CreditMediator;
 		}
 		
-		private function get pGraphicBgMediator():GraphicBgMediator{
-			return facade.retrieveMediator( GraphicBgMediator.name ) as GraphicBgMediator;
+		private function get pGraphicBgMediator():BaseGraphicBgMediator{
+			return facade.retrieveMediator( BaseGraphicBgMediator.name ) as BaseGraphicBgMediator;
 		}
 		
 		private function get mainMediator():MainMediator{

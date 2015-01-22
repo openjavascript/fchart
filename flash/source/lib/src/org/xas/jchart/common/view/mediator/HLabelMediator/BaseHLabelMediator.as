@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.HLabelMediator
 {
 	import flash.text.TextField;
 	
@@ -16,62 +16,21 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.HLabelView.VHistogramHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.VZHistogramHLabelView;
 	import org.xas.jchart.common.view.components.HLabelView.ZHistogramHLabelView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class HLabelMediator extends Mediator implements IMediator
+	public class BaseHLabelMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PHLabelMediator';
-		private var _view:BaseHLabelView;
+		public static const name:String = 'PBaseHLabelMediator';
+		protected var _view:BaseHLabelView;
 		public function get view():BaseHLabelView{ return _view; }
 		
-		public function HLabelMediator(  )
+		public function BaseHLabelMediator(  )
 		{
 			super( name );
 		}
 		
-		override public function onRegister():void{
-			
-			switch( (facade as BaseFacade).name ){
-				case 'CurveGramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new CurveGramHLabelView() );
-					break;
-				}
-				case 'ZHistogramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new ZHistogramHLabelView() );
-					break;
-				}
-				case 'StackFacade':
-				case 'HistogramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new HistogramHLabelView() );
-					break;
-				}
-				case 'VHistogramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new VHistogramHLabelView() );
-					break;
-				}
-				case 'VZHistogramFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new VZHistogramHLabelView() );
-					break;
-				}
-				case 'TrendFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new TrendHLabelView() );
-					break;
-				} 
-				case 'MixChartFacade':
-				{
-					mainMediator.view.index5.addChild( _view = new MixChartHLabelView() );
-					break;
-				}
-				default:{
-					mainMediator.view.index5.addChild( _view = new BaseHLabelView() ); 
-					break;
-				}
-			}
+		override public function onRegister():void{			
+			mainMediator.view.index5.addChild( _view = new BaseHLabelView() ); 
 		}
 		
 		override public function onRemove():void{

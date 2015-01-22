@@ -1,78 +1,56 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.HoverBgMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
-	import org.xas.core.utils.ElementUtility;
 	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.TipsView.*;
+	import org.xas.jchart.common.view.components.HoverBgView.*;
 	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class TipsMediator extends Mediator implements IMediator
+	public class HoverBgMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PTipsMediator';
-		private var _view:BaseTipsView;
-		public function get view():BaseTipsView{ return _view; }
+		public static const name:String = 'PHoverBgMediator';
+		private var _view:BaseHoverBgView;
+		public function get view():BaseHoverBgView{ return _view; }
 		
-		public function TipsMediator( )
+		public function HoverBgMediator( )
 		{
 			super( name );
 			
 		}
 		
 		override public function onRegister():void{
-			
+			//Log.log( 'HoverBgMediator register' );				
 			switch( (facade as BaseFacade).name ){
-				case 'PieGraphFacade':
-				case 'DDountFacade':
-				case 'NDountFacade':
-				case 'DountFacade':
-				case 'RateFacade':
+				case 'HistogramFacade':
 				{
-					mainMediator.view.index9.addChild( _view = new PieTipsView() );
+					mainMediator.view.index6.addChild( _view = new HistogramHoverBgView() );
 					break;
-				}
+				} 
 				case 'StackFacade':
 				{
-					mainMediator.view.index8.addChild( _view = new StackTipsView() );
-					break;
-				}
-				case 'CurveGramFacade':
-				case 'HistogramFacade':
-				case 'VHistogramFacade':
-				{
-					mainMediator.view.index8.addChild( _view = new NormalTipsView() );
+					mainMediator.view.index6.addChild( _view = new StackHoverBgView() );
 					break;
 				}
 				case 'ZHistogramFacade':
+				{
+					mainMediator.view.index6.addChild( _view = new ZHistogramHoverBgView() );
+					break;
+				}
+				case 'VHistogramFacade':
 				case 'VZHistogramFacade':
 				{
-					mainMediator.view.index8.addChild( _view = new ZHistogramTipsView() );
-					break;
-				}
-				case 'MapFacade':
-				{
-					mainMediator.view.index8.addChild( _view = new MapTipsView() );
-					break;
-				}
-				case 'TrendFacade':{
-					mainMediator.view.index8.addChild( _view = new TrendTipsView() );
-					break;
-				}
-				case 'MixChartFacade':
-				{
-					mainMediator.view.index11.addChild( _view = new MixChartTipsView() );
+					mainMediator.view.index6.addChild( _view = new VHistogramHoverBgView() );
 					break;
 				}
 				default:{
-					mainMediator.view.index8.addChild( _view = new BaseTipsView() ); 
+					mainMediator.view.index6.addChild( _view = new BaseHoverBgView() );
 					break;
 				}
-			}
-			ElementUtility.topIndex( _view );
+			}	
 		}
 		
 		override public function onRemove():void{
@@ -81,7 +59,8 @@ package org.xas.jchart.common.view.mediator
 		
 		override public function listNotificationInterests():Array{
 			return [
-				JChartEvent.UPDATE_TIPS
+				JChartEvent.SHOW_CHART
+				, JChartEvent.UPDATE_TIPS
 				, JChartEvent.SHOW_TIPS
 				, JChartEvent.HIDE_TIPS
 			];
@@ -89,6 +68,11 @@ package org.xas.jchart.common.view.mediator
 		
 		override public function handleNotification(notification:INotification):void{
 			switch( notification.getName() ){
+				case JChartEvent.SHOW_CHART:
+				{					
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
+					break;
+				}	
 				case JChartEvent.UPDATE_TIPS:
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, notification.getBody() ) );
@@ -103,9 +87,10 @@ package org.xas.jchart.common.view.mediator
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, notification.getBody() ) );
 					break;
-				}			
+				}
 			}
 		}
+		
 		
 		private function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;

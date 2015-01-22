@@ -11,7 +11,7 @@ package org.xas.jchart.common.data.test
 			if( !_ins ){
 				_ins = new MapData();		
 			}
-			return _ins;
+			return _ins; 
 		}
 		
 		public function MapData()
@@ -21,6 +21,8 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
+			
+			return;
 			
 			_data.push({
 				

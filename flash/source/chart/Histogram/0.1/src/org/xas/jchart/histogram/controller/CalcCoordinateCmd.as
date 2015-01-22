@@ -14,6 +14,19 @@ package org.xas.jchart.histogram.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.StackBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.StackGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.StackHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HoverBgMediator.HistogramHoverBgMediator;
+	import org.xas.jchart.common.view.mediator.ItemBgMediator.StackItemBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.HistogramSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.HistogramTipsMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.StackVLabelMediator;
 	import org.xas.jchart.histogram.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -39,7 +52,7 @@ package org.xas.jchart.histogram.controller
 			_c.maxX = _c.x + _config.stageWidth - _config.vspace;
 			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
 									
-			facade.registerMediator( new BgMediator( ) );
+			facade.registerMediator( new BaseBgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
 			if( _config.cd ){			
@@ -68,7 +81,7 @@ package org.xas.jchart.histogram.controller
 				
 				if( _config.legendEnabled ){
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new BaseLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
@@ -81,25 +94,25 @@ package org.xas.jchart.histogram.controller
 				}
 				
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
+					facade.registerMediator( new StackVLabelMediator() );
 					_config.c.minX += pVLabelMediator.maxWidth;
 					_config.c.minX += _config.yArrowLength;
 				}
 
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new HoverBgMediator() );
+					facade.registerMediator( new HistogramHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 					_yPad += _config.c.hoverPadY;
 				}
 				
 				if( _config.itemBgEnabled ){
-					facade.registerMediator( new ItemBgMediator() );
+					facade.registerMediator( new StackItemBgMediator() );
 				}
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new HistogramSeriesLabelMediator() );
 //					_config.c.minY += _config.c.serialLabelPadY;
 //					_yPad += _config.c.serialLabelPadY;
 				}
@@ -120,7 +133,7 @@ package org.xas.jchart.histogram.controller
 				}
 				
 				if( _config.xAxisEnabled ){
-					facade.registerMediator( new HLabelMediator() );
+					facade.registerMediator( new StackHLabelMediator() );
 					
 					_config.c.maxY -= pHLabelMediator.maxHeight;
 					
@@ -156,8 +169,8 @@ package org.xas.jchart.histogram.controller
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new StackGraphicBgMediator() );	
+				_config.tooltipEnabled && facade.registerMediator( new HistogramTipsMediator() );
 				//Log.log( _config.tooltipEnabled );
 				
 				
@@ -312,7 +325,7 @@ package org.xas.jchart.histogram.controller
 		}
 		
 		private function calcChartPoint():void{
-			facade.registerMediator( new BgLineMediator() );
+			facade.registerMediator( new StackBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
@@ -343,7 +356,7 @@ package org.xas.jchart.histogram.controller
 					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
 				});
 			});
-		}
+		} 
 		
 		private function calcChartHPoint():void{
 			if( !_config.yAxisEnabled ){
@@ -386,20 +399,20 @@ package org.xas.jchart.histogram.controller
 			});
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
-		private function get pSerialLabelMediator():SerialLabelMediator{
-			return facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
+		private function get pSerialLabelMediator():BaseSeriesLabelMediator{
+			return facade.retrieveMediator( BaseSeriesLabelMediator.name ) as BaseSeriesLabelMediator;
 		}
 		
-		private function get pHLabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		private function get pHLabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
 		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		private function get pVLabelMediator():BaseVLabelMediator{
+			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

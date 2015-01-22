@@ -1,42 +1,33 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.GroupMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
+	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.BgView.BaseBgView;
-	import org.xas.jchart.common.view.components.BgView.DDountBgView;
+	import org.xas.jchart.common.view.components.GroupView.*;
 	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class BgMediator extends Mediator implements IMediator
+	public class BaseGroupMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PBgMediator';
-		private var _view:BaseBgView;
-		public function get view():BaseBgView{ return _view; }
+		public static const name:String = 'PBaseGroupMediator';
+		protected var _view:BaseGroupView;
+		public function get view():BaseGroupView{ return _view; }
 		
-		public function BgMediator( )
-		{
+		protected var _startY:Number = 0;
+		
+		public function BaseGroupMediator( _minY:Number )
+		{		
+			_startY = _minY;
 			super( name );
-			
 		}
 		
 		override public function onRegister():void{
-			//Log.log( 'BgMediator register' );				
-			switch( (facade as BaseFacade).name ){
-				case 'DDountFacade':
-				case 'NDountFacade':
-				case 'RateFacade': 
-				{
-					mainMediator.view.index1.addChild( _view = new DDountBgView() );
-					break;
-				}
-				default:{
-					mainMediator.view.index1.addChild( _view = new BaseBgView() );
-					break;
-				}
-			}	
+			//Log.log( 'DataLabelMediator register' );
+			mainMediator.view.index2.addChild( _view = new BaseGroupView( _startY ) );
 		}
 		
 		override public function onRemove():void{
@@ -60,8 +51,14 @@ package org.xas.jchart.common.view.mediator
 			}
 		}
 		
+		public function get maxHeight():Number{
+			var _r:Number = 0;
+			_view && ( _r = _view.maxHeight );
+			return _r;
+		}
 		
-		private function get mainMediator():MainMediator{
+		
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		

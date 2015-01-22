@@ -1,44 +1,30 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.BgMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
 	import org.puremvc.as3.multicore.patterns.mediator.Mediator;
 	import org.xas.core.utils.Log;
-	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.GroupView.*;
+	import org.xas.jchart.common.view.components.BgView.BaseBgView;
+	import org.xas.jchart.common.view.components.BgView.DDountBgView;
 	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class GroupMediator extends Mediator implements IMediator
+	public class BaseBgMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PGroupMediator';
-		private var _view:BaseGroupView;
-		public function get view():BaseGroupView{ return _view; }
+		public static const name:String = 'PBaseBgMediator';
+		protected var _view:BaseBgView;
+		public function get view():BaseBgView{ return _view; }
 		
-		private var _startY:Number = 0;
-		
-		public function GroupMediator( _minY:Number )
-		{		
-			_startY = _minY;
+		public function BaseBgMediator( )
+		{
 			super( name );
+			
 		}
 		
 		override public function onRegister():void{
-			//Log.log( 'DataLabelMediator register' );
-						
-			switch( (facade as BaseFacade).name ){
-
-				case 'CurveGramFacade':
-				{
-					mainMediator.view.index2.addChild( _view = new CurveGramGroupView( _startY ) );
-					break;
-				}
-				default:{
-					mainMediator.view.index2.addChild( _view = new BaseGroupView( _startY ) );
-					break;
-				}
-			}	
+			mainMediator.view.index1.addChild( _view = new BaseBgView() );
 		}
 		
 		override public function onRemove():void{
@@ -62,14 +48,8 @@ package org.xas.jchart.common.view.mediator
 			}
 		}
 		
-		public function get maxHeight():Number{
-			var _r:Number = 0;
-			_view && ( _r = _view.maxHeight );
-			return _r;
-		}
 		
-		
-		private function get mainMediator():MainMediator{
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		

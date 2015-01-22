@@ -9,7 +9,7 @@ package org.xas.jchart.common.view.components.HoverBgView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.HistogramUI;
-	import org.xas.jchart.common.view.mediator.SerialLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.SerialLabelMediator;
 
 	public class VHistogramHoverBgView extends BaseHoverBgView
 	{

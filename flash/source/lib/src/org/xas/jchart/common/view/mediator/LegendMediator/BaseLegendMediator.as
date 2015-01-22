@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.LegendMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -12,44 +12,26 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.LegendView.MapLegendView;
 	import org.xas.jchart.common.view.components.LegendView.MixChartLegendView;
 	import org.xas.jchart.common.view.components.LegendView.ZHistogramLegendView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class LegendMediator extends Mediator implements IMediator
+	public class BaseLegendMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PLegendMediator';
-		private var _view:BaseLegendView;
+		public static const name:String = 'PBaseLegendMediator';
+		protected var _view:BaseLegendView;
 		public function get view():BaseLegendView{ return _view; }
 		
-		public function LegendMediator( )
+		public function BaseLegendMediator( )
 		{
 			super( name );
 			
 		}
 		
 		override public function onRegister():void{
-			
-			switch( (facade as BaseFacade).name ){
-				case 'MapFacade':
-				{
-					mainMediator.view.index7.addChild( _view = new MapLegendView() );
-					break;
-				}
-				case 'ZHistogramFacade':
-				case 'VZHistogramFacade':
-				{
-					mainMediator.view.index7.addChild( _view = new ZHistogramLegendView() );
-					break;
-				}
-				case 'MixChartFacade':
-				{
-					mainMediator.view.index7.addChild( _view = new MixChartLegendView() );
-					break;
-				}
-				default:{
-					mainMediator.view.index7.addChild( _view = new BaseLegendView() ); 
-					break;
-				}
-			}
-			//Log.log( 'LegendMediator register' );	
+			mainMediator.view.index7.addChild( _view = new BaseLegendView() ); 
+			initEvent();
+		}
+		
+		protected function initEvent():void{
 			_view.addEventListener( JChartEvent.FILTER_DATA, function( _evt:JChartEvent ):void{
 				sendNotification( JChartEvent.FILTER_DATA, _evt.data );	
 			});
@@ -109,7 +91,7 @@ package org.xas.jchart.common.view.mediator
 			_view.maxWidth = _setter;
 		}
 		
-		private function get mainMediator():MainMediator{
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		

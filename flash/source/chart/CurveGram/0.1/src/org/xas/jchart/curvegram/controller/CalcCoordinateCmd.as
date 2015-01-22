@@ -16,7 +16,20 @@ package org.xas.jchart.curvegram.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.*;
 	import org.xas.jchart.common.view.mediator.*;
-	import org.xas.jchart.curvegram.view.mediator.*; 
+	import org.xas.jchart.common.view.mediator.BgLineMediator.CurveGramBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.StackBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.CurveGramGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.GroupMediator.BaseGroupMediator;
+	import org.xas.jchart.common.view.mediator.GroupMediator.CurveGramGropuMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.CurveGramHLabelMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.CurveGramSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.HistogramTipsMediator;
+	import org.xas.jchart.common.view.mediator.ToggleBgMediator.CurveGramToggleBgMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.StackVLabelMediator;
+	import org.xas.jchart.curvegram.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -43,7 +56,7 @@ package org.xas.jchart.curvegram.controller
 			
 			var _yPad:Number = _c.minY;
 						
-			facade.registerMediator( new BgMediator( ) )		
+			facade.registerMediator( new StackBgMediator( ) )		
 			 
 			if( _config.cd ){
 				
@@ -62,9 +75,9 @@ package org.xas.jchart.curvegram.controller
 				
 				if( _config.groupEnabled ){
 					if( _config.cd.subtitle && _config.cd.subtitle.text ){
-						facade.registerMediator( new GroupMediator( _config.c.minY - 5 ) );
+						facade.registerMediator( new CurveGramGropuMediator( _config.c.minY - 5 ) );
 					}else{
-						facade.registerMediator( new GroupMediator( _config.c.minY ) );
+						facade.registerMediator( new CurveGramGropuMediator( _config.c.minY ) );
 					}
 					_config.c.minY += pGroupMediator.maxHeight;
 				}
@@ -72,7 +85,7 @@ package org.xas.jchart.curvegram.controller
 				if( _config.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new BaseLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
@@ -101,21 +114,21 @@ package org.xas.jchart.curvegram.controller
 				};
 				
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
+					facade.registerMediator( new StackVLabelMediator() );
 					_config.c.minX += pVLabelMediator.maxWidth;
 					_config.c.minX += _config.yArrowLength;
 				}
 				
-				_config.c.hoverPadY = 10;
-				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new HoverBgMediator() );
-					_config.c.minY += _config.c.hoverPadY;
-					_yPad += _config.c.hoverPadY;
-				}
+//				_config.c.hoverPadY = 10;
+//				if( _config.hoverBgEnabled ){
+//					facade.registerMediator( new HoverBgMediator() );
+//					_config.c.minY += _config.c.hoverPadY;
+//					_yPad += _config.c.hoverPadY;
+//				}
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new CurveGramSeriesLabelMediator() );
 //					_config.c.minY += _config.c.serialLabelPadY;
 //					_yPad += _config.c.serialLabelPadY;
 				}
@@ -129,7 +142,7 @@ package org.xas.jchart.curvegram.controller
 				}
 				
 				if( _config.xAxisEnabled ){
-					facade.registerMediator( new HLabelMediator() );
+					facade.registerMediator( new CurveGramHLabelMediator() );
 					_config.c.maxY -= pHLabelMediator.maxHeight;
 					
 					var _tmpMaxWidth:Number = pHLabelMediator.maxWidth;
@@ -164,12 +177,12 @@ package org.xas.jchart.curvegram.controller
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new CurveGramGraphicBgMediator() );	
+				_config.tooltipEnabled && facade.registerMediator( new HistogramTipsMediator() );
 
 				
 				if( _config.toggleBgEnabled ){	
-					facade.registerMediator( new ToggleBgMediator() );
+					facade.registerMediator( new CurveGramToggleBgMediator() );
 				}
 				
 				calcChartPoint();
@@ -273,7 +286,7 @@ package org.xas.jchart.curvegram.controller
 		}
 		
 		private function calcChartPoint():void{
-			facade.registerMediator( new BgLineMediator() );
+			facade.registerMediator( new CurveGramBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
@@ -339,20 +352,20 @@ package org.xas.jchart.curvegram.controller
 			});
 		}
 		
-		private function get pGroupMediator():GroupMediator{
-			return facade.retrieveMediator( GroupMediator.name ) as GroupMediator;
+		private function get pGroupMediator():BaseGroupMediator{
+			return facade.retrieveMediator( BaseGroupMediator.name ) as BaseGroupMediator;
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
-		private function get pHLabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		private function get pHLabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
 		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		private function get pVLabelMediator():BaseVLabelMediator{
+			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

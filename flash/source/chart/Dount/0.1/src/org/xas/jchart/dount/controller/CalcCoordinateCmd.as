@@ -14,6 +14,11 @@ package org.xas.jchart.dount.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.DountBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.DountGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.DountTipsMediator;
 	import org.xas.jchart.dount.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -40,7 +45,7 @@ package org.xas.jchart.dount.controller
 			_c.maxX = _config.stageWidth - _config.vlabelSpace;
 			_c.maxY = _config.stageHeight - _config.vspace;
 						
-			facade.registerMediator( new BgMediator( ) )		
+			facade.registerMediator( new BaseBgMediator( ) )		
 			
 			//Log.log( BaseConfig.ins.rate.length );
 			//Log.log( BaseConfig.ins.maxNum, BaseConfig.ins.finalMaxNum, BaseConfig.ins.chartMaxNum, 11111 );
@@ -63,7 +68,7 @@ package org.xas.jchart.dount.controller
 				if( _config.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new BaseLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
@@ -80,7 +85,7 @@ package org.xas.jchart.dount.controller
 					
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
-				}	
+				}	 
 				
 //				_config.c.maxX -= 5;
 				
@@ -94,8 +99,8 @@ package org.xas.jchart.dount.controller
 				_config.c.chartMaxX = _config.c.chartX + _config.c.chartWidth;
 				_config.c.chartMaxY = _config.c.chartY + _config.c.chartHeight;
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new DountGraphicBgMediator() );	
+				facade.registerMediator( new DountTipsMediator() );
 				
 				if( _config.dataLabelEnabled ){
 					facade.registerMediator( new PieLabelMediator() );	
@@ -277,8 +282,8 @@ package org.xas.jchart.dount.controller
 		}
 
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 				
 		private function get pPieLabelMediator():PieLabelMediator{

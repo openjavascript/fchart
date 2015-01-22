@@ -13,9 +13,21 @@ package org.xas.jchart.trend.controller
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.TrendData;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.mediator.*;
-	import org.xas.jchart.trend.view.mediator.*;
 	import org.xas.jchart.common.proxy.LegendProxy;
+	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.TrendBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.TrendGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.TrendHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HoverBgMediator.BaseHoverBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.TrendTipsMediator;
+	import org.xas.jchart.common.view.mediator.ToggleBgMediator.BaseToggleBgMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.TrendVLabelMediator;
+	import org.xas.jchart.trend.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -46,7 +58,7 @@ package org.xas.jchart.trend.controller
 			
 			var _yPad:Number = _c.minY;
 			
-			facade.registerMediator( new BgMediator( ) );
+			facade.registerMediator( new BaseBgMediator( ) );
 			
 			if( _config.cd ){
 				
@@ -66,7 +78,7 @@ package org.xas.jchart.trend.controller
 				if( BaseConfig.ins.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new BaseLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
@@ -95,20 +107,20 @@ package org.xas.jchart.trend.controller
 				};
 				
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
+					facade.registerMediator( new TrendVLabelMediator() );
 					_config.c.minX += pVLabelMediator.maxWidth;
 				}else{
 				}
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new HoverBgMediator() );
+					facade.registerMediator( new BaseHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 					_yPad += _config.c.hoverPadY;
 				}
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new BaseSeriesLabelMediator() );
 					_config.c.minY += _config.c.serialLabelPadY;
 					_yPad += _config.c.serialLabelPadY;
 				}
@@ -125,7 +137,7 @@ package org.xas.jchart.trend.controller
 					_config.c.labelWidth = _config.c.chartWidth / ( _config.hlabelNum ) / 2;
 				}
 				
-				facade.registerMediator( new HLabelMediator() );
+				facade.registerMediator( new TrendHLabelMediator() );
 				_config.c.maxY -= pHLabelMediator.maxHeight;
 				
 				if( _config.graphicHeight ){
@@ -147,11 +159,11 @@ package org.xas.jchart.trend.controller
 				_config.c.chartX = _config.c.minX + _config.c.arrowLength - 2;
 				_config.c.chartY = _config.c.minY;
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new TrendGraphicBgMediator() );	
+				_config.tooltipEnabled && facade.registerMediator( new TrendTipsMediator() );
 
 				if( _config.toggleBgEnabled ){	
-					facade.registerMediator( new ToggleBgMediator() );
+					facade.registerMediator( new BaseToggleBgMediator() );
 				}
 				
 				calcChartPoint();
@@ -194,7 +206,7 @@ package org.xas.jchart.trend.controller
 					}
 					_y = _sp.y + _config.c.vpart * _config.rateZeroIndex - _h;
 					
-				}else{
+				}else{ 
 					if( Common.isNegative( _num ) && _num != 0 ){
 						_num = Math.abs( _num );
 						_dataHeight = _config.c.vpart * _config.rateZeroIndex;
@@ -225,7 +237,7 @@ package org.xas.jchart.trend.controller
 		}
 		
 		private function calcChartPoint():void{
-			facade.registerMediator( new BgLineMediator() );
+			facade.registerMediator( new TrendBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
@@ -302,16 +314,16 @@ package org.xas.jchart.trend.controller
 			});
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
-		private function get pHLabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		private function get pHLabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
 		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		private function get pVLabelMediator():BaseVLabelMediator{
+			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

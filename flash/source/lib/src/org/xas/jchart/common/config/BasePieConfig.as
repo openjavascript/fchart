@@ -6,7 +6,8 @@ package org.xas.jchart.common.config
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
-	import org.xas.jchart.common.view.mediator.LegendMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.LegendMediator;
 	
 	public class BasePieConfig extends BaseConfig
 	{
@@ -344,8 +345,8 @@ package org.xas.jchart.common.config
 			return _r;
 		}
 		
-		protected function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		protected function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
 		public function get totalLabelEnabled():Boolean{

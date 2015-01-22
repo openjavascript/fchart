@@ -9,7 +9,7 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.mediator.HLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.HLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
 	
 	public class DisplayAllCheckCmd extends SimpleCommand implements ICommand

@@ -162,9 +162,7 @@ package
 			var _data:Object = {};
 			
 			if( !ExternalInterface.available ){
-				if(TrendData.instance.data.length == 0){
-					return;
-				}
+				if( !TrendData.instance.data.length ) return;
 				_data = TrendData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};				

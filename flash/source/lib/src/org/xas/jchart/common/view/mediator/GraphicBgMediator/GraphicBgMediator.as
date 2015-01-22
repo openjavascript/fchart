@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.GraphicBgMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -8,16 +8,17 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.GraphicBgView.*;
 	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
 	public class GraphicBgMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PChartBgMediator';
-		private var _view:BaseGraphicBgView;
+		protected var _view:BaseGraphicBgView;
 		public function get view():BaseGraphicBgView{ return _view; }
 		
-		public function GraphicBgMediator( )
+		public function GraphicBgMediator( _name:String = '' )
 		{
-			super( name );
+			super( _name || name );
 			
 		}
 		
@@ -104,7 +105,7 @@ package org.xas.jchart.common.view.mediator
 			}
 		}		
 		
-		private function get mainMediator():MainMediator{
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		

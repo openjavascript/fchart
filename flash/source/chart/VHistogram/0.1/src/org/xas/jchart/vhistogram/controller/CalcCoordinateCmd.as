@@ -13,6 +13,20 @@ package org.xas.jchart.vhistogram.controller
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.VHistogramBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.VHistogramGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.VHistogramHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HoverBgMediator.VHoverBgMediator;
+	import org.xas.jchart.common.view.mediator.ItemBgMediator.VItemBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.ZLegendMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.VHistogramSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.HistogramTipsMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.VHistogramVLabelMediator;
 	import org.xas.jchart.vhistogram.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -38,7 +52,7 @@ package org.xas.jchart.vhistogram.controller
 			_c.maxX = _c.x + _config.stageWidth - _config.hspace;
 			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
 						
-			facade.registerMediator( new BgMediator( ) );
+			facade.registerMediator( new BaseBgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
 			if( _config.cd ){
@@ -73,7 +87,7 @@ package org.xas.jchart.vhistogram.controller
 				}
 				
 				if( _config.legendEnabled ){
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new ZLegendMediator() );
 					_config.c.maxY -= pLegendMediator.view.height;
 					_config.c.legend = { 
 						x: _config.width / 2 - pLegendMediator.view.width / 2
@@ -87,18 +101,18 @@ package org.xas.jchart.vhistogram.controller
 
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new HoverBgMediator() );
+					facade.registerMediator( new VHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 					_yPad += _config.c.hoverPadY;
 				}
 				
 				if( _config.itemBgEnabled ){
-					facade.registerMediator( new ItemBgMediator() );
+					facade.registerMediator( new VItemBgMediator() );
 				}
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new VHistogramSeriesLabelMediator() );
 //					_config.c.maxX -= pSerialLabelMediator.maxWidth;
 //					Log.log( pSerialLabelMediator.maxWidth )
 				}
@@ -108,13 +122,13 @@ package org.xas.jchart.vhistogram.controller
 				}
 				
 				if( _config.xAxisEnabled ){
-					facade.registerMediator( new HLabelMediator() );
+					facade.registerMediator( new VHistogramHLabelMediator() );
 					_config.c.minX += pHLabelMediator.maxWidth;
 				}
 				
 				//初始化vlabel,并修改图标最大Y的范围
 				if( _config.yAxisEnabled ){
-					facade.registerMediator( new VLabelMediator() );
+					facade.registerMediator( new VHistogramVLabelMediator() );
 					_config.c.maxY -= pVLabelMediator.maxHeight;
 					//					_config.c.maxX = pVLabelMediator.maxWidth;
 					var _tmpMaxWidth:Number = pVLabelMediator.maxWidth;
@@ -147,8 +161,8 @@ package org.xas.jchart.vhistogram.controller
 				_config.c.chartX = _config.c.minX + _config.yArrowLength - 2;
 				_config.c.chartY = _config.c.minY;
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new VHistogramGraphicBgMediator() );	
+				_config.tooltipEnabled && facade.registerMediator( new HistogramTipsMediator() );
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK, {}, 'vbar' );
 				
@@ -284,7 +298,7 @@ package org.xas.jchart.vhistogram.controller
 		}
 		
 		private function calcChartPoint():void{
-			facade.registerMediator( new BgLineMediator() );
+			facade.registerMediator( new VHistogramBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
@@ -362,20 +376,20 @@ package org.xas.jchart.vhistogram.controller
 			});
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
-		private function get pSerialLabelMediator():SerialLabelMediator{
-			return facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
+		private function get pSerialLabelMediator():BaseSeriesLabelMediator{
+			return facade.retrieveMediator( BaseSeriesLabelMediator.name ) as BaseSeriesLabelMediator;
 		}
 		
-		private function get pHLabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		private function get pHLabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
 		
-		private function get pVLabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		private function get pVLabelMediator():BaseVLabelMediator{
+			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		
 		private function get pCreditMediator():CreditMediator{

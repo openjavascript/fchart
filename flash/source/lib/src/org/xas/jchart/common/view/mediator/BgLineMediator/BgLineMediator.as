@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.BgLineMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -6,47 +6,49 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.HoverBgView.*;
-	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.components.BgLineView.*;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class HoverBgMediator extends Mediator implements IMediator
+	public class BgLineMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PHoverBgMediator';
-		private var _view:BaseHoverBgView;
-		public function get view():BaseHoverBgView{ return _view; }
+		public static const name:String = 'PBgLineMediator';
+		private var _view:BaseBgLineView;
+		public function get view():BaseBgLineView{ return _view; }
 		
-		public function HoverBgMediator( )
+		public function BgLineMediator()
 		{
 			super( name );
-			
 		}
 		
 		override public function onRegister():void{
-			//Log.log( 'HoverBgMediator register' );				
+			
 			switch( (facade as BaseFacade).name ){
-				case 'HistogramFacade':
-				{
-					mainMediator.view.index6.addChild( _view = new HistogramHoverBgView() );
-					break;
-				} 
-				case 'StackFacade':
-				{
-					mainMediator.view.index6.addChild( _view = new StackHoverBgView() );
+				case 'CurveGramFacade':{
+					mainMediator.view.index3.addChild( _view = new CurveGramBgLineView() );
 					break;
 				}
+				case 'TrendFacade':{
+					mainMediator.view.index5.addChild( _view = new TrendBgLineView() );
+					break;
+				}
+				case 'StackFacade':
 				case 'ZHistogramFacade':
-				{
-					mainMediator.view.index6.addChild( _view = new ZHistogramHoverBgView() );
+				case 'HistogramFacade':{
+					mainMediator.view.index5.addChild( _view = new HistogramBgLineView() );
 					break;
 				}
 				case 'VHistogramFacade':
 				case 'VZHistogramFacade':
 				{
-					mainMediator.view.index6.addChild( _view = new VHistogramHoverBgView() );
+					mainMediator.view.index5.addChild( _view = new VHistogramBgLineView() );
+					break;
+				}
+				case 'MixChartFacade':{
+					mainMediator.view.index5.addChild( _view = new MixChartBgLineView() );
 					break;
 				}
 				default:{
-					mainMediator.view.index6.addChild( _view = new BaseHoverBgView() );
+					mainMediator.view.index5.addChild( _view = new BaseBgLineView() );
 					break;
 				}
 			}	
@@ -69,9 +71,9 @@ package org.xas.jchart.common.view.mediator
 			switch( notification.getName() ){
 				case JChartEvent.SHOW_CHART:
 				{					
-					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE, notification.getBody() ) );
 					break;
-				}	
+				}			
 				case JChartEvent.UPDATE_TIPS:
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, notification.getBody() ) );
@@ -86,7 +88,7 @@ package org.xas.jchart.common.view.mediator
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, notification.getBody() ) );
 					break;
-				}
+				}	
 			}
 		}
 		

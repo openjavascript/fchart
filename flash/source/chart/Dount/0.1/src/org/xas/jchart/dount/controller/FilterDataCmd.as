@@ -6,11 +6,6 @@ package org.xas.jchart.dount.controller
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.mediator.BgLineMediator;
-	import org.xas.jchart.common.view.mediator.GraphicBgMediator;
-	import org.xas.jchart.common.view.mediator.HLabelMediator;
-	import org.xas.jchart.common.view.mediator.TipsMediator;
-	import org.xas.jchart.common.view.mediator.VLabelMediator;
 	import org.xas.jchart.dount.view.mediator.GraphicMediator;
 	
 	public class FilterDataCmd extends SimpleCommand implements ICommand

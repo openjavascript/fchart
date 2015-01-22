@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.SeriesLabelMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -8,6 +8,7 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.SerialLabel.*;
 	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
 	public class SerialLabelMediator extends Mediator implements IMediator
 	{
