@@ -23,7 +23,7 @@ package org.xas.jchart.common.ui
 			
 			_items = new Vector.<Sprite>();
 			
-			if( data.data && data.data.positive && data.data.positive.length ){
+			if( data.data && data.data.positive && data.data.positive.length ){		
 				Common.each( data.data.positive, function( _k:int, _item:Object ):void{
 					drawItem( _item );
 				});
@@ -57,10 +57,16 @@ package org.xas.jchart.common.ui
 			if( !( data.data && data.data.positive && data.data.positive.length ) ) return;
 			var _lastItem:Object = data.data.positive[ data.data.positive.length - 1 ]
 				, _firstItem:Object = data.data.positive[ 0 ]
-				, _startY:Number = _firstItem.y + _firstItem.height
-				, _endY:Number = _lastItem.y
-				, _obj:Object = { count:_startY };
+				, _startY:Number = data.data.positive[ 0 ].y + data.data.positive[ 0 ].height
+				, _endY:Number = data.data.positive[ 0 ].y
+				, _obj:Object;
 				;
+			Common.each( data.data && data.data.positive, function( _k:int, _item:Object ):void{
+				if( _item.y < _endY ) _endY = _item.y;
+				if( _item.y + _item.height > _startY ) _startY = _item.y + _item.height;
+			});
+			_obj = { count:_startY };
+				
 			if( _startY == _endY ) return;
 			
 //			Log.log( _startY, _endY, data.width );
@@ -81,33 +87,42 @@ package org.xas.jchart.common.ui
 			if( !( data.data && data.data.negative && data.data.negative.length ) ) return;
 			var _lastItem:Object = data.data.negative[ data.data.negative.length - 1 ]
 				, _firstItem:Object = data.data.negative[ 0 ]
-				, _startY:Number = _firstItem.y || 0
+				, _startY:Number = _firstItem.y
 				, _endY:Number = _lastItem.y + _lastItem.height
-				, _obj:Object = { count:_startY };
+				, _obj:Object;
 			;
+			
+			Common.each( data.data && data.data.negative, function( _k:int, _item:Object ):void{
+				if( _item.y < _startY ) _startY = _item.y;
+				if( _item.y + _item.height > _endY ) _endY = _item.y + _item.height;
+			});
+			
+			_obj = { count:_startY };
 			if( _startY == _endY ) return;
 			TweenLite.to( _obj, data.duration, { count: _endY, ease:Circ.easeInOut
 				, onUpdate: 
 				function():void{
-//					if( data.sk !== 0 ) return;
-//					Log.printFormatJSON( data );
-//					Log.log( _obj.count );
-//					if( data.k === 0 ){
-//						Log.log(  _startY, data.width, _obj.count );
-//					}
+
 					if( !( data.width && _obj.count ) ) return;
 					_mask.graphics.drawRect( data.x, _startY, data.width, _obj.count - _startY );
 				}
 			} );
 		}
 		
-		private function drawItem( _itemData:Object ):void{
+		private function drawItem( _itemData:Object, _position:Object = null ):void{
 			if( !( _itemData.width > 0 && _itemData.height > 0 ) ) return;
 			if( !( _itemData.width && _itemData.height ) ) return; 
-			var _tmp:Sprite = new Sprite();
+			_position = _position || {};
+			var _tmp:Sprite = new Sprite()
+				, _x:Number = _itemData.x
+				, _y:Number = _itemData.y
+				, _width:Number = _itemData.width
+				, _height:Number = _itemData.height
+				;
+			
 			_tmp.graphics.beginFill( _itemData.color, 1 );
 			_tmp.graphics.lineStyle( 0, _itemData.color, 0 );
-			_tmp.graphics.drawRect( _itemData.x, _itemData.y, _itemData.width, _itemData.height );
+			_tmp.graphics.drawRect( _x, _y, _width, _height );
 			
 			addChild( _tmp );
 			_items.push( _tmp );	

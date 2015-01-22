@@ -46,6 +46,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 										
 					_sk = _sitem.sk;
 					_k = _sitem.k; 
+					if( !_sitem.value ) return;
 					
 					if( _config.serialLabelEnabled ){
 						

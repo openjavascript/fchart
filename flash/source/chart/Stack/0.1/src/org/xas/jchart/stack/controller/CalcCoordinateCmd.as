@@ -280,13 +280,7 @@ package org.xas.jchart.stack.controller
 						
 						_tmpYAr.push( _y );
 						_tmpHAr.push( _h );
-						
-						
-//						if( Common.isNegative( _num ) || _num == 0 ){
-//							_items.push( _rectItem );
-//						}else{
-//							_items.unshift( _rectItem );
-//						}
+
 						_items.push( _rectItem );
 						
 						if( _rectItem.isNegative ){
@@ -296,6 +290,7 @@ package org.xas.jchart.stack.controller
 						}
 				});
 				
+				fixPositiveSort( _stackItem.data.positive );
 //				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
 //				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
 				
@@ -326,7 +321,31 @@ package org.xas.jchart.stack.controller
 				_config.c.stackItems.push( _stackItem );
 			});
 			
+			
 //			Log.printFormatJSON( _config.c.stackItems );
+		}
+		
+		private function fixPositiveSort( _positiveItems:Array ):void{
+			if( !( _positiveItems && _positiveItems.length && _positiveItems.length > 1 ) ) return;
+			var _tmp:Array = []
+				, _tmpData:Object
+				, _maxLen:int = _positiveItems.length - 1
+				, _minY:Number = _positiveItems[_maxLen].y 
+				;
+			//				Log.log( data.data.positive[0].y, data.data.positive[1].y );
+			Common.each( _positiveItems, function( _k:int, _item:Object ):void{
+				_tmpData = {
+					y: _minY
+					, height: _item.height
+				};
+				_minY += _item.height;
+				_tmp.push( _tmpData );
+			} );
+			Common.each( _positiveItems, function( _k:int, _item:Object ):void{
+				Log.log( _item.x, _tmp[ _k ].y, _item.width, _tmp[ _k ].height );
+				_item.y = _tmp[ _k ].y;
+				_item.height = _tmp[ _k ].height;
+			});
 		}
 		
 		private function calcChartPoint():void{

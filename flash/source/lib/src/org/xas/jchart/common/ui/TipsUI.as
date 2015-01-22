@@ -44,9 +44,12 @@ package org.xas.jchart.common.ui
 		protected var _offsetX:Number = 15;
 		
 		protected var _headerIcon:Sprite;
+		
+		protected var _isStack:Boolean;
 				
-		public function TipsUI()
+		public function TipsUI( _isStack:Boolean = false )
 		{
+			this._isStack = _isStack;
 			super();
 			
 			visible = false;
@@ -164,7 +167,8 @@ package org.xas.jchart.common.ui
 			
 			if( _data.items ){
 				Common.each( _data.items, function( _k:int, _item:Object ):void{
-					if( !_item ) return;					
+					if( !_item ) return;				
+					if( 'k' in _item ) _k = _item.k;
 					var _styles:Object = { color: BaseConfig.ins.itemColor( _k ) };
 					
 					_layout.addChild( _nameTxf = new TextField() );
