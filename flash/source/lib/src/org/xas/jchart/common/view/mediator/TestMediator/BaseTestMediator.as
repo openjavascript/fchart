@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.TestMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -7,8 +7,9 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.TestView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class TestMediator extends Mediator implements IMediator
+	public class BaseTestMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PTestMediator';
 		private var _view:TestView;
@@ -16,7 +17,7 @@ package org.xas.jchart.common.view.mediator
 		private var _data:Vector.<Object>;
 		private var _config:Config;
 		
-		public function TestMediator( _data:Vector.<Object> )
+		public function BaseTestMediator( _data:Vector.<Object> )
 		{		
 			super( name );
 			this._data = _data;

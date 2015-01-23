@@ -20,7 +20,26 @@ package org.xas.jchart.mixchart.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.ui.widget.DisplayRotation;
-	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.BaseBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.MixChartBgLineMediator;
+	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.CreditMediator.BaseCreditMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.MixChartGraphicBgMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.MixChartHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HoverBgMediator.BaseHoverBgMediator;
+	import org.xas.jchart.common.view.mediator.ItemBgMediator.BaseItemBgMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.LegendMediator.MixChartLegendMediator;
+	import org.xas.jchart.common.view.mediator.MainMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVLabelMediator.BaseMixChartVLabelMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVTitleMediator.BaseMixChartVTitleMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.MixChartSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SubtitleMediator.BaseSubtitleMediator;
+	import org.xas.jchart.common.view.mediator.TestMediator.BaseTestMediator;
+	import org.xas.jchart.common.view.mediator.TipsMediator.MixChartTipsMediator;
+	import org.xas.jchart.common.view.mediator.TitleMediator.BaseTitleMediator;
 	import org.xas.jchart.mixchart.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -50,7 +69,7 @@ package org.xas.jchart.mixchart.controller
 
 			_c.vtitle = {};
 									
-			facade.registerMediator( new BgMediator( ) );
+			facade.registerMediator( new BaseBgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
 //			Log.log( 'labelRotation:', _config.labelRotationEnable );
@@ -58,13 +77,13 @@ package org.xas.jchart.mixchart.controller
 			if( _config.cd ){			
 				
 				if( _config.titleEnable ){
-					facade.registerMediator( new TitleMediator( _config.titleText ) )	
+					facade.registerMediator( new BaseTitleMediator( _config.titleText ) )	
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
 				if( _config.subtitleEnable ){
-					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
+					facade.registerMediator( new BaseSubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height + 5;
@@ -73,14 +92,14 @@ package org.xas.jchart.mixchart.controller
 				if( _config.legendEnabled ){
 					
 					facade.registerProxy( new LegendProxy() );
-					facade.registerMediator( new LegendMediator() );
+					facade.registerMediator( new MixChartLegendMediator() );
 					
 					pLegendProxy.dataModel.calLegendPosition( pLegendMediator.view );
 				}
 
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
-					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
+					facade.registerMediator( new BaseCreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
 					
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
@@ -91,16 +110,16 @@ package org.xas.jchart.mixchart.controller
 				
 				if( _config.yAxisEnabled ){
 					
-					facade.registerMediator( new MixChartVLabelMediator() );
+					facade.registerMediator( new BaseMixChartVLabelMediator() );
 					
 					if( _config.hasVTitle ){
 						//Log.log( 'hasVTitle', new Date().getTime() );
-						facade.registerMediator( new MixChartVTitleMediator() );
+						facade.registerMediator( new BaseMixChartVTitleMediator() );
 					}
 					
 					/*
 					if( _config.cd.yAxis && _config.cd.yAxis.title && _config.cd.yAxis.title.text ){
-					facade.registerMediator( new VTitleMediator( _config.cd.yAxis.title.text ) )
+					facade.registerMediator( new BaseVTitleMediator( _config.cd.yAxis.title.text ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
@@ -160,18 +179,18 @@ package org.xas.jchart.mixchart.controller
 
 				_config.c.hoverPadY = 10;
 				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new HoverBgMediator() );
+					facade.registerMediator( new BaseHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 					_yPad += _config.c.hoverPadY;
 				}
 				
 				if( _config.itemBgEnabled ){
-					facade.registerMediator( new ItemBgMediator() );
+					facade.registerMediator( new BaseItemBgMediator() );
 				}
 				
 				_config.c.serialLabelPadY = 15;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new SerialLabelMediator() );
+					facade.registerMediator( new MixChartSeriesLabelMediator() );
 //					_config.c.minY += _config.c.serialLabelPadY;
 //					_yPad += _config.c.serialLabelPadY;
 				}
@@ -194,7 +213,7 @@ package org.xas.jchart.mixchart.controller
 
 				
 				if( _config.xAxisEnabled ){
-					facade.registerMediator( new HLabelMediator() );
+					facade.registerMediator( new MixChartHLabelMediator() );
 					
 					_config.c.maxY -= pHLabelMediator.maxHeight;
 					
@@ -242,8 +261,8 @@ package org.xas.jchart.mixchart.controller
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
 				
-				facade.registerMediator( new GraphicBgMediator() );	
-				_config.tooltipEnabled && facade.registerMediator( new TipsMediator() );
+				facade.registerMediator( new MixChartGraphicBgMediator() );	
+				_config.tooltipEnabled && facade.registerMediator( new MixChartTipsMediator() );
 				//Log.log( _config.tooltipEnabled );
 								
 				calcChartPoint();
@@ -299,7 +318,7 @@ package org.xas.jchart.mixchart.controller
 				});
 				
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( MixChartData.instance.data ) );	
+					facade.registerMediator( new BaseTestMediator( MixChartData.instance.data ) );	
 				}
 				
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
@@ -320,7 +339,7 @@ package org.xas.jchart.mixchart.controller
 		}
 				
 		private function calcChartPoint():void{
-			facade.registerMediator( new BgLineMediator() );
+			facade.registerMediator( new MixChartBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
@@ -389,40 +408,36 @@ package org.xas.jchart.mixchart.controller
 			});
 		}
 		
-		private function get pMixChartVTitleMediator():MixChartVTitleMediator{
-			return facade.retrieveMediator( MixChartVTitleMediator.name ) as MixChartVTitleMediator;
+		private function get pMixChartVTitleMediator():BaseMixChartVTitleMediator{
+			return facade.retrieveMediator( BaseMixChartVTitleMediator.name ) as BaseMixChartVTitleMediator;
 		}
 		
-		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
-			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
+		private function get pMixChartVLabelMediator():BaseMixChartVLabelMediator{
+			return facade.retrieveMediator( BaseMixChartVLabelMediator.name ) as BaseMixChartVLabelMediator;
 		}
 		
-		private function get pLegendMediator():LegendMediator{
-			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
+		private function get pLegendMediator():BaseLegendMediator{
+			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 		
-		private function get pSerialLabelMediator():SerialLabelMediator{
-			return facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
+		private function get pSerialLabelMediator():BaseSeriesLabelMediator{
+			return facade.retrieveMediator( BaseSeriesLabelMediator.name ) as BaseSeriesLabelMediator;
 		}
 		
-		private function get pHLabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		private function get pHLabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
 		
-		private function get pCreditMediator():CreditMediator{
-			return facade.retrieveMediator( CreditMediator.name ) as CreditMediator;
+		private function get pCreditMediator():BaseCreditMediator{
+			return facade.retrieveMediator( BaseCreditMediator.name ) as BaseCreditMediator;
 		}
 		
-		private function get pVTitleMediator():VTitleMediator{
-			return facade.retrieveMediator( VTitleMediator.name ) as VTitleMediator;
+		private function get pSubtitleMediator():BaseSubtitleMediator{
+			return facade.retrieveMediator( BaseSubtitleMediator.name ) as BaseSubtitleMediator;
 		}
 		
-		private function get pSubtitleMediator():SubtitleMediator{
-			return facade.retrieveMediator( SubtitleMediator.name ) as SubtitleMediator;
-		}
-		
-		private function get pTitleMediator():TitleMediator{
-			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
+		private function get pTitleMediator():BaseTitleMediator{
+			return facade.retrieveMediator( BaseTitleMediator.name ) as BaseTitleMediator;
 		}
 		
 		private function get mainMediator():MainMediator{

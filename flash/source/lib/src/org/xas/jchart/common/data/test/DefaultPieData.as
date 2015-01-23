@@ -12,7 +12,7 @@ package org.xas.jchart.common.data.test
 				_ins = new DefaultPieData();		
 			}
 			return _ins;
-		}
+		} 
 		
 		public function DefaultPieData()
 		{
@@ -23,7 +23,7 @@ package org.xas.jchart.common.data.test
 			_data = new Vector.<Object>();
 			
 			return; 			
-			
+			  
 			_data.push({
 				"chart":
 				{

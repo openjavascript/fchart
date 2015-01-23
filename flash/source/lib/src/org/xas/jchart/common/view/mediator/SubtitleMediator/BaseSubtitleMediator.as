@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.SubtitleMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -6,25 +6,26 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.components.CreditView;
+	import org.xas.jchart.common.view.components.SubtitleView;
+	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class CreditMediator extends Mediator implements IMediator
+	public class BaseSubtitleMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PCreditMediator';
-		private var _text:String, _href:String;
-		private var _view:CreditView;
-		public function get view():CreditView{ return _view; }
+		public static const name:String = 'PSubtitleMediator';
+		private var _text:String;
+		private var _view:SubtitleView;
+		public function get view():SubtitleView{ return _view; }
 		
-		public function CreditMediator( _text:String, _href:String )
+		public function BaseSubtitleMediator( _text:String )
 		{
 			super( name );
 			
 			this._text = _text;
-			this._href = _href;
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index5.addChild( _view = new CreditView( _text, _href ) );
+			mainMediator.view.index5.addChild( _view = new SubtitleView( _text ) );
 			
 		}
 		
@@ -43,8 +44,8 @@ package org.xas.jchart.common.view.mediator
 			case JChartEvent.SHOW_CHART:
 				{
 					
-					_view.x = BaseConfig.ins.c.credits.x;
-					_view.y = BaseConfig.ins.c.credits.y;
+					_view.x = BaseConfig.ins.c.subtitle.x;
+					_view.y = BaseConfig.ins.c.subtitle.y;
 					break;
 				}
 			

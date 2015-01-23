@@ -22,8 +22,8 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-			return;
-			
+			return; 
+			 
 			_data.push( 				{
 				"chart": {
 					"type": "mix"
@@ -726,7 +726,7 @@ package org.xas.jchart.common.data.test
 					}
 					, "xAxis": {
 						"categories": [
-							"2014-11-17",
+							"2014-11-17~~",
 							"2014-11-18",
 							"2014-11-19",
 							"2014-11-20--日趋势日趋势日趋势日趋势日趋势日趋势日趋势日趋势123",

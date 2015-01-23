@@ -20,11 +20,10 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
-	import org.xas.jchart.common.view.mediator.HLabelMediator.HLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
-	import org.xas.jchart.common.view.mediator.MixChartVLabelMediator;
-	import org.xas.jchart.common.view.mediator.MixChartVTitleMediator;
-	import org.xas.jchart.common.view.mediator.VLabelMediator.VLabelMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVLabelMediator.BaseMixChartVLabelMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVTitleMediator.BaseMixChartVTitleMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
 	 
 	public class GlobalRotationLabelsCmd extends SimpleCommand implements ICommand
 	{
@@ -316,14 +315,16 @@ package org.xas.jchart.common.controller
 						if( !_item.enabeld ) return;
 						if( !_item.isOpposite ) return;
 						
-						_tmp += 1;
-						_tmp += pMixChartVLabelMediator.getMaxWidth( _k );
-						
-						if( _item.hasVTitle ){
-							_tmp += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
-							_tmp += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
-							_tmp += _config.vlabelSpace;
-						}
+//						if( pMixChartVLabelMediator ){
+							_tmp += 1;
+							_tmp += pMixChartVLabelMediator.getMaxWidth( _k );
+							
+							if( _item.hasVTitle ){
+								_tmp += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+								_tmp += pMixChartVTitleMediator.getWidth( _k ) / 2 ;
+								_tmp += _config.vlabelSpace;
+							}
+//						}
 					} );
 					_labelMaxWidth -= _tmp;
 					
@@ -378,8 +379,8 @@ package org.xas.jchart.common.controller
 			_tf.y = _new.y;
 		}
 		
-		protected function get vlabelMediator():VLabelMediator{
-			return facade.retrieveMediator( VLabelMediator.name ) as VLabelMediator;
+		protected function get vlabelMediator():BaseVLabelMediator{
+			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		protected function get hlabelMediator():BaseHLabelMediator{
 			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
@@ -388,12 +389,12 @@ package org.xas.jchart.common.controller
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		
-		private function get pMixChartVTitleMediator():MixChartVTitleMediator{
-			return facade.retrieveMediator( MixChartVTitleMediator.name ) as MixChartVTitleMediator;
+		private function get pMixChartVTitleMediator():BaseMixChartVTitleMediator{
+			return facade.retrieveMediator( BaseMixChartVTitleMediator.name ) as BaseMixChartVTitleMediator;
 		}
 		
-		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
-			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
+		private function get pMixChartVLabelMediator():BaseMixChartVLabelMediator{
+			return facade.retrieveMediator( BaseMixChartVLabelMediator.name ) as BaseMixChartVLabelMediator;
 		}
 	}
 }

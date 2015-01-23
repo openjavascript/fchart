@@ -16,6 +16,7 @@ package org.xas.jchart.vzhistogram.controller
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.common.view.mediator.BgLineMediator.VHistogramBgLineMediator;
 	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
+	import org.xas.jchart.common.view.mediator.CreditMediator.BaseCreditMediator;
 	import org.xas.jchart.common.view.mediator.GraphicBgMediator.VZHistogramGraphicBgMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.VZHistogramHLabelMediator;
@@ -25,9 +26,13 @@ package org.xas.jchart.vzhistogram.controller
 	import org.xas.jchart.common.view.mediator.LegendMediator.ZLegendMediator;
 	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
 	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.VZHistogramSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SubtitleMediator.BaseSubtitleMediator;
+	import org.xas.jchart.common.view.mediator.TestMediator.BaseTestMediator;
 	import org.xas.jchart.common.view.mediator.TipsMediator.ZHistogramTipsMediator;
+	import org.xas.jchart.common.view.mediator.TitleMediator.BaseTitleMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator.VZHistogramVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VTitleMediator.BaseVTitleMediator;
 	import org.xas.jchart.vzhistogram.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
@@ -59,20 +64,20 @@ package org.xas.jchart.vzhistogram.controller
 			if( _config.cd ){
 				
 				if( _config.titleEnable ){
-					facade.registerMediator( new TitleMediator( _config.titleText ) )
+					facade.registerMediator( new BaseTitleMediator( _config.titleText ) )
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;
 				}
 				 
 				if( _config.subtitleEnable ){
-					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
+					facade.registerMediator( new BaseSubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height;
 				} 
 				
 				if( _config.vtitleEnabled ){
-					facade.registerMediator( new VTitleMediator( _config.vtitleText ) )
+					facade.registerMediator( new BaseVTitleMediator( _config.vtitleText ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace + _config.vspace;
@@ -81,7 +86,7 @@ package org.xas.jchart.vzhistogram.controller
 				}
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
-					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
+					facade.registerMediator( new BaseCreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
 					
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
@@ -181,7 +186,7 @@ package org.xas.jchart.vzhistogram.controller
 				_config.c.totalArray = _config.totalArray;
 				
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( ZHistogramData.instance.data ) );	
+					facade.registerMediator( new BaseTestMediator( ZHistogramData.instance.data ) );	
 				}
 			}
 									
@@ -400,20 +405,20 @@ package org.xas.jchart.vzhistogram.controller
 			return facade.retrieveMediator( BaseVLabelMediator.name ) as BaseVLabelMediator;
 		}
 		
-		private function get pCreditMediator():CreditMediator{
-			return facade.retrieveMediator( CreditMediator.name ) as CreditMediator;
+		private function get pCreditMediator():BaseCreditMediator{
+			return facade.retrieveMediator( BaseCreditMediator.name ) as BaseCreditMediator;
 		}
 		
-		private function get pVTitleMediator():VTitleMediator{
-			return facade.retrieveMediator( VTitleMediator.name ) as VTitleMediator;
+		private function get pVTitleMediator():BaseVTitleMediator{
+			return facade.retrieveMediator( BaseVTitleMediator.name ) as BaseVTitleMediator;
 		}
 		
-		private function get pSubtitleMediator():SubtitleMediator{
-			return facade.retrieveMediator( SubtitleMediator.name ) as SubtitleMediator;
+		private function get pSubtitleMediator():BaseSubtitleMediator{
+			return facade.retrieveMediator( BaseSubtitleMediator.name ) as BaseSubtitleMediator;
 		}
 		
-		private function get pTitleMediator():TitleMediator{
-			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
+		private function get pTitleMediator():BaseTitleMediator{
+			return facade.retrieveMediator( BaseTitleMediator.name ) as BaseTitleMediator;
 		}
 		
 		

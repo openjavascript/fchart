@@ -23,7 +23,7 @@ package org.xas.jchart.common.data.test
 			_data = new Vector.<Object>();
 			
 			return;
-			
+			 
 			_data.push({
 				
 				title: {

@@ -1,5 +1,6 @@
 package 
 {
+	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
@@ -36,19 +37,23 @@ package
 			}
 			*/
 			Common.each( _mixModel.items, function( _k:int, _item:MixChartModelItem ):Boolean{
-				if( _item.enabeld && _item.hasVTitle){
+				if( _item.enabeld ){
+//				if( _item.enabeld && _item.hasVTitle){
 					return _allFalse = false;
 				}
 				return true;
 			});
+//			Log.log( 'yAxisEnabled1:', _r );
 			
 			if( _allFalse ){
 				_r = false;
 			}
+//			Log.log( 'yAxisEnabled2:', _r );
 			
 			if( cd && cd.rateLabel && ( 'enabled' in cd.rateLabel ) ){
 				_r = StringUtils.parseBool( cd.rateLabel.enabled );
 			}
+//			Log.log( 'yAxisEnabled3:', _r );
 			
 			return _r;
 		}	

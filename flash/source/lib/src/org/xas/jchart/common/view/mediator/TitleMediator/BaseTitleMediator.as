@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.TitleMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -7,15 +7,16 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class TitleMediator extends Mediator implements IMediator
+	public class BaseTitleMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PTitleMediator';
 		private var _text:String;
 		private var _view:TitleView;
 		public function get view():TitleView{ return _view; }
 		
-		public function TitleMediator( _text:String )
+		public function BaseTitleMediator( _text:String )
 		{
 			super( name );
 			

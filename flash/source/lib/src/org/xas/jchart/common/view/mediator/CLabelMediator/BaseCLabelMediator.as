@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.CLabelMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -6,14 +6,15 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.view.components.CLabelView;
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.event.JChartEvent;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class CLabelMediator extends Mediator implements IMediator
+	public class BaseCLabelMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PCLabelMediator';
 		private var _view:CLabelView;
 		public function get view():CLabelView{ return _view; }
 		
-		public function CLabelMediator(  )
+		public function BaseCLabelMediator(  )
 		{
 			super( name );
 		}

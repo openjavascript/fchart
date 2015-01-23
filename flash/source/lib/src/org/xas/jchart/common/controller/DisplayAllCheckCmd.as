@@ -9,7 +9,7 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.view.mediator.HLabelMediator.HLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
 	
 	public class DisplayAllCheckCmd extends SimpleCommand implements ICommand
@@ -31,7 +31,6 @@ package org.xas.jchart.common.controller
 			_body = notification.getBody();
 			_type = notification.getType() || '';
 			
-//			Log.log( _config.labelRotationEnable, _config.displayAllLabel, _type );
 			if( !_config.xAxisEnabled ) return;
 			if( !_config.displayAllLabel ) return;
 			if( !hlabelMediator ) return;
@@ -83,8 +82,8 @@ package org.xas.jchart.common.controller
 			});
 		}
 		
-		protected function get hlabelMediator():HLabelMediator{
-			return facade.retrieveMediator( HLabelMediator.name ) as HLabelMediator;
+		protected function get hlabelMediator():BaseHLabelMediator{
+			return facade.retrieveMediator( BaseHLabelMediator.name ) as BaseHLabelMediator;
 		}
 	}
 }

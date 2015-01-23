@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.MixChartVLabelMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -11,15 +11,16 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.*;
 	import org.xas.jchart.common.view.components.MixChartVLabelView.*;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class MixChartVLabelMediator extends Mediator implements IMediator
+	public class BaseMixChartVLabelMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PMixChartVLabelMediator';
-		private var _view:Vector.<BaseVLabelView>;
+		public static const name:String = 'PBaseMixChartVLabelMediator';
+		protected var _view:Vector.<BaseVLabelView>;
 		public function get view():Vector.<BaseVLabelView>{ return _view; }
-		private var _config:Config;
+		protected var _config:Config;
 		
-		public function MixChartVLabelMediator( )
+		public function BaseMixChartVLabelMediator( )
 		{
 			super( name );	
 			_config = BaseConfig.ins as Config;
@@ -75,7 +76,7 @@ package org.xas.jchart.common.view.mediator
 			return _view[ _index ].maxHeight;
 		}
 		
-		private function get mainMediator():MainMediator{
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		

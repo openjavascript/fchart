@@ -165,7 +165,8 @@ package
 			
 			var _data:Object = {};
 			
-			if( !ExternalInterface.available ){		
+			if( !ExternalInterface.available ){
+				if( !MapData.instance.data.length ) return;
 				_data = MapData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};

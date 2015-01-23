@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.MixChartVTitleMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -11,17 +11,18 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.MixChartVTitleView.*;
 	import org.xas.jchart.common.view.components.TitleView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class MixChartVTitleMediator extends Mediator implements IMediator
+	public class BaseMixChartVTitleMediator extends Mediator implements IMediator
 	{
-		public static const name:String = 'PMixChartVTitleMediator';
-		private var _text:String;
-		private var _view:Vector.<BaseMixChartVTitleView>;
+		public static const name:String = 'PBaseMixChartVTitleMediator';
+		protected var _text:String;
+		protected var _view:Vector.<BaseMixChartVTitleView>;
 		public function get view():Vector.<BaseMixChartVTitleView>{ return _view; }
-		private var _config:Config;
+		protected var _config:Config;
 
 		
-		public function MixChartVTitleMediator()
+		public function BaseMixChartVTitleMediator()
 		{
 			super( name );
 			_config = BaseConfig.ins as Config;
@@ -76,7 +77,7 @@ package org.xas.jchart.common.view.mediator
 		}
 		
 		
-		private function get mainMediator():MainMediator{
+		protected function get mainMediator():MainMediator{
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		

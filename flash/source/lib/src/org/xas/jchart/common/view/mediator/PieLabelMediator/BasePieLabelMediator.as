@@ -1,4 +1,4 @@
-package org.xas.jchart.common.view.mediator
+package org.xas.jchart.common.view.mediator.PieLabelMediator
 {
 	import org.puremvc.as3.multicore.interfaces.IMediator;
 	import org.puremvc.as3.multicore.interfaces.INotification;
@@ -6,14 +6,15 @@ package org.xas.jchart.common.view.mediator
 	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.PieLabelView.BasePieLabelView;
+	import org.xas.jchart.common.view.mediator.MainMediator;
 	
-	public class PieLabelMediator extends Mediator implements IMediator
+	public class BasePieLabelMediator extends Mediator implements IMediator
 	{
 		public static const name:String = 'PPieLabelMediator';
 		private var _view:BasePieLabelView;
 		public function get view():BasePieLabelView{ return _view; }
 		
-		public function PieLabelMediator()
+		public function BasePieLabelMediator()
 		{
 			super( name );
 		}

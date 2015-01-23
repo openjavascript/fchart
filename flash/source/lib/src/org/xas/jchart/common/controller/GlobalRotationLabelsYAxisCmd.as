@@ -20,13 +20,11 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
-	import org.xas.jchart.common.view.mediator.HLabelMediator.HLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
-	import org.xas.jchart.common.view.mediator.MixChartVLabelMediator;
-	import org.xas.jchart.common.view.mediator.MixChartVTitleMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVLabelMediator.BaseMixChartVLabelMediator;
+	import org.xas.jchart.common.view.mediator.MixChartVTitleMediator.BaseMixChartVTitleMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
-	import org.xas.jchart.common.view.mediator.VLabelMediator.VLabelMediator;
-	 
+	  
 	public class GlobalRotationLabelsYAxisCmd extends SimpleCommand implements ICommand
 	{
 		private var _type:String = '', _body:Object;
@@ -231,12 +229,12 @@ package org.xas.jchart.common.controller
 			return facade.retrieveMediator( MainMediator.name ) as MainMediator;
 		}
 		
-		private function get pMixChartVTitleMediator():MixChartVTitleMediator{
-			return facade.retrieveMediator( MixChartVTitleMediator.name ) as MixChartVTitleMediator;
+		private function get pMixChartVTitleMediator():BaseMixChartVTitleMediator{
+			return facade.retrieveMediator( BaseMixChartVTitleMediator.name ) as BaseMixChartVTitleMediator;
 		}
 		
-		private function get pMixChartVLabelMediator():MixChartVLabelMediator{
-			return facade.retrieveMediator( MixChartVLabelMediator.name ) as MixChartVLabelMediator;
+		private function get pMixChartVLabelMediator():BaseMixChartVLabelMediator{
+			return facade.retrieveMediator( BaseMixChartVLabelMediator.name ) as BaseMixChartVLabelMediator;
 		}
 	}
 }

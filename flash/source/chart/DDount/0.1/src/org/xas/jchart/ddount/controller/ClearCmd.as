@@ -21,10 +21,10 @@ package org.xas.jchart.ddount.controller
 			//Log.log( 'ClearCmd' );
 			
 			facade.hasMediator( BgMediator.name ) && facade.removeMediator( BgMediator.name );
-			facade.hasMediator( TitleMediator.name ) && facade.removeMediator( TitleMediator.name );
-			facade.hasMediator( SubtitleMediator.name ) && facade.removeMediator( SubtitleMediator.name );
-			facade.hasMediator( VTitleMediator.name ) && facade.removeMediator( VTitleMediator.name );
-			facade.hasMediator( CreditMediator.name ) && facade.removeMediator( CreditMediator.name );
+			facade.hasMediator( BaseTitleMediator.name ) && facade.removeMediator( BaseTitleMediator.name );
+			facade.hasMediator( BaseSubtitleMediator.name ) && facade.removeMediator( BaseSubtitleMediator.name );
+			facade.hasMediator( BaseVTitleMediator.name ) && facade.removeMediator( BaseVTitleMediator.name );
+			facade.hasMediator( BaseCreditMediator.name ) && facade.removeMediator( BaseCreditMediator.name );
 			facade.hasMediator( VLabelMediator.name ) && facade.removeMediator( VLabelMediator.name );
 			facade.hasMediator( HLabelMediator.name ) && facade.removeMediator( HLabelMediator.name );
 			facade.hasMediator( GraphicMediator.name ) && facade.removeMediator( GraphicMediator.name );
@@ -33,8 +33,8 @@ package org.xas.jchart.ddount.controller
 			facade.hasMediator( BgLineMediator.name ) && facade.removeMediator( BgLineMediator.name );
 			facade.hasMediator( LegendMediator.name ) && facade.removeMediator( LegendMediator.name );
 			facade.hasMediator( TipsMediator.name ) && facade.removeMediator( TipsMediator.name );
-			facade.hasMediator( TestMediator.name ) && facade.removeMediator( TestMediator.name );		
-			facade.hasMediator( PieLabelMediator.name ) && facade.removeMediator( PieLabelMediator.name );			
+			facade.hasMediator( BaseTestMediator.name ) && facade.removeMediator( BaseTestMediator.name );		
+			facade.hasMediator( BasePieLabelMediator.name ) && facade.removeMediator( BasePieLabelMediator.name );			
 		}
 	}
 }

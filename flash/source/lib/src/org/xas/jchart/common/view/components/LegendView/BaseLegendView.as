@@ -37,8 +37,10 @@ package org.xas.jchart.common.view.components.LegendView
 		
 		public function BaseLegendView()
 		{
-			this._interval = BaseConfig.ins.legendInterval;
-			this._dir = BaseConfig.ins.legendDir;
+			__config = BaseConfig.ins as Config;
+			
+			this._interval = __config.legendInterval;
+			this._dir = __config.legendDir;
 			this._isVertical = Boolean( Math.floor( this._dir / 3 ) & 1 );
 			
 			super();
@@ -49,8 +51,8 @@ package org.xas.jchart.common.view.components.LegendView
 		
 		protected function addToStage( _evt:Event ):void{
 			
-			if( !( BaseConfig.ins.chartData && BaseConfig.ins.series && BaseConfig.ins.series.length ) ) return;
-			this._data = BaseConfig.ins.series;
+			if( !( __config.chartData && __config.series && __config.series.length ) ) return;
+			this._data = __config.series;
 			showChart();
 		}
 		
@@ -68,9 +70,9 @@ package org.xas.jchart.common.view.components.LegendView
 					, DefaultOptions.legend.itemStyle
 				);
 				
-				_styles.color = BaseConfig.ins.itemColor( _k, false );
+				_styles.color = __config.itemColor( _k, false );
 				
-				_styles = Common.extendObject( _styles, BaseConfig.ins.legendItemStyle );
+				_styles = Common.extendObject( _styles, __config.legendItemStyle );
 				
 				addChild( _tmp = new LegendItemUI( 'name' in _item ? _item : { name : _item }, _styles ) );
 				_tmp.addEventListener( JChartEvent.UPDATE_STATUS, onUpdateStatus );
@@ -81,7 +83,7 @@ package org.xas.jchart.common.view.components.LegendView
 					_x = putTransverseLegend( _tmp, _x );
 				}
 				
-				if( _k in BaseConfig.ins.filterData ){
+				if( _k in __config.filterData ){
 					_tmp.toggle();
 				} 
 				_tmp.width > _maxWidth && ( _maxWidth = _tmp.width );

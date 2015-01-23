@@ -41,13 +41,13 @@ package org.xas.jchart.ndount.controller
 			if( _config.cd ){			
 				
 				if( _config.titleEnable ){
-					facade.registerMediator( new TitleMediator( _config.titleText ) )	
+					facade.registerMediator( new BaseTitleMediator( _config.titleText ) )	
 					_config.c.title = { x: _c.width / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
 				if( _config.subtitleEnable ){
-					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
+					facade.registerMediator( new BaseSubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height;
@@ -62,14 +62,14 @@ package org.xas.jchart.ndount.controller
 				}
 				
 				if( _config.vtitleEnabled ){
-					facade.registerMediator( new VTitleMediator( _config.vtitleText ) )
+					facade.registerMediator( new BaseVTitleMediator( _config.vtitleText ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width;
 				}
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
-					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
+					facade.registerMediator( new BaseCreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
 					
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
@@ -94,7 +94,7 @@ package org.xas.jchart.ndount.controller
 				}
 				
 				if( _config.dataLabelEnabled ){
-					facade.registerMediator( new PieLabelMediator() );	
+					facade.registerMediator( new BasePieLabelMediator() );	
 					_maxLabelWidth = pPieLabelMediator.maxWidth;
 					_maxLabelHeight = pPieLabelMediator.maxHeight;
 				}
@@ -104,13 +104,13 @@ package org.xas.jchart.ndount.controller
 				calcGraphic();	
 				
 				if( _config.totalLabelEnabled ){
-					facade.registerMediator( new PieTotalLabelMediator() );	
+					facade.registerMediator( new BasePieTotalLabelMediator() );	
 				}
 
 				facade.registerMediator( new CLabelMediator() );
 				
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
+					facade.registerMediator( new BaseTestMediator( DefaultPieData.instance.data ) );	
 				}
 				
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
@@ -245,28 +245,28 @@ package org.xas.jchart.ndount.controller
 			});
 		}
 		
-		private function get pPieLabelMediator():PieLabelMediator{
-			return facade.retrieveMediator( PieLabelMediator.name ) as PieLabelMediator;
+		private function get pPieLabelMediator():BasePieLabelMediator{
+			return facade.retrieveMediator( BasePieLabelMediator.name ) as BasePieLabelMediator;
 		}
 		
 		private function get pLegendMediator():LegendMediator{
 			return facade.retrieveMediator( LegendMediator.name ) as LegendMediator;
 		}
 		
-		private function get pCreditMediator():CreditMediator{
-			return facade.retrieveMediator( CreditMediator.name ) as CreditMediator;
+		private function get pCreditMediator():BaseCreditMediator{
+			return facade.retrieveMediator( BaseCreditMediator.name ) as BaseCreditMediator;
 		}
 		
-		private function get pVTitleMediator():VTitleMediator{
-			return facade.retrieveMediator( VTitleMediator.name ) as VTitleMediator;
+		private function get pVTitleMediator():BaseVTitleMediator{
+			return facade.retrieveMediator( BaseVTitleMediator.name ) as BaseVTitleMediator;
 		}
 		
-		private function get pSubtitleMediator():SubtitleMediator{
-			return facade.retrieveMediator( SubtitleMediator.name ) as SubtitleMediator;
+		private function get pSubtitleMediator():BaseSubtitleMediator{
+			return facade.retrieveMediator( BaseSubtitleMediator.name ) as BaseSubtitleMediator;
 		}
 		
-		private function get pTitleMediator():TitleMediator{
-			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
+		private function get pTitleMediator():BaseTitleMediator{
+			return facade.retrieveMediator( BaseTitleMediator.name ) as BaseTitleMediator;
 		}
 		
 		private function get mainMediator():MainMediator{

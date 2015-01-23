@@ -9,14 +9,14 @@ package org.xas.jchart.common.view.components.HoverBgView
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.HistogramUI;
-	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.SerialLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
 
 	public class VHistogramHoverBgView extends BaseHoverBgView
 	{
 		private var _config:Config;
 		
 		public function VHistogramHoverBgView()
-		{			
+		{			 
 			super();
 			
 			_config = BaseConfig.ins as Config;
@@ -91,8 +91,8 @@ package org.xas.jchart.common.view.components.HoverBgView
 			_preIndex = _ix;
 		}
 		
-		private function get smediator():SerialLabelMediator{
-			return _config.facade.retrieveMediator( SerialLabelMediator.name ) as SerialLabelMediator;
+		private function get smediator():BaseSeriesLabelMediator{
+			return _config.facade.retrieveMediator( BaseSeriesLabelMediator.name ) as BaseSeriesLabelMediator;
 		}
 		
 	}

@@ -16,13 +16,20 @@ package org.xas.jchart.dount.controller
 	import org.xas.jchart.common.view.mediator.*;
 	import org.xas.jchart.common.view.mediator.BgMediator.BaseBgMediator;
 	import org.xas.jchart.common.view.mediator.BgMediator.DountBgMediator;
+	import org.xas.jchart.common.view.mediator.CreditMediator.BaseCreditMediator;
 	import org.xas.jchart.common.view.mediator.GraphicBgMediator.DountGraphicBgMediator;
 	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
+	import org.xas.jchart.common.view.mediator.PieLabelMediator.BasePieLabelMediator;
+	import org.xas.jchart.common.view.mediator.PieTotalLabelMediator.BasePieTotalLabelMediator;
+	import org.xas.jchart.common.view.mediator.SubtitleMediator.BaseSubtitleMediator;
+	import org.xas.jchart.common.view.mediator.TestMediator.BaseTestMediator;
 	import org.xas.jchart.common.view.mediator.TipsMediator.DountTipsMediator;
+	import org.xas.jchart.common.view.mediator.TitleMediator.BaseTitleMediator;
+	import org.xas.jchart.common.view.mediator.VTitleMediator.BaseVTitleMediator;
 	import org.xas.jchart.dount.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
-	{
+	{ 
 		private var _c:Coordinate;
 		private var _config:Config;
 		private var _maxLabelWidth:Number = 0;
@@ -53,13 +60,13 @@ package org.xas.jchart.dount.controller
 			if( _config.cd ){			
 				
 				if( _config.titleEnable ){
-					facade.registerMediator( new TitleMediator( _config.titleText ) )	
+					facade.registerMediator( new BaseTitleMediator( _config.titleText ) )	
 					_config.c.title = { x: _c.width / 2, y: _c.minY, item: pTitleMediator };
 					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
 				if( _config.subtitleEnable ){
-					facade.registerMediator( new SubtitleMediator( _config.subtitleText ) )
+					facade.registerMediator( new BaseSubtitleMediator( _config.subtitleText ) )
 					
 					_config.c.subtitle = { x: _c.width / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height + _config.vspace;
@@ -74,14 +81,14 @@ package org.xas.jchart.dount.controller
 				}
 				
 				if( _config.vtitleEnabled ){
-					facade.registerMediator( new VTitleMediator( _config.vtitleText ) )
+					facade.registerMediator( new BaseVTitleMediator( _config.vtitleText ) )
 					
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vspace;
 				}
 				
 				if( _config.cd.credits && _config.cd.credits.enabled && ( _config.cd.credits.text || _config.cd.credits.href ) ){
-					facade.registerMediator( new CreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
+					facade.registerMediator( new BaseCreditMediator( _config.cd.credits.text, _config.cd.credits.href ) )
 					
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
@@ -103,7 +110,7 @@ package org.xas.jchart.dount.controller
 				facade.registerMediator( new DountTipsMediator() );
 				
 				if( _config.dataLabelEnabled ){
-					facade.registerMediator( new PieLabelMediator() );	
+					facade.registerMediator( new BasePieLabelMediator() );	
 					_maxLabelWidth = pPieLabelMediator.maxWidth;
 					_maxLabelHeight = pPieLabelMediator.maxHeight;
 				}
@@ -114,11 +121,11 @@ package org.xas.jchart.dount.controller
 				calcGraphic();		
 				
 				if( _config.totalLabelEnabled ){
-					facade.registerMediator( new PieTotalLabelMediator() );
+					facade.registerMediator( new BasePieTotalLabelMediator() );
 				}
 								
 				if( !ExternalInterface.available ){
-					facade.registerMediator( new TestMediator( DefaultPieData.instance.data ) );	
+					facade.registerMediator( new BaseTestMediator( DefaultPieData.instance.data ) );	
 				}
 				
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
@@ -286,24 +293,24 @@ package org.xas.jchart.dount.controller
 			return facade.retrieveMediator( BaseLegendMediator.name ) as BaseLegendMediator;
 		}
 				
-		private function get pPieLabelMediator():PieLabelMediator{
-			return facade.retrieveMediator( PieLabelMediator.name ) as PieLabelMediator;
+		private function get pPieLabelMediator():BasePieLabelMediator{
+			return facade.retrieveMediator( BasePieLabelMediator.name ) as BasePieLabelMediator;
 		}
 		
-		private function get pCreditMediator():CreditMediator{
-			return facade.retrieveMediator( CreditMediator.name ) as CreditMediator;
+		private function get pCreditMediator():BaseCreditMediator{
+			return facade.retrieveMediator( BaseCreditMediator.name ) as BaseCreditMediator;
 		}
 		
-		private function get pVTitleMediator():VTitleMediator{
-			return facade.retrieveMediator( VTitleMediator.name ) as VTitleMediator;
+		private function get pVTitleMediator():BaseVTitleMediator{
+			return facade.retrieveMediator( BaseVTitleMediator.name ) as BaseVTitleMediator;
 		}
 		
-		private function get pSubtitleMediator():SubtitleMediator{
-			return facade.retrieveMediator( SubtitleMediator.name ) as SubtitleMediator;
+		private function get pSubtitleMediator():BaseSubtitleMediator{
+			return facade.retrieveMediator( BaseSubtitleMediator.name ) as BaseSubtitleMediator;
 		}
 		
-		private function get pTitleMediator():TitleMediator{
-			return facade.retrieveMediator( TitleMediator.name ) as TitleMediator;
+		private function get pTitleMediator():BaseTitleMediator{
+			return facade.retrieveMediator( BaseTitleMediator.name ) as BaseTitleMediator;
 		}
 		
 		private function get mainMediator():MainMediator{
