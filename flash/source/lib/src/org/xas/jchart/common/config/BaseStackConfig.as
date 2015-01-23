@@ -54,22 +54,30 @@ package org.xas.jchart.common.config
 		}
 		
 		override protected function calcMinNum():Number{
-			var _r:Number = 0, _tmp:Number, _tmpR:Number;
+			var _r:Number = 0, _tmp:Number, _tmpR:Number, _tmpAr:Array;
 			
 			if( displaySeries && displaySeries.length && displaySeries[0].data && displaySeries[0].data.length  ){
 				
-				Common.each( displaySeries[0].data, function( _k:int, _item:Number ):void {
-					_tmp = 0;
-					Common.each( displaySeries, function( _sk:int, _sitem:Object ):void {
-						if( _sitem && _sitem.data && _sitem.data.length && _sitem.data[ _k ] && _sitem.data[ _k ] < 0 ){
-							_tmp += Math.abs( _sitem.data[ _k ] );
-//							Log.log( _sitem.data[ _k ] );
-						}
+				if( this.hasNegative ){
+					Common.each( displaySeries[0].data, function( _k:int, _item:Number ):void {
+						_tmp = 0;
+						Common.each( displaySeries, function( _sk:int, _sitem:Object ):void {
+							if( _sitem && _sitem.data && _sitem.data.length && _sitem.data[ _k ] && _sitem.data[ _k ] < 0 ){
+								_tmp += Math.abs( _sitem.data[ _k ] );
+	//							Log.log( _sitem.data[ _k ] );
+							}
+						});
+						
+						_tmp > _r && ( _r = _tmp );
 					});
-					
-					_tmp > _r && ( _r = _tmp );
-				});
-				_r > 0 && ( _r = -_r );
+					_r > 0 && ( _r = -_r );
+				}else{
+					_tmpAr = [];
+					Common.each( displaySeries, function( _k:int, _item:Number ):*{
+						_tmpAr = _tmpAr.concat( displaySeries[ _k ].data );
+					});
+					_tmpAr.length && ( _r = Math.min.apply( null, _tmpAr ) );
+				}
 				
 				if( !_hasNegative && this.isAutoRate ){
 //					Log.log( 'xxxxxxxxxx' + _r ); 
@@ -96,6 +104,6 @@ package org.xas.jchart.common.config
 			return _r;
 		}
 				
-		override public function get isAutoRate():Boolean { return false; }
+//		override public function get isAutoRate():Boolean { return false; }
 	}
 }

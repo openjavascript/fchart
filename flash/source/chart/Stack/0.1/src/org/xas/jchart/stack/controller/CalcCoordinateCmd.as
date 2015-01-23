@@ -202,6 +202,8 @@ package org.xas.jchart.stack.controller
 					;
 			}
 			
+//			Log.log( _config.minNum, _config.maxNum );
+			
 			var _partWidth:Number = _config.c.partWidth
 				;
 			if( _partWidth > 50 ){
@@ -254,7 +256,7 @@ package org.xas.jchart.stack.controller
 						;
 						
 						if( _config.isAutoRate && !_config.hasNegative ){
-							_num -= _config.minNum;
+							_num -= _config.minNum / _config.displaySeries.length;
 							_maxNum -= _config.minNum;
 						}
 //						Log.log( _num, _maxNum );
