@@ -1,6 +1,7 @@
 package org.xas.jchart.common
 {
 	import flash.display.DisplayObject;
+	import flash.display.Graphics;
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -13,11 +14,104 @@ package org.xas.jchart.common
 	
 	import org.xas.core.utils.GeoUtils;
 	import org.xas.core.utils.Log;
+	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.Common;
-	import flash.display.Graphics;
 	
 	public class Common
 	{		
+		
+		public static function shortNumber( _num:Number, _precision:int = 2 ):String{
+			var _r:String = ''
+				, _absNum:Number = Math.abs( _num )
+				, _tmp:Number
+				, _billion:Number = Math.pow( 10, 8 )
+				, _tenThousand:Number = Math.pow( 10, 4 )
+				, _prefix:String = '';
+				;
+			_num < 0 && ( _prefix = '-' );
+			
+			if( _absNum >= _billion ){
+				_r = _prefix + ( _absNum / _billion ).toFixed( _precision ) + '亿';
+			}else if( _absNum >= _tenThousand ){
+				_r = _prefix + ( _absNum / _tenThousand ).toFixed( _precision ) + '万';
+			}else{
+				_r = _num.toString();
+			}
+			
+			return _r;
+		}
+		
+		/**
+		 * 逗号格式化金额
+		 * @method  moneyFormat
+		 * @param   {int|string}    _number
+		 * @param   {int}           _len
+		 * @param   {int}           _floatLen
+		 * @param   {int}           _splitSymbol
+		 * @return  string
+		 * @static
+		 */
+		public static function moneyFormat(
+			_number:*
+			, _len:uint = 3
+			, _floatLen:uint = 2
+			, _splitSymbol:String = ',' 
+			, _isShort:Boolean = false
+		):String{
+			
+			!_len && ( _len = 3 );
+			!_splitSymbol && ( _splitSymbol = ',' );
+			var _isNegative:Boolean = false
+				, _def:String = '0.00'
+				, _r:String
+				;
+			
+			//_number = parseFinance( _number, _floatLen );
+			
+			
+			if( typeof _number == 'string' ){
+				_number = _number.replace( /[,]/g, '' );
+				if( !/^[\d\.]+$/.test( _number ) ) return _def;
+				if( _number.split('.').length > 2 ) return _def;
+			}
+			
+			_number = _number || 0;
+			
+			if( _isShort && Math.abs( _number ) >= Math.pow( 10, 4 ) ){
+				_r = Common.shortNumber( _number, _floatLen );
+				return _r;
+			} 
+			
+			_number += ''; 
+			
+			/^\-/.test( _number ) && ( _isNegative = true );
+			
+			_number = _number.replace( /[^\d\.]/g, '' );
+			
+			var _parts:Array = _number.split('.'), _sparts:Array = [];
+			
+			while( _parts[0].length > _len ){
+				var _tmp:String = _parts[0].slice( _parts[0].length - _len, _parts[0].length );
+				//console.log( _tmp );
+				_sparts.push( _tmp );
+				_parts[0] = _parts[0].slice( 0, _parts[0].length - _len );
+			}
+			_sparts.push( _parts[0] );
+			
+			_parts[0] = _sparts.reverse().join( _splitSymbol );
+			
+			if( _floatLen ){
+				!_parts[1] && ( _parts[1] = '' );
+				_parts[1] += new Array( _floatLen + 1 ).join('0');
+				_parts[1] = _parts[1].slice( 0, _floatLen );
+			}else{
+				_parts.length > 1 && _parts.pop();
+			}
+			_r = _parts.join('.');
+			_isNegative && ( _r = '-' + _r );
+			
+			return _r;
+		}
 				
 		public static function numberUp( _in:Number, _floatLen:int = 5, _upBound:Number = 5 ):Number{
 			_upBound = _upBound < 0 ? 0 : _upBound;
@@ -321,66 +415,7 @@ package org.xas.jchart.common
 		public static function　pointRectangleIntersection( p:Object, r:Object ):Boolean {
 			return p.x >= r.x && p.x <= r.x2 && p.y >= r.y && p.y <= r.y2;
 		}
-		
-		
-		
-		/**
-		 * 逗号格式化金额
-		 * @method  moneyFormat
-		 * @param   {int|string}    _number
-		 * @param   {int}           _len
-		 * @param   {int}           _floatLen
-		 * @param   {int}           _splitSymbol
-		 * @return  string
-		 * @static
-		 */
-		public static function moneyFormat(_number:*, _len:uint = 3, _floatLen:uint = 2, _splitSymbol:String = ',' ):String{
-			var _def:String = '0.00';
-			!_len && ( _len = 3 );
-			!_splitSymbol && ( _splitSymbol = ',' );
-			var _isNegative:Boolean = false, _r:String;
-			
-			
-			//_number = parseFinance( _number, _floatLen );
-			
-			
-			if( typeof _number == 'string' ){
-				_number = _number.replace( /[,]/g, '' );
-				if( !/^[\d\.]+$/.test( _number ) ) return _def;
-				if( _number.split('.').length > 2 ) return _def;
-			}
-			
-			_number = _number || 0;
-			_number += ''; 
-			
-			/^\-/.test( _number ) && ( _isNegative = true );
-			
-			_number = _number.replace( /[^\d\.]/g, '' );
-			
-			var _parts:Array = _number.split('.'), _sparts:Array = [];
-			
-			while( _parts[0].length > _len ){
-				var _tmp:String = _parts[0].slice( _parts[0].length - _len, _parts[0].length );
-				//console.log( _tmp );
-				_sparts.push( _tmp );
-				_parts[0] = _parts[0].slice( 0, _parts[0].length - _len );
-			}
-			_sparts.push( _parts[0] );
-			
-			_parts[0] = _sparts.reverse().join( _splitSymbol );
-			
-			if( _floatLen ){
-				!_parts[1] && ( _parts[1] = '' );
-				_parts[1] += new Array( _floatLen + 1 ).join('0');
-				_parts[1] = _parts[1].slice( 0, _floatLen );
-			}else{
-				_parts.length > 1 && _parts.pop();
-			}
-			_r = _parts.join('.');
-			_isNegative && ( _r = '-' + _r );
-			
-			return _r;
-		}
+
 
 		
 		/**

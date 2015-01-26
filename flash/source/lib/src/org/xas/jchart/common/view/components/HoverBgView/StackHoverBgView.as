@@ -70,6 +70,9 @@ package org.xas.jchart.common.view.components.HoverBgView
 					, _bgColor:uint = 0xF0F0F0
 					, _borderColor:uint = 0xB4B4B4
 					, _borderWidth:uint = 2
+					, _y:Number
+					, _h:Number
+					, _pad:Number = 15
 					;
 				
 				( 'bgColor' in _config.hoverBgStyle ) && ( _bgColor = _config.hoverBgStyle.bgColor );
@@ -79,9 +82,35 @@ package org.xas.jchart.common.view.components.HoverBgView
 				_box.graphics.beginFill( _bgColor );
 				_box.graphics.lineStyle( _borderWidth, _borderColor );
 				
-				_item.realWidth 
-					&&_item.height 
-					&& _box.graphics.drawRect( _item.realX, _item.y - _config.c.hoverPadY, _item.realWidth, _item.height + _config.c.hoverPadY );
+				if( _item.realWidth && _item.height ){
+					_y = _item.y;
+					_h = _item.height;
+					
+					if( _item.hasPositive ){
+						if( _y  - _pad >= _config.c.chartY ){
+							_h += _pad;
+							_y -= _pad;
+						}else{
+							_h = _h + ( _y - _config.c.chartY );
+							_y = _config.c.chartY;
+						}
+					}
+					
+					if( _item.hasNegative ){
+						_h += _pad;
+						if( _y + _h > _config.c.chartY + _config.c.chartHeight ){
+							_h = _config.c.chartY + _config.c.chartHeight - _y;
+						}
+					}
+					
+					_box.graphics.drawRect( 
+						_item.realX
+						, _y
+						, _item.realWidth
+						, _h 
+					);
+				}
+				
 					
 				_box.visible = false;
 

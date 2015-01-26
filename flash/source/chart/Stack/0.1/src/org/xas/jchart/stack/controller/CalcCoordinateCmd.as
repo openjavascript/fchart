@@ -100,7 +100,7 @@ package org.xas.jchart.stack.controller
 					_config.c.minX += _config.yArrowLength;
 				}
 
-				_config.c.hoverPadY = 5;
+				_config.c.hoverPadY = 0;
 				if( _config.hoverBgEnabled ){
 					facade.registerMediator( new StackHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
@@ -276,7 +276,10 @@ package org.xas.jchart.stack.controller
 							* _h;
 							_y = _sp.y + _positiveHeight + _negativeOffset ;
 							_negativeOffset += _h;
-							_rectItem.isNegative = true;
+							
+							if( _num ){
+								_stackItem.hasNegative = _rectItem.isNegative = true
+							}
 						}else{
 							
 							_h = ( _num / _maxNum || 1 ) * _positiveHeight;
@@ -288,6 +291,7 @@ package org.xas.jchart.stack.controller
 							_positiveOffset += _h;
 							_rectY = _y;
 							
+							_stackItem.hasPositive = true;
 						}
 						_rectItem.x = _x;
 						
@@ -309,6 +313,7 @@ package org.xas.jchart.stack.controller
 						}else{
 							_stackItem.data.positive.push( _rectItem );
 						}
+						
 				});
 				
 				fixPositiveSort( _stackItem.data.positive );

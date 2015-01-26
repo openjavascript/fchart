@@ -168,7 +168,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !MixChartData.instance.data.length ) return;
-				_data = MixChartData.instance.data[5];
+				_data = MixChartData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

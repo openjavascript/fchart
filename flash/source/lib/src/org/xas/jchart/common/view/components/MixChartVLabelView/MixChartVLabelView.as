@@ -45,12 +45,19 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 					_floatLen = 0;
 				}
 					
-				
+				 
 				if( _model.params && ( 'realRateFloatLen' in _model.params ) ){
 					_floatLen = _model.realRateFloatLen;
 				}
 								
-				_t = Common.moneyFormat( _item, 3, _floatLen || 0 );
+//				_t = Common.moneyFormat( _item, 3, _floatLen || 0 );
+				_t = Common.moneyFormat( 
+					_item
+					, 3
+					, _model.yAxisAbbrNumber( _item, _floatLen || 0 )
+					, ','
+					, _model.yAxisAbbrNumberEnabled 
+				);
 				
 				_titem = new TextField();				
 				

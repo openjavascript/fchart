@@ -48,14 +48,21 @@ package org.xas.jchart.common.view.components.VLabelView
 					_floatLen = _config.realRateFloatLen;
 				}
 				
-				_t = Common.moneyFormat( _item, 3, _floatLen || 0 );
+//				_t = Common.moneyFormat( _item, 3, _floatLen || 0 );
+				_t = Common.moneyFormat( 
+					_item
+					, 3
+					, _config.yAxisAbbrNumber( _item, _floatLen || 0 )
+					, ','
+					, _config.yAxisAbbrNumberEnabled 
+				);
 				
 				_titem = new TextField();				
 				
 				if( _config.isPercent ){
 					_titem.text = _t + '%';
 				}else{
-				}
+				} 
 				_titem.text = StringUtils.printf( _config.yAxisFormat, _t );
 				
 				Common.implementStyle( _titem, [

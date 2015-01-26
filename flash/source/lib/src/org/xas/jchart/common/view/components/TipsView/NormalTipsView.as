@@ -47,7 +47,13 @@ package org.xas.jchart.common.view.components.TipsView
 					
 					if(  _sitem.data ){
 						var _name:String = _sitem.name + ''
-						, _value:String = BaseConfig.ins.getTipsValue( _sitem, _k, _config.tooltipSerialFormat, Common.floatLen( _sitem.data[ _k ] ) )
+						, _value:String = BaseConfig.ins.getTipsValue( 
+							_sitem
+							, _k
+							, _config.tooltipSerialFormat
+							, Common.floatLen( _sitem.data[ _k ] 
+							)
+						)
 						;
 						/*
 						, _value:String = StringUtils.printf( _config.tooltipSerialFormat, 

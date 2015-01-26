@@ -17,12 +17,12 @@ package org.xas.jchart.common.data.test
 		public function MixChartData()
 		{
 			init();
-		}
+		} 
 		
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-			return; 
+//			return; 
 			 
 			_data.push( 				{
 				"chart": {
@@ -137,7 +137,10 @@ package org.xas.jchart.common.data.test
 						"style": {
 							"stroke": "#ff7100"
 						},
-						"pointStyle": {}
+						"pointStyle": {}			
+						, "dataLabel": {
+							"enabled": false
+						}
 					}
 					, {
 						"type": "line",
@@ -172,17 +175,14 @@ package org.xas.jchart.common.data.test
 							,5861
 							,5858
 							,2546
-							,1033
+							,11033
 							,5977
 							,5835							
 						],
 						"style": {
 							"stroke": "#ff7100"
 						},
-						"pointStyle": {}				
-						, "dataLabel": {
-							"enabled": true
-						}
+						"pointStyle": {}	
 					}
 				],
 				"legend": {
@@ -192,6 +192,9 @@ package org.xas.jchart.common.data.test
 				},
 				"callback": {
 					"initedCallback": "initedCallback"
+				}
+				, "abbrNumber": {
+					"enabled": true
 				}
 
 			});

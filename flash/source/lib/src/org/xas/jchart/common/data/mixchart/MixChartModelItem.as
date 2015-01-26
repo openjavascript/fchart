@@ -5,6 +5,7 @@ package org.xas.jchart.common.data.mixchart
 	
 	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
+	import org.xas.jchart.common.BaseAttrConfig;
 	import org.xas.jchart.common.Common;
 	
 	public class MixChartModelItem extends EventDispatcher
@@ -472,6 +473,38 @@ package org.xas.jchart.common.data.mixchart
 				}
 			}
 			
+			return _r;
+		}
+		
+		
+		public function yAxisAbbrNumber( _num:Number, _def:int = 2 ):int{
+			var _r:int = _def, _num:Number = Math.abs( _num );
+			
+			if( yAxisAbbrNumberEnabled ){
+				if( _num >= Math.pow( 10, 8 ) ){
+					_r = yAxisAbbrNumber9;
+				}else if( _num >= Math.pow( 10, 4 ) ){
+					_r = yAxisAbbrNumber5;
+				}
+			}
+			
+			return _r;
+		}
+		
+		public function get yAxisAbbrNumber5():uint{
+			var _r:uint = _config.abbrNumber5( _config.abbrNumberPrecision );
+			_r = BaseAttrConfig.getAttr( this._params, 'abbrNumber.5', _r ) as uint;			
+			return _r;
+		} 
+		
+		public function get yAxisAbbrNumber9():int{
+			var _r:int = _config.abbrNumber9( _config.abbrNumberPrecision );
+			_r = BaseAttrConfig.getAttr( this._params, 'abbrNumber.9', _r ) as uint;			
+			return _r;
+		}
+		
+		public function get yAxisAbbrNumberEnabled():Boolean{
+			var _r:Boolean = BaseAttrConfig.getAttr( this._params, 'abbrNumber.enabled', _config.abbrNumberEnabled ) as Boolean;
 			return _r;
 		}
 		
