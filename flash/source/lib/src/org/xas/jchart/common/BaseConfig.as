@@ -247,7 +247,7 @@ package org.xas.jchart.common
 			c.y = 0;
 			
 			c.minX = this.vlabelSpace;
-			c.minY = this.vspace;
+			c.minY = this.vspace * 2;
 			c.maxX = this.stageWidth - this.vlabelSpace;
 			c.maxY = this.stageHeight - this.vspace;
 

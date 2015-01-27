@@ -31,6 +31,7 @@ package org.xas.jchart.common.view.components
 		private function addToStage( _evt:Event ):void{
 			_textf = new TextField();
 			_textf.text = _text;
+			_textf.autoSize = TextFieldAutoSize.LEFT;
 			
 			Common.implementStyle( _textf, [
 				DefaultOptions.title.style

@@ -1,4 +1,4 @@
-package org.xas.jchart.stack.controller
+package org.xas.jchart.hstack.controller
 {
 	import flash.external.ExternalInterface;
 	import flash.geom.Point;
@@ -19,6 +19,7 @@ package org.xas.jchart.stack.controller
 	import org.xas.jchart.common.view.mediator.CreditMediator.BaseCreditMediator;
 	import org.xas.jchart.common.view.mediator.GraphicBgMediator.StackGraphicBgMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HLabelMediator.HStackHLabelMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.StackHLabelMediator;
 	import org.xas.jchart.common.view.mediator.HoverBgMediator.StackHoverBgMediator;
 	import org.xas.jchart.common.view.mediator.ItemBgMediator.StackItemBgMediator;
@@ -31,9 +32,9 @@ package org.xas.jchart.stack.controller
 	import org.xas.jchart.common.view.mediator.TipsMediator.StackTipsMediator;
 	import org.xas.jchart.common.view.mediator.TitleMediator.BaseTitleMediator;
 	import org.xas.jchart.common.view.mediator.VLabelMediator.BaseVLabelMediator;
-	import org.xas.jchart.common.view.mediator.VLabelMediator.StackVLabelMediator;
+	import org.xas.jchart.common.view.mediator.VLabelMediator.HStackVLabelMediator;
 	import org.xas.jchart.common.view.mediator.VTitleMediator.BaseVTitleMediator;
-	import org.xas.jchart.stack.view.mediator.*;
+	import org.xas.jchart.hstack.view.mediator.*;
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
@@ -61,13 +62,13 @@ package org.xas.jchart.stack.controller
 				if( _config.titleEnable ){
 					facade.registerMediator( new BaseTitleMediator( _config.titleText ) )	
 					_config.c.title = { x: _config.stageWidth / 2, y: _c.minY, item: pTitleMediator };
-					_config.c.minY += pTitleMediator.view.height + _config.vspace;			
+					_config.c.minY += pTitleMediator.view.height;			
 				}
 				
 				if( _config.subtitleEnable ){
 					facade.registerMediator( new BaseSubtitleMediator( _config.subtitleText ) )
 					
-					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY - _config.vspace, item: pSubtitleMediator };
+					_config.c.subtitle = { x: _config.stageWidth / 2, y: _c.minY, item: pSubtitleMediator };
 					_config.c.minY += pSubtitleMediator.view.height;
 				}
 				
@@ -93,18 +94,11 @@ package org.xas.jchart.stack.controller
 					_config.c.vtitle = { x: _config.c.minX, y: _config.c.x + _config.c.height / 2, item: pVTitleMediator };
 					_config.c.minX += pVTitleMediator.view.width - _config.vlabelSpace;
 				}
-				
-				if( _config.yAxisEnabled ){
-					facade.registerMediator( new StackVLabelMediator() );
-					_config.c.minX += pVLabelMediator.maxWidth;
-					_config.c.minX += _config.yArrowLength;
-				}
 
 				_config.c.hoverPadY = 0;
 				if( _config.hoverBgEnabled ){
 					facade.registerMediator( new StackHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
-//					_yPad += _config.c.hoverPadY;
 				}
 				
 				if( _config.itemBgEnabled ){
@@ -115,36 +109,36 @@ package org.xas.jchart.stack.controller
 				if( _config.serialLabelEnabled ){
 					facade.registerMediator( new StackSeriesLabelMediator() );
 				}
+				
+				
+				if( _config.xAxisEnabled ){
+					facade.registerMediator( new HStackHLabelMediator() );
+					_config.c.maxY -= pHLabelMediator.maxHeight;
+					_config.c.maxY -= 2;
+				}
+				
+				
+				if( _config.yAxisEnabled ){
+					facade.registerMediator( new HStackVLabelMediator() );
+					
+					_config.c.minX += Math.abs( pVLabelMediator.maxWidth );
+					_config.c.minX += _config.vspace;
+				}
 								
 				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;
 				
-				if( _config.categories && _config.categories.length ) {
+				if( _config.realRate && _config.realRate.length ) {
 					if( _config.displayAllLabel ){
-						_config.c.labelWidth = _config.c.chartWidth / _config.categories.length / 2;
+						_config.c.labelWidth = _config.c.chartWidth / _config.realRate.length / 2;
 					} else {
 						if( _config.displayMod ){
 							_config.c.labelWidth = _config.c.chartWidth * _config.displayMod 
-								/ _config.categories.length;
+								/ _config.realRate.length;
 						} else {
 							_config.c.labelWidth = _config.c.chartWidth / 7;
 						}
 					}
-				}
-				
-				if( _config.xAxisEnabled ){
-					facade.registerMediator( new StackHLabelMediator() );
-					
-					_config.c.maxY -= pHLabelMediator.maxHeight;
-					
-					var _tmpMaxWidth:Number = pHLabelMediator.maxWidth;
-					
-					if( _tmpMaxWidth < 0 ){
-						_config.c.minX += Math.abs( _tmpMaxWidth );
-					} else {
-						_config.c.maxX -= _tmpMaxWidth;
-					}
-				}
-								
+				}		
 				_config.c.chartWidth = _config.c.maxX - _config.c.minX - _config.hspace;
 			
 				if( _config.graphicHeight ){
@@ -163,7 +157,7 @@ package org.xas.jchart.stack.controller
 					_config.c.chartHeight = _config.c.maxY - _config.c.minY;
 				}
 				
-				_config.c.chartX = _config.c.minX + _config.yArrowLength - 2;
+				_config.c.chartX = _config.c.minX + _config.yArrowLength;
 				_config.c.chartY = _config.c.minY;
 				
 				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
@@ -191,7 +185,7 @@ package org.xas.jchart.stack.controller
 		}
 		
 		private function calcGraphic():void{
-			
+			return;
 			_config.c.rects = [];
 			_config.c.dataRect = [];
 			_config.c.stackItems = [];
@@ -226,7 +220,7 @@ package org.xas.jchart.stack.controller
 				
 //				Log.log( _config.minNum );
 			
-			Common.each( _config.displaySeries[0].data, function( _k:int, _item:Object ):void{
+			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
 				_positiveOffset = 0;
 				_negativeOffset = 0;
 				
@@ -252,7 +246,7 @@ package org.xas.jchart.stack.controller
 					, _rectY:Number = _sp.y + _positiveHeight
 					;
 									
-				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
+				Common.each( _config.displaySeries[0].data, function( _sk:int, _sitem:Object ):void{
 					var _rectItem:Object = {}
 						, _itemNum:Number
 						, _h:Number = 0, _y:Number
@@ -273,9 +267,9 @@ package org.xas.jchart.stack.controller
 							_h = 
 							( _num / 
 								Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
-							* _h || 0;
+							* _h;
+							_h = _h || 0;
 							_y = _sp.y + _positiveHeight + _negativeOffset ;
-						
 							_negativeOffset += _h;
 							
 							if( _num ){
@@ -283,7 +277,8 @@ package org.xas.jchart.stack.controller
 							}
 						}else{
 							
-							_h = ( _num / _maxNum || 1 ) * _positiveHeight || 0;
+							_h = ( _num / _maxNum || 1 ) * _positiveHeight;
+							_h = _h || 0;
 							
 							_y = _sp.y + _positiveHeight - _h - _positiveOffset;
 //							if( _k === 0 ) {
@@ -294,7 +289,6 @@ package org.xas.jchart.stack.controller
 							
 							_stackItem.hasPositive = true;
 						}
-						if( !_h ) return;
 						_rectItem.x = _x;
 						
 						_rectItem.k = _k;
@@ -333,7 +327,7 @@ package org.xas.jchart.stack.controller
 				}
 				
 				_stackItem.width = _partWidth;
-				_stackItem.height = ( _positiveOffset + _negativeOffset ) || 0;
+				_stackItem.height = _positiveOffset + _negativeOffset;
 				_stackItem.x = _x;;
 				_stackItem.y = _rectY;
 				_stackItem.k = _k;
@@ -342,7 +336,7 @@ package org.xas.jchart.stack.controller
 				_stackItem.realWidth = _config.c.hpart;
 				_stackItem.realHeight = _config.c.chartHeight;
 				
-//				Log.log( _stackItem.x, _stackItem.y, _stackItem.width, _stackItem.height, _positiveOffset, _negativeOffset );
+//				Log.log( _stackItem.x, _stackItem.y, _stackItem.width, _stackItem.height );
 				
 				_config.c.rects.push( _items );
 				_config.c.dataRect.push( _tmpDataRect );
@@ -382,21 +376,16 @@ package org.xas.jchart.stack.controller
 			calcChartVPoint();
 			calcChartHPoint();
 		}
-		
-		private function calcChartVPoint():void{
-			var _partN:Number = _config.c.chartHeight / ( _config.rate.length -1 )
+		//横线
+		private function calcChartVPoint():void{			
+			var _partN:Number = _config.c.chartHeight / ( _config.categories.length )
 				;
 			_config.c.vpart = _partN;
 			_config.c.itemHeight = _partN / 2;
 			_config.c.vpoint = [];
 			_config.c.vpointReal = [];
 			
-			
-			var _padX:Number = 0;
-			if( !_config.yAxisEnabled ){
-			}
-			
-			Common.each( _config.rate, function( _k:int, _item:* ):void{
+			Common.each( _config.categories, function( _k:int, _item:* ):void{
 				var _n:Number = _config.c.chartY + _partN * _k;
 				_config.c.vpoint.push( {
 					start: new Point( _config.c.chartX, _n )
@@ -408,13 +397,23 @@ package org.xas.jchart.stack.controller
 					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
 				});
 			});
+			var _n:Number = _config.c.chartY + _partN * _config.categories.length;
+			_config.c.vpoint.push( {
+				start: new Point( _config.c.chartX, _n )
+				, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
+			});
+			
+			_config.c.vpointReal.push( {
+				start: new Point( _config.c.chartX, _n )
+				, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
+			});
 		}
-		
+		//竖线
 		private function calcChartHPoint():void{
 			if( !_config.yAxisEnabled ){
 //				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
-			var _partN:Number = _config.c.chartWidth / ( _config.categories.length || 1 )
+			var _partN:Number = _config.c.chartWidth / ( _config.rate.length - 1 || 1 )
 				;
 			
 			_config.c.hpart = _partN;
@@ -424,7 +423,7 @@ package org.xas.jchart.stack.controller
 			_config.c.itemWidthRate = 2;
 			_config.c.itemWidth = _partN / 2;
 						
-			Common.each( _config.categories, function( _k:int, _item:* ):void{
+			Common.each( _config.rate, function( _k:int, _item:* ):void{
 				var _n:Number = _config.c.chartX + _partN * _k;
 				
 				if( _k === 0 ){					
@@ -440,8 +439,8 @@ package org.xas.jchart.stack.controller
 				});
 				
 				_config.c.hpoint.push( {
-					start: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.chartY + _config.c.chartHeight )
-					, end: new Point( _n + _partN / _config.c.itemWidthRate, _config.c.chartY + _config.c.chartHeight )
+					start: new Point( _n, _config.c.chartY + _config.c.chartHeight )
+					, end: new Point( _n, _config.c.chartY + _config.c.chartHeight )
 				});
 				
 				_config.c.hpointReal.push( {
