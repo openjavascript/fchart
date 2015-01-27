@@ -25,13 +25,13 @@ package org.xas.jchart.common.view.components.SerialLabel
 		protected var _labels:Vector.< Vector.<TextField> >;
 		public function get labels():Vector.<Vector.<TextField>>{ return _labels; }
 		
-		private var _config:Config;
-		public function get config():Config{ return _config; }
+		protected var __config:Config;
+		public function get config():Config{ return __config; }
 		
 		public function BaseSerialLabelView()
 		{
 			super();
-			_config = BaseConfig.ins as Config;
+			__config = BaseConfig.ins as Config;
 		
 			addEventListener( JChartEvent.SHOW_CHART, showChart );
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
@@ -57,7 +57,7 @@ package org.xas.jchart.common.view.components.SerialLabel
 		}
 		
 		protected function seriesEnabled( _srcData:Object, _k:int ):Boolean{
-			var _r:Boolean = _config.superSerialLabelEnabled, _tmp:Object;
+			var _r:Boolean = config.superSerialLabelEnabled, _tmp:Object;
 			
 			if( _srcData && ( _tmp = _srcData[ _k ] ) ){
 				//				"data":

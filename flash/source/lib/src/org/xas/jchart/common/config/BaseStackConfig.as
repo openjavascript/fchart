@@ -14,6 +14,23 @@ package org.xas.jchart.common.config
 			return false;
 		}
 		
+		override public function calcRate():void {
+			super.calcRate();
+			
+			_hrate = this.rate.slice().reverse();
+			_hrealRate = this.realRate.slice().reverse();
+			
+			_hrateZeroIndex = ( this.rate.length - 1 ) - rateZeroIndex;
+		}
+		
+		protected var _hrateZeroIndex:int;
+		protected var _hrate:Array;
+		protected var _hrealRate:Array;
+		
+		public function get hrateZeroIndex():int{ return _hrateZeroIndex; }
+		public function get hrate():Array{ return _hrate; }
+		public function get hrealRate():Array{ return _hrealRate; }
+		
 		override protected function calcMaxNum():Number{
 			var _r:Number = 0, _tmp:Number;
 			

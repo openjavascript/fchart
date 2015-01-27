@@ -71,39 +71,7 @@ package org.xas.jchart.hstack.view.components
 				addChild( _box );
 				_boxs.push( _box );
 			});
-			
-			 
-			//Log.log( _config.maxValue );
-//			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
-//				
-//				var _box:Sprite = new Sprite();
-//				Common.each( _item, function( _sk:int, _sitem:Object ):void{
-//							
-//					var _color:uint = _config.itemColor( _sk );
-//					if( _sitem.value == _config.maxValue ){
-//						//Log.log( _config.maxValue, _sitem.value );
-//						if( 'style' in _config.maxItemParams && 'color' in _config.maxItemParams.style ){
-//							_color = _config.maxItemParams.style.color;
-//						}
-//					}
-//					
-//					var _item:HistogramUI = new HistogramUI(
-//						_sitem.x, _sitem.y
-//						, _sitem.width, _sitem.height
-//						, _color 
-//						, {
-//							animationEnabled: _config.animationEnabled
-//							, isNegative: _sitem.isNegative
-//							, duration: _config.animationDuration
-//							, delay: _delay
-//						}
-//					);
-//					_item.mouseEnabled = false;
-//					_box.addChild( _item );
-//				});
-//				addChild( _box );
-//				_boxs.push( _box );
-//			});
+
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{

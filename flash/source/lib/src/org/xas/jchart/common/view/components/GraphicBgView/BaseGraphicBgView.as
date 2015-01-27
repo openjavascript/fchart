@@ -20,10 +20,12 @@ package org.xas.jchart.common.view.components.GraphicBgView
 	public class BaseGraphicBgView extends Sprite
 	{	
 		protected var _hideTimer:Timer;
+		protected var config:Config;
 		
 		public function BaseGraphicBgView()
 		{
 			super();
+			config = BaseConfig.ins as Config;
 		
 			addEventListener( JChartEvent.SHOW_CHART, showChart );
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );

@@ -41,7 +41,8 @@ package org.xas.jchart.common.view.components.VLabelView
 			__config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
-			addEventListener( JChartEvent.UPDATE, update );			
+			addEventListener( JChartEvent.UPDATE, update );	
+			addEventListener( JChartEvent.RESET_HLABELS, reset );			
 		}
 		
 		protected function addToStage( _evt:Event ):void{
@@ -63,6 +64,9 @@ package org.xas.jchart.common.view.components.VLabelView
 		
 		protected function rotationUpdate():void{
 			normalUpdate();
+		}
+		
+		protected function reset( _evt:JChartEvent ):void{
 		}
 	}
 }

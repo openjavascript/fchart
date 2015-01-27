@@ -35,9 +35,9 @@ package org.xas.jchart.common.view.components.HLabelView
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
 			
-			Common.each( _config.realRate, function( _k:int, _item:Number ):*{
+			Common.each( _config.hrealRate, function( _k:int, _item:Number ):*{
 				
-				_item =  _config.realRate[ _config.realRate.length - _k - 1 ];
+				_item =  _config.hrealRate[ _k ];
 				
 				var _floatLen:int = _config.realRateFloatLen;
 				
@@ -82,6 +82,7 @@ package org.xas.jchart.common.view.components.HLabelView
 				_titem.width > _maxWidth && ( _maxWidth = _titem.width );
 				_titem.height > _maxHeight && ( _maxHeight = _titem.height );
 			});	
+			config.facade.sendNotification( JChartEvent.ROTATION_LABELS, {}, 'hstack' )
 		}
 		
 		override protected function normalUpdate():void{
@@ -121,6 +122,61 @@ package org.xas.jchart.common.view.components.HLabelView
 				}
 				
 			});
+		}
+		
+		override protected function rotationUpdate():void{
+			if( !( config.c.rotationCoor && config.c.rotationCoor.length ) ) return;
+			
+			Common.each( config.c.hpoint, function( _k:int, _item:Object ):void{
+				var _tf:TextField = _labels[ _k ]
+				, _location:Point
+				, _newLocation:Point
+				, _offsetPoint:Point
+				;
+
+				_offsetPoint = config.c.rotationCoor[ _k ].offset as Point;
+				if( !_offsetPoint ) return;
+				
+				/* 指定标签定位的坐标 */
+				var _x:Number, _y:Number;
+				var _chartPoint:Point;
+				
+				_x = _item.end.x;
+				_y = _item.end.y;
+				
+				_location = new Point( _x, _y );
+				
+				if( _config.vlineEnabled ){
+					_location.y += _config.xArrowLength - 1;
+				}else{
+					if( _config.xAxisEnabled ){
+						_location.y += _config.xArrowLength - 1;
+					}else{
+						_location.y += 2;
+					}
+				}
+				
+				_newLocation = _location.subtract( _offsetPoint );
+				
+				if( BaseConfig.ins.animationEnabled ) {
+					//_tf.visible = true;
+					_tf.y = _newLocation.y + 200;
+					_tf.x = _newLocation.x;
+					TweenLite.delayedCall( 0, function():void{
+						TweenLite.to( _tf, BaseConfig.ins.animationDuration, { 
+							x: _newLocation.x
+							, y: _newLocation.y
+							, ease: Expo.easeOut 
+						} );
+					} );
+				} else {
+					_tf.x = _newLocation.x;
+					_tf.y = _newLocation.y;
+				}
+			});
+		}
+		
+		override protected function reset( _evt:JChartEvent ):void{
 		}
 	}
 }

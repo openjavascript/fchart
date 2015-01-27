@@ -18,9 +18,12 @@ package org.xas.jchart.common.view.components.BgLineView
 	
 	public class BaseBgLineView extends Sprite
 	{	
+		protected var config:Config;
+		
 		public function BaseBgLineView()
 		{
 			super(); 
+			config = BaseConfig.ins as Config;
 			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			addEventListener( JChartEvent.UPDATE, update );

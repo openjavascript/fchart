@@ -41,7 +41,13 @@ package org.xas.jchart.common.controller
 			_itemWidth = _config.c.chartWidth / ( _labels.length );
 							
 			switch( _type ){
-				case 'vzbar': 
+				case 'hstack': {
+//					Log.log( 'DisplayAllCheckCmd', _type );
+					_itemHeight = _config.c.chartHeight / ( _config.realItemLength );
+					vAction();
+					break;
+				}
+				case 'vzbar':
 				case 'vbar': {
 					_itemHeight = _config.c.chartHeight / ( _labels.length );
 					vAction();

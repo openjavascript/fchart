@@ -10,11 +10,11 @@ package org.xas.jchart.common.view.components.HoverBgView
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.HistogramUI;
 
-	public class StackHoverBgView extends BaseHoverBgView
+	public class HStackHoverBgView extends BaseHoverBgView
 	{
 		private var _config:Config;
 		
-		public function StackHoverBgView()
+		public function HStackHoverBgView()
 		{			
 			super();
 			
@@ -26,11 +26,12 @@ package org.xas.jchart.common.view.components.HoverBgView
 		
 		override protected function update( _evt:JChartEvent ):void{
 			
-			Log.log( 'StackHoverBgView' );
+//			Log.log( 'StackHoverBgView' );
 			graphics.clear();
 			
-			if( !( _config.c && _config.c.dataRect ) ) return;
+			if( !( _config.c && _config.c.stackItems ) ) return;
 			_boxs = new Vector.<Sprite>();
+//			Log.log( 1111111111 );
 			
 			Common.each( _config.c.stackItems, function( _k:int, _item:Object ):void{
 				
@@ -38,8 +39,8 @@ package org.xas.jchart.common.view.components.HoverBgView
 					, _bgColor:uint = 0xF0F0F0
 					, _borderColor:uint = 0xB4B4B4
 					, _borderWidth:uint = 2
-					, _y:Number
-					, _h:Number
+					, _x:Number
+					, _w:Number
 					, _pad:Number = 15
 					;
 				
@@ -51,31 +52,31 @@ package org.xas.jchart.common.view.components.HoverBgView
 				_box.graphics.lineStyle( _borderWidth, _borderColor );
 				
 				if( _item.realWidth && _item.height ){
-					_y = _item.y;
-					_h = _item.height;
+					_x = _item.x;
+					_w = _item.width;
 					
 					if( _item.hasPositive ){
-						if( _y  - _pad >= _config.c.chartY ){
-							_h += _pad;
-							_y -= _pad;
-						}else{
-							_h = _h + ( _y - _config.c.chartY );
-							_y = _config.c.chartY;
+						_w += _pad;
+						if( _x + _w > _config.c.chartX + _config.c.chartWidth ){
+							_w = _config.c.chartX + _config.c.chartWidth - _x;
 						}
 					}
 					
 					if( _item.hasNegative ){
-						_h += _pad;
-						if( _y + _h > _config.c.chartY + _config.c.chartHeight ){
-							_h = _config.c.chartY + _config.c.chartHeight - _y;
+						if( _x - _pad >= _config.c.chartX ){
+							_w += _pad;
+							_x -= _pad;
+						}else{
+							_w = _w + ( _x - _config.c.chartX );
+							_x = _config.c.chartX;
 						}
 					}
 					
 					_box.graphics.drawRect( 
-						_item.realX
-						, _y
-						, _item.realWidth
-						, _h 
+						_x
+						, _item.y
+						, _w
+						, _item.height
 					);
 				}
 				

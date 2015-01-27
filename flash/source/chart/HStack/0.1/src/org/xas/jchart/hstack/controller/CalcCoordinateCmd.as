@@ -14,18 +14,23 @@ package org.xas.jchart.hstack.controller
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.proxy.LegendProxy;
 	import org.xas.jchart.common.view.mediator.*;
+	import org.xas.jchart.common.view.mediator.BgLineMediator.HStackBgLineMediator;
 	import org.xas.jchart.common.view.mediator.BgLineMediator.StackBgLineMediator;
 	import org.xas.jchart.common.view.mediator.BgMediator.StackBgMediator;
 	import org.xas.jchart.common.view.mediator.CreditMediator.BaseCreditMediator;
+	import org.xas.jchart.common.view.mediator.GraphicBgMediator.HStackGraphicBgMediator;
 	import org.xas.jchart.common.view.mediator.GraphicBgMediator.StackGraphicBgMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.HStackHLabelMediator;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.StackHLabelMediator;
+	import org.xas.jchart.common.view.mediator.HoverBgMediator.HStackHoverBgMediator;
 	import org.xas.jchart.common.view.mediator.HoverBgMediator.StackHoverBgMediator;
 	import org.xas.jchart.common.view.mediator.ItemBgMediator.StackItemBgMediator;
+	import org.xas.jchart.common.view.mediator.ItemBgMediator.VItemBgMediator;
 	import org.xas.jchart.common.view.mediator.LegendMediator.BaseLegendMediator;
 	import org.xas.jchart.common.view.mediator.LegendMediator.StackLegendMediator;
 	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.BaseSeriesLabelMediator;
+	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.HStackSeriesLabelMediator;
 	import org.xas.jchart.common.view.mediator.SeriesLabelMediator.StackSeriesLabelMediator;
 	import org.xas.jchart.common.view.mediator.SubtitleMediator.BaseSubtitleMediator;
 	import org.xas.jchart.common.view.mediator.TestMediator.BaseTestMediator;
@@ -38,7 +43,7 @@ package org.xas.jchart.hstack.controller
 	
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
-		private var _c:Coordinate;
+		private var _c:Coordinate; 
 		private var _config:Config;
 		
 		public function CalcCoordinateCmd()
@@ -78,7 +83,7 @@ package org.xas.jchart.hstack.controller
 					_config.c.credits = { x: _config.c.maxX, y: _config.c.maxY, item: pCreditMediator };
 					_config.c.maxY -= pCreditMediator.view.height;
 				}	
-				
+				 
 //				_config.c.maxX -= _config.hspace;
 				
 				if( _config.legendEnabled ){
@@ -97,32 +102,33 @@ package org.xas.jchart.hstack.controller
 
 				_config.c.hoverPadY = 0;
 				if( _config.hoverBgEnabled ){
-					facade.registerMediator( new StackHoverBgMediator() );
+					facade.registerMediator( new HStackHoverBgMediator() );
 					_config.c.minY += _config.c.hoverPadY;
 				}
 				
 				if( _config.itemBgEnabled ){
-					facade.registerMediator( new StackItemBgMediator() );
+					facade.registerMediator( new VItemBgMediator() );
 				}
 				
 				_config.c.serialLabelPadY = 0;
 				if( _config.serialLabelEnabled ){
-					facade.registerMediator( new StackSeriesLabelMediator() );
+					facade.registerMediator( new HStackSeriesLabelMediator() );
 				}
 				
 				
 				if( _config.xAxisEnabled ){
-					facade.registerMediator( new HStackHLabelMediator() );
-					_config.c.maxY -= pHLabelMediator.maxHeight;
-					_config.c.maxY -= 2;
-				}
-				
-				
-				if( _config.yAxisEnabled ){
 					facade.registerMediator( new HStackVLabelMediator() );
 					
 					_config.c.minX += Math.abs( pVLabelMediator.maxWidth );
 					_config.c.minX += _config.vspace;
+//					Log.log(  pVLabelMediator.maxWidth );
+				}
+				
+				
+				if( _config.yAxisEnabled ){
+					facade.registerMediator( new HStackHLabelMediator() );
+					_config.c.maxY -= pHLabelMediator.maxHeight;
+					_config.c.maxY -= 2;
 				}
 								
 				_config.c.vlabelMaxWidth = pVLabelMediator ? pVLabelMediator.maxWidth : 0;
@@ -160,9 +166,9 @@ package org.xas.jchart.hstack.controller
 				_config.c.chartX = _config.c.minX + _config.yArrowLength;
 				_config.c.chartY = _config.c.minY;
 				
-				sendNotification( JChartEvent.DISPLAY_ALL_CHECK );
+				sendNotification( JChartEvent.DISPLAY_ALL_CHECK, {}, 'hstack' );
 				
-				facade.registerMediator( new StackGraphicBgMediator() );	
+				facade.registerMediator( new HStackGraphicBgMediator() );	
 				_config.tooltipEnabled && facade.registerMediator( new StackTipsMediator() );
 				//Log.log( _config.tooltipEnabled );
 				
@@ -185,7 +191,9 @@ package org.xas.jchart.hstack.controller
 		}
 		
 		private function calcGraphic():void{
-			return;
+			
+//			Log.log( _config.c.vpart, _config.c.hpart, _config.c.itemWidth );
+//			return;
 			_config.c.rects = [];
 			_config.c.dataRect = [];
 			_config.c.stackItems = [];
@@ -209,47 +217,52 @@ package org.xas.jchart.hstack.controller
 				_partWidth = 50;
 			}
 			
-			if( !_config.itemLength ) return;
+			if( !_config.realItemLength ) return;
+			
+//			Log.log( 'zeroIndex:', _config.rateZeroIndex,  _config.hrateZeroIndex, _config.c.hpart );
 			
 			var _positiveOffset:Number
-				, _positiveHeight:Number = _config.c.vpart * _config.rateZeroIndex
+				, _positiveHeight:Number = _config.c.chartWidth - _config.c.hpart * _config.hrateZeroIndex
 				
 				, _negativeOffset:Number
-				, _negativeHeight:Number = _config.c.chartHeight - _config.c.vpart * _config.rateZeroIndex
+				, _negativeHeight:Number = _config.c.hpart * _config.hrateZeroIndex
 				;
 				
 //				Log.log( _config.minNum );
 			
-			Common.each( _config.displaySeries, function( _k:int, _item:Object ):void{
+			Common.each( _config.series[0].data, function( _k:int, _item:Object ):void{
 				_positiveOffset = 0;
 				_negativeOffset = 0;
 				
 				var _items:Array = []
-					, _pointItem:Object = _config.c.hlinePoint[ _k ]
+					, _pointItem:Object = _config.c.vlinePoint[ _k ]
 					, _sp:Point = _pointItem.start as Point
 					, _ep:Point = _pointItem.end as Point
-					, _x:Number = _sp.x + _config.c.hpart / 2 - _partWidth / 2
 					, _tmp:Number = 0
 					, _tmpDataRect:Object = {
 						x: _sp.x, y: _config.c.chartY
 						, width: _config.c.hpart
 						, height: _config.c.chartHeight 
 					}
-					, _tmpYAr:Array = []
-					, _tmpHAr:Array = []
 					, _stackItem:Object = {
 						data: {
 							negative: []
 							, positive: []
 						}
 					}
-					, _rectY:Number = _sp.y + _positiveHeight
+					, _totalWidth:Number = 0
+					, _rectX:Number = _sp.x + _negativeHeight
 					;
+					
+//				Log.log( _sp.y, _ep.y );
 									
-				Common.each( _config.displaySeries[0].data, function( _sk:int, _sitem:Object ):void{
+				Common.each( _config.displaySeries, function( _sk:int, _sitem:Object ):void{
 					var _rectItem:Object = {}
 						, _itemNum:Number
-						, _h:Number = 0, _y:Number
+						, _h:Number = _partWidth
+						, _w:Number = 0
+						, _y:Number = _sp.y + _config.c.vpart / 2 - _partWidth / 2
+						, _x:Number = 0
 						, _num:Number = _sitem.data[ _k ]
 						, _maxNum:Number = _config.chartMaxNum
 						;
@@ -263,44 +276,41 @@ package org.xas.jchart.hstack.controller
 						if( Common.isNegative( _num ) || _num == 0 ){
 							_num = Math.abs( _num );
 							
-							_h = _negativeHeight;
-							_h = 
+							_w = _negativeHeight;
+							_w = 
 							( _num / 
 								Math.abs( _config.finalMaxNum * _config.rate[ _config.rate.length - 1 ] ) ) 
-							* _h;
-							_h = _h || 0;
-							_y = _sp.y + _positiveHeight + _negativeOffset ;
-							_negativeOffset += _h;
+							* _w;
+							_w = _w || 0;
+							_negativeOffset += _w;
+							_x = _sp.x + _negativeHeight - _negativeOffset;
 							
 							if( _num ){
 								_stackItem.hasNegative = _rectItem.isNegative = true
 							}
+							
+							_rectX = _x;
 						}else{
 							
-							_h = ( _num / _maxNum || 1 ) * _positiveHeight;
-							_h = _h || 0;
+							_w = ( _num / _maxNum || 1 ) * _positiveHeight;
+							_w = _w || 0;
 							
-							_y = _sp.y + _positiveHeight - _h - _positiveOffset;
-//							if( _k === 0 ) {
-//								Log.log( _num, _maxNum, _positiveHeight, _y, _h );
-//							}
-							_positiveOffset += _h;
-							_rectY = _y;
+							_x = _sp.x + _positiveOffset + _negativeHeight;
+							_positiveOffset += _w;
 							
 							_stackItem.hasPositive = true;
 						}
-						_rectItem.x = _x;
+						if( !( _h && _w ) ) return;
+						_totalWidth += _w;
 						
+						_rectItem.x = _x;						
 						_rectItem.k = _k;
 						_rectItem.sk = _sk;
 						_rectItem.y = _y;
-						_rectItem.width = _partWidth;
+						_rectItem.width = _w;
 						_rectItem.height = _h;
 						_rectItem.value = _sitem.data[ _k ];
 						_rectItem.color = _config.itemColor( _sk );
-						
-						_tmpYAr.push( _y );
-						_tmpHAr.push( _h );
 
 						_items.push( _rectItem );
 						
@@ -309,32 +319,19 @@ package org.xas.jchart.hstack.controller
 						}else{
 							_stackItem.data.positive.push( _rectItem );
 						}
-						
 				});
 				
-				fixPositiveSort( _stackItem.data.positive );
-//				_tmpDataRect.y = Math.min.apply( null, _tmpYAr );
-//				_tmpDataRect.height = Math.max.apply( null, _tmpHAr );
+//				fixPositiveSort( _stackItem.data.positive );
 				
-				if( _config.hoverBgEnabled ){
-//					_tmpDataRect.y -= _config.c.hoverPadY;
-//					_tmpDataRect.height += _config.c.hoverPadY
-				}
-				
-				if( _config.serialLabelEnabled ){
-//					_tmpDataRect.y -= _config.c.serialLabelPadY;
-//					_tmpDataRect.height += _config.c.serialLabelPadY
-				}
-				
-				_stackItem.width = _partWidth;
-				_stackItem.height = _positiveOffset + _negativeOffset;
-				_stackItem.x = _x;;
-				_stackItem.y = _rectY;
+				_stackItem.width = _totalWidth;
+				_stackItem.height = _config.c.vpart;
+				_stackItem.x = _rectX;
+				_stackItem.y = _sp.y;
 				_stackItem.k = _k;
 				_stackItem.realX = _sp.x;
-				_stackItem.realY = _config.c.chartY;
-				_stackItem.realWidth = _config.c.hpart;
-				_stackItem.realHeight = _config.c.chartHeight;
+				_stackItem.realY = _sp.y;
+				_stackItem.realWidth = _totalWidth;
+				_stackItem.realHeight = _config.c.vpart;
 				
 //				Log.log( _stackItem.x, _stackItem.y, _stackItem.width, _stackItem.height );
 				
@@ -371,42 +368,48 @@ package org.xas.jchart.hstack.controller
 		}
 		
 		private function calcChartPoint():void{
-			facade.registerMediator( new StackBgLineMediator() );
+			if( !_config.realItemLength ) return;
+			facade.registerMediator( new HStackBgLineMediator() );
 			
 			calcChartVPoint();
 			calcChartHPoint();
 		}
 		//横线
-		private function calcChartVPoint():void{			
-			var _partN:Number = _config.c.chartHeight / ( _config.categories.length )
+		private function calcChartVPoint():void{		
+			var _partN:Number = _config.c.chartHeight / ( _config.realItemLength )
 				;
 			_config.c.vpart = _partN;
 			_config.c.itemHeight = _partN / 2;
 			_config.c.vpoint = [];
+			_config.c.vlinePoint = [];
 			_config.c.vpointReal = [];
+			_config.c.varrowPoint = [];
+			_config.c.itemWidth = _partN / 2;
 			
-			Common.each( _config.categories, function( _k:int, _item:* ):void{
+			for( var i:int = 0; i <= _config.realItemLength; i++ ){
+				var _k:int = i;
 				var _n:Number = _config.c.chartY + _partN * _k;
 				_config.c.vpoint.push( {
 					start: new Point( _config.c.chartX, _n )
 					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
 				});
 				
+				_config.c.vlinePoint.push( {
+					start: new Point( _config.c.chartX, _n )
+					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
+				});
+				
+				_config.c.varrowPoint.push( {
+					start: new Point( _config.c.chartX - _config.yArrowLength, _n + _config.c.vpart / 2 )
+					, end: new Point( _config.c.chartX, _n + _config.c.vpart / 2 )
+				});
+				
 				_config.c.vpointReal.push( {
 					start: new Point( _config.c.chartX, _n )
 					, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
 				});
-			});
-			var _n:Number = _config.c.chartY + _partN * _config.categories.length;
-			_config.c.vpoint.push( {
-				start: new Point( _config.c.chartX, _n )
-				, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
-			});
-			
-			_config.c.vpointReal.push( {
-				start: new Point( _config.c.chartX, _n )
-				, end: new Point( _config.c.chartX +_config.c.chartWidth, _n )
-			});
+			}
+
 		}
 		//竖线
 		private function calcChartHPoint():void{
@@ -421,7 +424,6 @@ package org.xas.jchart.hstack.controller
 			_config.c.hlinePoint = [];
 			_config.c.hpointReal = [];
 			_config.c.itemWidthRate = 2;
-			_config.c.itemWidth = _partN / 2;
 						
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
 				var _n:Number = _config.c.chartX + _partN * _k;

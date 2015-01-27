@@ -43,6 +43,7 @@ package org.xas.jchart.common.view.components.VLabelView
 			if( config.cd && config.cd.xAxis && config.cd.xAxis.categories ){
 				
 				Common.each( config.cd.xAxis.categories, function( _k:int, _item:* ):*{
+					var _tmpWidth:Number;
 					_t = _item + '';
 					
 					_titem = new TextField();
@@ -57,11 +58,18 @@ package org.xas.jchart.common.view.components.VLabelView
 						, { 'size': 12, color: 0x838383, 'align': 'center' }
 						, config.vlabelsStyle
 					] );
-					
+					_tmpWidth = _titem.width + 1;
 					if( config.xAxisWordwrap ) {
-						_titem.width = _twidth * 1.5;
+//						_titem.width = _twidth * 1.5;
 						_titem.wordWrap = true;
+						_titem.width = _tmpWidth;
 					} 
+					
+					if( !_config.displayAllLabel ) {
+						if( !( _k in config.labelDisplayIndex ) ) {
+							_titem.visible = false;
+						}
+					}
 					
 					_titem.height > _maxHeight && ( _maxHeight = _titem.height );
 					_titem.width > _maxWidth && ( _maxWidth = _titem.width );
@@ -71,13 +79,16 @@ package org.xas.jchart.common.view.components.VLabelView
 					_labels.push( _titem );
 					
 				} );								
-			}			
+			}		
+//			Log.log( '_maxWidth:', _maxWidth );
 		}
 		
 		override protected function update( _evt:JChartEvent ):void{
 			if( !( _config.c && _config.c.vpoint ) ) return;
 			Common.each( _config.c.vpoint, function( _k:int, _item:Object ):void{
 				if( _k >= _labels.length ) return;
+				
+				
 				var _tf:TextField = _labels[ _k ]
 					, _x:Number = _item.start.x
 					, _y:Number = _item.start.y
@@ -91,7 +102,7 @@ package org.xas.jchart.common.view.components.VLabelView
 				_y += _config.c.vpart / 2;
 								
 				if( _config.animationEnabled ){
-					_tf.visible = true;
+//					_tf.visible = true;
 					_tf.y = _y;
 					_tf.x = _x - 200;
 					
@@ -108,6 +119,19 @@ package org.xas.jchart.common.view.components.VLabelView
 					_tf.y = _y;
 				}
 				
+			});
+		}
+		
+		override protected function reset( _evt:JChartEvent ):void{
+//			Log.log( 'BaseHLabelView.reset' );
+			config.setDisplayAllLabel( false );
+			config.calcLabelDisplayIndex();
+			if( !( labels && labels.length && config.labelDisplayIndex ) ) return;
+//			Log.printFormatJSON( config.labelDisplayIndex );
+			
+			Common.each( labels, function( _k:int, _item:TextField ):void{
+				_item.visible = config.labelDisplayIndex[ _k ] || false;
+//				Log.log( _item.visible );
 			});
 		}
 

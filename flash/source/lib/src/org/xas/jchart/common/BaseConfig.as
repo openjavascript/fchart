@@ -137,6 +137,16 @@ package org.xas.jchart.common
 				&& ( _r = this.displaySeries[0].data.length );
 			return _r;
 		}
+		public function get realItemLength():int{
+			var _r:int = 0;
+			this.series
+				&& this.series.length
+				&& this.series[0]
+				&& this.series[0].data
+				&& this.series[0].data.length
+				&& ( _r = this.series[0].data.length );
+			return _r;
+		}
 		
 		public function updateDisplaySeries( _filter:Object = null, _data:Object = null ):BaseConfig{
 			_data = _data || chartData;
