@@ -19,14 +19,14 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	
 	public class MixChartVLabelView extends BaseVLabelView
 	{
 		private var _config:Config;
 		
-		public function MixChartVLabelView( _index:int, _model:MixChartModelItem )
+		public function MixChartVLabelView( _index:int, _model:BaseMixChartModelItem )
 		{
 			super( _index, _model );
 			_config = BaseConfig.ins as Config;

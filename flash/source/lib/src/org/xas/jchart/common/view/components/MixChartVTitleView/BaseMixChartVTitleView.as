@@ -19,7 +19,7 @@ package org.xas.jchart.common.view.components.MixChartVTitleView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.widget.DisplayRotation;
 	import org.xas.jchart.common.ui.widget.JSprite;
@@ -37,13 +37,13 @@ package org.xas.jchart.common.view.components.MixChartVTitleView
 		protected var _index:Number = 0;
 		public function get index():Number{ return _index; }
 		
-		protected var _model:MixChartModelItem;
-		public function get model():MixChartModelItem{ return _model; }
+		protected var _model:BaseMixChartModelItem;
+		public function get model():BaseMixChartModelItem{ return _model; }
 		
 		protected var _config:Config;
 
 		
-		public function BaseMixChartVTitleView( _index:int, _model:MixChartModelItem )
+		public function BaseMixChartVTitleView( _index:int, _model:BaseMixChartModelItem )
 		{
 			super();
 			

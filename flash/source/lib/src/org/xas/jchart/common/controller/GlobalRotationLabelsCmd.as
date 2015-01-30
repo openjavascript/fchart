@@ -17,7 +17,7 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;
@@ -311,7 +311,7 @@ package org.xas.jchart.common.controller
 					_labelMaxWidth -= 5;
 					//Log.log( _labelMaxWidth, _maxWidth,  _itemWidth, _chartWidth, _labels.length );
 					
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						if( !_item.enabeld ) return;
 						if( !_item.isOpposite ) return;
 						

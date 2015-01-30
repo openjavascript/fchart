@@ -14,7 +14,7 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	
 	public class BaseVLabelView extends Sprite
@@ -32,11 +32,11 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 		public function get index():Number{ return _index; }
 		
 		
-		protected var _model:MixChartModelItem;
-		public function get model():MixChartModelItem{ return _model; }
+		protected var _model:BaseMixChartModelItem;
+		public function get model():BaseMixChartModelItem{ return _model; }
 				
 		
-		public function BaseVLabelView( _index:int, _model:MixChartModelItem )
+		public function BaseVLabelView( _index:int, _model:BaseMixChartModelItem )
 		{
 			super();
 			

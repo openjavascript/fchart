@@ -84,6 +84,10 @@ package org.xas.jchart.common.view.components.SerialLabel
 						, _seriesIx:int = _mdata.srcData[ _k ].data.displayIndex
 						;
 						
+						if( _sitem.data ){
+							_seriesIx = _sitem.data.displayIndex;
+						}
+						
 						//_label.text = StringUtils.printf( _config.dataLabelFormat, Common.moneyFormat( _sitem.value, 3, _config.floatLen ) );
 						_label.text = _config.serialDataLabelValue( _seriesIx, _sk );
 						
@@ -164,6 +168,10 @@ package org.xas.jchart.common.view.components.SerialLabel
 							, _x:Number = 0
 							, _y:Number = 0
 							;
+							
+						if( _sitem.data ){
+							_sk = _sitem.data.displayIndex;
+						}
 							
 						_label.text = _config.serialDataLabelValue( _sk, _k );
 						

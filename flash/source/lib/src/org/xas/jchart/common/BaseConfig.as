@@ -10,13 +10,15 @@ package org.xas.jchart.common
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModel;
+	import org.xas.jchart.common.data.mixchart.BaseMixChartModel;
 
 	public class BaseConfig extends BaseAttrConfig
 	{		
 		public function get facade():BaseFacade{ return _facade; }
 		public var _facade:BaseFacade;
 		public function setFacade( _setter:BaseFacade ):void{ _facade = _setter; }
+		
+		public function get version():String{ return '0.1'; }
 		
 		public function serialDataLabelValue( _serialIx:int, _itemIx:int ):String{
 			var _r:String = '', _item:Object = displaySeries[ _serialIx ];		
@@ -910,8 +912,8 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
-		protected var _mixModel:MixChartModel;
-		public function get mixModel():MixChartModel{ return _mixModel; }
+		protected var _mixModel:BaseMixChartModel;
+		public function get mixModel():BaseMixChartModel{ return _mixModel; }
 		
 		public function getYAxisIndex( _seriesItem:Object ):int{
 			var _r:int = 0;

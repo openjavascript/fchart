@@ -17,7 +17,7 @@ package org.xas.jchart.common.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.mediator.HLabelMediator.BaseHLabelMediator;
 	import org.xas.jchart.common.view.mediator.MainMediator;

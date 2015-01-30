@@ -1,4 +1,4 @@
-package org.xas.jchart.common.data.mixchart
+package org.xas.jchart.common.data.mixchart.MixChartModelItem
 {
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
@@ -8,8 +8,18 @@ package org.xas.jchart.common.data.mixchart
 	import org.xas.jchart.common.BaseAttrConfig;
 	import org.xas.jchart.common.Common;
 	
-	public class MixChartModelItem extends EventDispatcher
+	public class BaseMixChartModelItem
 	{
+		
+		public function BaseMixChartModelItem( _index:int, _params:Object, _config:Config )
+		{
+			this._index = _index;
+			this._params = _params || {};
+			this._config = _config;
+			
+			init();
+		}
+		
 		protected var _config:Config;
 		protected var _index:int;
 		protected var _params:Object;
@@ -394,7 +404,7 @@ package org.xas.jchart.common.data.mixchart
 			_series = _series || displaySeries;
 			
 			if( _config.isPercent ){
-				if( _config.cd && _config.cd.series ){
+				if( _series ){
 					_tmp = [];
 					Common.each( _series, function( _k:int, _item:Object ):*{
 						if( _item.data ){
@@ -405,7 +415,7 @@ package org.xas.jchart.common.data.mixchart
 					});
 				}
 			}else{
-				if( _config.cd && _config.cd.series ){
+				if( _series ){
 					_tmp = [];
 					Common.each( _series, function( _k:int, _item:Number ):*{
 						_tmp = _tmp.concat( _series[ _k ].data );
@@ -506,15 +516,6 @@ package org.xas.jchart.common.data.mixchart
 		public function get yAxisAbbrNumberEnabled():Boolean{
 			var _r:Boolean = BaseAttrConfig.getAttr( this._params, 'abbrNumber.enabled', _config.abbrNumberEnabled ) as Boolean;
 			return _r;
-		}
-		
-		public function MixChartModelItem( _index:int, _params:Object, _config:Config )
-		{
-			this._index = _index;
-			this._params = _params || {};
-			this._config = _config;
-			
-			init();
 		}
 	}
 }

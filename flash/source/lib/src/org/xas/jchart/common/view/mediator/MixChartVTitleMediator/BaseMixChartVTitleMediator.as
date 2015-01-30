@@ -7,7 +7,7 @@ package org.xas.jchart.common.view.mediator.MixChartVTitleMediator
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.BaseFacade;
 	import org.xas.jchart.common.Common;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.view.components.MixChartVTitleView.*;
 	import org.xas.jchart.common.view.components.TitleView;
@@ -35,7 +35,7 @@ package org.xas.jchart.common.view.mediator.MixChartVTitleMediator
 			switch( (facade as BaseFacade).name ){
 				default:{
 					//mainMediator.view.index6.addChild( _view = new MixChartVLabelView() );
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						//Log.log( 'xxxxxxxxxx', _k );
 						var _tmp:BaseMixChartVTitleView = new BaseMixChartVTitleView( _k, _item );
 						_view.push( _tmp );
