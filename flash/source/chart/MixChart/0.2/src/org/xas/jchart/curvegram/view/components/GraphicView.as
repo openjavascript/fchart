@@ -83,6 +83,7 @@ package org.xas.jchart.curvegram.view.components
 								, animationEnabled: BaseConfig.ins.animationEnabled
 								, duration: BaseConfig.ins.animationDuration
 								, delay: _delay
+								
 							}
 							, _config.isLineGradient( _item.data )
 						) 
@@ -110,11 +111,13 @@ package org.xas.jchart.curvegram.view.components
 							animationEnabled: BaseConfig.ins.animationEnabled
 							, duration: BaseConfig.ins.animationDuration
 							, delay: _delay
-							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
 							, turnColor: true
 							, iconRadius: 4
 							, index: _item.data.displayIndex
 							, seriesIndex: _item.data.displayIndex
+							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
+							, hoverShow: BaseConfig.ins.pointHoverShow( _item.data )
+
 						}
 					)
 				);

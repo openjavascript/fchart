@@ -333,6 +333,7 @@ package org.xas.jchart.common.data.mixchart.MixChartModelItem
 				_rateZeroIndex = 4;
 			}
 			
+			
 			_realRate = [];
 			_realRateFloatLen = 0;
 			var _tmpLen:int = 0
@@ -365,6 +366,7 @@ package org.xas.jchart.common.data.mixchart.MixChartModelItem
 				}
 				
 			}
+//			Log.log( '_customRate:', _customRate, _minNum, _partNum, _rateValue );
 			
 			Common.each( _rate, function( _k:int, _item:Number ):void{
 				var _realItem:Number = _rateValue * _item;
@@ -379,7 +381,7 @@ package org.xas.jchart.common.data.mixchart.MixChartModelItem
 					_realItem += _minNum;
 					
 				}
-				//Log.log( 'xxxxxxxx: ' + _realItem );
+//				Log.log( 'xxxxxxxx: ', _realItem, _customRate);
 				
 				_realRate.push( _realItem );
 			});
@@ -397,6 +399,7 @@ package org.xas.jchart.common.data.mixchart.MixChartModelItem
 					_itemMax.push( _tmpMax );
 				});
 			}
+//			Log.log( _realRate );
 		}
 		
 		protected function calcMaxNum( _series:Array = null ):Number{
@@ -516,6 +519,10 @@ package org.xas.jchart.common.data.mixchart.MixChartModelItem
 		public function get yAxisAbbrNumberEnabled():Boolean{
 			var _r:Boolean = BaseAttrConfig.getAttr( this._params, 'abbrNumber.enabled', _config.abbrNumberEnabled ) as Boolean;
 			return _r;
+		}
+				
+		public function get isPercent():Boolean{
+			return _config.isPercent;
 		}
 	}
 }

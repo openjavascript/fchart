@@ -6,8 +6,8 @@ package
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.ChartType;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModel;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.BaseMixChartModel;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 
 	public class Config extends BaseConfig
 	{
@@ -24,7 +24,7 @@ package
 		override public function setChartData( _d:Object ):Object {
 			
 			super.setChartData( _d );
-			_mixModel = new MixChartModel( this );
+			_mixModel = new BaseMixChartModel( this );
 			return _d;
 		}	
 		
@@ -36,7 +36,7 @@ package
 				_r = StringUtils.parseBool( cd.yAxis.enabled );
 			}
 			*/
-			Common.each( _mixModel.items, function( _k:int, _item:MixChartModelItem ):Boolean{
+			Common.each( _mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):Boolean{
 				if( _item.enabeld ){
 //				if( _item.enabeld && _item.hasVTitle){
 					return _allFalse = false;
@@ -72,7 +72,7 @@ package
 			_r = StringUtils.parseBool( cd.yAxis.enabled );
 			}
 			*/
-			Common.each( _mixModel.items, function( _k:int, _item:MixChartModelItem ):Boolean{
+			Common.each( _mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):Boolean{
 				if( 
 					_item.enabeld 
 					&& _item.params

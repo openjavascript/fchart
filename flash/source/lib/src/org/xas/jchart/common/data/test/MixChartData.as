@@ -21,9 +21,1048 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
+			 
+			return; 
 			
-//			return; 
 			
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 2"
+								, "enabled": 1
+							}
+						}
+						, {
+							"title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": true
+					},
+					"series": [
+						{
+							"type": "bar",
+							"name": "北汽",
+							"yAxis": 1,
+							"data": [
+								81018,
+								80207,
+								84018,
+								85313,
+								84018
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}						
+						, {
+							"type": "line",
+							"name": "北汽1",
+							"yAxis": 2,
+							"data": [
+								34018,
+								41018,
+								40207,
+								34018,
+								25313
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 0,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 0,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": false
+					},
+					"series": [
+						{
+							"type": "stack",
+							"name": "北汽",
+							"yAxis": 0,
+							"data": [
+								81018,
+								80207,
+								84018,
+								85313,
+								84018
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}						
+						, {
+							"type": "stack",
+							"name": "北汽1",
+							"yAxis": 0,
+							"data": [
+								34018,
+								41018,
+								40207,
+								34018,
+								25313
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 1,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 1,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": false
+					},
+					"series": [
+						{
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 0,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 0,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": false
+					},
+					"series": [
+						{
+							"type": "line",
+							"name": "北汽",
+							"yAxis": 0,
+							"data": [
+								81018,
+								80207,
+								84018,
+								85313,
+								84018
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}						
+						, {
+							"type": "line",
+							"name": "北汽1",
+							"yAxis": 0,
+							"data": [
+								34018,
+								41018,
+								40207,
+								34018,
+								25313
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 1,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 1,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
+
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": false
+					},
+					"series": [
+						{
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 0,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 0,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+						, {
+							"type": "bar",
+							"name": "北汽",
+							"yAxis": 1,
+							"data": [
+								81018,
+								80207,
+								84018,
+								85313,
+								84018
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}						
+						, {
+							"type": "bar",
+							"name": "北汽1",
+							"yAxis": 1,
+							"data": [
+								34018,
+								41018,
+								40207,
+								34018,
+								25313
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
+			
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": true
+					},
+					"series": [
+						{
+							"type": "line",
+							"name": "北汽",
+							"yAxis": 0,
+							"data": [
+								81018,
+								80207,
+								84018,
+								85313,
+								84018
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}						
+						, {
+							"type": "line",
+							"name": "北汽1",
+							"yAxis": 0,
+							"data": [
+								34018,
+								41018,
+								40207,
+								34018,
+								25313
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 1,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 1,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
+
+			_data.push(
+				{
+					"chart": {
+						"type": "mix"
+					}
+					, "title": {
+						"text": "日趋势"
+					}
+					, "subtitle": {
+						"text": "日趋势 subtitle"
+					}
+					, "xAxis": {
+						"categories": [
+							"2014-11-17",
+							"2014-11-18",
+							"2014-11-19",
+							"2014-11-20",
+							"2014-11-21"
+						]
+						, "displayAll": {
+							"enabled": true
+						}
+					},
+					"yAxis": [
+						{
+							"title": {
+								"text": "test vtitle"
+								, "enabled": 1
+							}
+						}
+						, {
+							opposite: true
+							, "autoRate": {
+								"enabled": true
+								, "rateUp": 0
+								, "maxOffset": .1
+								, "minOffset": .1
+							}
+							, "title": {
+								"text": "test vtitle 2"
+								, "enabled": 1
+							}
+						}
+						, {
+							"title": {
+								"text": "test vtitle 3"
+								, "enabled": 1
+							}
+						}
+					],
+					"animation": {
+						"enabled": true
+					},
+					"series": [
+						{
+							"type": "stack",
+							"name": "MG名爵",
+							"yAxis": 0,
+							"data": [
+								4039,
+								2828,
+								1567,
+								5531,
+								3544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": false
+							}
+						}
+						, {
+							"type": "stack",
+							"name": "MG名爵1",
+							"yAxis": 0,
+							"data": [
+								5039,
+								3828,
+								2567,
+								6531,
+								4544
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+						, {
+							"type": "bar",
+							"name": "北汽",
+							"yAxis": 1,
+							"data": [
+								81018,
+								80207,
+								84018,
+								85313,
+								84018
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}						
+						, {
+							"type": "line",
+							"name": "北汽1",
+							"yAxis": 2,
+							"data": [
+								34018,
+								41018,
+								40207,
+								34018,
+								25313
+							],
+							"style": {
+								"stroke": "#ff7100"
+							},
+							"pointStyle": {}
+							, "dataLabels": {
+								"enabled": true
+							}
+						}
+					],
+					"legend": {
+						"enabled": true
+						, "direction": "TOP_RIGHT"
+						, "margin": { "bottom": 0, "y": -10 }
+					},
+					"plotOptions": {
+						/*
+						"area": {
+						"fillColor": {}
+						}
+						*/
+					},
+					/*
+					"colors": [
+					"0xbb9b3e",
+					"0x4673c0"
+					],
+					*/
+					"callback": {
+						"initedCallback": "initedCallback"
+					},
+					"dataLabels": {
+						"enabled": false
+					}
+				}
+			);
 			
 			_data.push(
 				{
@@ -2453,6 +3492,133 @@ package org.xas.jchart.common.data.test
 					}
 				}
 			);
+			
+			
+			_data.push( {
+				"chart": {
+					"type": "mix"
+					, bgColor: 0xffffff
+					, bgAlpha: 1
+				}
+				, "xAxis": {
+					"categories": [
+						"20141213"
+						,"20141215"
+						,"20141216"
+						,"20141217"
+						,"20141218"
+						,"20141219"
+						,"20141220"
+						,"20141221"
+						,"20141222"
+						,"20141223"
+						,"20141224"
+						,"20141225"
+						,"20141226"
+						,"20141227"
+						,"20141228"
+						,"20141229"
+						,"20141230"
+						,"20141231"
+						,"20150101"
+						,"20150102"
+						,"20150103"
+						,"20150104"
+						,"20150105"
+						,"20150106"
+						,"20150107"
+						,"20150108"
+						,"20150109"
+						,"20150110"
+						,"20150111"
+						,"20150112"
+						,"20150113"
+					]
+					, rotation: {
+						//						"enabled": true
+					}
+					, display: {
+						"enabled": true
+						,"mod": 30
+					}
+					, "enabled": true
+				}
+				, "yAxis": [
+					{
+						opposite: true
+						, "autoRate": {
+							"enabled": true
+							, "rateUp": 0
+							, "maxOffset": .1
+							, "minOffset": .1
+						}
+						, rate: [ 1, .5, 0 ]
+					}
+				]
+				, rateLabel: { data: [ 1, .5, 0 ] }
+				, hline: {
+					enabled: false
+				}
+				, vline: {
+					enabled: false
+				}
+				,"animation": {
+					"enabled": true
+				},
+				"series": [
+					{
+						"type": "line",
+						"name": "价格走势",
+						"yAxis": 0,
+						"data": [
+							11000
+							,11610
+							,4800
+							,6200
+							,7100
+							,6900
+							,11200
+							,11600
+							,11270
+							,11580
+							,7600
+							,6500
+							,14900
+							,11800
+							,12100
+							,4002
+							,6069
+							,5775
+							,9820
+							,7510
+							,9380
+							,5722
+							,5773
+							,5846
+							,5896
+							,5861
+							,5858
+							,12546
+							,11033
+							,5977
+							,5835							
+						],
+						"style": {
+							"stroke": "#ff7100"
+						},
+						"pointStyle": {}
+					}
+				],
+				"legend": {
+					"enabled": false
+				},
+				"colors": [
+					0xE5633F
+				],
+				"point": {
+					hoverShow: true
+				}
+			});
 				
 		}
 	}

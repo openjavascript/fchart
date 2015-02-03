@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Open JQuery Components Library - suches</title>
+    <style>
+        body{
+            margin: 20px 40px;
+        }
+
+        .defDl > dd{
+            border-bottom:1px solid #e2e3ea; 
+        }
+
+    </style>
+</head>    
+<body>
+    <h2>JC.FChart - mix chart - line, line 示例</h2>
+
+    <div class="" id="flashItemId"></div>
+
+    <script src="./swfobject.js"></script>
+    <script src="./JSON.js"></script>
+    <script>
+    var _id = 'flashItemId'
+        , _data = {
+        "chart": {
+            "type": "mix"
+            , bgColor: 0xffffff
+            , bgAlpha: 1
+        }
+        , "xAxis": {
+            "categories": [
+                "20141213"
+                ,"20141215"
+                ,"20141216"
+                ,"20141217"
+                ,"20141218"
+                ,"20141219"
+                ,"20141220"
+                ,"20141221"
+                ,"20141222"
+                ,"20141223"
+                ,"20141224"
+                ,"20141225"
+                ,"20141226"
+                ,"20141227"
+                ,"20141228"
+                ,"20141229"
+                ,"20141230"
+                ,"20141231"
+                ,"20150101"
+                ,"20150102"
+                ,"20150103"
+                ,"20150104"
+                ,"20150105"
+                ,"20150106"
+                ,"20150107"
+                ,"20150108"
+                ,"20150109"
+                ,"20150110"
+                ,"20150111"
+                ,"20150112"
+                ,"20150113"
+            ]
+            , rotation: {
+//						"enabled": true
+            }
+            , display: {
+                "enabled": true
+                ,"mod": 30
+            }
+            , "enabled": true
+        }
+        , "yAxis": [
+            {
+                opposite: true
+                , "autoRate": {
+                    "enabled": true
+                    , "rateUp": 0
+                    , "maxOffset": .1
+                    , "minOffset": .1
+                }
+                , rate: [ 1, .5, 0 ]
+            }
+        ]
+        , rateLabel: { data: [ 1, .5, 0 ] }
+        , hline: {
+            enabled: false
+        }
+        , vline: {
+            enabled: false
+        }
+        ,"animation": {
+            "enabled": true
+        },
+        "series": [
+            {
+                "type": "line",
+                "name": "价格走势",
+                "yAxis": 0,
+                "data": [
+                    11000
+                    ,11610
+                    ,4800
+                    ,6200
+                    ,7100
+                    ,6900
+                    ,11200
+                    ,11600
+                    ,11270
+                    ,11580
+                    ,7600
+                    ,6500
+                    ,14900
+                    ,11800
+                    ,12100
+                    ,4002
+                    ,6069
+                    ,5775
+                    ,9820
+                    ,7510
+                    ,9380
+                    ,5722
+                    ,5773
+                    ,5846
+                    ,5896
+                    ,5861
+                    ,5858
+                    ,12546
+                    ,11033
+                    ,5977
+                    ,5835							
+                ],
+                "style": {
+                    "stroke": "#ff7100"
+                },
+                "pointStyle": {}
+            }
+        ],
+        "legend": {
+            "enabled": false
+        },
+        "colors": [
+            0xE5633F
+        ],
+        "point": {
+            hoverShow: true
+        }
+    };
+
+      swfobject.embedSWF( 
+            './MixChart.swf'
+            , _id
+            , 240
+            , 136
+            , '10' 
+            , ''
+            ,  { 'chart': encodeURIComponent( JSON.stringify( _data ) ) }
+            ,  { 
+                    'wmode': 'transparent'
+                    , 'allowScriptAccess' : 'always' 
+                }
+                , { id: _id, 'name': _id }
+        );
+
+    </script>
+
+</body>
+</html>
+
+

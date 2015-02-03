@@ -14,7 +14,7 @@ package org.xas.jchart.mixchart.controller
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.MixChartData;
 	import org.xas.jchart.common.event.JChartEvent;
@@ -126,7 +126,7 @@ package org.xas.jchart.mixchart.controller
 					}
 					*/
 					
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						if( !_item.enabeld ) return;
 						if( _item.isOpposite ) return;
 
@@ -147,7 +147,7 @@ package org.xas.jchart.mixchart.controller
 						_config.c.hasYAxis = true;
 					});
 					
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						if( !_item.enabeld ) return;
 						if( !_item.isOpposite ) return;
 
@@ -249,7 +249,7 @@ package org.xas.jchart.mixchart.controller
 				
 				if( _config.yAxisEnabled ){
 					
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						if( !_item.enabeld ) return;
 												
 						if( _item.hasVTitle && _config.c.vtitle[ _k ] ){
@@ -277,7 +277,7 @@ package org.xas.jchart.mixchart.controller
 						_fixOffset -= _config.xArrowLength;
 						_opOffset +=_config.xArrowLength;
 					}
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						if( !_item.enabeld ) return;
 						if( _item.isOpposite ) return;
 						_fixOffset -= 1;
@@ -292,7 +292,7 @@ package org.xas.jchart.mixchart.controller
 						}
 					}, true );
 					
-					Common.each( _config.mixModel.items, function( _k:int, _item:MixChartModelItem ):void{
+					Common.each( _config.mixModel.items, function( _k:int, _item:BaseMixChartModelItem ):void{
 						if( !_item.enabeld ) return;
 						if( !_item.isOpposite ) return;
 						
@@ -324,6 +324,8 @@ package org.xas.jchart.mixchart.controller
 				//Log.log( _config.c.chartWidth, _config.c.chartHeight );
 			}
 			
+//			return;
+			
 			sendNotification( JChartEvent.SHOW_CHART );		
 			
 //			var _textf:DisplayRotation = new DisplayRotation( '123456789', 90, function( _stf:TextField ):void{
@@ -352,6 +354,8 @@ package org.xas.jchart.mixchart.controller
 			_config.c.itemHeight = _partN / 2;
 			_config.c.vpoint = [];
 			_config.c.vpointReal = [];
+			
+			Log.log( _config.rate );
 			
 			Common.each( _config.rate, function( _k:int, _item:* ):void{
 				var _n:Number = _config.c.chartY + _partN * _k;

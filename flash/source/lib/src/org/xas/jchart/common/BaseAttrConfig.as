@@ -335,6 +335,14 @@ package org.xas.jchart.common
 		}
 		
 		
+		public function pointHoverShow( _item:Object = null ):Boolean{
+			var _r:Boolean = false;
+			_r =  BaseAttrConfig.getAttr( this.cd, 'point.hoverShow', _r ) as Boolean;
+			_r =  BaseAttrConfig.getAttr( _item, 'point.hoverShow', _r ) as Boolean;
+			return _r;
+		}
+		
+		
 		
 		public function get animationDuration():Number {
 			var _r:Number = .75;

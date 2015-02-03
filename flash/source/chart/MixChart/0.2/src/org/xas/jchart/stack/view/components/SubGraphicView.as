@@ -18,21 +18,25 @@ package org.xas.jchart.stack.view.components
 	import org.xas.jchart.common.event.JChartEvent;
 	import org.xas.jchart.common.ui.HistogramUI;
 	import org.xas.jchart.common.ui.StackUI;
+	import org.xas.jchart.common.ui.widget.JSprite;
 	import org.xas.jchart.common.ui.widget.JTextField;
 	
-	public class GraphicView extends Sprite
+	public class SubGraphicView extends JSprite
 	{	
 		private var _boxs:Vector.<Sprite>;
+		public function get box():Vector.<Sprite>{ return _boxs; }
 		private var _preIndex:int = -1;
 		
 		private var _config:Config;
 		
-		public function GraphicView() 
+		public function SubGraphicView( _data:Object )
 		{
-			super(); 
+			super( _data ); 
 			
 			_config = BaseConfig.ins as Config;
-		
+			
+//			Log.printFormatJSON( _data );
+			
 			addEventListener( Event.ADDED_TO_STAGE, addToStage );
 			
 			addEventListener( JChartEvent.UPDATE, update );
@@ -44,26 +48,29 @@ package org.xas.jchart.stack.view.components
 		
 		private function addToStage( _evt:Event ):void{
 		}
-
+		
 		private function update( _evt:JChartEvent ):void{
 			
 			graphics.clear();
 			
-			if( !( _config.c && _config.c.stackItems && _config.c.stackItems.length ) ) return;
+//			Log.printFormatJSON( data );
+			
+//			return;
+			if( !( data.stackItems && data.stackItems.length ) ) return;
 			_boxs = new Vector.<Sprite>();
 			
 			var _delay:Number = 0;
 			_config.xAxisEnabled && ( _delay = _config.animationDuration / 2 );
 			
-			Common.each( _config.c.stackItems, function( _k:int, _item:Object ):void{
+			Common.each( data.stackItems, function( _k:int, _item:Object ):void{
 				var _box:Sprite = new Sprite(), _ui:StackUI;
-								
+				
 				Common.extendObject( _item, {
 					animationEnabled: _config.animationEnabled
 					, duration: _config.animationDuration
 					, delay: _delay
 				}, true );
-//				Log.printFormatJSON( _item );
+				//				Log.printFormatJSON( _item );
 				
 				_ui = new StackUI( _item );
 				_box.mouseEnabled = false;
@@ -71,39 +78,8 @@ package org.xas.jchart.stack.view.components
 				addChild( _box );
 				_boxs.push( _box );
 			});
-			
-			 
-			//Log.log( _config.maxValue );
-//			Common.each( _config.c.rects, function( _k:int, _item:Object ):void{
-//				
-//				var _box:Sprite = new Sprite();
-//				Common.each( _item, function( _sk:int, _sitem:Object ):void{
-//							
-//					var _color:uint = _config.itemColor( _sk );
-//					if( _sitem.value == _config.maxValue ){
-//						//Log.log( _config.maxValue, _sitem.value );
-//						if( 'style' in _config.maxItemParams && 'color' in _config.maxItemParams.style ){
-//							_color = _config.maxItemParams.style.color;
-//						}
-//					}
-//					
-//					var _item:HistogramUI = new HistogramUI(
-//						_sitem.x, _sitem.y
-//						, _sitem.width, _sitem.height
-//						, _color 
-//						, {
-//							animationEnabled: _config.animationEnabled
-//							, isNegative: _sitem.isNegative
-//							, duration: _config.animationDuration
-//							, delay: _delay
-//						}
-//					);
-//					_item.mouseEnabled = false;
-//					_box.addChild( _item );
-//				});
-//				addChild( _box );
-//				_boxs.push( _box );
-//			});
+
+
 		}
 		
 		private function showTips( _evt: JChartEvent ):void{
@@ -131,6 +107,6 @@ package org.xas.jchart.stack.view.components
 			_boxs[ _ix ].alpha = .65;
 			_preIndex = _ix;
 		}
-
+		
 	}
 }

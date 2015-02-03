@@ -37,12 +37,9 @@ package org.xas.jchart.common.ui
 		}
 		
 		override protected function initAnimation():void{
-
-			
-//			super.initAnimation(); return;
 			
 			addChild( this.mask = _mask = new Sprite() );
-			
+//			this.mask = null;
 			super.initAnimation();
 			
 			TweenLite.delayedCall( data.delay || 0, function():void{

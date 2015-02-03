@@ -83,7 +83,7 @@ package org.xas.jchart.common.view.components.HLabelView
 				_hlabelNum = _config.c.hpointReal.length;
 			}
 			var _r:Number = Math.floor( _config.c.hpointReal.length / ( _hlabelNum - 1 ) );
-			Log.printObject(_hlabelNum - 1);
+			//Log.printObject(_hlabelNum - 1);
 			var _num:Number = 0;
 			
 			for( var i:Number = 0; i < _hlabelNum; i++ ){

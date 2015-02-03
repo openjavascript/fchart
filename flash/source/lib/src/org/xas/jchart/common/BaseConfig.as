@@ -157,6 +157,14 @@ package org.xas.jchart.common
 			_displaySeriesIndexMap = {};
 			
 			Common.each( _displaySeries, function( _k:int, _item:Object ):void{
+				if( _item.data && _item.data.length ){
+					Common.each( _item.data, function( _sk:int, _sitem:Number ):void{
+						_item.data[ _sk ] = Number( _item.data[ _sk ] );
+					});
+				}
+			});
+			
+			Common.each( _displaySeries, function( _k:int, _item:Object ):void{
 				_displaySeriesIndexMap[ _k ] = _k;
 			});
 			if( _filter ){

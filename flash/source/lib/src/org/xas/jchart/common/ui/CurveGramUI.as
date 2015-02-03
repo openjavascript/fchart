@@ -56,13 +56,17 @@ package org.xas.jchart.common.ui
 			, _data:Object = null
 		) {
 			_data = _data || {};
+			super(_data);
+					
 			
 			( 'duration' in _data ) &&  ( _duration =  _data.duration );
 			( 'delay' in _data ) &&  ( _delay =  _data.delay );
 			( 'turnColor' in _data ) &&  ( _turnColor =  _data.turnColor );
 			( 'iconRadius' in _data ) &&  ( _iconRadius =  _data.iconRadius );
-
-			super(_data);
+			
+			if( this.data.hoverShow ){
+				_iconRadius = 3;
+			}	
 			
 			this._cmd = _cmd;
 			this._path = _path;
@@ -78,6 +82,26 @@ package org.xas.jchart.common.ui
 		
 		private function onAddedToStage( _evt:Event ):void{
 			init();
+			addEventListener( JChartEvent.UPDATE_STATUS, updateStatus );
+		}
+		
+		private function updateStatus( _evt:JChartEvent ):void{
+			var _data:Object = _evt.data
+				, _index:int = _data.index
+				;
+			
+			
+			if( _data.action == 'show' ){
+				if( this.data.hoverShow ){
+					items[ _index ].visible = true;
+				}
+				items[ _index ].hover();
+			}else{
+				if( this.data.hoverShow ){
+					items[ _index ].visible = false;
+				}
+				items[ _index ].unhover();
+			}
 		}
 		
 		private function init():void{
@@ -163,21 +187,7 @@ package org.xas.jchart.common.ui
 			
 			_point = new Vector.<Point>;
 			_items = new Vector.<CircleIcon>();
-			/*
-<<<<<<< HEAD
-			var _count:int = 0;
-			while( _path.length ){
-				var _x:Number = _path.shift(), _y:Number = _path.shift()
-					, _tmp:Point = new Point( _x, _y )
-					, _tmpItem:CircleIcon = new CircleIcon( _tmp, _color, _iconRadius, _turnColor, { dataIndex: _count } )
-					;
-				_point.push( _tmp );
-				_items.push( _tmpItem );
-				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
-				addChild( _tmpItem  );
-				_count++;
-=======
-			*/
+
 	
 			var _count:int = 0;
 			while( _path.length ) {
@@ -191,11 +201,14 @@ package org.xas.jchart.common.ui
 				_items.push( _tmpItem );
 				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
 				
+				if( this.data.hoverShow ){
+					_tmpItem.visible = false;
+				}
+				
 				if( _config.c.maxY != _y || !_lineBreakEnable ) {
 					addChild( _tmpItem  );
 				}
 				_count++;
-//>>>>>>> d71994fa7ff87551efbeb744169f852d55f15749
 			}
 		}
 		

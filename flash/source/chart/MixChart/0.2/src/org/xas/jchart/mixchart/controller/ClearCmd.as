@@ -25,6 +25,7 @@ package org.xas.jchart.mixchart.controller
 	import org.xas.jchart.curvegram.view.mediator.CurveGramGraphicMediator;
 	import org.xas.jchart.histogram.view.mediator.HistogramGraphicMediator;
 	import org.xas.jchart.mixchart.view.mediator.GraphicMediator;
+	import org.xas.jchart.stack.view.mediator.StackGraphicMediator;
 	
 	public class ClearCmd extends SimpleCommand implements ICommand
 	{
@@ -60,6 +61,7 @@ package org.xas.jchart.mixchart.controller
 			facade.hasMediator( BaseTestMediator.name ) && facade.removeMediator( BaseTestMediator.name );	
 			facade.hasMediator( HistogramGraphicMediator.name ) && facade.removeMediator( HistogramGraphicMediator.name );	
 			facade.hasMediator( CurveGramGraphicMediator.name ) && facade.removeMediator( CurveGramGraphicMediator.name );	
+			facade.hasMediator( StackGraphicMediator.name ) && facade.removeMediator( StackGraphicMediator.name );	
 			
 		}
 	}

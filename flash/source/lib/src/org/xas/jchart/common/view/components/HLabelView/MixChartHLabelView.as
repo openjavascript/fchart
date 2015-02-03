@@ -91,7 +91,9 @@ package org.xas.jchart.common.view.components.HLabelView
 				}
 				
 				/* 指定标签定位的坐标 */
-				var _x:Number = _item.end.x - _tf.width / 2;
+				var _x:Number = _item.end.x - _tf.width / 2
+					, _y:Number = _item.end.y
+					;
 				
 				
 				if( _k === 0 ){					
@@ -106,21 +108,25 @@ package org.xas.jchart.common.view.components.HLabelView
 					}
 				}
 				
+				if( _config.xAxisEnabled ){
+					_y += _config.yArrowLength;
+				}
+				
 				
 				if( BaseConfig.ins.animationEnabled ){
-					_tf.y = _item.end.y + 200;
+					_tf.y = _y + 200;
 					_tf.x = _x;
 					TweenLite.delayedCall( 0, 
 						function():void{
 							TweenLite.to( _tf, BaseConfig.ins.animationDuration
 								, { 
 									x: _x
-									, y: _item.end.y - 2
+									, y: _y - 2
 									, ease: Expo.easeOut } );
 						});
 				}else{					
 					_tf.x = _x;
-					_tf.y = _item.end.y - 2;
+					_tf.y = _y - 2;
 				}
 			});
 		}

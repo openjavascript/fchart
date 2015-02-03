@@ -21,8 +21,117 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-			return; 
+//			return; 
 
+			_data.push( {
+				"chart": {
+					"type": "stack", 
+					"bgAlpha": "0", 
+					"bgColor": "0xff0000"
+				}, 
+				"series": [
+					{
+						"name": "Temperature", 
+						"data": [
+							"10", 
+							"0", 
+							"3", 
+							"10", 
+							"20", 
+							"27", 
+							"28", 
+							"32", 
+							"30", 
+							"25", 
+							"15", 
+							"5"
+						]
+					}, 
+					{
+						"name": "Rainfall", 
+						"data": [
+							"20", 
+							"21", 
+							"20", 
+							"100", 
+							"200", 
+							"210", 
+							"220", 
+							"100", 
+							"20", 
+							"10", 
+							"20", 
+							"10"
+						]
+					}
+				], 
+				"title": {
+					"enabled": true, 
+					"text": "Chart Title"
+				}, 
+				"subtitle": {
+					"enabled": true, 
+					"text": "Chart Subtitle"
+				}, 
+				"xAxis": {
+					"enabled": true, 
+					"wordwrap": "true", 
+					"categories": [
+						"11", 
+						"2", 
+						"3", 
+						"4", 
+						"5", 
+						"6", 
+						"7", 
+						"8", 
+						"9", 
+						"10", 
+						"11", 
+						"122"
+					], 
+					"display": {
+						"enabled": true, 
+						"mod": "", 
+						"startIndex": ""
+					}, 
+					"rotation": {
+						"enabled": true, 
+						"angle": ""
+					}
+				}, 
+				"yAxis": {
+					"enabled": true, 
+					"title": {
+						"enabled": true, 
+						"text": "(Vertical Title - 中文)"
+					}
+				}, 
+				"legend": {
+					"enabled": true, 
+					"direction": "7", 
+					"interval": "10"
+				}, 
+				"dataLabels": {
+					"enabled": true, 
+					"format": ""
+				}, 
+				"hline": {
+					"enabled": true
+				}, 
+				"vline": {
+					"enabled": true
+				}, 
+				"animation": {
+					"enabled": true, 
+					"duration": 0.75
+				}, 
+				"credits": {
+					"enabled": true, 
+					"text": "fchart.openjavascript.org222", 
+					"duration": "http://fchart.openjavascript.org/"
+				}
+			});
 			
 			_data.push(  {
 				"chart": {

@@ -64,6 +64,9 @@ package org.xas.jchart.histogram.controller
 					) / _config.mixModel.columnLen
 					;
 			}
+			if( _config.mixModel.columnLen > 1 ){				
+				_gtype.partSpace = 4; 
+			}
 			
 			//_gtype.partWidth > 50 && ( _gtype.partWidth = 50 );
 			var _partWidth:Number = _gtype.partWidth

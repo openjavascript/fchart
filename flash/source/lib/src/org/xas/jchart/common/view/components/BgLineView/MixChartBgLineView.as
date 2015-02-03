@@ -41,10 +41,15 @@ package org.xas.jchart.common.view.components.BgLineView
 		override protected function drawHLine():void{
 			if( !( _config.c && _config.c.vpoint )  ) return;
 			if( !_config.hlineEnabled ) {
+				var _tmpX:Number = _config.c.chartX + _config.c.chartWidth + _config.yArrowLength;
+				if( _tmpX > _config.stageWidth ){
+					_tmpX = _config.stageWidth - 5;
+				}
+				
 				addChildAt( _hboldLine = new Sprite(), 0 );
 				_hboldLine.graphics.lineStyle( 1, 0x999999, .35 );
 				_hboldLine.graphics.moveTo( _config.c.chartX, _config.c.chartY + _config.c.chartHeight );
-				_hboldLine.graphics.lineTo( _config.c.chartX + _config.c.chartWidth, _config.c.chartY + _config.c.chartHeight );
+				_hboldLine.graphics.lineTo( _tmpX, _config.c.chartY + _config.c.chartHeight );
 				return;	
 			}	
 			
@@ -114,8 +119,9 @@ package org.xas.jchart.common.view.components.BgLineView
 			) {
 				addChildAt( _vsideLine = new Sprite(), 0 );
 				_vsideLine.graphics.lineStyle( 1, 0x999999, .35 );
-				_vsideLine.graphics.moveTo( _config.c.chartX, _config.c.chartY - 5 );
+				_vsideLine.graphics.moveTo( _config.c.chartX, _config.c.chartY );
 				_vsideLine.graphics.lineTo( _config.c.chartX, _config.c.chartY + _config.c.chartHeight + 5 );
+				return;
 			}
 			
 			if( 

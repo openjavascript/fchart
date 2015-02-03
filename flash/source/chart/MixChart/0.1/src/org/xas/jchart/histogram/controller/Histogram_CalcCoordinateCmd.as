@@ -11,7 +11,7 @@ package org.xas.jchart.histogram.controller
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.Coordinate;
-	import org.xas.jchart.common.data.mixchart.MixChartModelItem;
+	import org.xas.jchart.common.data.mixchart.MixChartModelItem.BaseMixChartModelItem;
 	import org.xas.jchart.common.data.test.DefaultData;
 	import org.xas.jchart.common.data.test.MixChartData;
 	import org.xas.jchart.common.event.JChartEvent;
@@ -105,7 +105,7 @@ package org.xas.jchart.histogram.controller
 				;
 				
 				Common.each( _seriesAr, function( _sk:int, _seitem:Object ):void{
-					var _model:MixChartModelItem =  _config.mixModel.items[ _seitem.modelIndex ] 
+					var _model:BaseMixChartModelItem =  _config.mixModel.items[ _seitem.modelIndex ] 
 					, _rectItem:Object = {}
 					, _sitem:Object = _seitem.data
 					, _num:Number = _sitem.data[ _k ]

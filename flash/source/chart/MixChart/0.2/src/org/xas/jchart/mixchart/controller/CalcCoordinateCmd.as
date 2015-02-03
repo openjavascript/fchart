@@ -50,7 +50,7 @@ package org.xas.jchart.mixchart.controller
 		public function CalcCoordinateCmd()
 		{
 			super();
-			
+			 
 			_config = BaseConfig.ins as Config;
 			
 //			Log.log( _config.serialLabelEnabled, _config.superSerialLabelEnabled );

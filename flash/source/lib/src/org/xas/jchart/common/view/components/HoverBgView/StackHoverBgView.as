@@ -26,7 +26,7 @@ package org.xas.jchart.common.view.components.HoverBgView
 		
 		override protected function update( _evt:JChartEvent ):void{
 			
-			Log.log( 'StackHoverBgView' );
+			//Log.log( 'StackHoverBgView' );
 			graphics.clear();
 			
 			if( !( _config.c && _config.c.dataRect ) ) return;
