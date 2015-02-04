@@ -34,7 +34,7 @@ var _configMap = {
 window.requirejs && 
 requirejs.config( {
     baseUrl: JC.PATH
-    , urlArgs: 'v=' + new Date().getTime()
+    , urlArgs: 'v=20150204'
     , paths: {
         'JC.common': _configMap[ 'Base' ]
         , 'JC.BaseMVC': _configMap[ 'Base' ]
