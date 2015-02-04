@@ -161,7 +161,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !ZHistogramData.instance.data.length ) return;
-				_data = ZHistogramData.instance.data[2];
+				_data = ZHistogramData.instance.data[0];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};	
 				

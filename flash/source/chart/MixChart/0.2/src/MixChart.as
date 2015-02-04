@@ -182,6 +182,6 @@ package
 		}
 		
 		public static var author:String = 'suches@btbtd.org';
-		public static var version:String = '0.1, 2014-12-24';
+		public static var version:String = '0.2, 2015-02-04';
 	}
 }

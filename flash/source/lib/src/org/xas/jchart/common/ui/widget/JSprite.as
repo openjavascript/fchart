@@ -5,7 +5,7 @@ package org.xas.jchart.common.ui.widget
 	
 	public class JSprite extends Sprite
 	{
-		private var _data:Object;
+		protected var _data:Object;
 		public function get data():Object{ return _data; }
 		public function set data( _data:Object ):void{ this._data = _data; }
 		

@@ -16,7 +16,6 @@ package org.xas.jchart.common.ui
 		private var _color:Number;
 		private var _maxY:Number;
 		private var _duration:Number = .75;
-		private var _data:Object;
 		
 		public function ZHistogramUI( 
 			_x:Number, _y:Number

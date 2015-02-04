@@ -209,7 +209,7 @@ package org.xas.jchart.vhistogram.controller
 			_partWidth > 50 && ( _partWidth = 50 );
 			
 			/* 处理柱状体 */
-			Common.each( _config.cd.xAxis.categories, function( _k:int, _item:Object ):void{
+			Common.each( _config.series[0].data, function( _k:int, _item:Object ):void{
 				
 				var _items:Array = []
 					, _pointItem:Object = _config.c.hlinePoint[ _k ]
@@ -342,7 +342,7 @@ package org.xas.jchart.vhistogram.controller
 //				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
 			
-			var _partN:Number = _config.c.chartHeight / ( _config.categories.length || 1 )
+			var _partN:Number = _config.c.chartHeight / ( _config.realItemLength || 1 )
 				;
 			
 			_config.c.hpart = _partN;
@@ -352,7 +352,7 @@ package org.xas.jchart.vhistogram.controller
 			_config.c.itemHeightRate = 2;
 			_config.c.itemHeight = _partN / _config.c.itemHeightRate;
 			
-			Common.each( _config.categories, function( _k:int, _item:* ):void{
+			Common.each( _config.series[0].data, function( _k:int, _item:* ):void{
 				var _topY:Number = _config.c.chartY + _partN * _k
 					, _bottomY:Number = _topY + _partN
 					;

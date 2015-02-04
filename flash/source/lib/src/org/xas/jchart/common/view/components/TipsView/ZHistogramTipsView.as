@@ -16,7 +16,7 @@ package org.xas.jchart.common.view.components.TipsView
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.event.JChartEvent;
-	import org.xas.jchart.common.ui.TipsUI;
+	import org.xas.jchart.common.ui.TipsUI.TipsUI;
 	
 	public class ZHistogramTipsView extends BaseTipsView
 	{	

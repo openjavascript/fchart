@@ -82,7 +82,7 @@ package org.xas.jchart.histogram.controller
 			}
 			
 			
-			Common.each( _config.cd.xAxis.categories, function( _k:int, _item:Object ):void{
+			Common.each( _config.series[0].data, function( _k:int, _item:Object ):void{
 				
 				var _items:Array = []
 				, _pointItem:Object = _config.c.hlinePoint[ _k ]

@@ -375,7 +375,7 @@ package org.xas.jchart.mixchart.controller
 			if( !_config.yAxisEnabled ){
 //				_config.c.chartWidth -= ( _config.vlabelSpace + 2 );
 			}
-			var _partN:Number = _config.c.chartWidth / ( _config.categories.length || 1 )
+			var _partN:Number = _config.c.chartWidth / ( _config.realItemLength || 1 )
 				;
 			
 			_config.c.hpart = _partN;
@@ -385,7 +385,7 @@ package org.xas.jchart.mixchart.controller
 			_config.c.itemWidthRate = 2;
 			_config.c.itemWidth = _partN / _config.c.itemWidthRate;
 						
-			Common.each( _config.categories, function( _k:int, _item:* ):void{
+			Common.each( _config.series[0].data, function( _k:int, _item:* ):void{
 				var _n:Number = _config.c.chartX + _partN * _k;
 				
 				if( _k === 0 ){					

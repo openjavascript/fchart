@@ -21,8 +21,8 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-//			return; 
-
+			return;  
+  
 			_data.push( {
 				"chart": {
 					"type": "stack", 
@@ -76,20 +76,20 @@ package org.xas.jchart.common.data.test
 				"xAxis": {
 					"enabled": true, 
 					"wordwrap": "true", 
-					"categories": [
-						"11", 
-						"2", 
-						"3", 
-						"4", 
-						"5", 
-						"6", 
-						"7", 
-						"8", 
-						"9", 
-						"10", 
-						"11", 
-						"122"
-					], 
+//					"categories": [
+//						"11", 
+//						"2", 
+//						"3", 
+//						"4", 
+//						"5", 
+//						"6", 
+//						"7", 
+//						"8", 
+//						"9", 
+//						"10", 
+//						"11", 
+//						"122"
+//					], 
 					"display": {
 						"enabled": true, 
 						"mod": "", 
@@ -376,12 +376,11 @@ package org.xas.jchart.common.data.test
 						"size": 18, 
 						"color": 6146425
 					}
-				}, 
-				"tooltip":
-				{
-					//					"enabled": true
-				}, 
-				"hline":
+				}				
+				, "tooltip": {
+					"type": "simple"					
+				}
+				, "hline":
 				{
 					//					"enabled": false
 				}, 

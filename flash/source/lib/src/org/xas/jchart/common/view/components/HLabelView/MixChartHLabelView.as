@@ -81,6 +81,8 @@ package org.xas.jchart.common.view.components.HLabelView
 		override protected function normalUpdate():void{
 			if( !( _config.c && _config.c.hpoint ) ) return;
 			
+			if( !( _labels && _labels.length ) ) return;
+			
 			Common.each( _config.c.hpoint, function( _k:int, _item:Object ):void{
 				var _tf:TextField = _labels[ _k ];
 				

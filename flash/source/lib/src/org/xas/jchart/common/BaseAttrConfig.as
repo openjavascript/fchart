@@ -761,6 +761,12 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get tooltipType():String{
+			var _r:String = 'normal';
+			_r =  BaseAttrConfig.getAttr( this.cd, 'tooltip.type', _r ) as String;
+			return _r;
+		}
+		
 		public function get tooltipHeaderIconStyle():Object{
 			var _r:Object = {};
 			_r =  BaseAttrConfig.getAttr( tooltipHeaderIcon, 'style', _r ) as Object;			

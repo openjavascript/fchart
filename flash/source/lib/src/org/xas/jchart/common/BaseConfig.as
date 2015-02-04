@@ -287,14 +287,14 @@ package org.xas.jchart.common
 		
 		override public function get xAxisEnabled():Boolean{
 			var _r:Boolean = super.xAxisEnabled;			
-			!displaySeries.length && ( _r = false );			
+			!displaySeries.length && ( _r = false );		
+			!categories.length && ( _r = false );			
 			return _r;
 		}
 
 		
 		public function get serialLabelEnabled():Boolean{
 			var _r:Boolean = superSerialLabelEnabled;
-//			Log.log( 'superSerialLabelEnabled', _r );
 			if( !_r ){
 				Common.each( this.displaySeries, function( _k:int, _item:Object ):void{
 					if( _item.dataLabels && ( 'enabled' in _item.dataLabels ) ){
@@ -927,7 +927,7 @@ package org.xas.jchart.common
 			var _r:int = 0;
 			return _r;
 		}	
-		
+				
 		public function get hasVTitle():Boolean{
 			var _r:Boolean;
 			return _r;

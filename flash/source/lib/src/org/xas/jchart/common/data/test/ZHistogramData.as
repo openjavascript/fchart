@@ -22,7 +22,7 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			
-			return;  
+//			return;  
 			_data.push({
 				"chart":
 				{
@@ -44,14 +44,14 @@ package org.xas.jchart.common.data.test
 				}, 
 				"xAxis":
 				{
-					"wordwrap": true, 
-					"categories":
-					[
-						"pos.baidu.com", 
-						"www.baidu.com", 
-						"hao.360.cn", 
-						"wd.360.cn"
-					]
+					"wordwrap": true
+//					, "categories":
+//					[
+//						"pos.baidu.com", 
+//						"www.baidu.com", 
+//						"hao.360.cn", 
+//						"wd.360.cn"
+//					]
 					, "title": {
 						"enabled": true
 						, "text": 'test title...' 

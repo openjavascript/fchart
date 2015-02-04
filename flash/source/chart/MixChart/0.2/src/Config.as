@@ -18,7 +18,7 @@ package
 		}			
 		override public function get version():String{ return '0.2'; }
 		
-		override public function get chartName():String{ return 'MixChart'; }
+		override public function get chartName():String{ return 'MixChart 0.2'; }
 		override public function get chartUrl():String{ return 'http://fchart.openjavascript.org/modules/JC.FChart/0.1/_demo/mix/'; }
 		
 
