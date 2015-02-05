@@ -39,7 +39,7 @@ package org.xas.jchart.stack.controller
 	{
 		private var _c:Coordinate;
 		private var _config:Config;
-		
+		 
 		public function CalcCoordinateCmd()
 		{
 			super();

@@ -486,7 +486,7 @@
 <td align="right" width="100">711</td>
 <td align="right" width="100">281</td>
 <td align="right" width="100">780</td>
-<td align="right" width="100">179</td>
+<td align="right" width="100">-1</td>
 <td align="center" width="100"><a href="http://logstat.qihoo.net/DataCenter/others/w360/web/json/showpage.php?date=20150203&amp;p=360_crm&amp;url=http%3a%2f%2fcrm.360.cn%2fnsales%2finfo%2fadd%2f">无点击地图</a></td>
 
 </tr>
@@ -513,8 +513,8 @@
                     </td>
                     <td width="50%" style="vertical-align:top;">
                         <dl>
-                            <dt>preview</dt>
-                            <dd>
+                            <dt><a href="http://btbtd.org/topic/flash/JSONFormatter/JSONFormatter_latest.swf" target="_jsonFormat" style="float:right;">json formater</a>preview</dt>
+                            <dd style="clear: both;">
                                 <textarea class="js_dataValTxa" style="width:90%; height: 300px;"></textarea>
                             </dd>
                             <dd class="js_preview" id="js_preview">
@@ -685,7 +685,7 @@
                         var _tds = $( this ).find( 'td' ), _val;
                         if( !_tds.length ) return;
                         _val = $( _tds[ _v.index ] ).html().trim();
-                        _val = _val.replace( /[^\d.]/g, '' );
+                        _val = _val.replace( /[^\d.\-]/g, '' );
                         _seriesItem.data.push( +_val || 0 );
                     });
                 });

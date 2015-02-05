@@ -56,16 +56,24 @@ package org.xas.jchart.histogram.controller
 				_config.c.itemWidth / _config.mixModel.columnLen
 				;
 			
-			if( _seriesAr.length > 1 ){				
+			if( _config.mixModel.columnLen > 1 ){				
 				_gtype.partSpace = 4; 
+			}
+			if( _seriesAr.length > 1 ){		
 				_gtype.partWidth = 
 					(
 						_config.c.itemWidth - (_config.mixModel.columnLen - 1) * _gtype.partSpace
 					) / _config.mixModel.columnLen
 					;
-			}
-			if( _config.mixModel.columnLen > 1 ){				
-				_gtype.partSpace = 4; 
+				
+				if( _gtype.partWidth < 1 ){				
+					_gtype.partSpace = 0; 
+					_gtype.partWidth = 
+						(
+							_config.c.itemWidth - (_config.mixModel.columnLen - 1) * _gtype.partSpace
+						) / _config.mixModel.columnLen
+						;
+				}
 			}
 			
 			//_gtype.partWidth > 50 && ( _gtype.partWidth = 50 );

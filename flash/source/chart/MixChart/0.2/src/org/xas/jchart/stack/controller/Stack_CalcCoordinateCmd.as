@@ -49,9 +49,23 @@ package org.xas.jchart.stack.controller
 			if( _config.mixModel.columnLen > 1 ){				
 				_gtype.partSpace = 4; 
 			}
-			
-			_gtype.partWidth = _config.c.itemWidth / _config.mixModel.columnLen;
-			_gtype.offsetX = 0;
+
+			if( _seriesAr.length > 1 ){		
+				_gtype.partWidth = 
+					(
+						_config.c.itemWidth - (_config.mixModel.columnLen - 1) * _gtype.partSpace
+					) / _config.mixModel.columnLen
+					;
+				
+				if( _gtype.partWidth < 1 ){				
+					_gtype.partSpace = 0; 
+					_gtype.partWidth = 
+						(
+							_config.c.itemWidth - (_config.mixModel.columnLen - 1) * _gtype.partSpace
+						) / _config.mixModel.columnLen
+						;
+				}
+			}
 			
 			if( _gtype.partWidth > 50 ){
 				_gtype.partWidth = 50;

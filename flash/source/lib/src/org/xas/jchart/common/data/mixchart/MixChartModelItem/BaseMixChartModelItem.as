@@ -520,6 +520,12 @@ package org.xas.jchart.common.data.mixchart.MixChartModelItem
 			var _r:Boolean = BaseAttrConfig.getAttr( this._params, 'abbrNumber.enabled', _config.abbrNumberEnabled ) as Boolean;
 			return _r;
 		}
+		
+		public function get yAxisFormat():String{
+			var _r:String = "{0}";
+			_r =  BaseAttrConfig.getAttr( this._params, 'format', _r ) as String;				
+			return _r;
+		}
 				
 		public function get isPercent():Boolean{
 			return _config.isPercent;

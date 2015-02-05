@@ -1,6 +1,7 @@
 package org.xas.jchart.common
 {
 	import org.xas.core.utils.StringUtils;
+	import org.xas.jchart.common.data.Coordinate;
 	import org.xas.jchart.common.data.DefaultOptions;
 
 	public class BaseAttrConfig
@@ -333,16 +334,18 @@ package org.xas.jchart.common
 			_r =  BaseAttrConfig.getAttr( _item, 'point.enabled', _r ) as Boolean;
 			return _r;
 		}
-		
+				
+		protected var _coordinate:Coordinate
+		public function get c():Coordinate{ return _coordinate; }
+		public function get coordinate():Coordinate{	return _coordinate;	}
 		
 		public function pointHoverShow( _item:Object = null ):Boolean{
 			var _r:Boolean = false;
 			_r =  BaseAttrConfig.getAttr( this.cd, 'point.hoverShow', _r ) as Boolean;
 			_r =  BaseAttrConfig.getAttr( _item, 'point.hoverShow', _r ) as Boolean;
+			!_r && this.c && this.c.hpart && this.c.hpart < 12 && ( _r = true );
 			return _r;
 		}
-		
-		
 		
 		public function get animationDuration():Number {
 			var _r:Number = .75;

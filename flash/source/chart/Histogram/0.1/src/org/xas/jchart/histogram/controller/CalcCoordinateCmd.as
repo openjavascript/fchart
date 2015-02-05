@@ -51,11 +51,6 @@ package org.xas.jchart.histogram.controller
 			_c = _config.setCoordinate( new Coordinate() );
 			
 			_c.corner = corner();
-			
-			_c.minX = _c.x + _config.vlabelSpace + 2;
-			_c.minY = _c.y + _config.vspace * 2;
-			_c.maxX = _c.x + _config.stageWidth - _config.vspace;
-			_c.maxY = _c.y + _config.stageHeight - _config.vspace;
 									
 			facade.registerMediator( new BaseBgMediator( ) );
 			var _yPad:Number = _c.minY;
@@ -214,6 +209,15 @@ package org.xas.jchart.histogram.controller
 						_config.c.itemWidth - (_config.displaySeries.length - 1) * _config.c.partSpace
 					) / _config.displaySeries.length
 					;
+				
+				if( _config.c.partWidth < 1 ){				
+					_config.c.partSpace = 0; 
+					_config.c.partWidth = 
+						(
+							_config.c.itemWidth - (_config.displaySeries.length - 1) * _config.c.partSpace
+						) / _config.displaySeries.length
+						;
+				}
 			}
 			
 			//_config.c.partWidth > 50 && ( _config.c.partWidth = 50 );
