@@ -357,6 +357,12 @@
                         , _item.html().trim(), _catChecked, _k
                     ) );
                 });
+
+                _data.catIndex.push( JC.f.printf( 
+                    '<label><input type="radio" name="tableCatIndex" class="js_tableCatIndex" value="{2}" {1} />{0}</label>'
+                    , '无', '', -1
+                ) );
+
                 js_tableColumns.html( _data.columns.join('') );
                 js_tableCatIndex.html( _data.catIndex.join('') );
             });
