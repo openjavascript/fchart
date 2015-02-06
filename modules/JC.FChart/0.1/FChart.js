@@ -359,11 +359,10 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         /**
          * 保存图表数据
          */
-        , data:
-            function( _data ){
-                typeof _data != 'undefined' && ( this._data = _data );
-                return this._data;
-            }
+        , data: function( _data ){
+            typeof _data != 'undefined' && ( this._data = _data );
+            return this._data;
+        }
 
         , gid: function(){ return this._gid; }
 
@@ -411,9 +410,7 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         /**
          * 图表画布
          */
-        , stage:
-            function(){
-            }
+        , stage: function(){ }
         /**
          * 画布圆角弧度 
          */
@@ -438,30 +435,28 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         /**
          * 清除图表状态
          */
-        , clearStatus:
-            function(){
-            }
+        , clearStatus: function(){ }
 
-        , chartType:
-            function(){
-                var _r = '';
-                this.data() 
-                    && this.data().chart
-                    && this.data().chart.type
-                    && ( _r = this.data().chart.type )
-                return (_r||'').toString().toLowerCase();
-            }
+        , chartType: function(){
+            var _r = '';
+            this.data() 
+                && this.data().chart
+                && this.data().chart.type
+                && ( _r = this.data().chart.type )
+            return (_r||'').toString().toLowerCase();
+        }
+
         , typeMap: function( _type ){ return FChart.Model.TYPE_MAP[ _type ]; }
+        
         , type: function(){ return this.typeMap( this.chartType() ) || ''; }
-        , path:
-            function(){
-                var _path = JC.FCHART_PATH;
-                if( !_path ){
-                    if( JC.use ){
-                         _path = JC.PATH + '/comps/FChart/';
-                    }else{
-                         _path = JC.PATH + '/modules/JC.FChart/0.1/';
-                    }
+        
+        , path: function(){
+            var _path = JC.FCHART_PATH;
+            if( !_path ){
+                if( JC.use ){
+                     _path = JC.PATH + '/comps/FChart/';
+                }else{
+                     _path = JC.PATH + '/modules/JC.FChart/0.1/';
                 }
                 var _p = this
                     , _r = JC.f.printf( _p.attrProp( 'chartPath' ) || FChart.Model.FLASH_PATH
@@ -475,6 +470,7 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
 
                 return _r;
             }
+        }
        
         , checkFileMap:
             function(){
@@ -508,14 +504,18 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
 
                 return _r;
             }
+            
+
+        , getSwfObject: function() {
+            return this.selector().find( 'object' )[0] || {};
+        }
     });
 
     JC.f.extendObject( FChart.View.prototype, {
-        init:
-            function(){
-                //JC.log( 'FChart.View.init:', new Date().getTime() );
-                var _p = this;
-            }
+        init: function(){
+            //JC.log( 'FChart.View.init:', new Date().getTime() );
+            var _p = this;
+        }
         /**
          * 渲染图表外观
          */
@@ -571,37 +571,39 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
         /**
          * 初始化的选择器
          */
-        , selector:
-            function(){
-                return this._model.selector();
-            }
+        , selector: function(){
+            return this._model.selector();
+        }
         /**
          * 清除图表数据
          */
-        , clear: 
-            function(){
-                var _p = this;
-                if( !_p._model._stage ) return;
-                $( _p._model._stage.canvas ).remove();
-                _p._model._stage = undefined;
-            }
+        , clear: function(){
+            var _p = this;
+            if( !_p._model._stage ) return;
+            $( _p._model._stage.canvas ).remove();
+            _p._model._stage = undefined;
+        }
         /**
          * 清除图表状态
          */
-        , clearStatus:
-            function(){
-            }
+        , clearStatus: function(){ }
         /**
          * 更新图表数据
          */
-        , update: 
-            function( _data ){
-                var _p = this;
+        , update: function( _data ) {
+            var _p = this
+                , _currentData = _p._model.data();
+
+            if( _currentData && ( !_currentData.chart.type || _currentData.chart.type == _data.chart.type ) ) {
+                var _swfObj = _p._model.getSwfObject();
+                !!_swfObj.update && _swfObj.update( $.parseJSON( JSON.stringify( _data ) ) );
+            } else {
                 _p.clear();
                 _p._model.clear();
                 _p._model.data( _data );
                 _p.draw( _data );
             }
+        }
     });
 
     _jdoc.ready( function(){
