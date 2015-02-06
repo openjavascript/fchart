@@ -1,0 +1,467 @@
+<!doctype html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Open JQuery Components Library - suches</title>
+    <style>
+        body{
+            margin: 20px 40px;
+        }
+
+        .defDl > dd{
+            border-bottom:1px solid #e2e3ea; 
+        }
+
+        div {
+            margin: 5px auto;
+        }
+
+    </style>
+</head>   
+<body>
+    <dl class="defDl">  
+        <dt> table to FChart data</dt>
+        <dd>
+
+            <table width="100%">
+                <tr>
+                    <td width="50%">
+                        <dl>
+                            <dt>table html</dt>
+                            <dd>
+                            <textarea class="js_tableHtmlTxa" style="width:90%; height: 300px;"><table align="center" border="1" bordercolor="gray" cellpadding="3" id="bowser">
+<tbody><tr>
+	<th bgcolor="lightsteelblue" width="100" align="center">统计日期</th>
+	<th bgcolor="lightsteelblue" width="100" align="center">总PV</th>
+	<th bgcolor="lightsteelblue" width="100" align="center">总UV</th>
+	<th bgcolor="lightsteelblue" width="100" align="center">总点击次数</th>
+		
+			</tr>	
+
+
+<tr><td align="right" width="100">20150204</td>
+<td align="right" width="100">342,601</td>
+<td align="right" width="100">5,376</td>
+<td align="right" width="100">396,946</td>
+
+</tr>
+<tr><td align="right" width="100">20150203</td>
+<td align="right" width="100">359,708</td>
+<td align="right" width="100">5,507</td>
+<td align="right" width="100">409,481</td>
+
+</tr>
+<tr><td align="right" width="100">20150202</td>
+<td align="right" width="100">401,274</td>
+<td align="right" width="100">5,737</td>
+<td align="right" width="100">464,540</td>
+
+</tr>
+<tr><td align="right" width="100">20150201</td>
+<td align="right" width="100">33,975</td>
+<td align="right" width="100">1,099</td>
+<td align="right" width="100">41,591</td>
+
+</tr>
+<tr><td align="right" width="100">20150131</td>
+<td align="right" width="100">195,077</td>
+<td align="right" width="100">3,731</td>
+<td align="right" width="100">225,188</td>
+
+</tr>
+<tr><td align="right" width="100">20150130</td>
+<td align="right" width="100">406,365</td>
+<td align="right" width="100">5,739</td>
+<td align="right" width="100">462,496</td>
+
+</tr>
+<tr><td align="right" width="100">20150129</td>
+<td align="right" width="100">392,621</td>
+<td align="right" width="100">5,776</td>
+<td align="right" width="100">446,243</td>
+
+</tr>
+<tr><td align="right" width="100">20150128</td>
+<td align="right" width="100">394,583</td>
+<td align="right" width="100">5,847</td>
+<td align="right" width="100">446,442</td>
+
+</tr>
+<tr><td align="right" width="100">20150127</td>
+<td align="right" width="100">404,842</td>
+<td align="right" width="100">5,835</td>
+<td align="right" width="100">460,252</td>
+
+</tr>
+<tr><td align="right" width="100">20150126</td>
+<td align="right" width="100">425,656</td>
+<td align="right" width="100">5,991</td>
+<td align="right" width="100">495,241</td>
+
+</tr>
+<tr><td align="right" width="100">20150125</td>
+<td align="right" width="100">25,886</td>
+<td align="right" width="100">883</td>
+<td align="right" width="100">34,754</td>
+
+</tr>
+<tr><td align="right" width="100">20150124</td>
+<td align="right" width="100">122,426</td>
+<td align="right" width="100">2,790</td>
+<td align="right" width="100">144,305</td>
+
+</tr>
+<tr><td align="right" width="100">20150123</td>
+<td align="right" width="100">398,223</td>
+<td align="right" width="100">5,624</td>
+<td align="right" width="100">457,346</td>
+
+</tr>
+<tr><td align="right" width="100">20150122</td>
+<td align="right" width="100">407,082</td>
+<td align="right" width="100">5,618</td>
+<td align="right" width="100">468,363</td>
+
+</tr>
+<tr><td align="right" width="100">20150121</td>
+<td align="right" width="100">429,122</td>
+<td align="right" width="100">5,811</td>
+<td align="right" width="100">495,509</td>
+
+</tr>
+<tr><td align="right" width="100">20150120</td>
+<td align="right" width="100">471,596</td>
+<td align="right" width="100">6,128</td>
+<td align="right" width="100">552,550</td>
+
+</tr>
+<tr><td align="right" width="100">20150119</td>
+<td align="right" width="100">588,682</td>
+<td align="right" width="100">6,309</td>
+<td align="right" width="100">686,035</td>
+
+</tr>
+<tr><td align="right" width="100">20150118</td>
+<td align="right" width="100">12,109</td>
+<td align="right" width="100">866</td>
+<td align="right" width="100">12,782</td>
+
+</tr>
+<tr><td align="right" width="100">20150117</td>
+<td align="right" width="100">118,116</td>
+<td align="right" width="100">2,929</td>
+<td align="right" width="100">682,853</td>
+
+</tr>
+<tr><td align="right" width="100">20150116</td>
+<td align="right" width="100">472,418</td>
+<td align="right" width="100">5,831</td>
+<td align="right" width="100">615,042</td>
+
+</tr>
+<tr><td align="right" width="100">20150115</td>
+<td align="right" width="100">444,362</td>
+<td align="right" width="100">5,762</td>
+<td align="right" width="100">822,721</td>
+
+</tr>
+<tr><td align="right" width="100">20150114</td>
+<td align="right" width="100">455,288</td>
+<td align="right" width="100">5,768</td>
+<td align="right" width="100">559,083</td>
+
+</tr>
+<tr><td align="right" width="100">20150113</td>
+<td align="right" width="100">457,164</td>
+<td align="right" width="100">5,835</td>
+<td align="right" width="100">560,064</td>
+
+</tr>
+<tr><td align="right" width="100">20150112</td>
+<td align="right" width="100">469,859</td>
+<td align="right" width="100">5,977</td>
+<td align="right" width="100">582,359</td>
+
+</tr>
+<tr><td align="right" width="100">20150111</td>
+<td align="right" width="100">45,329</td>
+<td align="right" width="100">1,033</td>
+<td align="right" width="100">123,862</td>
+
+</tr>
+<tr><td align="right" width="100">20150110</td>
+<td align="right" width="100">135,031</td>
+<td align="right" width="100">2,546</td>
+<td align="right" width="100">224,525</td>
+
+</tr>
+<tr><td align="right" width="100">20150109</td>
+<td align="right" width="100">436,244</td>
+<td align="right" width="100">5,858</td>
+<td align="right" width="100">533,834</td>
+
+</tr>
+<tr><td align="right" width="100">20150108</td>
+<td align="right" width="100">456,188</td>
+<td align="right" width="100">5,861</td>
+<td align="right" width="100">572,918</td>
+
+</tr>
+<tr><td align="right" width="100">20150107</td>
+<td align="right" width="100">498,137</td>
+<td align="right" width="100">5,896</td>
+<td align="right" width="100">607,419</td>
+
+</tr>
+<tr><td align="right" width="100">20150106</td>
+<td align="right" width="100">458,704</td>
+<td align="right" width="100">5,846</td>
+<td align="right" width="100">573,284</td>
+
+</tr>
+<tr><td align="right" width="100">20150105</td>
+<td align="right" width="100">467,362</td>
+<td align="right" width="100">5,773</td>
+<td align="right" width="100">585,436</td>
+
+</tr>
+<tr><td align="right" width="100">20150104</td>
+<td align="right" width="100">495,849</td>
+<td align="right" width="100">5,722</td>
+<td align="right" width="100">631,052</td>
+
+</tr>
+</tbody></table>
+                            </textarea>
+                            </dd>
+                            <dd>
+                                <button type="button" class="js_analytic">analytic table content</button>
+                            </dd>
+                            <dt>&nbsp;</dt>
+                            <dt>chart type: </dt>
+                            <dd class="js_typeBox"></dd>
+                            <dd>
+
+                                <div class="js_tableConfig" style="display:none;">
+                                    <div class="js_tableColumns"></div>
+                                    <div class="js_tableCatIndex"></div>
+                                    <div style="margin: 5px auto;">
+                                        <button type="button" class="js_parseData">parse data</button>
+                                    </div>
+                                    <div class="js_tablePreview"></div>
+                                </div>
+                            </dd>
+                        </dl>
+                    </td>
+                    <td width="50%" style="vertical-align:top;">
+                        <dl>
+                            <dt><a href="http://btbtd.org/topic/flash/JSONFormatter/JSONFormatter_latest.swf" target="_jsonFormat" style="float:right;">json formater</a>preview</dt>
+                            <dd style="clear: both;">
+                                <textarea class="js_dataValTxa" style="width:90%; height: 300px;"></textarea>
+                            </dd>
+                            <dd class="js_preview" id="js_preview">
+                            </dd>
+                        </dl>
+                    </td>
+                </tr>
+            </table>
+        </dd>
+    </dl>
+
+    <script src="../../../../../lib.js"></script>
+    <script src="../../../../../config.js"></script>
+    <script>
+        JC.debug = true;
+
+        requirejs( [ 'JC.common', 'swfobject', 'JC.FChart' ], function(){
+            var _config =  {
+                    "chartType": [
+                        "bar", "column", "hcolumn", "hstack", "line", "mix", "stack", "vbar"
+                    ]
+                }
+                , _dataTpl = {
+                    chart: {
+                        type: "bar"
+                    }
+                    , xAxis: {
+                        categories: []
+                        , "rotation": {
+                            "enabled": true
+                        }
+                    }
+                    , yAxis: {
+                    }
+                    , series: [
+                    ]
+                    , animation: {
+                        "enabled": true
+                    }
+                    , legend: {
+                        "direction": "TOP_RIGHT"
+                    }
+                }
+                , js_tableHtmlTxa = $( '.js_tableHtmlTxa' )
+                , js_tableConfig = $( '.js_tableConfig' )
+                , js_tableColumns = $( '.js_tableColumns' )
+                , js_tableCatIndex = $( '.js_tableCatIndex' )
+                , js_tablePreview = $( '.js_tablePreview' )
+                , js_dataValTxa = $( '.js_dataValTxa' )
+                , _id = "js_preview"
+            ;
+
+            JWIN.on( 'init_layout', function(){
+                JWIN.trigger( 'init_type', [ _config.chartType ] );
+            });
+
+            JWIN.on( 'init_type', function( _evt, _data ){
+                var _r = [];
+
+                $.each( _data, function( _k, _item ){
+                    var _checked = '';
+                    _item == 'line' && ( _checked = 'checked="checked"' );
+                    _r.push( JC.f.printf( '<label><input type="radio" name="chartType" value="{0}" {1} />{0}</label>', _item, _checked ) );
+                });
+
+                $( '.js_typeBox' ).html( _r.join( '' ) );
+            });
+
+            JDOC.delegate( 'button.js_analytic', 'click', function(){
+                var _html = js_tableHtmlTxa.val().trim(), _table;
+                if( !_html ) return;
+
+                js_tableConfig.show();
+
+                js_tablePreview.html( _html );
+
+                _table = $( _html );
+
+                var _data = {
+                    columns: []
+                    , catIndex: []
+                };
+
+                _table.find( 'tr th' ).each( function( _k, _item ){
+                    _item = $( _item );
+                    var _checked = 'checked="checked"'
+                        , _catChecked = ''
+                        ;
+                    !_k && ( _catChecked = 'checked="checked"' );
+
+                    _data.columns.push( JC.f.printf( 
+                    '<label><input type="checkbox" name="tableColumn" class="js_tableColumn" value="{2}" {1} /><span>{0}</span></label>'
+                        , _item.html().trim(), _checked, _k
+                    ) );
+
+                    _data.catIndex.push( JC.f.printf( 
+                        '<label><input type="radio" name="tableCatIndex" class="js_tableCatIndex" value="{2}" {1} />{0}</label>'
+                        , _item.html().trim(), _catChecked, _k
+                    ) );
+                });
+
+                _data.catIndex.push( JC.f.printf( 
+                    '<label><input type="radio" name="tableCatIndex" class="js_tableCatIndex" value="{2}" {1} />{0}</label>'
+                    , '无', '', -1
+                ) );
+
+                js_tableColumns.html( _data.columns.join('') );
+                js_tableCatIndex.html( _data.catIndex.join('') );
+            });
+
+            JDOC.delegate( '.js_tableColumns input.js_tableColumn', 'change', function( _evt ){
+                var _src = $( this )
+                    , _table = js_tablePreview.find( '> table' )
+                    , _ix = _src.val()
+                    , _show = _src.prop( 'checked' )
+                    ;
+
+                if( !( _table.length ) ) return;
+                _table.find( 'tr' ).each( function(){
+                    var _item = $( this )
+                        , _items = _item.find( '> th, > td' )
+                        , _target = $( _items[ _ix ] )
+                        ;
+                    _show ? _target.show() : _target.hide();
+                });
+            });
+
+            JDOC.delegate( '.js_parseData', 'click', function( _evt ){
+                var _selectedIndex = {}
+                    , _catIndex = -1
+                    , _table = js_tablePreview.find( '> table' )
+                    , _data
+                    , _names = []
+                    , _selectedAr = []
+                    ;
+
+                if( !( _table.length ) ) return;
+                _data = $.parseJSON( JSON.stringify( _dataTpl ) );
+
+                _data.chart.type = $( '.js_typeBox input:checked' ).val();
+
+                js_tableColumns.find( 'input:checked' ).each( function(){
+                    var _tmp = $( this ), _label = _tmp.closest( 'label' ), _span = _label.find( 'span' );
+                    _selectedIndex[ _tmp.val() ] = _tmp.val();
+                    _selectedAr.push( { index: _tmp.val(), 'name': _span.html().trim() } );
+                    _names.push( _span.html() );
+                });
+
+                js_tableCatIndex.find( 'input:checked' ).each( function(){
+                    var _tmp = $( this );
+                    if( $( js_tableColumns.find( 'input')[ _tmp.val() ] ).prop( 'checked' ) ){
+                        _catIndex = parseInt( _tmp.val() );
+                    }
+                });
+
+                _table.find( 'tr' ).each( function(){
+                    var _tds = $( this ).find( 'td' );
+                    if( !_tds.length ) return;
+
+                    if( _catIndex >= 0 ){
+                        _data.xAxis.categories.push( $( _tds[ _catIndex ] ).html().trim() );
+                    }
+
+                });
+
+                $.each( _selectedAr, function( _k, _v ){
+                    if( _v.index == _catIndex ) return;
+                    var _seriesItem = {
+                        "name": _v.name
+                        , "data": []
+                    };
+                    _data.series.push( _seriesItem );
+                    _table.find( 'tr' ).each( function(){
+                        var _tds = $( this ).find( 'td' ), _val;
+                        if( !_tds.length ) return;
+                        _val = $( _tds[ _v.index ] ).html().trim();
+                        _val = _val.replace( /[^\d.\-]/g, '' );
+                        _seriesItem.data.push( +_val || 0 );
+                    });
+                });
+
+                JC.dir( _data );
+                var _dataStr = JSON.stringify( _data )
+                js_dataValTxa.val( _dataStr );
+
+                  swfobject.embedSWF( 
+                        JC.f.printf( '../../swf/{0}.swf', JC.FChart.Model.TYPE_MAP[ _data.chart.type ] )
+                        , _id
+                        , '100%'
+                        , 400
+                        , '10' 
+                        , ''
+                        ,  { 'chart': encodeURIComponent( JSON.stringify( _data ) ) }
+                        ,  { 
+                                'wmode': 'transparent'
+                                , 'allowScriptAccess' : 'always' 
+                            }
+                            , { id: _id, 'name': _id }
+                    );
+
+            });
+
+            JWIN.trigger( 'init_layout' );
+        });
+    </script>
+
+</body>
+</html>

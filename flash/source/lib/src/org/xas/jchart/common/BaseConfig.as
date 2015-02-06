@@ -256,9 +256,6 @@ package org.xas.jchart.common
 		protected var _height:uint;
 		public function get height():uint{ return _height; }
 		
-		protected var _coordinate:Coordinate
-		public function get c():Coordinate{ return _coordinate; }
-		public function get coordinate():Coordinate{	return _coordinate;	}
 		public function setCoordinate( _d:Coordinate ):Coordinate{
 			_coordinate = _d;
 			c.width = width;

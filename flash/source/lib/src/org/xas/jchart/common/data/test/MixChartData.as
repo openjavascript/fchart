@@ -22,7 +22,7 @@ package org.xas.jchart.common.data.test
 		private function init():void{
 			_data = new Vector.<Object>();
 			 
-//			return; 
+			return;  
 			
 			
 			_data.push(
@@ -55,6 +55,7 @@ package org.xas.jchart.common.data.test
 								"text": "test vtitle"
 								, "enabled": 1
 							}
+							, format: '¥{0}'
 						}
 						, {
 							opposite: true

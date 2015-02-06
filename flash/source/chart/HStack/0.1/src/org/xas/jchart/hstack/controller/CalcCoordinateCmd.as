@@ -207,6 +207,14 @@ package org.xas.jchart.hstack.controller
 				_config.c.partSpace = 4; 
 				_config.c.partWidth = _config.c.itemWidth
 					;
+				if( _config.c.partWidth < 1 ){				
+					_config.c.partSpace = 0; 
+					_config.c.partWidth = 
+						(
+							_config.c.itemWidth - (_config.displaySeries.length - 1) * _config.c.partSpace
+						) / _config.displaySeries.length
+						;
+				}
 			}
 			
 //			Log.log( _config.minNum, _config.maxNum );

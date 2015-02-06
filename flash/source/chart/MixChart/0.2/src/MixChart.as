@@ -22,7 +22,7 @@ package
 	import org.xas.jchart.common.event.JChartEvent; 
 	import org.xas.jchart.mixchart.MainFacade;  
 	        
-
+ 
 	//[SWF(frameRate="30", width="790", height="230")] 
 	//[SWF(frameRate="30", width="385", height="225")]
 	//[SWF(frameRate="30", width="600", height="425")]
@@ -30,7 +30,7 @@ package
 	//[SWF(frameRate="30", width="1400", height="460")]   
 	[SWF(frameRate="30", width="800", height="600")]
 	public class MixChart extends Sprite  
-	{ 
+	{  
 		private var _inited: Boolean = false;
 		private var _timer:Timer;
 		private var _data:Object;   

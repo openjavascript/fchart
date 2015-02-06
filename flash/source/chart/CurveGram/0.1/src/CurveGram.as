@@ -30,7 +30,7 @@ package
 	//[SWF(frameRate="30", width="590", height="360")] 
 	//[SWF(frameRate="30", width="1400", height="460")]  
 	//[SWF(frameRate="30", width="800", height="400")]   
-	[SWF(frameRate="30", width="800", height="360")] 
+	[SWF(frameRate="30", width="400", height="360")] 
 	public class CurveGram extends Sprite  
 	{   
 		private var _inited: Boolean = false; 
@@ -165,7 +165,7 @@ package
 			
 			if( !ExternalInterface.available ){		
 				if( !DefaultData.instance.data.length ) return;
-				_data = DefaultData.instance.data[0];
+				_data = DefaultData.instance.data[71];
 			}else{
 				_loaderInfo = LoaderInfo(this.root.stage.loaderInfo).parameters||{};
 				

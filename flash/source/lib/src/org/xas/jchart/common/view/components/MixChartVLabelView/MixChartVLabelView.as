@@ -37,9 +37,12 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 			_labels = new Vector.<TextField>();
 			var _v:Number, _t:String, _titem:TextField;
 			
+//			Log.printFormatJSON( _model.realRate );
+			
 			Common.each( _model.realRate, function( _k:int, _item:Number ):*{
 				
-				var _floatLen:int = _model.realRateFloatLen;
+				var _floatLen:int = _model.realRateFloatLen
+					;
 				
 				if( _model.floatLen === 0 && _model.maxNum > 10 ){
 					_floatLen = 0;
@@ -65,7 +68,7 @@ package org.xas.jchart.common.view.components.MixChartVLabelView
 					_titem.text = _t + '%';
 				}else{
 				}
-				_titem.text = StringUtils.printf( _config.yAxisFormat, _t );
+				_titem.text = StringUtils.printf( _model.yAxisFormat, _t );
 				
 				var _color:uint = 0x838383;
 				

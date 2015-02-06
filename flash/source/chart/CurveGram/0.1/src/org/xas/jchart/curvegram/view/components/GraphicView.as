@@ -75,6 +75,8 @@ package org.xas.jchart.curvegram.view.components
 				}
 			});
 			
+//			Log.log( _config.c.hpart );
+			
 			Common.each( _config.c.paths, function( _k:int, _item:Object ):void{
 				
 				var _cmd:Vector.<int> = _item.cmd as Vector.<int>
@@ -112,8 +114,12 @@ package org.xas.jchart.curvegram.view.components
 			
 			if( _preIndex >= 0 ){
 				Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
-					( _k  < _boxs.length ) && _boxs[ _k ] && _boxs[ _k ].items 
-						&& ( _preIndex  < _boxs[ _k ].items.length ) && _boxs[ _k ].items[ _preIndex ].unhover();
+					( _k  < _boxs.length ) 
+						&& _boxs[ _k ] && _boxs[ _k ].items 
+						&& ( _preIndex  < _boxs[ _k ].items.length ) 
+//						&& _boxs[ _k ].items[ _preIndex ].unhover()
+						&& _boxs[ _k ].dispatchEvent( new JChartEvent( JChartEvent.UPDATE_STATUS, { index: _preIndex, action: 'hide' } ) )
+						;
 				});
 			}
 			_preIndex = -1;
@@ -134,15 +140,24 @@ package org.xas.jchart.curvegram.view.components
 			if( _preIndex >= 0 ){
 				Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
 					
-					( _k  < _boxs.length ) && _boxs[ _k ].items  
-						&& ( _preIndex < _boxs[ _k ].items.length ) && _boxs[ _k ].items[ _preIndex ].unhover();
+					( _k  < _boxs.length ) 
+						&& _boxs[ _k ].items  
+						&& ( _preIndex < _boxs[ _k ].items.length ) 
+//						&& _boxs[ _k ].items[ _preIndex ].unhover()
+						&& _boxs[ _k ].dispatchEvent( new JChartEvent( JChartEvent.UPDATE_STATUS, { index: _preIndex, action: 'hide' } ) )
+						;
+
 						
 				});
 			}
 			Common.each( _boxs, function( _k:int, _item:CurveGramUI ):void{
 				
-				( _k  < _boxs.length ) && _boxs[ _k ].items
-					&& ( _ix < _boxs[ _k ].items.length ) && _boxs[ _k ].items[ _ix ].hover();
+				( _k  < _boxs.length ) 
+					&& _boxs[ _k ].items
+					&& ( _ix < _boxs[ _k ].items.length ) 
+//					&& _boxs[ _k ].items[ _ix ].hover()
+					&& _boxs[ _k ].dispatchEvent( new JChartEvent( JChartEvent.UPDATE_STATUS, { index: _ix, action: 'show' } ) )
+					;
 				
 			});
 			
