@@ -594,6 +594,7 @@ JC.use && !jQuery.event.special.mousewheel && JC.use( 'plugins.jquery.mousewheel
             var _p = this
                 , _currentData = _p._model.data();
 
+
             if( _currentData && ( !_currentData.chart.type || _currentData.chart.type == _data.chart.type ) ) {
                 var _swfObj = _p._model.getSwfObject();
                 !!_swfObj.update && _swfObj.update( $.parseJSON( JSON.stringify( _data ) ) );

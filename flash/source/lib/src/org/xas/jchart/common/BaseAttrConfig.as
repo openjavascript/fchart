@@ -353,9 +353,28 @@ package org.xas.jchart.common
 			return _r;
 		}
 		
+		public function get lineEnable():Boolean {
+			var _r:Boolean = true;
+			_r = BaseAttrConfig.getAttr( this.cd, 'line.enabled', _r ) as Boolean;
+			return _r;
+		}
+		
 		public function get lineBreakEnable():Boolean {
 			var _r:Boolean = false;
-			_r =  BaseAttrConfig.getAttr( this.cd, 'lineBreak.enabled', _r ) as Boolean;			
+			_r = ( BaseAttrConfig.getAttr( this.cd, 'lineBreak.enabled', _r ) 
+				|| BaseAttrConfig.getAttr( this.cd, 'line.break.enabled', _r ) ) as Boolean;
+			return _r;
+		}
+		
+		public function get lineSmoothEnable():Boolean {
+			var _r:Boolean = false;
+			_r = BaseAttrConfig.getAttr( this.cd, 'line.smooth.enabled', _r ) as Boolean;
+			return _r;
+		}
+		
+		public function get lineSmoothType():String {
+			var _r:String = '0';
+			_r = BaseAttrConfig.getAttr( this.cd, 'line.smooth.type', _r ) as String;
 			return _r;
 		}
 		

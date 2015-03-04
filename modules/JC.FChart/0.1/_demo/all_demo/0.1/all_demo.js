@@ -1,4 +1,4 @@
-;(function(define, _win) { 'use strict'; define( 'JC.FchartDemo', [ 'demoData', 'JC.BaseMVC', 'JC.FChart', 'JC.Tips' ], function( _demoData ){
+;(function(define, _win) { 'use strict'; define( 'JC.FchartDemo', [ 'demoData', 'codeMirror', 'JC.BaseMVC', 'JC.FChart', 'JC.Tips' ], function( _demoData, _codeMirror ){
 /**
  * 组件用途简述
  *
@@ -95,6 +95,37 @@
                             .find( '.' + _Model.FCHART_DATAARRAY_CLASSNAME ).eq( 0 ) );
                     }
                 );
+
+                _selector.on( 'mousedown', '.fchart-controlbar', function( e ) {
+                    e.preventDefault();
+
+                    var _target = $( this )
+                        , _oriMousePosition = { x:e.pageX, y:e.pageY }
+                        , _oriWidth = parseInt( _selector.css( 'width' ) );
+                    
+                    $( window ).on( 'mousemove', function( e ) {
+
+                        var _moveX = _oriMousePosition.x - e.pageX
+                            , _nowWidth = _oriWidth + _moveX;
+
+                        if( _nowWidth >= 400 && parseInt( _selector.css( 'right' ) ) == 0 ) {
+                            _selector.css( 'width', _nowWidth );
+                        }
+                    } );
+
+                    $( window ).on( 'mouseup', function( e ) {
+
+                        $( this ).off( 'mousemove' ).off( 'mouseup' );
+
+                        var _nowRight = parseInt( _selector.css( 'right' ) );
+
+                        if( e.pageX == _oriMousePosition.x ) {
+                            _selector.animate( {
+                                'right' : _nowRight < 0 ? 0 : ( '-' + _selector.css( 'width' ) )
+                            } );
+                        }
+                    } );
+                } );
                 
                 _selector.on( 'change', 'input,textarea', function( e ) {
                     if ( _model.updateLock() ){
@@ -104,17 +135,14 @@
                     var _target = $( this )
                         , _parent = _target.closest( '[class^="' + _Model.FCHART_CHANGEVIEW_CLASSNAME + '"]' );
 
-                    if( _parent.is( '[class$="' + _Model.FCHART_CHANGEVIEW_FORM_TYPE + '"]' ) ){
-                        _p._view.updateChart( _model.getChartData() );
-                    } else {
-                        _p._view.initAndFillData( _model.getCodeViewData() );
+                    if( _parent.is( '[class$="' + _Model.FCHART_CHANGEVIEW_CODE_TYPE + '"]' ) ) {
+                        var _json = _model.getCodeViewData();
+                        if( _json !== '' ) {
+                            _p._view.initAndFillData( _json )
+                        }
                     }
-                } );
+                    _p._view.updateChart( _model.getChartData() );
 
-                _selector.on( 'hover', 'a.' + _Model.FCHART_ATTRFLOOR_HELP, function( e ) {
-                    e.preventDefault();
-
-                    
                 } );
 
                 $( 'a.' + _Model.FCHART_ATTRFLOOR_FORBIDE + ', a.' + _Model.FCHART_ATTRFLOOR_USE ).hover( function( e ) {
@@ -172,7 +200,6 @@
                 _selector.on( 'click', 'a[' + _Model.FCHART_TABBAR_TARGETBTN_FLAG + ']', function( e ) {
                     e.preventDefault();
 
-
                     var _target = $( this );
                     _target.addClass( _Model.FCHART_TABBAR_TARGETBTN_SELECTED )
                         .siblings( '.' + _Model.FCHART_TABBAR_TARGETBTN_SELECTED )
@@ -181,7 +208,6 @@
                         _target.attr( _Model.FCHART_TABBAR_TARGETBTN_FLAG )
                         , _p._model.getDefaultData( _target.attr( _Model.FCHART_TABBAR_DEFAULT_DATA_FLAG ) )
                     );
-                    console.log( _target.attr( _Model.FCHART_TABBAR_DEFAULT_DATA_FLAG ) );
                 } );
             } );
         }
@@ -200,6 +226,7 @@
     _tmlModel.DATAARRAY_FLAG = 'dataarray';
 
     _tmlModel.FCHART_TABBAR_CLASSNAME = 'fchart-tabBar';
+    _tmlModel.FCHART_TABITEM_WRAPPER_CLASSNAME = 'fchart-tabItem-wrapper'
     _tmlModel.FCHART_TABBAR_CHANGE_CLASSNAME = 'fchart-tabBar-changeBtn';
     _tmlModel.FCHART_TABBAR_CHANGEBTN_FLAG = 'targetchange';
     _tmlModel.FCHART_TABBAR_CHANGEBTN_SELECTED = 'fchart-changeBtn-selected';
@@ -253,7 +280,8 @@
                 , _childDom
                 , _dataChildren = _jqDom.children( '[' + FchartDemo.Model.DATA_FLAG + ']' )
                 , _dataArray = _jqDom.children( '[' + FchartDemo.Model.DATAARRAY_FLAG + ']' )
-                , _res;
+                , _res
+                , _returnCtn;
 
             if( _dataArray.length > 0 ) {
                 _res = [];
@@ -266,7 +294,10 @@
                     $.each( _dataChildren, function( _ix, _dom ){
                         _childDom = $( _dom );
                         if( !_childDom.hasClass( FchartDemo.Model.FCHART_ATTRFLOOR_IGNOR ) ){
-                            _res[ _childDom.attr( FchartDemo.Model.DATA_FLAG ) ] = _p.getDataFromJQDom( _childDom );
+                            _returnCtn = _p.getDataFromJQDom( _childDom );
+                            if( _returnCtn !== '' ) {
+                                _res[ _childDom.attr( FchartDemo.Model.DATA_FLAG ) ] = _returnCtn;
+                            }
                         }
                     } );
                 } else {
@@ -274,7 +305,7 @@
                     var _inputtype = _jqDom.attr( 'inputtype' );
                     if( _content.length > 0 ){
                         _res = _content.is( ':radio' ) ? _jqDom.find( 'input[type="radio"]:checked' ).val() : _content.val();
-                        if( _inputtype != '' ) {
+                        if( _inputtype && _inputtype !== '' ) {
                             switch( _inputtype ){
                                 case 'int' : 
                                 case 'float' : {
@@ -296,7 +327,6 @@
                             } );
                         }
                     }
-
                 }
             }
             return _res;
@@ -329,22 +359,35 @@
         }
 
         , changeStringToJson: function( _string ){
-            return eval( '(' + _string + ')' );
+            try{
+                return eval( '(' + _string + ')' );
+            } catch( e ) {
+                alert( 'json格式错误' );
+                return '';
+            }
         }
 
         , getCodeViewData: function(){
-            return  this.changeStringToJson( this.getCodeViewTextArea().val() );
+            _codeView.save();
+            return this.changeStringToJson( this.getCodeViewTextArea().val() );
         }
 
-        , getDefaultData: function( _dataName ){
+        , getDefaultData: function( _dataName ) {
             return _demoData.defaultFill[ _dataName ];
         }
 
-    } );
+        , formaterDataStr: function( _dataStr ) {
+            var resultStr = _dataStr.replace( /(,|}[\s]?[^\"])/g, '\n $1' ).replace(/([^\"][\s]?{|^{)/g, '$1\n');
+            return resultStr;
+        }
 
+    } );
+    
+    var _codeView;
     JC.f.extendObject( FchartDemo.View.prototype, {
         init: function() { 
             this.initForm();
+            this.changeCodeMirrorView();
         }
 
         , initForm: function() {
@@ -357,7 +400,8 @@
                 , _extendName
                 , _extendObj
 
-                , _tabBarWrapperTpl = '<div class="{0}">{1}{2}</div>'
+                , _controlBar = '<a class="fchart-controlbar" href="#"></a>'
+                , _tabBarWrapperTpl = '<div class="{0}"><div class="{1}">{2}{3}</div></div>'
                 , _tabItemTpl = '<a href="#" targetindex="{0}" class="{2}" defaultdata="{3}" >{1}</a>'
                 , _tabChangeBtnTpl = '<p class="' + _Model.FCHART_TABBAR_CHANGE_CLASSNAME + '"><a href="#" ' 
                     + _Model.FCHART_TABBAR_CHANGEBTN_FLAG + '="' + _Model.FCHART_CHANGEVIEW_FORM_TYPE + '" class="' 
@@ -427,10 +471,12 @@
             } );
 
             _formDom.append(
+                _controlBar
                 /* add tabBar */
-                _commonUtil.printf( 
+                + _commonUtil.printf( 
                     _tabBarWrapperTpl
                     , FchartDemo.Model.FCHART_TABBAR_CLASSNAME
+                    , FchartDemo.Model.FCHART_TABITEM_WRAPPER_CLASSNAME
                     , _tabBarContentList.join('') 
                     , _tabChangeBtnTpl
                 )
@@ -451,6 +497,17 @@
             this.initAndFillData( _model.getChartDataFromScript() );
 
             this.fillChartDataToView( _model.getChartDefaultData().html() );
+        }
+
+        , changeCodeMirrorView: function() {
+            var _p = this
+                , _model = _p._model;
+
+            $('.CodeMirror').remove();
+            _codeView = _codeMirror.fromTextArea( _model.getCodeViewTextArea()[0], {
+                mode: { name: "javascript" }
+                , lineNumbers: true
+            } );
         }
 
         , spellDom: function( _data, _floorNum ) {
@@ -481,11 +538,11 @@
                         + _Model.FCHART_ATTRFLOOR_CLOSE + '"></a>' : ''
                     , _data.tips ? '<a href="#" class="' + _Model.FCHART_ATTRFLOOR_HELP + '" title="' 
                         + ( 
-                            _data.tips.replace( /(“[\/w\u4e00-\u9fa5]+”)/g, '<em class=\'yellow\'>$1</em>' )
+                            _data.tips.replace( /(“[^”]+”)/g, '<em class=\'yellow\'>$1</em>' )
                                       .replace( /(\-[\/w\u4e00-\u9fa5]+\-\：)/g, '<em class=\'blue\'>$1</em>' )
                         ) + '" ></a>' : ''
-                    , !_data.noIgnor && _isFloor2 ? ( '<a href="#" class="' + _Model.FCHART_ATTRFLOOR_FORBIDE + '">属性已启用，点击禁用</a>'
-                        + '<a href="#" class="' + _Model.FCHART_ATTRFLOOR_USE + '">属性已禁用，点击启用</a>' ) : ''
+                    , !_data.noIgnor && _isFloor2 ? ( '<a href="#" class="' + _Model.FCHART_ATTRFLOOR_FORBIDE + '">属性已启用，点击忽略</a>'
+                        + '<a href="#" class="' + _Model.FCHART_ATTRFLOOR_USE + '">属性已忽略，点击启用</a>' ) : ''
                 );
 
                 $.each( _data.childrenList, function( _idx, _item ){
@@ -591,7 +648,7 @@
             } else if( _dataType.indexOf( 'String' ) > 0 || _dataType.indexOf( 'Number' ) ) {
                 tmpDom = _targetDom.find( 'input[type="text"]' );
 
-                if( tmpDom.length > 0 ){
+                if( tmpDom.length > 0 ) {
                     tmpDom.val( _data )
                 } else {
                     _targetDom.find( 'input[type="radio"][value="' + _data + '"]' )
@@ -607,6 +664,7 @@
                 , _model = this._model;
 
             _model.getCodeViewTextArea().val( _data );
+            _p.changeCodeMirrorView();
         }
 
         /* 添加数据组的tpl */
@@ -643,12 +701,14 @@
 
         /* 更新fchart */
         , updateChart: function( _data ) {
-            console.log( _data );
-            this._model.getJCFlash().update( _data );
-            var _dataStr = JSON.stringify( _data );
-            _dataStr = _dataStr.replace( /(,|})/g, '\n $1' ).replace( /({)/g, '$1\n' );
+            var _p = this
+                , _model = this._model
+                , _dataStr = JSON.stringify( _data );
+
+            _dataStr = _model.formaterDataStr( _dataStr );//                        _dataStr.replace( /(,|})/g, '\n$1' ).replace( /({)/g, '$1\n' );
             
-            console.log( _dataStr );
+            // console.log( _dataStr );
+            this._model.getJCFlash().update( _data );
             this.fillChartDataToView( _dataStr );
         }
 
@@ -679,7 +739,7 @@
             _nowForm.addClass( _Model.NOW_SELECTED_CLASSNAME );
 
             /* 同步数据 */
-            console.log( _data );
+            // console.log( _data );
             if( _data ){
                 this.initAndFillData( _data, _nowForm );
                 this.updateChart( _data );

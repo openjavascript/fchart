@@ -10,7 +10,9 @@ requirejs.config( {
     baseUrl: JC.PATH
     , urlArgs: 'v=' + new Date().getTime() 
     , paths: {
-        'JC.common': 'modules/JC.common/0.3/common'
+        'codeMirror': 'modules/CodeMirror/lib/codemirror'
+
+        , 'JC.common': 'modules/JC.common/0.3/common'
         , 'JC.BaseMVC': 'modules/JC.BaseMVC/0.1/BaseMVC'
 
         , 'JC.Tips': 'modules/JC.Tips/0.1/Tips'
@@ -25,6 +27,7 @@ requirejs.config( {
         , 'jquery.mousewheel': 'modules/jquery.mousewheel/3.1.12/jquery.mousewheel'
 
         , 'plugins.json2': 'modules/JSON/2/JSON'
+
         , 'swfobject': 'modules/swfobject/2.3/swfobject'
         , 'SWFObject': 'modules/swfobject/2.3/swfobject'
 

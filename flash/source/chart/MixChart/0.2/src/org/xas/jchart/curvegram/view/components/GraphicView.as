@@ -117,7 +117,7 @@ package org.xas.jchart.curvegram.view.components
 							, seriesIndex: _item.data.displayIndex
 							, pointEnabled: BaseConfig.ins.pointEnabled( _item.data )
 							, hoverShow: BaseConfig.ins.pointHoverShow( _item.data )
-
+							, lineSmooth: BaseConfig.ins.lineSmoothEnable
 						}
 					)
 				);

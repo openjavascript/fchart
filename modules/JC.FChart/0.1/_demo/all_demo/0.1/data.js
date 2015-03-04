@@ -27,7 +27,7 @@ var _demoData = {
                     , "title": "图表类别 & 背景："
                     , "noIgnor": true
                     , "tips": "-说明-：控制图表类型和图表背景表现</br>" 
-                            + "-注意-：该属性不能被禁用（缺省），但背景属性可以无值</br>" 
+                            + "-注意-：该属性不能被忽略（缺省），但背景属性可以无值</br>" 
                             + "-对应属性-：<em class='green'>chart</em>"
                     , "childrenList": [
                         null
@@ -47,7 +47,7 @@ var _demoData = {
                     "datatype": "series"
                     , "noIgnor": true
                     , "tips": "-说明-：图表展示的主要数据，可以点击按钮进行新增组，但是每组数据的“数据内容”个数应该跟“横坐标标签数据”个数对应。</br>" 
-                            + "-注意-：该属性不能被禁用（缺省）</br>" 
+                            + "-注意-：该属性不能被忽略（缺省）</br>" 
                             + "-对应属性-：<em class='green'>series</em>"
                     , "title": "图表数据："
                     , "childrenList": [
@@ -75,7 +75,7 @@ var _demoData = {
                 , {
                     "datatype": "yAxis"
                     , "tips": "-说明-：图表展示的主要数据，每组数据内容个数应该跟“横坐标标签数据”个数对应。</br>" 
-                            + "-注意-：该属性如果被禁用（缺省），则会使用默认属性</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
                             + "-对应属性-：<em class='green'>yAxis</em>"
                     , "title": "纵坐标："
                     , "childrenList": [
@@ -155,6 +155,10 @@ var _demoData = {
                 , {
                     "datatype": "xAxis"
                     , "title": "横坐标："
+                    , "noIgnor": true
+                    , "tips": "-说明-：图表展示的横向粒度，可以调节粒度表现的展示规则和方式。</br>" 
+                            + "-注意-：如果“横坐标数组（categories）”的数量与“图表数据（series）”中数据组的数据数量不等，则会根据“横坐标数组（categories）”的数量进行显示；</br>" 
+                            + "-对应属性-：<em class='green'>xAxis</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -179,15 +183,16 @@ var _demoData = {
                             , "title": "横坐标标签自动换行："
                             , "view": "radio"
                             , "name": "wordwrap"
+                            , "inputtype": "boolean"
                             , "valueList": [
                                 {
                                     "value": "true"
                                     , "title": "不换行"
-                                    , "default": true
                                 }
                                 , {
                                     "value": "false"
                                     , "title": "自动"
+                                    , "default": true
                                 }
                             ]
                         }
@@ -237,7 +242,7 @@ var _demoData = {
                             , "childrenList": [
                                 {
                                     "datatype": "enabled"
-                                    , "title": "横坐标全部显示："
+                                    , "title": "显示开关："
                                     , "view": "radio"
                                     , "name": "rotation"
                                     , "inputtype": "boolean"
@@ -245,11 +250,11 @@ var _demoData = {
                                         {
                                             "value": "true"
                                             , "title": "开"
-                                            , "default": true
                                         }
                                         , {
                                             "value": "false"
                                             , "title": "关"
+                                            , "default": true
                                         }
                                     ]
                                 }
@@ -266,6 +271,9 @@ var _demoData = {
                 , {
                     "datatype": "title"
                     , "title": "图表主标题："
+                    , "tips": "-说明-：图表主标题，可以设置文字内容</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
+                            + "-对应属性-：<em class='green'>title</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -295,6 +303,9 @@ var _demoData = {
                 , {
                     "datatype": "subtitle"
                     , "title": "副标题："
+                    , "tips": "-说明-：图表副标题，可以设置文字内容</br>"
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
+                            + "-对应属性-：<em class='green'>subtitle</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -324,6 +335,9 @@ var _demoData = {
                 , {
                     "datatype": "tooltip"
                     , "title": "气泡标签："
+                    , "tips": "-说明-：显示鼠标hover处的图表节点数据。</br>" 
+                            + "-注意-：气泡标签所使用的标题来自“横坐标（xAxis）”的“标签数据（categories）”；“补充数据”会显示在最后，且数据组数据项个数应该和“横坐标”数据数量对应</br>" 
+                            + "-对应属性-：<em class='green'>tooltip</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -383,6 +397,9 @@ var _demoData = {
                 , {
                     "datatype": "legend"
                     , "title": "图例："
+                    , "tips": "-说明-：图表图例，可以设置图例位置和每个图例的间隔距离</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
+                            + "-对应属性-：<em class='green'>legend</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -469,6 +486,8 @@ var _demoData = {
                 , {
                     "datatype": "dataLabels"
                     , "title": "图表数据显示："
+                    , "tips": "-说明-：图表节点数据标签</br>" 
+                            + "-对应属性-：<em class='green'>dataLabels</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -499,6 +518,9 @@ var _demoData = {
                 , {
                     "datatype": "hline"
                     , "title": "图表背景竖线："
+                    , "tips": "-说明-：图表背景竖线</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
+                            + "-对应属性-：<em class='green'>hline</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -523,6 +545,9 @@ var _demoData = {
                 , {
                     "datatype": "vline"
                     , "title": "图表背景竖线："
+                    , "tips": "-说明-：图表背景竖线</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
+                            + "-对应属性-：<em class='green'>vline</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -547,6 +572,9 @@ var _demoData = {
                 , {
                     "datatype": "animation"
                     , "title": "动画效果："
+                    , "tips": "-说明-：图表动画效果。</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则不会开启动画效果</br>" 
+                            + "-对应属性-：<em class='green'>animation</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"
@@ -578,6 +606,9 @@ var _demoData = {
                 , {
                     "datatype": "credits"
                     , "title": "角标链接："
+                    , "tips": "-说明-：图表角标链接</br>" 
+                            + "-注意-：该属性如果被忽略（缺省），则会使用默认属性</br>" 
+                            + "-对应属性-：<em class='green'>credits</em>"
                     , "childrenList": [
                         {
                             "datatype": "enabled"

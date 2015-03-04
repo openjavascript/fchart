@@ -42,7 +42,7 @@ package org.xas.jchart.common.view.components.GraphicBgView
 			
 			_ix = ( _point.x  - _rect.x ) / BaseConfig.ins.c.rhpart;
 			
-			var _itemLen:int = ( BaseConfig.ins.categories.length - 1 ) * 2
+			var _itemLen:int = ( BaseConfig.ins.realItemLength - 1 ) * 2
 				, _partWidth:Number = ( BaseConfig.ins.c.chartWidth - BaseConfig.ins.c.linePadding ) / _itemLen
 				, _realX:Number = _evt.stageX - ( BaseConfig.ins.c.chartX + BaseConfig.ins.c.linePadding / 2 )
 				;

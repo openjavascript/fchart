@@ -323,9 +323,6 @@ package org.xas.jchart.common.data.test
 							"2015-02-03", 
 							"2015-02-03"
 						]
-					}, 
-					"yAxis":
-					{
 					}
 				});
   
@@ -397,9 +394,7 @@ package org.xas.jchart.common.data.test
 //						"122"
 //					], 
 					"display": {
-						"enabled": true, 
-						"mod": "", 
-						"startIndex": ""
+						"enabled": true
 					}, 
 					"rotation": {
 						"enabled": true, 
@@ -417,11 +412,7 @@ package org.xas.jchart.common.data.test
 					"enabled": true, 
 					"direction": "7", 
 					"interval": "10"
-				}, 
-				"dataLabels": {
-					"enabled": true, 
-					"format": ""
-				}, 
+				},
 				"hline": {
 					"enabled": true
 				}, 
@@ -432,6 +423,15 @@ package org.xas.jchart.common.data.test
 					"enabled": true, 
 					"duration": 0.75
 				}, 
+				"line": {
+					"smooth": {
+						"enabled": true,
+						"type": "0"
+					}
+				},
+				"point": {
+					"hoverShow": true
+				},
 				"credits": {
 					"enabled": true, 
 					"text": "fchart.openjavascript.org222", 

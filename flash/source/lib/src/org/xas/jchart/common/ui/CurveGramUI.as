@@ -47,6 +47,8 @@ package org.xas.jchart.common.ui
 		
 		private var _iconRadius:int = 5;
 		
+		private var _lineSmooth:Boolean = false;
+		
 		public function CurveGramUI( 
 			_cmd:Vector.<int>
 			, _path:Vector.<Number>
@@ -63,6 +65,7 @@ package org.xas.jchart.common.ui
 			( 'delay' in _data ) &&  ( _delay =  _data.delay );
 			( 'turnColor' in _data ) &&  ( _turnColor =  _data.turnColor );
 			( 'iconRadius' in _data ) &&  ( _iconRadius =  _data.iconRadius );
+			( 'lineSmooth' in _data ) && ( _lineSmooth = _data.lineSmooth );
 			
 			if( this.data.hoverShow ){
 				_iconRadius = 3;
@@ -105,49 +108,111 @@ package org.xas.jchart.common.ui
 		}
 		
 		private function init():void{
+			var _newVectorPath:Vector.<Point> = new Vector.<Point>();
+			
+			if( _config.lineSmoothEnable ) {
+				var _p:Point
+					, _newPoint: Point
+					, _smoothType: String = _config.lineSmoothType;
+				
+				_newVectorPath.push( _vectorPath[ 0 ] );
+				for( var _idx:Number = 1; _idx < _vectorPath.length; _idx++ ) {
+					_p = _vectorPath[ _idx ] as Point;
+					
+					if( _smoothType == "0" ){
+						_newPoint = new Point( _vectorPath[ _idx - 1 ].x, _p.y );
+					} else if ( _smoothType == "1" ) {
+						_newPoint = new Point( _p.x, _vectorPath[ _idx - 1 ].y );
+					}
+					
+					_newVectorPath.push( _newPoint );
+					_newVectorPath.push( _p );
+				}
+			}
 			if( data.animationEnabled && _vectorPath && _vectorPath.length > 1 ) {
-				animationDraw();
+				animationDraw( _newVectorPath );
 			} else {
-				staticDraw();
+				staticDraw( _newVectorPath );
 			}
 		}
 		
-		private function animationDraw():void{
+		private function animationDraw( _pathData:Vector.<Point> ):void{
 			
-			_jline = new JLine( _vectorPath, _lineType, { thickness: 2, lineColor: _color } );
-			var _tmp:JLine = new JLine( _vectorPath, _lineType, { thickness: 4, lineColor: _color } );
+			if( !_pathData || _pathData.length == 0 ) {
+				_pathData = _vectorPath as Vector.<Point>;
+			}
+			
 			var _maskLine:JLine = new JLine( null, null, {} );
 			var _g:Graphics = _maskLine.graphics;
-			_g.moveTo( _vectorPath[0].x, _vectorPath[0].y );
-			var _prePoint:Point = _vectorPath[0];
-//			_g.lineStyle( 1, 0xff0000, 1 );
-			_g.beginFill( 0xff0000, 1);
-			addChild( _maskLine );
-				
+			var _prePoint:Point = _pathData[0];
 			var _data:BaseLineData = new BaseLineData();
 			var _drawPointLen:Number = 1;
 			var _pathPoint :Vector.<Point> = new Vector.<Point>;
 			var tmpPoint:Point;
-			var _totalLength:Number = _data.totalLineLength( _vectorPath );
+			var _totalLength:Number = _data.totalLineLength( _pathData );
+			var _maskWidth:Number = 2;
+			var _tmpAngle:Number;
+			var _tmpCosWidth:Number;
+			var _tmpSinWidth:Number;
+			
+			_g.moveTo( _prePoint.x, _prePoint.y );
+			_g.beginFill( 0xff0000, 1);
+			
+			_jline = new JLine( _pathData, _lineType, { thickness: 2, lineColor: _color } );			
+			
 			_maskLine.count = 0;
-						
 			_jline.mask = _maskLine;
-			addChild( _jline );
+
+			if( _config.lineEnable ) {
+				addChild( _jline );
+				addChild( _maskLine );
+			}
 			
 		 	TweenLite.delayedCall( data.delay, function():void{
 				TweenLite.to( _maskLine, data.duration, { count: _totalLength
 					, onUpdate: function():void{
 						
-						_pathPoint = _data.calPosition( _vectorPath, _maskLine.count );
-						for( var _i:Number = _drawPointLen - 1; _i < _pathPoint.length; _i++ ){
+						_pathPoint = _data.calPosition( _pathData, _maskLine.count );
+						
+						for( var _i:Number = _drawPointLen - 1; _i < _pathPoint.length; _i++ ) {
 							tmpPoint = _pathPoint[ _i ];
 							
-							_g.moveTo( _prePoint.x, _prePoint.y - 5 );
-							_g.lineTo( tmpPoint.x, tmpPoint.y - 5 );
-							_g.lineTo( tmpPoint.x, tmpPoint.y + 5 );							
-							_g.lineTo( _prePoint.x, _prePoint.y + 5 );
-							_g.lineTo( _prePoint.x, _prePoint.y - 5 );
-							
+							if( _config.lineSmoothEnable ){//平滑动画
+								_tmpAngle = GeoUtils.pointAngle( _prePoint, tmpPoint );
+								if( _tmpAngle > 90 ) {
+									_tmpAngle = _tmpAngle % 90;
+								}
+								
+								if( !isNaN( _tmpAngle ) ) {
+									if( _prePoint.y > tmpPoint.y ) {
+										_tmpAngle = 90 - _tmpAngle;
+										
+										_tmpSinWidth = _maskWidth * Math.sin( GeoUtils.radians( _tmpAngle ) );
+										_tmpCosWidth = _maskWidth * Math.cos( GeoUtils.radians( _tmpAngle ) );
+										
+										_g.moveTo( _prePoint.x - _tmpSinWidth, _prePoint.y - _tmpCosWidth );
+										_g.lineTo( _prePoint.x + _tmpSinWidth, _prePoint.y + _tmpCosWidth );
+										_g.lineTo( tmpPoint.x + _tmpSinWidth, tmpPoint.y + _tmpCosWidth );
+										_g.lineTo( tmpPoint.x - _tmpSinWidth, tmpPoint.y - _tmpCosWidth );
+										_g.lineTo( _prePoint.x - _tmpSinWidth, _prePoint.y - _tmpCosWidth );
+									} else {
+										_tmpSinWidth = _maskWidth * Math.sin( GeoUtils.radians( _tmpAngle ) );
+										_tmpCosWidth = _maskWidth * Math.cos( GeoUtils.radians( _tmpAngle ) );
+										
+										_g.moveTo( _prePoint.x - _tmpSinWidth, _prePoint.y + _tmpCosWidth );
+										_g.lineTo( _prePoint.x + _tmpSinWidth, _prePoint.y - _tmpCosWidth );
+										_g.lineTo( tmpPoint.x + _tmpSinWidth, tmpPoint.y - _tmpCosWidth );
+										_g.lineTo( tmpPoint.x - _tmpSinWidth, tmpPoint.y + _tmpCosWidth );
+										_g.lineTo( _prePoint.x - _tmpSinWidth, _prePoint.y + _tmpCosWidth );
+									}
+								}
+							} else {//直接连接动画
+								_g.moveTo( _prePoint.x, _prePoint.y - 5 );
+								_g.lineTo( tmpPoint.x, tmpPoint.y - 5 );
+								_g.lineTo( tmpPoint.x, tmpPoint.y + 5 );							
+								_g.lineTo( _prePoint.x, _prePoint.y + 5 );
+								_g.lineTo( _prePoint.x, _prePoint.y - 5 );
+							}
 							_g.moveTo( tmpPoint.x, tmpPoint.y );
 							_prePoint = tmpPoint;
 						}
@@ -162,16 +227,21 @@ package org.xas.jchart.common.ui
 			});
 		}
 		
-		private function staticDraw():void{
+		private function staticDraw( _pathData:Vector.<Point> ):void{
+			
+			if( !_pathData || _pathData.length == 0 ) {
+				_pathData = _vectorPath as Vector.<Point>;
+			}
 			
 			graphics.lineStyle( 2, _color );
-			if( _vectorPath ){
-				_jline = new JLine( _vectorPath, _lineType, { thickness: 2, lineColor: _color } );
-				addChild( _jline );
+			if( _pathData ){
+				if( _config.lineEnable ) {
+					_jline = new JLine( _pathData, _lineType, { thickness: 2, lineColor: _color } );
+					addChild( _jline );
+				}
 			} else {
 				graphics.drawPath( _cmd, _path );
 			}
-
 			drawIcon();
 		}
 		
