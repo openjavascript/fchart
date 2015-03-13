@@ -158,7 +158,7 @@ package org.xas.jchart.piegraph.controller
 				var _pieP:Object = { 
 						cx:_config.c.cx
 						, cy:_config.c.cy
-						, radius:_config.c.radius 
+						, radius:_config.c.radius
 						, offsetAngle: _offsetAngle
 						, totalNum: _totalNum
 						, data: _item 

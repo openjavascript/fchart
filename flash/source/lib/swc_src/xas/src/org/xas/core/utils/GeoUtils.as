@@ -59,6 +59,9 @@ package org.xas.core.utils
 			return result;
 		}
 		
+		/**
+		 * 求两点之间连线的长度
+		 */
 		public static function pointLength( x1:Number, y1:Number, x2:Number, y2:Number ):Number
 		{
 			var dx:Number = x2 - x1;
@@ -72,6 +75,17 @@ package org.xas.core.utils
 			if( $angle < 0 ) $angle = 360 + $angle;
 			return $angle;
 		}
+		
+		/**
+		 * 通过一个点、距离、角度确定另一个点
+		 */
+		public static function calcPointByCenter( _center:Point, _radius:Number, _angle:Number ):Point {
+			return new Point(
+				_center.x + _radius * Math.sin( _angle * Math.PI/180 )
+				, _center.y - _radius * Math.cos( _angle * Math.PI/180 )
+			);
+		}
+		
 		/**
 		 * 画一条穿过某个点的曲线
 		 */

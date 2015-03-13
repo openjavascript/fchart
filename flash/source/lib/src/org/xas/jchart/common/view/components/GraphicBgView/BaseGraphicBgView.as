@@ -63,27 +63,27 @@ package org.xas.jchart.common.view.components.GraphicBgView
 			this.y = BaseConfig.ins.c.chartY;
 		}
 		
-		protected function onMouseEnter( _evt:MouseEvent ):void{
-			//Log.log( 'GraphicView mouse onMouseEnter' );			
+		protected function onMouseEnter( _evt:MouseEvent ):void {
+			//Log.log( 'GraphicView mouse onMouseEnter' );
 			_hideTimer.running && _hideTimer.stop();
 			this.root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			this.root.stage.addEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, _evt ) );
 		}
 		
-		protected function onMouseLeave( _evt:MouseEvent ):void{
+		protected function onMouseLeave( _evt:MouseEvent ):void {
 			//Log.log( 'GraphicView mouse onMouseLeave' );		
 			this.root.stage.removeEventListener( MouseEvent.MOUSE_MOVE, onMouseMove );
 			//dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, _evt ) );	
 			_hideTimer.running && _hideTimer.stop();
 			_hideTimer.start();
-		}	
+		}
 		
-		protected function onTimerHideDone( _evt:TimerEvent ):void{
+		protected function onTimerHideDone( _evt:TimerEvent ):void {
 			dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS ) );
 		}
 		
-		protected function onMouseMove( _evt:MouseEvent ):void{
+		protected function onMouseMove( _evt:MouseEvent ):void {
 		}
 
 	}

@@ -21,7 +21,51 @@ package org.xas.jchart.common.data.test
 		
 		private function init():void{
 			_data = new Vector.<Object>();
-//			return;  
+//			return;
+			
+			_data.push(
+				{
+					'title': {
+						'text':'Chart Title'
+					},
+					'subtitle': {
+						'text': 'sub title'
+					}, 
+					'xAxis': {
+						'categories': [ '营销', '市场', '研发', '客服', '信息技术', '管理' ]
+					}, 
+					'yAxis': {
+						'title': {
+							'text': '(Vertical Title - 中文)'
+						}
+					},
+					'series':[{
+						'name': '公司A'
+						, 'data': [ 0, 19000, 50000, 35000, 28000, 10000 ]
+						, 'style': { 'stroke': '#ff7100' } 
+						, 'pointStyle': {}
+					}, {
+						'name': '公司B',
+						'data': [ 5000, 21000, 42000, 31000, 28000, 14000 ]
+					}],
+					'credits': {
+						'enabled': true
+						, 'text': 'fchart.openjavascript.org'
+						, 'href': 'http://fchart.openjavascript.org/'
+					},
+					'displayAllLabel': true,
+					'legend': {
+						'enabled': true
+					},
+					'animation': {
+						'enabled': true
+						, 'duration': 1
+					},
+					'point': {
+						'enabled': true
+					}
+				}
+			);
 			 
 			_data.push(  
 				{

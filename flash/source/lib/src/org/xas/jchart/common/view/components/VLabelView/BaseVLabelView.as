@@ -50,8 +50,6 @@ package org.xas.jchart.common.view.components.VLabelView
 		}
 		
 		protected function update( _evt:JChartEvent ):void{
-			if( !( config.c && config.c.hpoint ) ) return;
-			
 			if( config.labelRotationEnable ){
 				rotationUpdate();
 			}else{

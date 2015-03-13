@@ -271,7 +271,7 @@ package org.xas.jchart.common.ui
 				_items.push( _tmpItem );
 				_tmpItem.addEventListener( MouseEvent.CLICK, pointClick );
 				
-				if( this.data.hoverShow ){
+				if( this.data.hoverShow ) {
 					_tmpItem.visible = false;
 				}
 				

@@ -28,25 +28,26 @@ package org.xas.jchart.common.view.components.TipsView
 			Common.each( BaseConfig.ins.displaySeries, function( _k:int, _item:Object ):void{
 				_data[ _k ] = { 
 					'name': StringUtils.printf( _config.tooltipHeaderFormat,  ( _item.name || '' ).replace( /[\r\n]+/g, '' ) )
-					, 'items': [ 
+					, 'items': [
 						{ 
 							'name': BaseConfig.ins.itemName
 							, 'value': StringUtils.printf( _config.tooltipPointFormat, 
 								Common.moneyFormat( _item.y || 0, 3, _config.floatLen  )
 							)
-						}  
+						}
 					] 
 				};
 
 			});
 		}
 		
-		override protected function updateTips( _evt: JChartEvent ):void{
+		override protected function updateTips( _evt: JChartEvent ):void {
 			var _srcEvt:MouseEvent = _evt.data.evt as MouseEvent
 				, _ix:int = _evt.data.index as int
-				;		
+				;
+			
 			if( !( _data && _data[ _ix ] ) ) return;
-			//Log.printObject( _data[ _ix ] );
+			Log.printObject( _data[ _ix ] );
 			_tips.update( _data[ _ix ], new Point( _srcEvt.stageX, _srcEvt.stageY ), [ BaseConfig.ins.itemColor( _ix ) ] );
 			//Log.log( 'updateTips', _ix );
 		}

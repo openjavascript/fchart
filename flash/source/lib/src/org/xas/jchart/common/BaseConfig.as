@@ -238,7 +238,6 @@ package org.xas.jchart.common
 			
 			return _floatLen;
 		}
-
 					
 		protected var _root:DisplayObject;
 		public function get root():DisplayObject{ return _root; }
@@ -347,7 +346,6 @@ package org.xas.jchart.common
 					_r < 0 && ( _r = -Common.numberUp( Math.abs( _r ), 5, this.rateUp ) );
 				}
 			}
-			
 			return _r;
 		}
 		
@@ -360,7 +358,7 @@ package org.xas.jchart.common
 					Common.each( displaySeries, function( _k:int, _item:Object ):*{
 						if( _item.data ){
 							Common.each( _item.data, function( _sk:int, _item:Number ):void{
-								_r += _item;	
+								_r += _item;
 							});
 						}
 					});
@@ -497,7 +495,6 @@ package org.xas.jchart.common
 					_realItem += _minNum;
 					
 				}
-				//Log.log( 'xxxxxxxx: ' + _realItem );
 				
 				_realRate.push( _realItem );
 			});

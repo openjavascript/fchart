@@ -85,6 +85,7 @@ package org.xas.jchart.common.ui.TipsUI
 
 		
 		private function updateTips( _evt:JChartEvent ):void{
+			
 			var _point:Object = _evt.data.point as Object
 				, _data:Object = _evt.data.data as Object
 				, _colors:Array = _evt.data.colors as Array

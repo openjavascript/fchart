@@ -55,7 +55,7 @@ package org.xas.jchart.histogram.controller
 			facade.registerMediator( new BaseBgMediator( ) );
 			var _yPad:Number = _c.minY;
 			
-			if( _config.cd ){			
+			if( _config.cd ){
 				
 				if( _config.titleEnable ){
 					facade.registerMediator( new BaseTitleMediator( _config.titleText ) )	

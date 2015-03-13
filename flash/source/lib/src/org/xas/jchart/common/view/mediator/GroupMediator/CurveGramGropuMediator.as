@@ -9,7 +9,7 @@ package org.xas.jchart.common.view.mediator.GroupMediator
 			super(_minY);
 		}
 		
-		override public function onRegister():void{			
+		override public function onRegister():void {
 			mainMediator.view.index2.addChild( _view = new CurveGramGroupView( _startY ) );
 		}
 		

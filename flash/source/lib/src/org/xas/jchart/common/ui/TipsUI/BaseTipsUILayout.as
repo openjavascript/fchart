@@ -5,6 +5,7 @@ package org.xas.jchart.common.ui.TipsUI
 	import flash.text.TextFormat;
 	
 	import org.xas.core.utils.ElementUtility;
+	import org.xas.core.utils.Log;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
 	import org.xas.jchart.common.data.DefaultOptions;

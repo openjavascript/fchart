@@ -76,7 +76,7 @@ package org.xas.jchart.common.view.components.BgLineView
 					_ele.count = 0;
 					
 					//Log.log( _ele.max, _ep.x, _sp.x );
-					TweenLite.delayedCall( _delay, function():void{		
+					TweenLite.delayedCall( _delay, function():void{
 						TweenLite.to( _ele, _config.animationDuration
 							, { 
 								count: _ele.max
@@ -89,8 +89,7 @@ package org.xas.jchart.common.view.components.BgLineView
 									_ele.graphics.lineTo( _sx + _ele.count, _ep.y );
 								}
 							} );
-					});
-					
+					} );
 				}else{
 					_ele.graphics.moveTo( _sx, _sp.y );
 					_ele.graphics.lineTo( _ex, _ep.y );

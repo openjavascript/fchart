@@ -36,21 +36,39 @@ package org.xas.jchart.common.view.mediator.VLabelMediator
 			return [
 				JChartEvent.SHOW_CHART
 				, JChartEvent.RESET_HLABELS
+				, JChartEvent.UPDATE_TIPS
+				, JChartEvent.SHOW_TIPS
+				, JChartEvent.HIDE_TIPS
 			];
 		}
 		
-		override public function handleNotification(notification:INotification):void{
+		override public function handleNotification(notification:INotification):void {
 			switch( notification.getName() ){
 				case JChartEvent.SHOW_CHART:
-					{
-						_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
-						break;
-					}
+				{
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE ) );
+					break;
+				}
 				case JChartEvent.RESET_HLABELS:
 				{
 					_view.dispatchEvent( new JChartEvent( JChartEvent.RESET_HLABELS ) );
 					break;
+				}
+				case JChartEvent.UPDATE_TIPS:
+				{
+					_view.dispatchEvent( new JChartEvent( JChartEvent.UPDATE_TIPS, notification.getBody() ) );
+					break;
 				}	
+				case JChartEvent.SHOW_TIPS:
+				{
+					_view.dispatchEvent( new JChartEvent( JChartEvent.SHOW_TIPS, notification.getBody() ) );
+					break;
+				}	
+				case JChartEvent.HIDE_TIPS:
+				{
+					_view.dispatchEvent( new JChartEvent( JChartEvent.HIDE_TIPS, notification.getBody() ) );
+					break;
+				}
 			}
 		}
 		

@@ -41,7 +41,7 @@ package org.xas.jchart.common.view.components.BgLineView
 			
 			this.drawHLine();
 			this.drawVLine();
-			this.drawLineArrow();			
+			this.drawLineArrow();
 		}
 		
 		protected function drawHLine():void{

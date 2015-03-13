@@ -39,7 +39,7 @@ package org.xas.jchart.curvegram.controller
 	public class CalcCoordinateCmd extends SimpleCommand implements ICommand
 	{
 		private var _c:Coordinate;
-		private var _config:Config; 
+		private var _config:Config;
 		
 		public function CalcCoordinateCmd()
 		{
