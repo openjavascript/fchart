@@ -50,12 +50,19 @@ package org.xas.jchart.vhistogram.view.components
 			var _delay:Number = 0;
 			BaseConfig.ins.xAxisEnabled && ( _delay = BaseConfig.ins.animationDuration / 2 );
 			
+			var _itemStyle:Array = BaseConfig.ins.getItemStyle();
+			
 			Common.each( BaseConfig.ins.c.rects, function( _k:int, _item:Object ):void{
 				
 				var _box:Sprite = new Sprite();
 				Common.each( _item, function( _sk:int, _sitem:Object ):void{
 							
 					var _color:uint = BaseConfig.ins.itemColor( _sk );
+					
+					if( _itemStyle[ _k ] && 'color' in _itemStyle[ _k ] ) {
+						_color = _itemStyle[ _k ].color;
+					}
+					
 					if( _sitem.value == BaseConfig.ins.maxValue ){
 						
 						if( 'style' in BaseConfig.ins.maxItemParams && 'color' in BaseConfig.ins.maxItemParams.style ){

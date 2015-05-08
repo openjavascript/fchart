@@ -67,7 +67,7 @@ package org.xas.jchart.common.data.test
 					]
 				}]
 				, dataLabels: {
-					enabled: true
+					enabled: false
 					, radiusRate: .8
 					, line: {
 						start: 0
@@ -76,15 +76,11 @@ package org.xas.jchart.common.data.test
 					, format: '{0}({1})'
 				}			
 				, totalLabel: {
-					"enabled": true
-					, "bgStyle": {
-//						'color': 0xcccccc
-//						color: 0xffffff
+					enabled: true
+					, bgStyle: {
+						color: 0xffffff
 					}
-					, "labelStyle": {
-						
-					}
-					, "format": "{0}~"
+					, format: "{0}~"
 				}
 				, "legend": {
 					//					"enabled": false
@@ -497,7 +493,7 @@ package org.xas.jchart.common.data.test
 				series:[{
 					name: 'Browser share',
 					data: [
-						['Firefox',   45.0],
+						['Firefox',   41.0],
 						['IE',       26.8],
 						{
 							name: 'Chrome',
@@ -556,7 +552,7 @@ package org.xas.jchart.common.data.test
 				series:[{
 					name: 'Browser share',
 					data: [
-						['Firefox',   45.0],
+						['Firefox',   11.0],
 						['IE',       26.8],
 						{
 							name: 'Chrome',

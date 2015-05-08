@@ -930,6 +930,14 @@ package org.xas.jchart.common
 		public function get chartName():String{ return ''; }
 		public function get chartUrl():String{ return ''; }
 		
+		public function getItemStyle():Array{
+			var _r:Array = [];
+			
+			cd.itemsStyle && ( _r = cd.itemsStyle );
+			
+			return _r;
+		}
+		
 		public function BaseConfig() {
 		}
 		

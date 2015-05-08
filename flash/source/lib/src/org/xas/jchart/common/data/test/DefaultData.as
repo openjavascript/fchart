@@ -6842,6 +6842,20 @@ package org.xas.jchart.common.data.test
 					, 0xff0619
 					
 				]
+				, itemsStyle: [
+					{
+						color: 0xff0000
+					}
+					, {
+						color: 0x00ff00
+					}
+					, {
+						color: 0x0000ff
+					}
+					, {
+						color: 0xcccccc
+					}
+				]
 				, maxItem: {
 					style: { color: 0x5DC979, size: 18 }
 				}

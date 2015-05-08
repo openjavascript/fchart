@@ -11,6 +11,7 @@ package org.xas.jchart.common.view.components.PieTotalLabelView
 	
 	import org.xas.core.utils.EffectUtility;
 	import org.xas.core.utils.ElementUtility;
+	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
 	import org.xas.jchart.common.Common;
@@ -53,7 +54,8 @@ package org.xas.jchart.common.view.components.PieTotalLabelView
 		}
 		
 		protected function addToStage( _evt:Event ):void{
-			if( !_config.dataLabelEnabled ) return;
+			
+			if( !_config.totalLabelEnabled ) return;
 			
 			if( _config.animationEnabled ){
 				this.visible = false;
@@ -76,7 +78,6 @@ package org.xas.jchart.common.view.components.PieTotalLabelView
 //			EffectUtility.textShadow( _label, _config.totalLabelLabelStyle, 0xffffff );
 			Common.implementStyle( _label, [ _config.totalLabelLabelStyle ] ); 
 			
-			
 			ElementUtility.center( _label, new Point( 0, 0 ) );
 			addChild( _label );
 			
@@ -85,7 +86,7 @@ package org.xas.jchart.common.view.components.PieTotalLabelView
 		}
 		
 		protected function onShowChart( _evt:JChartEvent ):void{
-			if( !_config.dataLabelEnabled ) return;
+			if( !_config.totalLabelEnabled ) return;
 			if( !_config.c ) return;
 			
 			ElementUtility.center( this, new Point( _config.c.cx, _config.c.cy ), false );

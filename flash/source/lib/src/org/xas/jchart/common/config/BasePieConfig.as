@@ -2,6 +2,8 @@ package org.xas.jchart.common.config
 {
 	import flash.geom.Rectangle;
 	
+	import flashx.textLayout.formats.TextAlign;
+	
 	import org.xas.core.utils.Log;
 	import org.xas.core.utils.StringUtils;
 	import org.xas.jchart.common.BaseConfig;
@@ -405,7 +407,7 @@ package org.xas.jchart.common.config
 			cd 
 				&& cd.totalLabel
 				&& cd.totalLabel.labelStyle
-				&& ( _r = Common.extendObject( _r, cd.totalLabel.labelStyle, true ) );			
+				&& ( _r = Common.extendObject( _r, cd.totalLabel.labelStyle, true ) );	
 				
 			return _r;
 		}

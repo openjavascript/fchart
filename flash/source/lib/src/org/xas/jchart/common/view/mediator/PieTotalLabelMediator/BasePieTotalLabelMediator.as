@@ -21,7 +21,7 @@ package org.xas.jchart.common.view.mediator.PieTotalLabelMediator
 		}
 		
 		override public function onRegister():void{
-			mainMediator.view.index8.addChild( _view = new BasePieTotalLabelView( ) );
+			mainMediator.view.index4.addChild( _view = new BasePieTotalLabelView( ) );
 		}
 		
 		override public function onRemove():void{
